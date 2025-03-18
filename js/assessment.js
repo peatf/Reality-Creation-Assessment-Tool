@@ -506,8 +506,7 @@ const assessmentData = {
             "Abandoning projects when they require consistent effort",
             "Neglecting to create sufficient clarity around desires"
         ]
-    }
-};
+    },
 // Add this right after the commonMisalignments object in the assessmentData
 
 // Typology Descriptions
@@ -583,8 +582,9 @@ typologyDescriptions: {
     "manifestation-rhythm-right": {
         name: "Dynamic",
         description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
+        }
     }
-},
+};
 
 // Results Templates
 resultsTemplates: {
