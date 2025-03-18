@@ -582,15 +582,15 @@ typologyDescriptions: {
     "manifestation-rhythm-right": {
         name: "Dynamic",
         description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
-        }, 
+       } 
+}, 
 
 // Results Templates
 resultsTemplates: {
     typologyPairs: assessmentData.typologyPairs,
     idealApproaches: assessmentData.idealApproaches,
     misalignments: assessmentData.commonMisalignments
-    }
-};
+ },
 // User's assessment responses
 let userResponses = {
     typology: {},
