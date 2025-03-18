@@ -59,6 +59,24 @@ function determineTypologyPair(spectrumPlacements) {
         .sort(([, strengthA], [, strengthB]) => strengthB - strengthA)
         .map(([spectrumId]) => spectrumId);
     
+    // Prioritize certain spectrums based on your RTF document
+    // Cognitive Alignment and Kinetic Drive are considered more foundational
+    const priorityOrder = [
+        'cognitive-alignment',
+        'kinetic-drive',
+        'choice-navigation',
+        'perceptual-focus',
+        'resonance-field',
+        'manifestation-rhythm'
+    ];
+    
+    // Sort by strength first, then by priority if strength is tied
+    sortedSpectrums.sort((a, b) => {
+        const strengthDiff = spectrumStrengths[b] - spectrumStrengths[a];
+        if (strengthDiff !== 0) return strengthDiff;
+        return priorityOrder.indexOf(a) - priorityOrder.indexOf(b);
+    });
+    
     // Get the two strongest spectrums
     const primarySpectrumId = sortedSpectrums[0];
     const secondarySpectrumId = sortedSpectrums[1];
@@ -73,6 +91,23 @@ function determineTypologyPair(spectrumPlacements) {
         'balanced': 'balanced',
         'right': 'fluid'
     };
+    
+    // Create typology pair key
+    const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
+    
+    // Return typology pair information
+    return {
+        key: typologyKey,
+        primary: {
+            spectrumId: primarySpectrumId,
+            placement: primaryPlacement
+        },
+        secondary: {
+            spectrumId: secondarySpectrumId,
+            placement: secondaryPlacement
+        }
+    };
+}
     
     // Create typology pair key
     const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
