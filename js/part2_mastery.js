@@ -377,4 +377,37 @@ function createQuestionElement(question, type) {
     const answerOptions = document.createElement('div');
     answerOptions.className = 'answer-options';
     
-    // Create radio op<response clipped><NOTE>To save on context only part of this file has been shown to you. You should retry this tool after you have searched inside the file with `grep -n` in order to find the line numbers of what you are looking for.</NOTE>
+    // Create radio options
+    question.options.forEach(option => {
+        const optionDiv = document.createElement('label');
+        optionDiv.className = 'answer-option';
+        optionDiv.htmlFor = option.id;
+        
+        const radio = document.createElement('input');
+        radio.type = 'radio';
+        radio.name = question.id;
+        radio.id = option.id;
+        radio.value = option.value;
+        radio.addEventListener('change', function() {
+            // Remove selected class from all options in this question
+            const allOptions = questionContainer.querySelectorAll('.answer-option');
+            allOptions.forEach(opt => opt.classList.remove('selected'));
+            
+            // Add selected class to this option
+            optionDiv.classList.add('selected');
+            
+            // Store user response
+            userResponses.mastery[question.id] = option.value;
+        });
+        
+        const optionText = document.createElement('span');
+        optionText.textContent = option.text;
+        
+        optionDiv.appendChild(radio);
+        optionDiv.appendChild(optionText);
+        answerOptions.appendChild(optionDiv);
+    });
+    
+    questionContainer.appendChild(answerOptions);
+    return questionContainer;
+}
