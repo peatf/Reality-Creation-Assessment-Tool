@@ -781,3 +781,63 @@ function restartAssessment() {
 function printResults() {
     window.print();
 }
+    // Print results
+function printResults() {
+    window.print();
+}
+
+// Add this new function after printResults()
+// Improved function to check for unanswered questions with visual highlighting
+function checkUnansweredQuestions(partId) {
+    let questionContainers;
+    
+    if (partId === 'part1') {
+        questionContainers = document.querySelectorAll('#spectrum-questions .question-container');
+    } else if (partId === 'part2') {
+        questionContainers = document.querySelectorAll('#mastery-questions .question-container');
+    }
+    
+    let unansweredCount = 0;
+    
+    // Clear any previous highlighting
+    questionContainers.forEach(container => {
+        container.classList.remove('unanswered');
+    });
+    
+    // Check each question and highlight unanswered ones
+    questionContainers.forEach(container => {
+        const answered = container.querySelector('input[type="radio"]:checked');
+        if (!answered) {
+            unansweredCount++;
+            container.classList.add('unanswered');
+            
+            // Scroll to first unanswered question
+            if (unansweredCount === 1) {
+                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            }
+        }
+    });
+    
+    return unansweredCount;
+}
+
+// Add these progress indicator functions
+// Update progress indicator
+function updateProgressIndicator(stage, percentage) {
+    const progressContainer = document.getElementById('progress-container');
+    const progressStage = document.getElementById('progress-stage');
+    const progressPercentage = document.getElementById('progress-percentage');
+    const progressFill = document.getElementById('progress-fill');
+    
+    // Show progress bar if hidden
+    progressContainer.style.display = 'block';
+    
+    // Update stage text
+    progressStage.textContent = stage;
+    
+    // Update percentage
+    progressPercentage.textContent = `${percentage}%`;
+    
+    // Update fill width
+    progressFill.style.width = `${percentage}%`;
+}
