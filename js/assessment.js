@@ -590,7 +590,9 @@ resultsTemplates: {
     typologyPairs: assessmentData.typologyPairs,
     idealApproaches: assessmentData.idealApproaches,
     misalignments: assessmentData.commonMisalignments
- },
+} // <-- no comma here because it's the last property of assessmentData
+
+}; // <-- closes the entire assessmentData object
 // User's assessment responses
 let userResponses = {
     typology: {},
