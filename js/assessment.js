@@ -298,7 +298,7 @@ const assessmentData = {
                             id: "rhythm-q2-balanced",
                             text: "I set clear intentions and take aligned action while remaining open to unexpected opportunities and divine timing.",
                             value: "balanced"
-                        }
+                        },
                         {
                             id: "rhythm-q2-right",
                             text: "I surrender to the natural unfolding of the process, focusing on energetic alignment and allowing the universe to determine the perfect timing and path.",
