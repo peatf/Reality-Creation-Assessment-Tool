@@ -182,7 +182,7 @@ const assessmentData = {
             value: "right"
         }
     ]
-}
+},
                 {
                     id: "choice-q2",
                     text: "I know I've made the right decision when:",
