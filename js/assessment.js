@@ -163,26 +163,26 @@ const assessmentData = {
             rightLabel: "Flowing",
             questions: [
                 {
-                    id: "choice-q1",
-                    text: "When faced with multiple options or paths, I typically:"
-                    options: [
-                        {
-                            id: "choice-q1-left",
-                            text: "Analyze the pros and cons of each option, considering which path is most likely to lead to my desired outcome.",
-                            value: "left"
-                        },
-                        {
-                            id: "choice-q1-balanced",
-                            text: "Consider both practical factors and how each option feels energetically, seeking the path that balances feasibility with alignment.",
-                            value: "balanced"
-                        },
-                        {
-                            id: "choice-q1-right",
-                            text: "Tune into which option feels most aligned with my energy and highest good, trusting my intuitive guidance system.",
-                            value: "right"
-                        }
-                    ]
-                },
+    id: "choice-q1",
+    text: "When faced with multiple options or paths, I typically:",
+    options: [
+        {
+            id: "choice-q1-left",
+            text: "Analyze the pros and cons of each option, considering which path is most likely to lead to my desired outcome.",
+            value: "left"
+        },
+        {
+            id: "choice-q1-balanced",
+            text: "Consider both practical factors and how each option feels energetically, seeking the path that balances feasibility with alignment.",
+            value: "balanced"
+        },
+        {
+            id: "choice-q1-right",
+            text: "Tune into which option feels most aligned with my energy and highest good, trusting my intuitive guidance system.",
+            value: "right"
+        }
+    ]
+}
                 {
                     id: "choice-q2",
                     text: "I know I've made the right decision when:",
