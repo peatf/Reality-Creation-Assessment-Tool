@@ -163,26 +163,26 @@ const assessmentData = {
             rightLabel: "Flowing",
             questions: [
                 {
-    id: "choice-q1",
-    text: "When faced with multiple options or paths, I typically:",
-    options: [
-        {
-            id: "choice-q1-left",
-            text: "Analyze the pros and cons of each option, considering which path is most likely to lead to my desired outcome.",
-            value: "left"
-        },
-        {
-            id: "choice-q1-balanced",
-            text: "Consider both practical factors and how each option feels energetically, seeking the path that balances feasibility with alignment.",
-            value: "balanced"
-        },
-        {
-            id: "choice-q1-right",
-            text: "Tune into which option feels most aligned with my energy and highest good, trusting my intuitive guidance system.",
-            value: "right"
-        }
-    ]
-},
+                    id: "choice-q1",
+                    text: "When faced with multiple options or paths, I typically:",
+                    options: [
+                        {
+                            id: "choice-q1-left",
+                            text: "Analyze the pros and cons of each option, considering which path is most likely to lead to my desired outcome.",
+                            value: "left"
+                        },
+                        {
+                            id: "choice-q1-balanced",
+                            text: "Consider both practical factors and how each option feels energetically, seeking the path that balances feasibility with alignment.",
+                            value: "balanced"
+                        },
+                        {
+                            id: "choice-q1-right",
+                            text: "Tune into which option feels most aligned with my energy and highest good, trusting my intuitive guidance system.",
+                            value: "right"
+                        }
+                    ]
+                },
                 {
                     id: "choice-q2",
                     text: "I know I've made the right decision when:",
@@ -349,6 +349,7 @@ const assessmentData = {
             description: "You are a naturally expansive creator who thrives in fluid, intuitive reality creation. Your approach emphasizes energetic alignment, inspired action, and trust in divine timing. You excel at sensing possibilities beyond conventional limitations and allowing manifestations to emerge through alignment rather than force."
         }
     },
+
     // Ideal Approaches based on Typology Pair
     idealApproaches: {
         "structured-structured": {
@@ -442,6 +443,7 @@ const assessmentData = {
             ]
         }
     },
+
     // Common Misalignments based on Typology Pair
     commonMisalignments: {
         "structured-structured": [
@@ -507,98 +509,98 @@ const assessmentData = {
             "Neglecting to create sufficient clarity around desires"
         ]
     },
-// Add this right after the commonMisalignments object in the assessmentData
 
-// Typology Descriptions
-typologyDescriptions: {
-    "cognitive-alignment-left": {
-        name: "Rational",
-        description: "You process reality through logical thinking, analysis, and evidence. You need clarity and reasoning before accepting something as true or real."
+    // Typology Descriptions
+    typologyDescriptions: {
+        "cognitive-alignment-left": {
+            name: "Rational",
+            description: "You process reality through logical thinking, analysis, and evidence. You need clarity and reasoning before accepting something as true or real."
+        },
+        "cognitive-alignment-balanced": {
+            name: "Synthesizing",
+            description: "You blend logic with intuition, using both analytical thinking and inner knowing to navigate reality creation."
+        },
+        "cognitive-alignment-right": {
+            name: "Intuitive",
+            description: "You trust inner knowing and direct experience over logic. Your intuition guides your perception and decisions in reality creation."
+        },
+        "perceptual-focus-left": {
+            name: "Definitive",
+            description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
+        },
+        "perceptual-focus-balanced": {
+            name: "Adaptive",
+            description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
+        },
+        "perceptual-focus-right": {
+            name: "Receptive",
+            description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
+        },
+        "kinetic-drive-left": {
+            name: "Deliberate",
+            description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
+        },
+        "kinetic-drive-balanced": {
+            name: "Rhythmic",
+            description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
+        },
+        "kinetic-drive-right": {
+            name: "Spontaneous",
+            description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
+        },
+        "choice-navigation-left": {
+            name: "Calculative",
+            description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
+        },
+        "choice-navigation-balanced": {
+            name: "Balanced",
+            description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
+        },
+        "choice-navigation-right": {
+            name: "Fluid",
+            description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
+        },
+        "resonance-field-left": {
+            name: "Regulated",
+            description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
+        },
+        "resonance-field-balanced": {
+            name: "Attuned",
+            description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
+        },
+        "resonance-field-right": {
+            name: "Expressive",
+            description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
+        },
+        "manifestation-rhythm-left": {
+            name: "Structured",
+            description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
+        },
+        "manifestation-rhythm-balanced": {
+            name: "Sustainable",
+            description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
+        },
+        "manifestation-rhythm-right": {
+            name: "Dynamic",
+            description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
+        }
     },
-    "cognitive-alignment-balanced": {
-        name: "Synthesizing",
-        description: "You blend logic with intuition, using both analytical thinking and inner knowing to navigate reality creation."
-    },
-    "cognitive-alignment-right": {
-        name: "Intuitive",
-        description: "You trust inner knowing and direct experience over logic. Your intuition guides your perception and decisions in reality creation."
-    },
-    "perceptual-focus-left": {
-        name: "Definitive",
-        description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
-    },
-    "perceptual-focus-balanced": {
-        name: "Adaptive",
-        description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
-    },
-    "perceptual-focus-right": {
-        name: "Receptive",
-        description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
-    },
-    "kinetic-drive-left": {
-        name: "Deliberate",
-        description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
-    },
-    "kinetic-drive-balanced": {
-        name: "Rhythmic",
-        description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
-    },
-    "kinetic-drive-right": {
-        name: "Spontaneous",
-        description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
-    },
-    "choice-navigation-left": {
-        name: "Calculative",
-        description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
-    },
-    "choice-navigation-balanced": {
-        name: "Balanced",
-        description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
-    },
-    "choice-navigation-right": {
-        name: "Fluid",
-        description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
-    },
-    "resonance-field-left": {
-        name: "Regulated",
-        description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
-    },
-    "resonance-field-balanced": {
-        name: "Attuned",
-        description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
-    },
-    "resonance-field-right": {
-        name: "Expressive",
-        description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
-    },
-    "manifestation-rhythm-left": {
-        name: "Structured",
-        description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
-    },
-    "manifestation-rhythm-balanced": {
-        name: "Sustainable",
-        description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
-    },
-    "manifestation-rhythm-right": {
-        name: "Dynamic",
-        description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
-       } 
-}, 
 
-// Results Templates
-resultsTemplates: {
-    typologyPairs: assessmentData.typologyPairs,
-    idealApproaches: assessmentData.idealApproaches,
-    misalignments: assessmentData.commonMisalignments
-} // <-- no comma here because it's the last property of assessmentData
+    // Results Templates
+    resultsTemplates: {
+        typologyPairs: this.typologyPairs,        // references the same object above
+        idealApproaches: this.idealApproaches,
+        misalignments: this.commonMisalignments
+    }
+};
 
-}; // <-- closes the entire assessmentData object
 // User's assessment responses
 let userResponses = {
     typology: {},
     mastery: {}
 };
-// Initialize the assessment
+
+// Initialize the assessment after DOM load
 document.addEventListener('DOMContentLoaded', function() {
     // Event listeners for navigation
     document.getElementById('start-assessment').addEventListener('click', startAssessment);
@@ -607,54 +609,58 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('submit-assessment').addEventListener('click', showResults);
     document.getElementById('restart-assessment').addEventListener('click', restartAssessment);
     document.getElementById('print-results').addEventListener('click', printResults);
+
     // Generate Part 1 questions
     generateTypologyQuestions();
 });
+
 // Start the assessment
 function startAssessment() {
     document.getElementById('introduction').style.display = 'none';
     document.getElementById('part1').style.display = 'block';
 }
+
 // Generate Part 1: Typology Questions
 function generateTypologyQuestions() {
     const container = document.getElementById('spectrum-questions');
     container.innerHTML = '';
+
     assessmentData.typologySpectrums.forEach(spectrum => {
         // Create spectrum section
         const spectrumSection = document.createElement('div');
         spectrumSection.className = 'spectrum-section';
-        
+
         // Add spectrum title and description
         const spectrumTitle = document.createElement('h4');
         spectrumTitle.className = 'spectrum-title';
         spectrumTitle.textContent = spectrum.name;
         spectrumSection.appendChild(spectrumTitle);
-        
+
         const spectrumDesc = document.createElement('p');
         spectrumDesc.className = 'spectrum-description';
         spectrumDesc.textContent = spectrum.description;
         spectrumSection.appendChild(spectrumDesc);
-        
+
         // Add questions for this spectrum
         spectrum.questions.forEach(question => {
             const questionContainer = document.createElement('div');
             questionContainer.className = 'question-container';
             questionContainer.dataset.questionId = question.id;
-            
+
             const questionText = document.createElement('div');
             questionText.className = 'question-text';
             questionText.textContent = question.text;
             questionContainer.appendChild(questionText);
-            
+
             const answerOptions = document.createElement('div');
             answerOptions.className = 'answer-options';
-            
+
             // Create radio options
             question.options.forEach(option => {
                 const optionDiv = document.createElement('label');
                 optionDiv.className = 'answer-option';
                 optionDiv.htmlFor = option.id;
-                
+
                 const radio = document.createElement('input');
                 radio.type = 'radio';
                 radio.name = question.id;
@@ -664,181 +670,159 @@ function generateTypologyQuestions() {
                     // Remove selected class from all options in this question
                     const allOptions = questionContainer.querySelectorAll('.answer-option');
                     allOptions.forEach(opt => opt.classList.remove('selected'));
-                    
+
                     // Add selected class to this option
                     optionDiv.classList.add('selected');
-                    
+
                     // Store user response
                     userResponses.typology[question.id] = option.value;
                 });
-                
+
                 const optionText = document.createElement('span');
                 optionText.textContent = option.text;
-                
+
                 optionDiv.appendChild(radio);
                 optionDiv.appendChild(optionText);
                 answerOptions.appendChild(optionDiv);
             });
-            
+
             questionContainer.appendChild(answerOptions);
             spectrumSection.appendChild(questionContainer);
         });
-        
+
         container.appendChild(spectrumSection);
     });
 }
-// Show Part 2 of the assessment
-function showPart2() {
+
 // Show Part 2 of the assessment
 function showPart2() {
     // Check if all Part 1 questions are answered
     const unansweredQuestions = checkUnansweredQuestions('part1');
-    
     if (unansweredQuestions > 0) {
         alert(`Please answer all questions in Part 1. You have ${unansweredQuestions} unanswered questions.`);
         return;
     }
-    
+
     document.getElementById('part1').style.display = 'none';
     document.getElementById('part2').style.display = 'block';
-    
-    // Generate Part 2 questions if not already generated
+
+    // Generate Part 2 questions if not already generated (handled in part2_mastery.js)
     if (document.getElementById('mastery-questions').children.length === 0) {
         generateMasteryQuestions();
     }
 }
+
 // Show Part 1 of the assessment
 function showPart1() {
     document.getElementById('part2').style.display = 'none';
     document.getElementById('part1').style.display = 'block';
 }
-// Check for unanswered questions
-function checkUnansweredQuestions(partId) {
-    let questionContainers;
-    
-    if (partId === 'part1') {
-        questionContainers = document.querySelectorAll('#spectrum-questions .question-container');
-    } else if (partId === 'part2') {
-        questionContainers = document.querySelectorAll('#mastery-questions .question-container');
-    }
-    
-    let unansweredCount = 0;
-    
-    questionContainers.forEach(container => {
-        const answered = container.querySelector('input[type="radio"]:checked');
-        if (!answered) {
-            unansweredCount++;
-            container.classList.add('unanswered');
-        } else {
-            container.classList.remove('unanswered');
-        }
-    });
-    
-    return unansweredCount;
-}
-// Part 2 questions generation is implemented in part2_mastery.js
-// Show results
-function showResults() {
-    // Check if all Part 2 questions are answered
-    const unansweredQuestions = checkUnansweredQuestions('part2');
-    
-    if (unansweredQuestions > 0) {
-        alert(`Please answer all questions in Part 2. You have ${unansweredQuestions} unanswered questions.`);
-        return;
-    }
-    
-    document.getElementById('part2').style.display = 'none';
-    document.getElementById('results').style.display = 'block';
-    
-    // Calculate and display results
-    generateAndDisplayResults();
-}
-// Calculate and display results function is implemented in results.js
-// Spectrum placement calculation is implemented in scoring.js
-// Typology pair determination is implemented in scoring.js
-// Results generation functions are implemented in results.js
-// Restart the assessment
-function restartAssessment() {
-    // Clear all selections
-    document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
-        radio.checked = false;
-    });
-    
-    document.querySelectorAll('.answer-option.selected').forEach(option => {
-        option.classList.remove('selected');
-    });
-    
-    // Clear user responses
-    userResponses = {
-        typology: {},
-        mastery: {}
-    };
-    
-    // Go back to introduction
-    document.getElementById('results').style.display = 'none';
-    document.getElementById('introduction').style.display = 'block';
-}
-// Print results
-function printResults() {
-    window.print();
-}
-    // Print results
-function printResults() {
-    window.print();
-}
 
-// Add this new function after printResults()
-// Improved function to check for unanswered questions with visual highlighting
+// Check for unanswered questions (visually highlight them)
 function checkUnansweredQuestions(partId) {
     let questionContainers;
-    
+
     if (partId === 'part1') {
         questionContainers = document.querySelectorAll('#spectrum-questions .question-container');
     } else if (partId === 'part2') {
         questionContainers = document.querySelectorAll('#mastery-questions .question-container');
     }
-    
+
     let unansweredCount = 0;
-    
+
     // Clear any previous highlighting
     questionContainers.forEach(container => {
         container.classList.remove('unanswered');
     });
-    
+
     // Check each question and highlight unanswered ones
     questionContainers.forEach(container => {
         const answered = container.querySelector('input[type="radio"]:checked');
         if (!answered) {
             unansweredCount++;
             container.classList.add('unanswered');
-            
+
             // Scroll to first unanswered question
             if (unansweredCount === 1) {
                 container.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
     });
-    
+
     return unansweredCount;
 }
 
-// Add these progress indicator functions
-// Update progress indicator
+// (Placeholder) Generate Part 2 questions in part2_mastery.js
+function generateMasteryQuestions() {
+    // This function would dynamically create mastery questions (separate file logic).
+    // We'll leave it here as a placeholder to prevent errors if the file is missing.
+}
+
+// Show results
+function showResults() {
+    // Check if all Part 2 questions are answered
+    const unansweredQuestions = checkUnansweredQuestions('part2');
+    if (unansweredQuestions > 0) {
+        alert(`Please answer all questions in Part 2. You have ${unansweredQuestions} unanswered questions.`);
+        return;
+    }
+
+    document.getElementById('part2').style.display = 'none';
+    document.getElementById('results').style.display = 'block';
+
+    // Calculate and display results (implemented in results.js)
+    generateAndDisplayResults();
+}
+
+// (Placeholder) Results generation function in results.js
+function generateAndDisplayResults() {
+    // Use scoring.js logic and fill #results with final info.
+    // Left blank here as an example stub.
+}
+
+// Restart the assessment
+function restartAssessment() {
+    // Clear all selections
+    document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
+        radio.checked = false;
+    });
+
+    document.querySelectorAll('.answer-option.selected').forEach(option => {
+        option.classList.remove('selected');
+    });
+
+    // Clear user responses
+    userResponses = {
+        typology: {},
+        mastery: {}
+    };
+
+    // Go back to introduction
+    document.getElementById('results').style.display = 'none';
+    document.getElementById('introduction').style.display = 'block';
+}
+
+// Print results
+function printResults() {
+    window.print();
+}
+
+// Update progress indicator (optional usage)
 function updateProgressIndicator(stage, percentage) {
     const progressContainer = document.getElementById('progress-container');
     const progressStage = document.getElementById('progress-stage');
     const progressPercentage = document.getElementById('progress-percentage');
     const progressFill = document.getElementById('progress-fill');
-    
+
     // Show progress bar if hidden
     progressContainer.style.display = 'block';
-    
+
     // Update stage text
     progressStage.textContent = stage;
-    
-    // Update percentage
+
+    // Update percentage text
     progressPercentage.textContent = `${percentage}%`;
-    
-    // Update fill width
+
+    // Update progress fill width
     progressFill.style.width = `${percentage}%`;
 }
