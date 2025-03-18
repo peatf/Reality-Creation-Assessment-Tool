@@ -508,6 +508,90 @@ const assessmentData = {
         ]
     }
 };
+// Add this right after the commonMisalignments object in the assessmentData
+
+// Typology Descriptions
+typologyDescriptions: {
+    "cognitive-alignment-left": {
+        name: "Rational",
+        description: "You process reality through logical thinking, analysis, and evidence. You need clarity and reasoning before accepting something as true or real."
+    },
+    "cognitive-alignment-balanced": {
+        name: "Synthesizing",
+        description: "You blend logic with intuition, using both analytical thinking and inner knowing to navigate reality creation."
+    },
+    "cognitive-alignment-right": {
+        name: "Intuitive",
+        description: "You trust inner knowing and direct experience over logic. Your intuition guides your perception and decisions in reality creation."
+    },
+    "perceptual-focus-left": {
+        name: "Definitive",
+        description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
+    },
+    "perceptual-focus-balanced": {
+        name: "Adaptive",
+        description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
+    },
+    "perceptual-focus-right": {
+        name: "Receptive",
+        description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
+    },
+    "kinetic-drive-left": {
+        name: "Deliberate",
+        description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
+    },
+    "kinetic-drive-balanced": {
+        name: "Rhythmic",
+        description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
+    },
+    "kinetic-drive-right": {
+        name: "Spontaneous",
+        description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
+    },
+    "choice-navigation-left": {
+        name: "Calculative",
+        description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
+    },
+    "choice-navigation-balanced": {
+        name: "Balanced",
+        description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
+    },
+    "choice-navigation-right": {
+        name: "Fluid",
+        description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
+    },
+    "resonance-field-left": {
+        name: "Regulated",
+        description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
+    },
+    "resonance-field-balanced": {
+        name: "Attuned",
+        description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
+    },
+    "resonance-field-right": {
+        name: "Expressive",
+        description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
+    },
+    "manifestation-rhythm-left": {
+        name: "Structured",
+        description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
+    },
+    "manifestation-rhythm-balanced": {
+        name: "Sustainable",
+        description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
+    },
+    "manifestation-rhythm-right": {
+        name: "Dynamic",
+        description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
+    }
+},
+
+// Results Templates
+resultsTemplates: {
+    typologyPairs: assessmentData.typologyPairs,
+    idealApproaches: assessmentData.idealApproaches,
+    misalignments: assessmentData.commonMisalignments
+}
 // User's assessment responses
 let userResponses = {
     typology: {},
