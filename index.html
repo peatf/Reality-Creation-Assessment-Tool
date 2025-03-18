@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reality Creation Assessment: A Study in Self-Perception & Personal Architecture</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/results-styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Reality Creation Assessment</h1>
+            <h2>A Study in Self-Perception & Personal Architecture</h2>
+        </header>
+
+        <div class="introduction" id="introduction">
+            <h3>Welcome to Your Reality Creation Journey</h3>
+            <p>This assessment is designed to help you understand how you naturally engage with manifestation and reality creation. By exploring your unique patterns, preferences, and priorities, you'll gain insights into your core identity and discover personalized strategies to enhance your manifestation abilities.</p>
+            <p>The assessment consists of two interconnected parts:</p>
+            <ul>
+                <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
+                <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, growth areas, and energetic patterns to provide tailored recommendations.</li>
+            </ul>
+            <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
+            <button id="start-assessment" class="btn">Begin Assessment</button>
+        </div>
+
+        <!-- Part 1: Reality Creation Typology -->
+        <div class="assessment-section" id="part1" style="display: none;">
+            <h3>Part 1: Reality Creation Typology</h3>
+            <div id="spectrum-questions"></div>
+            <div class="navigation-buttons">
+                <button id="part1-next" class="btn">Continue to Part 2</button>
+            </div>
+        </div>
+
+        <!-- Part 2: Mastery Assessment -->
+        <div class="assessment-section" id="part2" style="display: none;">
+            <h3>Part 2: Mastery Assessment</h3>
+            <div id="mastery-questions"></div>
+            <div class="navigation-buttons">
+                <button id="part2-prev" class="btn">Back to Part 1</button>
+                <button id="submit-assessment" class="btn">View Your Results</button>
+            </div>
+        </div>
+
+        <!-- Results Section -->
+        <div class="results-section" id="results" style="display: none;">
+            <h3>Your Reality Creation Profile</h3>
+            
+            <div class="results-container">
+                <div class="spectrum-diagram">
+                    <h4>Your Spectrum Placements</h4>
+                    <div id="spectrum-diagram"></div>
+                </div>
+                
+                <div class="typology-results">
+                    <h4>1. Reality Creation Typology</h4>
+                    <div id="typology-pair"></div>
+                </div>
+                
+                <div class="ideal-approaches">
+                    <h4>2. Ideal Approaches</h4>
+                    <div id="ideal-approaches"></div>
+                </div>
+                
+                <div class="common-misalignments">
+                    <h4>3. Common Misalignments</h4>
+                    <div id="common-misalignments"></div>
+                </div>
+                
+                <div class="mastery-priorities">
+                    <h4>4. Mastery Priorities & Growth Areas</h4>
+                    <div id="mastery-priorities"></div>
+                </div>
+                
+                <div class="prescriptive-strategy">
+                    <h4>5. Personalized Prescriptive Strategy</h4>
+                    <div id="prescriptive-strategy"></div>
+                </div>
+            </div>
+            
+            <div class="navigation-buttons">
+                <button id="restart-assessment" class="btn">Retake Assessment</button>
+                <button id="print-results" class="btn">Print Results</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/assessment.js"></script>
+    <script src="js/part2_mastery.js"></script>
+    <script src="js/scoring.js"></script>
+    <script src="js/results.js"></script>
+</body>
+</html>
