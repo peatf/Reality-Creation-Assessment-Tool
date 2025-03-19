@@ -1058,19 +1058,14 @@ function generateTypologyRecommendations(typologyKey) {
 
 // Calculate and display results
 function generateAndDisplayResults() {
-    // Calculate spectrum placements
-    const typologyResults = calculateTypologyScores();
-    const spectrumPlacements = typologyResults.placements;
+    // Get data from scoring.js calculations
+    const scoringData = getTypologyAndMasteryData();
     
-    // Calculate mastery scores first to use in typology determination
-    const masteryScores = calculateMasteryScores();
-    const dominantValues = determineDominantValues(masteryScores);
-    
-    // Determine typology pair with mastery priorities for enhanced personalization
-    const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
-    
-    // Generate personalized insights
-    const personalizedInsights = generatePersonalizedInsights(typologyPair, dominantValues);
+    const spectrumPlacements = scoringData.typologyResults.placements;
+    const typologyPair = scoringData.typologyPair;
+    const masteryScores = scoringData.masteryScores;
+    const dominantValues = scoringData.dominantValues;
+    const personalizedInsights = scoringData.personalizedInsights;
     
     // Display results
     generateSpectrumDiagram(spectrumPlacements, typologyPair);
