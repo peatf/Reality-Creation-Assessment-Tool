@@ -100,9 +100,12 @@
     </div>
 
     <!-- 
-      Order matters: 
-      1) part2_mastery.js MUST load before scoring.js (which references calculateMasteryScores).
-      2) The rest of your scripts follow.
+      IMPORTANT SCRIPT ORDER:
+      1) assessment.js (optional – it’s your original order)
+      2) part2_mastery.js (defines calculateMasteryScores)
+      3) scoring.js (calls calculateMasteryScores)
+      4) results.js
+      5) test-results.js
     -->
     <script src="js/assessment.js"></script>
     <script src="js/part2_mastery.js"></script>
