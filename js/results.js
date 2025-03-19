@@ -3,85 +3,151 @@
 // This file contains the logic for generating and displaying personalized results
 // based on the user's responses to both parts of the assessment
 
-// Generate the visual spectrum diagram
+// Generate the radar chart diagram
 function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const diagramContainer = document.getElementById('spectrum-diagram');
     diagramContainer.innerHTML = '';
     
-    // Create diagram for each spectrum
-    assessmentData.typologySpectrums.forEach(spectrum => {
-        const placement = spectrumPlacements[spectrum.id];
+    // Create radar chart container
+    const radarContainer = document.createElement('div');
+    radarContainer.className = 'radar-chart-container';
+    
+    // Create the radar chart
+    const radarChart = document.createElement('div');
+    radarChart.className = 'radar-chart';
+    
+    // Create circles for the radar levels
+    const radarCircles = document.createElement('div');
+    radarCircles.className = 'radar-circles';
+    
+    // Add 3 circles for the 3 levels (left, balanced, right)
+    const circleRadii = [25, 50, 75]; // % of radius for each level
+    
+    circleRadii.forEach(radius => {
+        const circle = document.createElement('div');
+        circle.className = 'radar-circle';
+        circle.style.width = `${radius * 2}%`;
+        circle.style.height = `${radius * 2}%`;
+        radarCircles.appendChild(circle);
+    });
+    
+    radarChart.appendChild(radarCircles);
+    
+    // Get all spectrum objects
+    const spectrumObjects = assessmentData.typologySpectrums;
+    const numAxes = spectrumObjects.length;
+    
+    // Create radar axes and placement markers
+    const markers = [];
+    const labels = [];
+    
+    spectrumObjects.forEach((spectrum, index) => {
+        // Calculate angle for this axis
+        const angle = (index * (360 / numAxes)) * (Math.PI / 180);
         
-        // Create spectrum row
-        const spectrumRow = document.createElement('div');
-        spectrumRow.className = 'spectrum-row';
-        
-        // Create spectrum label
-        const spectrumLabel = document.createElement('div');
-        spectrumLabel.className = 'spectrum-label';
-        
-        const leftLabel = document.createElement('span');
-        leftLabel.className = 'left-label';
-        leftLabel.textContent = spectrum.leftLabel || 'Structured';
-        
-        const nameLabel = document.createElement('span');
-        nameLabel.className = 'name-label';
-        nameLabel.textContent = spectrum.name;
-        
-        const rightLabel = document.createElement('span');
-        rightLabel.className = 'right-label';
-        rightLabel.textContent = spectrum.rightLabel || 'Intuitive';
-        
-        spectrumLabel.appendChild(leftLabel);
-        spectrumLabel.appendChild(nameLabel);
-        spectrumLabel.appendChild(rightLabel);
-        
-        // Create spectrum bar
-        const spectrumBar = document.createElement('div');
-        spectrumBar.className = 'spectrum-bar';
-        
-        // Create spectrum position indicator
-        const spectrumPosition = document.createElement('div');
-        spectrumPosition.className = 'spectrum-position';
-        
-        // Set position based on placement
-        let positionPercent;
-        switch (placement) {
-            case 'left':
-                positionPercent = 25;
-                break;
-            case 'balanced':
-                positionPercent = 50;
-                break;
-            case 'right':
-                positionPercent = 75;
-                break;
-            default:
-                positionPercent = 50;
-        }
-        
-        spectrumPosition.style.left = `${positionPercent}%`;
+        // Create axis
+        const axis = document.createElement('div');
+        axis.className = 'radar-axis';
+        axis.style.transform = `rotate(${angle * (180 / Math.PI)}deg)`;
         
         // Highlight typology pair spectrums
         if (typologyPair.primary && spectrum.id === typologyPair.primary.spectrumId) {
-            spectrumPosition.classList.add('primary-highlight');
-            spectrumRow.classList.add('primary-spectrum');
+            axis.classList.add('primary-spectrum');
         } else if (typologyPair.secondary && spectrum.id === typologyPair.secondary.spectrumId) {
-            spectrumPosition.classList.add('secondary-highlight');
-            spectrumRow.classList.add('secondary-spectrum');
+            axis.classList.add('secondary-spectrum');
         }
         
-        // Add additional strong spectrum highlighting if applicable
-        // Find any additional strong placements beyond the primary pair
+        // Find any additional strong spectrums
         const additionalStrongSpectrums = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
         if (additionalStrongSpectrums.includes(spectrum.id)) {
-            spectrumPosition.classList.add('tertiary-highlight');
-            spectrumRow.classList.add('tertiary-spectrum');
+            axis.classList.add('tertiary-spectrum');
         }
         
-        spectrumBar.appendChild(spectrumPosition);
+        radarChart.appendChild(axis);
         
-        // Add placement label for clarity
+        // Create axis label
+        const label = document.createElement('div');
+        label.className = 'radar-label';
+        label.textContent = spectrum.name;
+        
+        // Position the label at the end of the axis
+        const labelRadius = 52; // % of container
+        const labelX = 50 + labelRadius * Math.cos(angle);
+        const labelY = 50 + labelRadius * Math.sin(angle);
+        
+        label.style.left = `${labelX}%`;
+        label.style.top = `${labelY}%`;
+        
+        // Adjust text alignment based on position
+        if (labelX > 85) {
+            label.style.transform = 'translateX(-100%)';
+            label.style.textAlign = 'right';
+        } else if (labelX > 60) {
+            label.style.transform = 'translateX(-75%)';
+            label.style.textAlign = 'right';
+        } else if (labelX < 15) {
+            label.style.transform = 'translateX(0)';
+            label.style.textAlign = 'left';
+        } else if (labelX < 40) {
+            label.style.transform = 'translateX(-25%)';
+            label.style.textAlign = 'left';
+        } else {
+            label.style.transform = 'translateX(-50%)';
+            label.style.textAlign = 'center';
+        }
+        
+        if (labelY < 10) {
+            label.style.top = '10%';
+        } else if (labelY > 90) {
+            label.style.top = '90%';
+        }
+        
+        radarChart.appendChild(label);
+        labels.push(label);
+        
+        // Create placement marker
+        const placement = spectrumPlacements[spectrum.id];
+        
+        // Calculate marker position based on placement
+        let markerRadius;
+        switch (placement) {
+            case 'left':
+                markerRadius = 25; // 25% of container radius
+                break;
+            case 'balanced':
+                markerRadius = 50; // 50% of container radius
+                break;
+            case 'right':
+                markerRadius = 75; // 75% of container radius
+                break;
+            default:
+                markerRadius = 50;
+        }
+        
+        const markerX = 50 + markerRadius * Math.cos(angle);
+        const markerY = 50 + markerRadius * Math.sin(angle);
+        
+        const marker = document.createElement('div');
+        marker.className = 'placement-marker';
+        marker.style.left = `${markerX}%`;
+        marker.style.top = `${markerY}%`;
+        
+        // Highlight typology pair markers
+        if (typologyPair.primary && spectrum.id === typologyPair.primary.spectrumId) {
+            marker.classList.add('primary-highlight');
+        } else if (typologyPair.secondary && spectrum.id === typologyPair.secondary.spectrumId) {
+            marker.classList.add('secondary-highlight');
+        }
+        
+        // Add tertiary highlighting if applicable
+        if (additionalStrongSpectrums.includes(spectrum.id)) {
+            marker.classList.add('tertiary-highlight');
+        }
+        
+        radarChart.appendChild(marker);
+        markers.push({ x: markerX, y: markerY, placement, spectrum });
+        
+        // Create placement label
         const placementLabel = document.createElement('div');
         placementLabel.className = 'placement-label';
         
@@ -94,23 +160,45 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
             placementLabel.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
         }
         
-        // Add spectrum description tooltip
-        const spectrumTooltip = document.createElement('div');
-        spectrumTooltip.className = 'spectrum-tooltip';
-        spectrumTooltip.textContent = spectrum.description;
+        // Position the label near the marker
+        const labelOffsetRadius = markerRadius + 8;
+        const placementLabelX = 50 + labelOffsetRadius * Math.cos(angle);
+        const placementLabelY = 50 + labelOffsetRadius * Math.sin(angle);
         
-        // Assemble spectrum row
-        spectrumRow.appendChild(spectrumLabel);
-        spectrumRow.appendChild(spectrumBar);
-        spectrumRow.appendChild(placementLabel);
-        spectrumRow.appendChild(spectrumTooltip);
+        placementLabel.style.left = `${placementLabelX}%`;
+        placementLabel.style.top = `${placementLabelY}%`;
         
-        diagramContainer.appendChild(spectrumRow);
+        radarChart.appendChild(placementLabel);
     });
+    
+    // Create radar polygon to connect all markers
+    const polygonsContainer = document.createElement('div');
+    polygonsContainer.className = 'radar-polygons';
+    
+    // Create SVG element for the polygon
+    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+    svg.setAttribute('width', '100%');
+    svg.setAttribute('height', '100%');
+    svg.setAttribute('viewBox', '0 0 100 100');
+    svg.setAttribute('preserveAspectRatio', 'none');
+    
+    // Create polygon element
+    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
+    polygon.setAttribute('class', 'radar-polygon');
+    
+    // Set polygon points based on marker positions
+    const points = markers.map(marker => `${marker.x},${marker.y}`).join(' ');
+    polygon.setAttribute('points', points);
+    
+    svg.appendChild(polygon);
+    polygonsContainer.appendChild(svg);
+    radarChart.appendChild(polygonsContainer);
+    
+    radarContainer.appendChild(radarChart);
     
     // Add legend
     const legend = document.createElement('div');
-    legend.className = 'diagram-legend';
+    legend.className = 'radar-legend';
     
     const primaryLegend = document.createElement('div');
     primaryLegend.className = 'legend-item';
@@ -136,6 +224,9 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     secondaryLegend.appendChild(secondaryMarker);
     secondaryLegend.appendChild(secondaryText);
     
+    legend.appendChild(primaryLegend);
+    legend.appendChild(secondaryLegend);
+    
     // Add tertiary legend item if there are additional strong spectrums
     const additionalStrong = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
     if (additionalStrong.length > 0) {
@@ -154,28 +245,14 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         legend.appendChild(tertiaryLegend);
     }
     
-    legend.appendChild(primaryLegend);
-    legend.appendChild(secondaryLegend);
+    radarContainer.appendChild(legend);
+    diagramContainer.appendChild(radarContainer);
     
-    diagramContainer.appendChild(legend);
-}
-
-// Helper function to find additional strong spectrums beyond the primary pair
-function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
-    const additionalStrong = [];
-    
-    // Look for spectrums with clear left or right placements that aren't in the typology pair
-    Object.entries(spectrumPlacements).forEach(([spectrumId, placement]) => {
-        if (
-            (placement === 'left' || placement === 'right') && 
-            spectrumId !== typologyPair.primary.spectrumId && 
-            spectrumId !== typologyPair.secondary.spectrumId
-        ) {
-            additionalStrong.push(spectrumId);
-        }
-    });
-    
-    return additionalStrong;
+    // Add a description for the diagram
+    const description = document.createElement('p');
+    description.className = 'spectrum-description';
+    description.textContent = 'This radar chart shows your placement on each of the six reality creation spectrums. The closer to the center, the more structured your approach; the further from center, the more fluid and intuitive.';
+    diagramContainer.appendChild(description);
 }
     
     // Generate the typology pair section
