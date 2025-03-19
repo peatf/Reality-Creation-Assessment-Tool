@@ -812,7 +812,7 @@ function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
     }
     
     if (alignmentNeeds.includes('control-consistency')) {
-        permissions.push('Give yourself permission to work with your natural rhythm even when it doesn't match external expectations of consistency.');
+        permissions.push('Give yourself permission to work with your natural rhythm even when it doesn\'t match external expectations of consistency.');
     }
     
     if (alignmentNeeds.includes('control-clarity')) {
