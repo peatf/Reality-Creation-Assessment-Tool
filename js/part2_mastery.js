@@ -448,7 +448,6 @@ const masteryAssessmentData = {
         }
     ]
 };
-};
 
 // Function to generate Part 2: Mastery Assessment questions
 function generateMasteryQuestions() {
