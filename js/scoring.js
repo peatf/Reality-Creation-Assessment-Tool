@@ -94,7 +94,7 @@ const PLACEMENT_MAPPING = {
 // -------------------------------
 // 2. Determine Typology Pair
 // -------------------------------
-function determineTypologyPair(spectrumPlacements) {
+function determineTypologyPair(spectrumPlacements, masteryPriorities = null) {
     // Step 1: Identify Clear Spectrum Placements
     // Clear placement = consistent Left or Right (not Balanced)
     const clearPlacements = {};
@@ -129,23 +129,48 @@ function determineTypologyPair(spectrumPlacements) {
     
     // Case B: More than two clear placements - need to prioritize
     if (clearSpectrums.length > 2) {
-        // Sort by foundational importance (per RTF priority order)
-        const sortedClearSpectrums = [...clearSpectrums].sort((a, b) => {
-            return SPECTRUM_PRIORITY_ORDER.indexOf(a) - SPECTRUM_PRIORITY_ORDER.indexOf(b);
+        // Calculate scores for each spectrum based on:
+        // 1. Foundational importance (per RTF priority order)
+        // 2. Alignment with mastery priorities (if available)
+        const spectrumScores = {};
+        
+        clearSpectrums.forEach(spectrumId => {
+            // Base score from foundational importance (inverse of index, so higher = more important)
+            const foundationalScore = SPECTRUM_PRIORITY_ORDER.length - SPECTRUM_PRIORITY_ORDER.indexOf(spectrumId);
+            
+            // Additional score from mastery alignment if available
+            let masteryAlignmentScore = 0;
+            
+            if (masteryPriorities) {
+                // Increase score based on alignment with mastery priorities
+                masteryAlignmentScore = calculateMasteryAlignmentScore(spectrumId, clearPlacements[spectrumId], masteryPriorities);
+            }
+            
+            // Total score (weighted - foundational importance carries more weight)
+            spectrumScores[spectrumId] = (foundationalScore * 2) + masteryAlignmentScore;
         });
+        
+        // Sort by total score (descending)
+        const sortedSpectrums = [...clearSpectrums].sort((a, b) => spectrumScores[b] - spectrumScores[a]);
+        
+        // Start with top two scoring spectrums
+        let primarySpectrumId = sortedSpectrums[0];
+        let secondarySpectrumId = sortedSpectrums[1];
         
         // Check for complementary qualities (prefer combinations of different placements)
         // This implements the "balanced combination of complementary qualities" idea
-        let primarySpectrumId = sortedClearSpectrums[0];
-        let secondarySpectrumId = sortedClearSpectrums[1];
-        
-        // If the first two have the same placement, try to find a contrasting placement
-        // for a more balanced pair (if available)
         if (clearPlacements[primarySpectrumId] === clearPlacements[secondarySpectrumId]) {
-            for (let i = 2; i < sortedClearSpectrums.length; i++) {
-                if (clearPlacements[sortedClearSpectrums[i]] !== clearPlacements[primarySpectrumId]) {
-                    secondarySpectrumId = sortedClearSpectrums[i];
-                    break;
+            // Look for a high-scoring spectrum with contrasting placement
+            for (let i = 2; i < sortedSpectrums.length; i++) {
+                if (clearPlacements[sortedSpectrums[i]] !== clearPlacements[primarySpectrumId]) {
+                    // Found a contrasting placement - check if score is close enough to #2
+                    const scoreDifference = spectrumScores[secondarySpectrumId] - spectrumScores[sortedSpectrums[i]];
+                    
+                    // If score is within 30% of #2 spectrum, use for better balance
+                    if (scoreDifference < spectrumScores[secondarySpectrumId] * 0.3) {
+                        secondarySpectrumId = sortedSpectrums[i];
+                        break;
+                    }
                 }
             }
         }
@@ -168,12 +193,34 @@ function determineTypologyPair(spectrumPlacements) {
         // We have one clear placement - pair it with the strongest balanced spectrum
         const primarySpectrumId = clearSpectrums[0];
         
-        // Find the most foundational balanced spectrum
-        const balancedSpectrums = SPECTRUM_PRIORITY_ORDER.filter(id => 
-            !clearSpectrums.includes(id) && spectrumPlacements[id] === 'balanced'
-        );
+        // Calculate scores for balanced spectrums based on:
+        // 1. Foundational importance (per RTF priority order)
+        // 2. Alignment with mastery priorities (if available)
+        const balancedSpectrumScores = {};
         
-        const secondarySpectrumId = balancedSpectrums[0];
+        SPECTRUM_PRIORITY_ORDER.forEach(spectrumId => {
+            if (!clearSpectrums.includes(spectrumId) && spectrumPlacements[spectrumId] === 'balanced') {
+                // Base score from foundational importance
+                const foundationalScore = SPECTRUM_PRIORITY_ORDER.length - SPECTRUM_PRIORITY_ORDER.indexOf(spectrumId);
+                
+                // Additional score from mastery alignment if available
+                let masteryAlignmentScore = 0;
+                
+                if (masteryPriorities) {
+                    // Increase score based on alignment with mastery priorities
+                    masteryAlignmentScore = calculateMasteryAlignmentScore(spectrumId, 'balanced', masteryPriorities);
+                }
+                
+                // Total score (weighted)
+                balancedSpectrumScores[spectrumId] = (foundationalScore * 2) + masteryAlignmentScore;
+            }
+        });
+        
+        // Select the highest scoring balanced spectrum
+        const sortedBalancedSpectrums = Object.keys(balancedSpectrumScores)
+            .sort((a, b) => balancedSpectrumScores[b] - balancedSpectrumScores[a]);
+        
+        const secondarySpectrumId = sortedBalancedSpectrums[0];
         
         return {
             key: `${PLACEMENT_MAPPING[clearPlacements[primarySpectrumId]]}-balanced`,
@@ -189,13 +236,32 @@ function determineTypologyPair(spectrumPlacements) {
     }
     
     // Case D: No clear placements (all Balanced)
-    // Select the two most foundational spectrums based on priority order
-    const sortedSpectrums = [...SPECTRUM_PRIORITY_ORDER].filter(id => 
-        spectrumPlacements[id] === 'balanced'
-    );
+    // Select the two most relevant spectrums based on priority and mastery alignment
+    const balancedSpectrumScores = {};
     
-    const primarySpectrumId = sortedSpectrums[0];
-    const secondarySpectrumId = sortedSpectrums[1];
+    SPECTRUM_PRIORITY_ORDER.forEach(spectrumId => {
+        if (spectrumPlacements[spectrumId] === 'balanced') {
+            // Base score from foundational importance
+            const foundationalScore = SPECTRUM_PRIORITY_ORDER.length - SPECTRUM_PRIORITY_ORDER.indexOf(spectrumId);
+            
+            // Additional score from mastery alignment if available
+            let masteryAlignmentScore = 0;
+            
+            if (masteryPriorities) {
+                masteryAlignmentScore = calculateMasteryAlignmentScore(spectrumId, 'balanced', masteryPriorities);
+            }
+            
+            // Total score (weighted)
+            balancedSpectrumScores[spectrumId] = (foundationalScore * 2) + masteryAlignmentScore;
+        }
+    });
+    
+    // Select the two highest scoring balanced spectrums
+    const sortedBalancedSpectrums = Object.keys(balancedSpectrumScores)
+        .sort((a, b) => balancedSpectrumScores[b] - balancedSpectrumScores[a]);
+    
+    const primarySpectrumId = sortedBalancedSpectrums[0];
+    const secondarySpectrumId = sortedBalancedSpectrums[1];
     
     return {
         key: 'balanced-balanced',
@@ -210,50 +276,53 @@ function determineTypologyPair(spectrumPlacements) {
     };
 }
 
-// -------------------------------
-// 3. Calculate Mastery Scores
-// -------------------------------
-function calculateMasteryScores() {
-    const scores = {
-        corePriorities: {},
-        growthAreas: {},
-        alignmentNeeds: {},
-        energyPatterns: {}
+// Helper function to calculate how well a spectrum aligns with mastery priorities
+function calculateMasteryAlignmentScore(spectrumId, placement, masteryPriorities) {
+    let score = 0;
+    
+    // Map spectrum and placement combinations to relevant mastery priorities
+    const alignmentMap = {
+        // Cognitive Alignment
+        'cognitive-alignment-left': ['information', 'stability', 'clarity-challenge'],
+        'cognitive-alignment-right': ['intuition-challenge', 'trust-intuition', 'trust-process'],
+        
+        // Perceptual Focus
+        'perceptual-focus-left': ['clarity-challenge', 'vision-clarity-resistance', 'control-clarity'],
+        'perceptual-focus-right': ['accept-flexibility', 'possibility', 'accept-uncertainty'],
+        
+        // Kinetic Drive
+        'kinetic-drive-left': ['structured-productivity', 'replenish-structure', 'control-consistency'],
+        'kinetic-drive-right': ['action-challenge', 'spontaneous-productivity', 'flexibility'],
+        
+        // Choice Navigation
+        'choice-navigation-left': ['decision-doubt', 'control-decisions', 'information'],
+        'choice-navigation-right': ['accept-intuition', 'accept-uncertainty', 'intuitive-instincts'],
+        
+        // Resonance Field
+        'resonance-field-left': ['emotion-challenge', 'emotional-block', 'control-emotions'],
+        'resonance-field-right': ['accept-emotions', 'emotional-expression-resistance', 'feeling'],
+        
+        // Manifestation Rhythm
+        'manifestation-rhythm-left': ['structured-environment', 'consistency-challenge', 'rigid-routines'],
+        'manifestation-rhythm-right': ['accept-cycles', 'ignored-cycles', 'change']
     };
     
-    // Count occurrences of each value in Core Priorities
-    masteryAssessmentData.corePriorities.forEach(question => {
-        const response = userResponses.mastery[question.id];
-        if (response) {
-            scores.corePriorities[response] = (scores.corePriorities[response] || 0) + 1;
+    const key = `${spectrumId}-${placement}`;
+    const relevantPriorities = alignmentMap[key] || [];
+    
+    // Check all mastery priority categories
+    ['corePriorities', 'growthAreas', 'alignmentNeeds', 'energyPatterns'].forEach(category => {
+        if (masteryPriorities[category]) {
+            // Add points for each matching priority
+            masteryPriorities[category].forEach(priority => {
+                if (relevantPriorities.includes(priority)) {
+                    score += 1;
+                }
+            });
         }
     });
     
-    // Count occurrences of each value in Growth Areas
-    masteryAssessmentData.growthAreas.forEach(question => {
-        const response = userResponses.mastery[question.id];
-        if (response) {
-            scores.growthAreas[response] = (scores.growthAreas[response] || 0) + 1;
-        }
-    });
-    
-    // Count occurrences of each value in Alignment Needs
-    masteryAssessmentData.alignmentNeeds.forEach(question => {
-        const response = userResponses.mastery[question.id];
-        if (response) {
-            scores.alignmentNeeds[response] = (scores.alignmentNeeds[response] || 0) + 1;
-        }
-    });
-    
-    // Count occurrences of each value in Energy Patterns
-    masteryAssessmentData.energyPatterns.forEach(question => {
-        const response = userResponses.mastery[question.id];
-        if (response) {
-            scores.energyPatterns[response] = (scores.energyPatterns[response] || 0) + 1;
-        }
-    });
-    
-    return scores;
+    return score;
 }
 
 // -------------------------------
