@@ -1070,12 +1070,12 @@ function generateAndDisplayResults() {
     const typologyResults = calculateTypologyScores();
     const spectrumPlacements = typologyResults.placements;
     
-    // Determine typology pair
-    const typologyPair = determineTypologyPair(spectrumPlacements);
-    
-    // Calculate mastery scores
+    // Calculate mastery scores first to use in typology determination
     const masteryScores = calculateMasteryScores();
     const dominantValues = determineDominantValues(masteryScores);
+    
+    // Determine typology pair with mastery priorities for enhanced personalization
+    const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
     
     // Generate personalized insights
     const personalizedInsights = generatePersonalizedInsights(typologyPair, dominantValues);
