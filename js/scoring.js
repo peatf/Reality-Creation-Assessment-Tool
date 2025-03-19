@@ -136,7 +136,6 @@ function determineTypologyPair(spectrumPlacements) {
     const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
     
     // Handle edge cases
-    // If there are ties in strength, use the first two spectrums alphabetically
     if (Object.values(spectrumStrengths).every(strength => strength === spectrumStrengths[sortedSpectrums[0]])) {
         const alphabeticalSpectrums = Object.keys(spectrumPlacements).sort();
         const primarySpectrumId = alphabeticalSpectrums[0];
@@ -146,9 +145,22 @@ function determineTypologyPair(spectrumPlacements) {
         const secondaryPlacement = spectrumPlacements[secondarySpectrumId];
         
         const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
+        
+        // Return typology pair information within function
+        return {
+            key: typologyKey,
+            primary: {
+                spectrumId: primarySpectrumId,
+                placement: primaryPlacement
+            },
+            secondary: {
+                spectrumId: secondarySpectrumId,
+                placement: secondaryPlacement
+            }
+        };
     }
     
-    // Return typology pair information
+    // Return typology pair information for the general case
     return {
         key: typologyKey,
         primary: {
