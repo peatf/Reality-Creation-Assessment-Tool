@@ -569,19 +569,21 @@ function createQuestionElement(question, type) {
         radio.id = option.id;
         radio.value = option.value;
         radio.addEventListener('change', function() {
-            // Remove selected class from all options in this question
+            // Remove 'selected' from all options in this question
             const allOptions = questionContainer.querySelectorAll('.answer-option');
             allOptions.forEach(opt => opt.classList.remove('selected'));
             
-            // Add selected class to this option
+            // Add 'selected' to the chosen option
             optionDiv.classList.add('selected');
             
-            // Store user response
-            // userResponses.mastery is presumably declared somewhere globally.
-            if (!userResponses.mastery) {
-                userResponses.mastery = {};
+            // Store user response in global object
+            if (!window.userResponses) {
+                window.userResponses = {};
             }
-            userResponses.mastery[question.id] = option.value;
+            if (!window.userResponses.mastery) {
+                window.userResponses.mastery = {};
+            }
+            window.userResponses.mastery[question.id] = option.value;
         });
         
         const optionText = document.createElement('span');
@@ -596,20 +598,56 @@ function createQuestionElement(question, type) {
     return questionContainer;
 }
 
-//==========================================
-// NEWLY ADDED: Define calculateMasteryScores globally
-//==========================================
+//================================================
+// NEWLY ADDED: calculateMasteryScores (Numeric)
+//================================================
 window.calculateMasteryScores = function() {
-    // This minimal example simply returns the user's selected answers
-    // (stored in userResponses.mastery) so that scoring.js can access it.
-
-    // If you want to do more advanced logic—like combining certain answers 
-    // into numeric scores, counting frequencies, etc.—you can do it here.
-
+    // Make sure we have user responses
     if (!window.userResponses || !window.userResponses.mastery) {
-        return {};
+        return {
+            corePriorities: {},
+            growthAreas: {},
+            alignmentNeeds: {},
+            energyPatterns: {}
+        };
     }
 
-    // Return the entire mastery selection object as-is:
-    return window.userResponses.mastery;
+    // We'll group answers into 4 categories (objects),
+    // and each chosen value becomes a numeric count
+    const result = {
+        corePriorities: {},
+        growthAreas: {},
+        alignmentNeeds: {},
+        energyPatterns: {}
+    };
+
+    // For each answered question ID → chosen value
+    for (const [questionId, chosenValue] of Object.entries(window.userResponses.mastery)) {
+        if (questionId.startsWith("core-")) {
+            if (!result.corePriorities[chosenValue]) {
+                result.corePriorities[chosenValue] = 0;
+            }
+            result.corePriorities[chosenValue]++;
+        }
+        else if (questionId.startsWith("growth-")) {
+            if (!result.growthAreas[chosenValue]) {
+                result.growthAreas[chosenValue] = 0;
+            }
+            result.growthAreas[chosenValue]++;
+        }
+        else if (questionId.startsWith("alignment-")) {
+            if (!result.alignmentNeeds[chosenValue]) {
+                result.alignmentNeeds[chosenValue] = 0;
+            }
+            result.alignmentNeeds[chosenValue]++;
+        }
+        else if (questionId.startsWith("energy-")) {
+            if (!result.energyPatterns[chosenValue]) {
+                result.energyPatterns[chosenValue] = 0;
+            }
+            result.energyPatterns[chosenValue]++;
+        }
+    }
+
+    return result;
 };
