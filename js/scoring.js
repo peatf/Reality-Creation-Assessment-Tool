@@ -1,9 +1,10 @@
 // Scoring System for Reality Creation Assessment
-
 // This file contains the logic for calculating scores and determining results
-// for both parts of the Reality Creation Assessment
+// for both parts of the Reality Creation Assessment.
 
-// Calculate typology scores and determine spectrum placements
+// ---------------------------
+// 1. Calculate Typology Scores
+// ---------------------------
 function calculateTypologyScores() {
     const placements = {};
     const scores = {};
@@ -47,26 +48,30 @@ function calculateTypologyScores() {
 
 /**
  * Typology Pair Mapping System
- * 
- * This implementation follows the design from the RTF document's "Typology System: Personalized Reality Creation Identity"
- * section. The system creates personalized typology pairs based on the user's two strongest spectrum placements.
- * 
+ * --------------------------------
+ * This implementation follows the design from the RTF document's 
+ * "Typology System: Personalized Reality Creation Identity" section.
+ * The system creates personalized typology pairs based on the user's 
+ * two strongest spectrum placements.
+ *
  * Key concepts:
- * 
- * 1. Each spectrum (Cognitive Alignment, Perceptual Focus, etc.) has a placement on a Left-Balanced-Right scale
+ * 1. Each spectrum (Cognitive Alignment, Perceptual Focus, etc.) 
+ *    has a placement on a Left-Balanced-Right scale
  * 2. Left = Structured, Balanced = Adaptive, Right = Fluid/Intuitive
- * 3. The typology pair is determined by finding the two most clearly defined spectrums (those with consistent Left or Right placements)
- * 4. If more than two strong placements exist, the system prioritizes based on:
+ * 3. The typology pair is determined by finding the two most clearly 
+ *    defined spectrums (those with consistent Left or Right placements)
+ * 4. If more than two strong placements exist, the system prioritizes:
  *    - Alignment with Mastery Assessment priorities
- *    - Foundational importance (Cognitive Alignment & Kinetic Drive are considered more foundational)
+ *    - Foundational importance (Cognitive Alignment & Kinetic Drive first)
  *    - Balance of complementary qualities
  * 
- * Example typology pairs:
- * - Cognitive Alignment (Rational/Left) + Kinetic Drive (Spontaneous/Right) → "Calculated Initiator"
- * - Perceptual Focus (Receptive/Right) + Choice Navigation (Fluid/Right) → "Quantum Manifestor"
+ * Examples:
+ * - Cog Alignment (Rational/Left) + Kinetic Drive (Spontaneous/Right) 
+ *   → "Calculated Initiator"
+ * - Perceptual Focus (Receptive/Right) + Choice Navigation (Fluid/Right) 
+ *   → "Quantum Manifestor"
  * 
- * The system is designed to encourage nuance rather than rigid identity, feeling like a conceptual
- * study of self rather than a restrictive categorization.
+ * The system is designed to encourage nuance rather than rigid identity.
  */
 
 // Spectrum priority order (from most to least foundational for typology pair determination)
@@ -81,26 +86,28 @@ const SPECTRUM_PRIORITY_ORDER = [
 
 // Placement mapping for typology pair determination
 const PLACEMENT_MAPPING = {
-    'left': 'structured',      // Grounded, structured, logical, methodical
-    'balanced': 'balanced',    // Integrative and adaptive
-    'right': 'fluid'           // Expansive, intuitive, momentum-driven
+    left: 'structured',    // Grounded, structured, logical, methodical
+    balanced: 'balanced',  // Integrative and adaptive
+    right: 'fluid'         // Expansive, intuitive, momentum-driven
 };
 
-// Determine typology pair based on spectrum placements
+// -------------------------------
+// 2. Determine Typology Pair
+// -------------------------------
 function determineTypologyPair(spectrumPlacements) {
-    // Calculate strength for each placement
-    // Left and Right placements are stronger than Balanced
+    // Calculate strength for each placement: Left/Right = stronger (2), Balanced = weaker (1)
     const spectrumStrengths = {};
     Object.entries(spectrumPlacements).forEach(([spectrumId, placement]) => {
         spectrumStrengths[spectrumId] = (placement === 'balanced') ? 1 : 2;
     });
     
     // Sort spectrums by strength (descending)
-    const sortedSpectrums = Object.entries(spectrumStrengths)
+    // Then by priority if strengths are tied
+    let sortedSpectrums = Object.entries(spectrumStrengths)
         .sort(([, strengthA], [, strengthB]) => strengthB - strengthA)
         .map(([spectrumId]) => spectrumId);
     
-    // Sort by strength first, then by priority if strength is tied
+    // Further refine sorting by priority for tied strengths
     sortedSpectrums.sort((a, b) => {
         const strengthDiff = spectrumStrengths[b] - spectrumStrengths[a];
         if (strengthDiff !== 0) return strengthDiff;
@@ -115,52 +122,38 @@ function determineTypologyPair(spectrumPlacements) {
     const primaryPlacement = spectrumPlacements[primarySpectrumId];
     const secondaryPlacement = spectrumPlacements[secondarySpectrumId];
     
-    // Create typology pair key using the mapping constants
-    const typologyKey = `${PLACEMENT_MAPPING[primaryPlacement]}-${PLACEMENT_MAPPING[secondaryPlacement]}`;
+    // Create typology pair key using PLACEMENT_MAPPING
+    let typologyKey = `${PLACEMENT_MAPPING[primaryPlacement]}-${PLACEMENT_MAPPING[secondaryPlacement]}`;
     
-    // Return typology pair information
-    return {
-        key: typologyKey,
-        primary: {
-            spectrumId: primarySpectrumId,
-            placement: primaryPlacement
-        },
-        secondary: {
-            spectrumId: secondarySpectrumId,
-            placement: secondaryPlacement
-        }
-    };
-}
+    // Check if all spectrums share the same strength
+    const topStrength = spectrumStrengths[sortedSpectrums[0]];
+    const allSameStrength = Object.values(spectrumStrengths).every(str => str === topStrength);
     
-    // Create typology pair key
-    const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
-    
-    // Handle edge cases
-    if (Object.values(spectrumStrengths).every(strength => strength === spectrumStrengths[sortedSpectrums[0]])) {
-        const alphabeticalSpectrums = Object.keys(spectrumPlacements).sort();
-        const primarySpectrumId = alphabeticalSpectrums[0];
-        const secondarySpectrumId = alphabeticalSpectrums[1];
+    if (allSameStrength) {
+        // If they're all tied, pick the first two spectrums alphabetically
+        const alphabetical = Object.keys(spectrumPlacements).sort();
+        const altPrimaryId = alphabetical[0];
+        const altSecondaryId = alphabetical[1];
         
-        const primaryPlacement = spectrumPlacements[primarySpectrumId];
-        const secondaryPlacement = spectrumPlacements[secondarySpectrumId];
+        const altPrimaryPlacement = spectrumPlacements[altPrimaryId];
+        const altSecondaryPlacement = spectrumPlacements[altSecondaryId];
         
-        const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
+        typologyKey = `${PLACEMENT_MAPPING[altPrimaryPlacement]}-${PLACEMENT_MAPPING[altSecondaryPlacement]}`;
         
-        // Return typology pair information within function
         return {
             key: typologyKey,
             primary: {
-                spectrumId: primarySpectrumId,
-                placement: primaryPlacement
+                spectrumId: altPrimaryId,
+                placement: altPrimaryPlacement
             },
             secondary: {
-                spectrumId: secondarySpectrumId,
-                placement: secondaryPlacement
+                spectrumId: altSecondaryId,
+                placement: altSecondaryPlacement
             }
         };
     }
     
-    // Return typology pair information for the general case
+    // General case return
     return {
         key: typologyKey,
         primary: {
@@ -174,7 +167,9 @@ function determineTypologyPair(spectrumPlacements) {
     };
 }
 
-// Calculate mastery scores
+// -------------------------------
+// 3. Calculate Mastery Scores
+// -------------------------------
 function calculateMasteryScores() {
     const scores = {
         corePriorities: {},
@@ -218,7 +213,9 @@ function calculateMasteryScores() {
     return scores;
 }
 
-// Determine dominant values from mastery scores
+// -------------------------------
+// 4. Determine Dominant Values
+// -------------------------------
 function determineDominantValues(masteryScores) {
     const dominantValues = {
         corePriorities: [],
@@ -242,7 +239,7 @@ function determineDominantValues(masteryScores) {
             .map(([value]) => value);
     }
     
-    // Get dominant values for each category
+    // Determine the dominant values for each category
     dominantValues.corePriorities = getDominantValues(masteryScores.corePriorities);
     dominantValues.growthAreas = getDominantValues(masteryScores.growthAreas);
     dominantValues.alignmentNeeds = getDominantValues(masteryScores.alignmentNeeds);
@@ -251,7 +248,9 @@ function determineDominantValues(masteryScores) {
     return dominantValues;
 }
 
-// Generate personalized insights based on typology pair and mastery scores
+// --------------------------------------------------
+// 5. Generate Personalized Insights (Final Assembly)
+// --------------------------------------------------
 function generatePersonalizedInsights(typologyPair, dominantValues) {
     const insights = {
         typology: {},
@@ -264,7 +263,7 @@ function generatePersonalizedInsights(typologyPair, dominantValues) {
     // Get typology pair template
     const pairTemplate = assessmentData.resultsTemplates.typologyPairs[typologyPair.key];
     
-    // Generate typology insights
+    // 5a. Typology block
     insights.typology = {
         name: pairTemplate.name,
         description: pairTemplate.description,
@@ -280,23 +279,23 @@ function generatePersonalizedInsights(typologyPair, dominantValues) {
         }
     };
     
-    // Generate ideal approaches
+    // 5b. Ideal approaches
     const approachesTemplate = assessmentData.resultsTemplates.idealApproaches[typologyPair.key];
     insights.idealApproaches = {
         strengths: approachesTemplate.strengths,
         approaches: approachesTemplate.approaches
     };
     
-    // Generate misalignments
+    // 5c. Common misalignments
     insights.misalignments = assessmentData.resultsTemplates.misalignments[typologyPair.key];
     
-    // Generate mastery priorities
+    // 5d. Mastery priorities
     insights.masteryPriorities = {
         coreValues: dominantValues.corePriorities,
         growthAreas: dominantValues.growthAreas
     };
     
-    // Generate prescriptive strategy
+    // 5e. Prescriptive strategy
     insights.prescriptiveStrategy = {
         alignmentNeeds: dominantValues.alignmentNeeds,
         energyPatterns: dominantValues.energyPatterns,
@@ -306,9 +305,10 @@ function generatePersonalizedInsights(typologyPair, dominantValues) {
     return insights;
 }
 
-// Helper function to generate typology-specific recommendations
+// -----------------------------------------
+// 6. Generate Typology-Specific Suggestions
+// -----------------------------------------
 function generateTypologyRecommendations(typologyKey) {
-    // Generate recommendations based on typology pair
     let recommendations = '';
     
     switch (typologyKey) {
