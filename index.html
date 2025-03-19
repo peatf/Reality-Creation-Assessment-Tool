@@ -30,7 +30,7 @@
             <p>The assessment consists of two interconnected parts:</p>
             <ul>
                 <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
-                <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, growth areas, and energetic patterns to provide tailored recommendations.</li>
+                <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, priorities, growth areas, and energetic patterns to provide tailored recommendations.</li>
             </ul>
             <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
             <button id="start-assessment" class="btn">Begin Assessment</button>
@@ -46,15 +46,15 @@
         </div>
 
         <!-- Part 2: Mastery Assessment -->
-<div class="assessment-section" id="part2" style="display: none;">
-    <h3>Part 2: Mastery Assessment</h3>
-    <p class="section-description">This part explores your core values, priorities, growth areas, and natural energy patterns to provide tailored recommendations for your manifestation journey.</p>
-    <div id="mastery-questions"></div>
-    <div class="navigation-buttons">
-        <button id="part2-prev" class="btn">Back to Part 1</button>
-        <button id="submit-assessment" class="btn">View Your Results</button>
-    </div>
-</div>
+        <div class="assessment-section" id="part2" style="display: none;">
+            <h3>Part 2: Mastery Assessment</h3>
+            <p class="section-description">This part explores your core values, priorities, growth areas, and natural energy patterns to provide tailored recommendations for your manifestation journey.</p>
+            <div id="mastery-questions"></div>
+            <div class="navigation-buttons">
+                <button id="part2-prev" class="btn">Back to Part 1</button>
+                <button id="submit-assessment" class="btn">View Your Results</button>
+            </div>
+        </div>
 
         <!-- Results Section -->
         <div class="results-section" id="results" style="display: none;">
@@ -99,11 +99,17 @@
         </div>
     </div>
 
+    <!-- 
+      Order matters: 
+      1) part2_mastery.js MUST load before scoring.js (which references calculateMasteryScores).
+      2) The rest of your scripts follow.
+    -->
     <script src="js/assessment.js"></script>
     <script src="js/part2_mastery.js"></script>
     <script src="js/scoring.js"></script>
     <script src="js/results.js"></script>
+    
     <!-- Test script - Remove in production -->
-<script src="js/test-results.js"></script>
+    <script src="js/test-results.js"></script>
 </body>
 </html>
