@@ -95,74 +95,117 @@ const PLACEMENT_MAPPING = {
 // 2. Determine Typology Pair
 // -------------------------------
 function determineTypologyPair(spectrumPlacements) {
-    // Calculate strength for each placement: Left/Right = stronger (2), Balanced = weaker (1)
-    const spectrumStrengths = {};
+    // Step 1: Identify Clear Spectrum Placements
+    // Clear placement = consistent Left or Right (not Balanced)
+    const clearPlacements = {};
+    const clearSpectrums = [];
+    
     Object.entries(spectrumPlacements).forEach(([spectrumId, placement]) => {
-        spectrumStrengths[spectrumId] = (placement === 'balanced') ? 1 : 2;
+        if (placement === 'left' || placement === 'right') {
+            clearPlacements[spectrumId] = placement;
+            clearSpectrums.push(spectrumId);
+        }
     });
     
-    // Sort spectrums by strength (descending)
-    // Then by priority if strengths are tied
-    let sortedSpectrums = Object.entries(spectrumStrengths)
-        .sort(([, strengthA], [, strengthB]) => strengthB - strengthA)
-        .map(([spectrumId]) => spectrumId);
+    // Step 2: Handle different cases based on number of clear placements
     
-    // Further refine sorting by priority for tied strengths
-    sortedSpectrums.sort((a, b) => {
-        const strengthDiff = spectrumStrengths[b] - spectrumStrengths[a];
-        if (strengthDiff !== 0) return strengthDiff;
-        return SPECTRUM_PRIORITY_ORDER.indexOf(a) - SPECTRUM_PRIORITY_ORDER.indexOf(b);
-    });
-    
-    // Get the two strongest spectrums
-    const primarySpectrumId = sortedSpectrums[0];
-    const secondarySpectrumId = sortedSpectrums[1];
-    
-    // Get placements for the strongest spectrums
-    const primaryPlacement = spectrumPlacements[primarySpectrumId];
-    const secondaryPlacement = spectrumPlacements[secondarySpectrumId];
-    
-    // Create typology pair key using PLACEMENT_MAPPING
-    let typologyKey = `${PLACEMENT_MAPPING[primaryPlacement]}-${PLACEMENT_MAPPING[secondaryPlacement]}`;
-    
-    // Check if all spectrums share the same strength
-    const topStrength = spectrumStrengths[sortedSpectrums[0]];
-    const allSameStrength = Object.values(spectrumStrengths).every(str => str === topStrength);
-    
-    if (allSameStrength) {
-        // If they're all tied, pick the first two spectrums alphabetically
-        const alphabetical = Object.keys(spectrumPlacements).sort();
-        const altPrimaryId = alphabetical[0];
-        const altSecondaryId = alphabetical[1];
-        
-        const altPrimaryPlacement = spectrumPlacements[altPrimaryId];
-        const altSecondaryPlacement = spectrumPlacements[altSecondaryId];
-        
-        typologyKey = `${PLACEMENT_MAPPING[altPrimaryPlacement]}-${PLACEMENT_MAPPING[altSecondaryPlacement]}`;
+    // Case A: Exactly two clear placements - use these as the typology pair
+    if (clearSpectrums.length === 2) {
+        const primarySpectrumId = clearSpectrums[0];
+        const secondarySpectrumId = clearSpectrums[1];
         
         return {
-            key: typologyKey,
+            key: `${PLACEMENT_MAPPING[clearPlacements[primarySpectrumId]]}-${PLACEMENT_MAPPING[clearPlacements[secondarySpectrumId]]}`,
             primary: {
-                spectrumId: altPrimaryId,
-                placement: altPrimaryPlacement
+                spectrumId: primarySpectrumId,
+                placement: clearPlacements[primarySpectrumId]
             },
             secondary: {
-                spectrumId: altSecondaryId,
-                placement: altSecondaryPlacement
+                spectrumId: secondarySpectrumId,
+                placement: clearPlacements[secondarySpectrumId]
             }
         };
     }
     
-    // General case return
+    // Case B: More than two clear placements - need to prioritize
+    if (clearSpectrums.length > 2) {
+        // Sort by foundational importance (per RTF priority order)
+        const sortedClearSpectrums = [...clearSpectrums].sort((a, b) => {
+            return SPECTRUM_PRIORITY_ORDER.indexOf(a) - SPECTRUM_PRIORITY_ORDER.indexOf(b);
+        });
+        
+        // Check for complementary qualities (prefer combinations of different placements)
+        // This implements the "balanced combination of complementary qualities" idea
+        let primarySpectrumId = sortedClearSpectrums[0];
+        let secondarySpectrumId = sortedClearSpectrums[1];
+        
+        // If the first two have the same placement, try to find a contrasting placement
+        // for a more balanced pair (if available)
+        if (clearPlacements[primarySpectrumId] === clearPlacements[secondarySpectrumId]) {
+            for (let i = 2; i < sortedClearSpectrums.length; i++) {
+                if (clearPlacements[sortedClearSpectrums[i]] !== clearPlacements[primarySpectrumId]) {
+                    secondarySpectrumId = sortedClearSpectrums[i];
+                    break;
+                }
+            }
+        }
+        
+        return {
+            key: `${PLACEMENT_MAPPING[clearPlacements[primarySpectrumId]]}-${PLACEMENT_MAPPING[clearPlacements[secondarySpectrumId]]}`,
+            primary: {
+                spectrumId: primarySpectrumId,
+                placement: clearPlacements[primarySpectrumId]
+            },
+            secondary: {
+                spectrumId: secondarySpectrumId,
+                placement: clearPlacements[secondarySpectrumId]
+            }
+        };
+    }
+    
+    // Case C: Fewer than two clear placements (mostly Balanced)
+    if (clearSpectrums.length === 1) {
+        // We have one clear placement - pair it with the strongest balanced spectrum
+        const primarySpectrumId = clearSpectrums[0];
+        
+        // Find the most foundational balanced spectrum
+        const balancedSpectrums = SPECTRUM_PRIORITY_ORDER.filter(id => 
+            !clearSpectrums.includes(id) && spectrumPlacements[id] === 'balanced'
+        );
+        
+        const secondarySpectrumId = balancedSpectrums[0];
+        
+        return {
+            key: `${PLACEMENT_MAPPING[clearPlacements[primarySpectrumId]]}-balanced`,
+            primary: {
+                spectrumId: primarySpectrumId,
+                placement: clearPlacements[primarySpectrumId]
+            },
+            secondary: {
+                spectrumId: secondarySpectrumId,
+                placement: 'balanced'
+            }
+        };
+    }
+    
+    // Case D: No clear placements (all Balanced)
+    // Select the two most foundational spectrums based on priority order
+    const sortedSpectrums = [...SPECTRUM_PRIORITY_ORDER].filter(id => 
+        spectrumPlacements[id] === 'balanced'
+    );
+    
+    const primarySpectrumId = sortedSpectrums[0];
+    const secondarySpectrumId = sortedSpectrums[1];
+    
     return {
-        key: typologyKey,
+        key: 'balanced-balanced',
         primary: {
             spectrumId: primarySpectrumId,
-            placement: primaryPlacement
+            placement: 'balanced'
         },
         secondary: {
             spectrumId: secondarySpectrumId,
-            placement: secondaryPlacement
+            placement: 'balanced'
         }
     };
 }
