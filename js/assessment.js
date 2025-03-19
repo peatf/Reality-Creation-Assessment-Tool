@@ -587,12 +587,13 @@ const assessmentData = {
     },
 
     // Results Templates
-    resultsTemplates: {
-        typologyPairs: this.typologyPairs,        // references the same object above
+    get resultsTemplates() {
+    return {
+        typologyPairs: this.typologyPairs,       
         idealApproaches: this.idealApproaches,
         misalignments: this.commonMisalignments
-    }
-};
+    };
+}
 
 // User's assessment responses
 let userResponses = {
