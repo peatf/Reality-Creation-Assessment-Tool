@@ -71,7 +71,28 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
             spectrumRow.classList.add('secondary-spectrum');
         }
         
+        // Add additional strong spectrum highlighting if applicable
+        // Find any additional strong placements beyond the primary pair
+        const additionalStrongSpectrums = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
+        if (additionalStrongSpectrums.includes(spectrum.id)) {
+            spectrumPosition.classList.add('tertiary-highlight');
+            spectrumRow.classList.add('tertiary-spectrum');
+        }
+        
         spectrumBar.appendChild(spectrumPosition);
+        
+        // Add placement label for clarity
+        const placementLabel = document.createElement('div');
+        placementLabel.className = 'placement-label';
+        
+        // Get the typology description for this spectrum and placement
+        const typologyDesc = assessmentData.typologyDescriptions[`${spectrum.id}-${placement}`];
+        if (typologyDesc) {
+            placementLabel.textContent = typologyDesc.name;
+        } else {
+            // Fallback text if description not found
+            placementLabel.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
+        }
         
         // Add spectrum description tooltip
         const spectrumTooltip = document.createElement('div');
@@ -81,6 +102,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         // Assemble spectrum row
         spectrumRow.appendChild(spectrumLabel);
         spectrumRow.appendChild(spectrumBar);
+        spectrumRow.appendChild(placementLabel);
         spectrumRow.appendChild(spectrumTooltip);
         
         diagramContainer.appendChild(spectrumRow);
@@ -114,21 +136,47 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     secondaryLegend.appendChild(secondaryMarker);
     secondaryLegend.appendChild(secondaryText);
     
+    // Add tertiary legend item if there are additional strong spectrums
+    const additionalStrong = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
+    if (additionalStrong.length > 0) {
+        const tertiaryLegend = document.createElement('div');
+        tertiaryLegend.className = 'legend-item';
+        
+        const tertiaryMarker = document.createElement('span');
+        tertiaryMarker.className = 'legend-marker tertiary-marker';
+        
+        const tertiaryText = document.createElement('span');
+        tertiaryText.textContent = 'Additional Strong Spectrum';
+        
+        tertiaryLegend.appendChild(tertiaryMarker);
+        tertiaryLegend.appendChild(tertiaryText);
+        
+        legend.appendChild(tertiaryLegend);
+    }
+    
     legend.appendChild(primaryLegend);
     legend.appendChild(secondaryLegend);
     
     diagramContainer.appendChild(legend);
 }
 
-// Generate the typology pair section
-function generateTypologyPairSection(typologyPair) {
-    const typologyContainer = document.getElementById('typology-pair');
-    typologyContainer.innerHTML = '';
+// Helper function to find additional strong spectrums beyond the primary pair
+function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
+    const additionalStrong = [];
     
-    if (!typologyPair.primary || !typologyPair.secondary) {
-        typologyContainer.textContent = 'Unable to determine typology pair from responses.';
-        return;
-    }
+    // Look for spectrums with clear left or right placements that aren't in the typology pair
+    Object.entries(spectrumPlacements).forEach(([spectrumId, placement]) => {
+        if (
+            (placement === 'left' || placement === 'right') && 
+            spectrumId !== typologyPair.primary.spectrumId && 
+            spectrumId !== typologyPair.secondary.spectrumId
+        ) {
+            additionalStrong.push(spectrumId);
+        }
+    });
+    
+    return additionalStrong;
+}
     
     // Get typology descriptions
     const primaryDesc = assessmentData.typologyDescriptions[`${typologyPair.primary.spectrumId}-${typologyPair.primary.placement}`];
