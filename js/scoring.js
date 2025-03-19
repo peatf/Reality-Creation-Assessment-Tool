@@ -470,11 +470,15 @@ function getTypologyAndMasteryData() {
     // Determine typology pair with mastery priorities for enhanced personalization
     const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
     
+    // Generate personalized insights
+    const personalizedInsights = generatePersonalizedInsights(typologyPair, dominantValues);
+    
     return {
         typologyResults,
         spectrumPlacements,
         typologyPair,
         masteryScores,
-        dominantValues
+        dominantValues,
+        personalizedInsights
     };
 }
