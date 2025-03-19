@@ -2,15 +2,7 @@
 
 // This file contains the logic for generating and displaying personalized results
 // based on the user's responses to both parts of the assessment
-// Add this near the top of results.js
-const SPECTRUM_PRIORITY_ORDER = [
-    'cognitive-alignment',
-    'kinetic-drive',
-    'choice-navigation',
-    'perceptual-focus',
-    'resonance-field',
-    'manifestation-rhythm'
-];
+
 
 // Helper function to find additional strong spectrums beyond the primary pair
 function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
