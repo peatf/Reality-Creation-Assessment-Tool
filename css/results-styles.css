@@ -264,3 +264,28 @@
         page-break-inside: avoid;
     }
 }
+.tertiary-highlight {
+    background-color: #2ecc71;
+    width: 21px;
+    height: 21px;
+    top: -4.5px;
+    z-index: 1;
+}
+
+.tertiary-marker {
+    background-color: #2ecc71;
+}
+
+.tertiary-spectrum .spectrum-label .name-label {
+    color: #2ecc71;
+    font-weight: bold;
+}
+
+.placement-label {
+    text-align: center;
+    font-size: 0.85rem;
+    color: #2c3e50;
+    font-weight: 500;
+    margin-top: 0.25rem;
+    margin-bottom: 0.25rem;
+}
