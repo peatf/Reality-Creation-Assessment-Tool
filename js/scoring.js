@@ -457,3 +457,24 @@ function generateTypologyRecommendations(typologyKey) {
     
     return recommendations;
 }
+// Add this to scoring.js
+function getTypologyAndMasteryData() {
+    // Calculate spectrum placements
+    const typologyResults = calculateTypologyScores();
+    const spectrumPlacements = typologyResults.placements;
+    
+    // Calculate mastery scores first to use in typology determination
+    const masteryScores = calculateMasteryScores();
+    const dominantValues = determineDominantValues(masteryScores);
+    
+    // Determine typology pair with mastery priorities for enhanced personalization
+    const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
+    
+    return {
+        typologyResults,
+        spectrumPlacements,
+        typologyPair,
+        masteryScores,
+        dominantValues
+    };
+}
