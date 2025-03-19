@@ -4,131 +4,221 @@ const masteryAssessmentData = {
     corePriorities: [
         {
             id: "core-q1",
-            text: "When considering what makes a manifestation process successful, which is most important to you?",
+            text: "When it comes to crafting a life, what is the one area that you refuse to negotiate on? The thing that, if missing, would make everything else feel hollow?",
             options: [
                 {
-                    id: "core-q1-stability",
-                    text: "Having a clear, stable process that provides a sense of control and predictability.",
-                    value: "stability"
+                    id: "core-q1-creative",
+                    text: "The ability to express myself fully and create from truth (Creative Expression)",
+                    value: "creative-expression"
                 },
                 {
-                    id: "core-q1-meaning",
-                    text: "Creating meaningful outcomes that align with my deeper purpose and values.",
-                    value: "meaning"
+                    id: "core-q1-financial",
+                    text: "A reality where resources flow with ease and choice is never limited (Financial Abundance)",
+                    value: "financial-abundance"
                 },
                 {
-                    id: "core-q1-freedom",
-                    text: "Maintaining freedom and flexibility to follow inspiration wherever it leads.",
-                    value: "freedom"
+                    id: "core-q1-emotional",
+                    text: "Depth, safety, and connection in how I experience emotions (Emotional Fulfillment)",
+                    value: "emotional-fulfillment"
+                },
+                {
+                    id: "core-q1-autonomy",
+                    text: "The power to direct my own life without restriction (Personal Autonomy)",
+                    value: "personal-autonomy"
+                },
+                {
+                    id: "core-q1-relationships",
+                    text: "Relationships that feel deep, real, and nourishing (Deep Relationships)",
+                    value: "deep-relationships"
+                },
+                {
+                    id: "core-q1-spiritual",
+                    text: "A connection to something greater than myself, a thread of meaning that runs through everything (Spiritual Connection)",
+                    value: "spiritual-connection"
                 }
             ]
         },
         {
             id: "core-q2",
-            text: "Which of these would be most difficult for you to compromise on in your manifestation process?",
+            text: "Which of these experiences, when you imagine living it fully, fills you with a deep sense of rightness? Which of these gives you access to the sensation of a \"mission complete\"?",
             options: [
                 {
-                    id: "core-q2-practicality",
-                    text: "Practical viability and tangible results that improve my concrete circumstances.",
-                    value: "practicality"
+                    id: "core-q2-mastery",
+                    text: "Reaching a level of mastery in my craft where my work is recognized and deeply valued",
+                    value: "craft-mastery"
                 },
                 {
-                    id: "core-q2-authenticity",
-                    text: "Alignment with my authentic self and deeper values, even if it requires more effort.",
-                    value: "authenticity"
+                    id: "core-q2-wealth",
+                    text: "Creating a reality where money is a source of expansion, over limitation, where wealth and security flow with ease",
+                    value: "wealth-security"
                 },
                 {
-                    id: "core-q2-feeling",
-                    text: "The feeling and energetic quality of my experience, regardless of how it looks to others.",
-                    value: "feeling"
+                    id: "core-q2-peace",
+                    text: "Living in a state of emotional steadiness, where peace and well-being are my default, not something I have to chase",
+                    value: "emotional-peace"
+                },
+                {
+                    id: "core-q2-freedom",
+                    text: "Holding the reins of my own life, where my time, choices, and direction are entirely my own",
+                    value: "personal-freedom"
+                },
+                {
+                    id: "core-q2-connection",
+                    text: "Being surrounded by relationships that feel like home, nourishing, real, and deeply connected",
+                    value: "deep-connection"
+                },
+                {
+                    id: "core-q2-meaning",
+                    text: "Feeling anchored in something beyond myself, where meaning, mystery, and a higher connection guide my path",
+                    value: "higher-meaning"
                 }
             ]
         },
         {
             id: "core-q3",
-            text: "Which of these feels most essential to your decision-making process?",
+            text: "When you think of how you want to feel most often, which of these do you most want to consistently experience in your reality?",
             options: [
                 {
-                    id: "core-q3-information",
-                    text: "Having sufficient information and understanding before making decisions.",
-                    value: "information"
+                    id: "core-q3-confidence",
+                    text: "Confidence & Self Trust",
+                    value: "confidence-trust"
                 },
                 {
-                    id: "core-q3-integrity",
-                    text: "Ensuring my choices align with my integrity and personal truth.",
-                    value: "integrity"
+                    id: "core-q3-peace",
+                    text: "Peace & Ease",
+                    value: "peace-ease"
                 },
                 {
-                    id: "core-q3-possibility",
-                    text: "Maintaining my sense of possibility and not settling for less than what feels right.",
-                    value: "possibility"
+                    id: "core-q3-choice",
+                    text: "Choice & Autonomy",
+                    value: "choice-autonomy"
+                },
+                {
+                    id: "core-q3-stability",
+                    text: "Stability & Security",
+                    value: "stability-security"
+                },
+                {
+                    id: "core-q3-passion",
+                    text: "Passion & Inspiration",
+                    value: "passion-inspiration"
+                },
+                {
+                    id: "core-q3-joy",
+                    text: "Joy & Excitement",
+                    value: "joy-excitement"
                 }
             ]
         }
     ],
 
-    // Diagnosing Growth & Permission Areas (3 questions)
+    // Diagnosing Growth + Permission Areas (3 questions)
     growthAreas: [
         {
             id: "growth-q1",
-            text: "Which of these areas do you feel would most benefit from development in your manifestation process?",
+            text: "Where do you often find friction or frustration in your manifestation journey?",
             options: [
                 {
-                    id: "growth-q1-trust",
-                    text: "Developing greater trust in my intuitive guidance, especially when it contradicts logical analysis.",
-                    value: "trust-intuition"
+                    id: "growth-q1-consistency",
+                    text: "Staying committed and consistent long-term",
+                    value: "consistency-challenge"
+                },
+                {
+                    id: "growth-q1-clarity",
+                    text: "Getting clear and decisive about what I truly want",
+                    value: "clarity-challenge"
                 },
                 {
                     id: "growth-q1-action",
-                    text: "Taking more consistent practical action to ground my visions in physical reality.",
-                    value: "practical-action"
+                    text: "Taking inspired action consistently",
+                    value: "action-challenge"
                 },
                 {
-                    id: "growth-q1-focus",
-                    text: "Maintaining focus and commitment to specific outcomes without getting distracted.",
-                    value: "focus-commitment"
+                    id: "growth-q1-intuition",
+                    text: "Trusting my intuition over external opinions",
+                    value: "intuition-challenge"
+                },
+                {
+                    id: "growth-q1-emotions",
+                    text: "Maintaining emotional stability",
+                    value: "emotion-challenge"
+                },
+                {
+                    id: "growth-q1-receiving",
+                    text: "Allowing myself to receive without forcing outcomes",
+                    value: "receiving-challenge"
                 }
             ]
         },
         {
             id: "growth-q2",
-            text: "When you experience delays or challenges in manifestation, which tends to be your primary concern?",
+            text: "Which statement resonates most deeply with your most recent challenges?",
             options: [
                 {
-                    id: "growth-q2-approach",
-                    text: "Wondering if my approach is too unrealistic or lacking practical grounding.",
-                    value: "doubt-approach"
+                    id: "growth-q2-doubt",
+                    text: "\"I often second-guess or doubt my decisions.\"",
+                    value: "decision-doubt"
                 },
                 {
-                    id: "growth-q2-meaning",
-                    text: "Trying to understand the deeper reasons or lessons behind the challenge.",
-                    value: "seek-meaning"
+                    id: "growth-q2-action",
+                    text: "\"I can clearly envision what I want but struggle to act consistently.\"",
+                    value: "action-gap"
                 },
                 {
-                    id: "growth-q2-energy",
-                    text: "Questioning if my energy or vibration is misaligned with my desire.",
-                    value: "energy-misalignment"
+                    id: "growth-q2-focus",
+                    text: "\"I act impulsively and struggle to sustain long-term focus.\"",
+                    value: "focus-challenge"
+                },
+                {
+                    id: "growth-q2-emotions",
+                    text: "\"I frequently feel emotionally overwhelmed or blocked.\"",
+                    value: "emotional-block"
+                },
+                {
+                    id: "growth-q2-burnout",
+                    text: "\"I push too hard, causing burnout instead of flow.\"",
+                    value: "burnout-pattern"
+                },
+                {
+                    id: "growth-q2-commitment",
+                    text: "\"I hesitate to fully commit, waiting for certainty.\"",
+                    value: "commitment-hesitation"
                 }
             ]
         },
         {
             id: "growth-q3",
-            text: "Which of these feels like your greatest growth edge in the manifestation process?",
+            text: "In which area do you tend to experience the most internal resistance?",
             options: [
                 {
                     id: "growth-q3-trust",
-                    text: "Learning to trust the unfolding process even when I can't see the entire path ahead.",
-                    value: "trust-process"
+                    text: "Trusting my own perceptions and intuition",
+                    value: "self-trust-resistance"
                 },
                 {
-                    id: "growth-q3-structure",
-                    text: "Creating more structure and consistency in my manifestation practices.",
-                    value: "develop-structure"
+                    id: "growth-q3-risk",
+                    text: "Taking calculated risks toward my desires",
+                    value: "risk-resistance"
                 },
                 {
-                    id: "growth-q3-attachment",
-                    text: "Releasing attachment to specific outcomes and embracing more flow and flexibility.",
-                    value: "release-attachment"
+                    id: "growth-q3-emotion",
+                    text: "Allowing myself to fully express my emotions authentically",
+                    value: "emotional-expression-resistance"
+                },
+                {
+                    id: "growth-q3-vision",
+                    text: "Clearly defining and sticking to a specific vision",
+                    value: "vision-clarity-resistance"
+                },
+                {
+                    id: "growth-q3-momentum",
+                    text: "Maintaining a consistent rhythm and momentum",
+                    value: "momentum-resistance"
+                },
+                {
+                    id: "growth-q3-control",
+                    text: "Letting go of control and allowing the unexpected",
+                    value: "control-resistance"
                 }
             ]
         }
@@ -138,135 +228,226 @@ const masteryAssessmentData = {
     alignmentNeeds: [
         {
             id: "alignment-q1",
-            text: "Which of these would be most helpful for you to fully accept in your manifestation process?",
+            text: "Which of the following feels most relieving to imagine accepting about yourself?",
             options: [
                 {
-                    id: "alignment-q1-timing",
-                    text: "The natural timing of manifestation, even when it doesn't match my preferred timeline or expectations.",
-                    value: "accept-timing"
+                    id: "alignment-q1-cycles",
+                    text: "\"I naturally move in cycles; my momentum comes in waves.\"",
+                    value: "accept-cycles"
                 },
                 {
-                    id: "alignment-q1-uniqueness",
-                    text: "My unique process, even when it looks different from what others teach or what works for others.",
-                    value: "accept-uniqueness"
+                    id: "alignment-q1-structure",
+                    text: "\"I thrive best with structure, not constant spontaneity.\"",
+                    value: "accept-structure"
                 },
                 {
-                    id: "alignment-q1-uncertainty",
-                    text: "The inherent uncertainty and mystery that is part of the manifestation process.",
-                    value: "accept-uncertainty"
+                    id: "alignment-q1-emotions",
+                    text: "\"My emotions deeply influence my outcomes, and that's okay.\"",
+                    value: "accept-emotions"
+                },
+                {
+                    id: "alignment-q1-clarity",
+                    text: "\"Clarity for me emerges gradually rather than instantly.\"",
+                    value: "accept-gradual-clarity"
+                },
+                {
+                    id: "alignment-q1-intuition",
+                    text: "\"Trusting intuition can serve me as powerfully as logic.\"",
+                    value: "accept-intuition"
+                },
+                {
+                    id: "alignment-q1-flexibility",
+                    text: "\"My desire for spaciousness and flexibility outweighs my need for certainty.\"",
+                    value: "accept-flexibility"
                 }
             ]
         },
         {
             id: "alignment-q2",
-            text: "Which of these alignment aspects would most support your manifestation process?",
+            text: "Which area do you sense you are trying hardest to force or control?",
             options: [
                 {
-                    id: "alignment-q2-beliefs",
-                    text: "Taking time to align my conscious intentions with my subconscious beliefs before expecting results.",
-                    value: "align-beliefs"
+                    id: "alignment-q2-outcomes",
+                    text: "Outcomes and timing of my manifestations",
+                    value: "control-outcomes"
                 },
                 {
-                    id: "alignment-q2-balance",
-                    text: "Finding my own unique balance between active creation and receptive allowing.",
-                    value: "align-balance"
+                    id: "alignment-q2-emotions",
+                    text: "Emotions and inner states",
+                    value: "control-emotions"
                 },
                 {
-                    id: "alignment-q2-congruence",
-                    text: "Ensuring congruence between what I say I want and what I'm energetically available for.",
-                    value: "align-congruence"
+                    id: "alignment-q2-consistency",
+                    text: "Consistency and long-term momentum",
+                    value: "control-consistency"
+                },
+                {
+                    id: "alignment-q2-clarity",
+                    text: "Clarity and specificity of my vision",
+                    value: "control-clarity"
+                },
+                {
+                    id: "alignment-q2-decisions",
+                    text: "Decision-making and certainty",
+                    value: "control-decisions"
+                },
+                {
+                    id: "alignment-q2-intuition",
+                    text: "My intuitive impulses and inspiration",
+                    value: "control-intuition"
                 }
             ]
         }
     ],
 
-    // Discovering Natural Energy Patterns (4 questions)
+    // Discovering Your Natural Energy Patterns (4 questions)
     energyPatterns: [
         {
             id: "energy-q1",
-            text: "Which of these energy patterns feels most natural to you in the manifestation process?",
+            text: "When you naturally succeed at something, it's usually because you:",
             options: [
                 {
+                    id: "energy-q1-instructions",
+                    text: "Had clear, step-by-step instructions",
+                    value: "clear-instructions"
+                },
+                {
+                    id: "energy-q1-intuition",
+                    text: "Followed your intuitive instincts spontaneously",
+                    value: "intuitive-instincts"
+                },
+                {
+                    id: "energy-q1-inspired",
+                    text: "Felt emotionally inspired and connected to the task",
+                    value: "emotional-inspiration"
+                },
+                {
+                    id: "energy-q1-rhythm",
+                    text: "Found the right rhythm between structure and flexibility",
+                    value: "balanced-rhythm"
+                },
+                {
                     id: "energy-q1-clarity",
-                    text: "Creating clear intentions and focused visualization of specific outcomes.",
-                    value: "clarity-focus"
+                    text: "Allowed yourself time to ease into the clarity of the goal",
+                    value: "gradual-clarity"
                 },
                 {
-                    id: "energy-q1-openness",
-                    text: "Maintaining openness and receptivity to divine guidance and unexpected opportunities.",
-                    value: "openness-receptivity"
-                },
-                {
-                    id: "energy-q1-creative",
-                    text: "Following creative inspiration and expressing my desires through various forms.",
-                    value: "creative-surge"
+                    id: "energy-q1-trust",
+                    text: "Let go of control and trusted the process would unfold naturally",
+                    value: "process-trust"
                 }
             ]
         },
         {
             id: "energy-q2",
-            text: "Which type of environment most supports your manifestation energy?",
+            text: "If you look closely at when you've struggled or felt resistance, it often involved:",
             options: [
                 {
-                    id: "energy-q2-structured",
-                    text: "Organized, minimal spaces with clear systems and minimal distractions.",
-                    value: "structured-environment"
+                    id: "energy-q2-rigid",
+                    text: "Trying to adhere to overly rigid routines",
+                    value: "rigid-routines"
                 },
                 {
-                    id: "energy-q2-harmonious",
-                    text: "Harmonious, peaceful spaces that feel aesthetically pleasing and energetically balanced.",
-                    value: "harmonious-environment"
+                    id: "energy-q2-intuition",
+                    text: "Ignoring intuitive signals or inner guidance",
+                    value: "ignored-intuition"
                 },
                 {
-                    id: "energy-q2-stimulating",
-                    text: "Stimulating, variable environments rich with possibilities and inspiration.",
-                    value: "stimulating-environment"
+                    id: "energy-q2-emotions",
+                    text: "Suppressing or disconnecting from your emotional states",
+                    value: "suppressed-emotions"
+                },
+                {
+                    id: "energy-q2-clarity",
+                    text: "Expecting immediate clarity without allowing yourself to experiment",
+                    value: "forced-clarity"
+                },
+                {
+                    id: "energy-q2-cycles",
+                    text: "Forcing consistent action instead of embracing your natural energy cycles",
+                    value: "ignored-cycles"
+                },
+                {
+                    id: "energy-q2-control",
+                    text: "Overplanning and trying to control outcomes tightly",
+                    value: "overcontrolling"
                 }
             ]
         },
         {
             id: "energy-q3",
-            text: "When you need to replenish your energy, which approach is most effective for you?",
+            text: "You feel most energized and naturally productive when you:",
             options: [
                 {
-                    id: "energy-q3-structure",
-                    text: "Completing tasks, organizing my space, or creating clear boundaries.",
-                    value: "replenish-structure"
+                    id: "energy-q3-routines",
+                    text: "Work within clearly structured routines",
+                    value: "structured-productivity"
                 },
                 {
-                    id: "energy-q3-connection",
-                    text: "Deep connection with others, meaningful conversation, or meditation.",
-                    value: "replenish-connection"
+                    id: "energy-q3-freedom",
+                    text: "Allow yourself freedom and flexibility in your workflow",
+                    value: "flexible-productivity"
                 },
                 {
-                    id: "energy-q3-novelty",
-                    text: "Exploring new ideas, experiencing novel situations, or expressing myself creatively.",
-                    value: "replenish-novelty"
+                    id: "energy-q3-emotions",
+                    text: "Feel emotionally invested or inspired by the process",
+                    value: "emotional-productivity"
+                },
+                {
+                    id: "energy-q3-motivation",
+                    text: "Follow spontaneous bursts of motivation",
+                    value: "spontaneous-productivity"
+                },
+                {
+                    id: "energy-q3-change",
+                    text: "Give yourself permission to change your approach frequently",
+                    value: "adaptive-productivity"
+                },
+                {
+                    id: "energy-q3-balance",
+                    text: "Balance structured planning with intuitive adjustments",
+                    value: "balanced-productivity"
                 }
             ]
         },
         {
             id: "energy-q4",
-            text: "When you need to shift your energy to align with a desire, which approach works best?",
+            text: "Your ideal supportive environment feels:",
             options: [
                 {
-                    id: "energy-q4-clarify",
-                    text: "Clarifying my intentions, visualizing specific outcomes, and taking deliberate action steps.",
-                    value: "shift-clarify"
+                    id: "energy-q4-calm",
+                    text: "Calm, structured, and predictable",
+                    value: "structured-environment"
                 },
                 {
-                    id: "energy-q4-feeling",
-                    text: "Connecting with the feeling state of my desire and practicing gratitude and appreciation.",
-                    value: "shift-feeling"
+                    id: "energy-q4-stimulating",
+                    text: "Stimulating, flexible, and evolving",
+                    value: "dynamic-environment"
                 },
                 {
-                    id: "energy-q4-vibration",
-                    text: "Movement, music, or activities that bring me joy and raise my vibration.",
-                    value: "shift-vibration"
+                    id: "energy-q4-supportive",
+                    text: "Deeply supportive emotionally",
+                    value: "emotionally-supportive-environment"
+                },
+                {
+                    id: "energy-q4-inspiring",
+                    text: "Inspiring, adaptable, and intuitively affirming",
+                    value: "inspiring-environment"
+                },
+                {
+                    id: "energy-q4-balanced",
+                    text: "Balanced between clear planning and open-ended exploration",
+                    value: "balanced-environment"
+                },
+                {
+                    id: "energy-q4-pressure-free",
+                    text: "Free from pressure, allowing gradual clarity and organic flow",
+                    value: "pressure-free-environment"
                 }
             ]
         }
     ]
+};
 };
 
 // Function to generate Part 2: Mastery Assessment questions
