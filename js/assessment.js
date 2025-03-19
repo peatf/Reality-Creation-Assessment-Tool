@@ -1,52 +1,53 @@
 // Assessment Data Structure
+// Assessment Data Structure
 const assessmentData = {
     // Part 1: Reality Creation Typology
     typologySpectrums: [
         {
             id: "cognitive-alignment",
             name: "Cognitive Alignment",
-            description: "How you process information and make meaning of your experiences",
-            leftLabel: "Structured",
+            description: "How you mentally interact with reality",
+            leftLabel: "Rational",
             rightLabel: "Intuitive",
             questions: [
                 {
                     id: "cognitive-q1",
-                    text: "When approaching a new project or goal, I typically:",
+                    text: "When encountering new ideas, you typically:",
                     options: [
                         {
                             id: "cognitive-q1-left",
-                            text: "Create a detailed plan with specific steps, timelines, and measurable outcomes to ensure clarity and direction.",
+                            text: "Immediately look for logical proof or evidence.",
                             value: "left"
                         },
                         {
                             id: "cognitive-q1-balanced",
-                            text: "Develop a flexible framework that includes key milestones while remaining open to adjusting my approach as new information emerges.",
+                            text: "Consider logic but remain open to intuitive impressions.",
                             value: "balanced"
                         },
                         {
                             id: "cognitive-q1-right",
-                            text: "Focus on the desired feeling and outcome, allowing the specific path to emerge organically as I follow intuitive nudges and inspiration.",
+                            text: "Trust your gut feeling or intuition, regardless of external validation.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "cognitive-q2",
-                    text: "When making important decisions, I most trust:",
+                    text: "What feels most trustworthy to you when making important choices?",
                     options: [
                         {
                             id: "cognitive-q2-left",
-                            text: "Careful analysis of facts, data, and logical reasoning to reach the most rational conclusion.",
+                            text: "Thorough analysis and careful reasoning",
                             value: "left"
                         },
                         {
                             id: "cognitive-q2-balanced",
-                            text: "A combination of analytical thinking and intuitive knowing, weighing both logical considerations and gut feelings.",
+                            text: "A blend of logic and intuitive guidance",
                             value: "balanced"
                         },
                         {
                             id: "cognitive-q2-right",
-                            text: "My intuitive sense and inner knowing, even when I can't immediately articulate why I feel drawn to a particular choice.",
+                            text: "Inner knowing and spontaneous insight",
                             value: "right"
                         }
                     ]
@@ -56,48 +57,48 @@ const assessmentData = {
         {
             id: "perceptual-focus",
             name: "Perceptual Focus",
-            description: "How you direct your attention and perceive reality",
-            leftLabel: "Precise",
-            rightLabel: "Expansive",
+            description: "Clarity and openness in manifestation",
+            leftLabel: "Definitive",
+            rightLabel: "Receptive",
             questions: [
                 {
                     id: "perceptual-q1",
-                    text: "When considering what's possible in my life, I tend to focus on:",
+                    text: "When envisioning your goals, you prefer:",
                     options: [
                         {
                             id: "perceptual-q1-left",
-                            text: "What is realistic and achievable based on current circumstances, resources, and proven methods.",
+                            text: "Precise, detailed visions of exactly what you want.",
                             value: "left"
                         },
                         {
                             id: "perceptual-q1-balanced",
-                            text: "A balance between practical considerations and expansive possibilities, stretching beyond current limitations while remaining grounded.",
+                            text: "A general vision with some specifics, leaving space for surprises.",
                             value: "balanced"
                         },
                         {
                             id: "perceptual-q1-right",
-                            text: "Unlimited possibilities and potential, believing that reality is fluid and can transform in unexpected and miraculous ways.",
+                            text: "Staying open and allowing your vision to evolve naturally over time.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "perceptual-q2",
-                    text: "When observing the world around me, I most naturally notice:",
+                    text: "You feel most comfortable manifesting when:",
                     options: [
                         {
                             id: "perceptual-q2-left",
-                            text: "Concrete details, specific patterns, and tangible elements that can be clearly observed and measured.",
+                            text: "You know exactly what you're aiming for.",
                             value: "left"
                         },
                         {
                             id: "perceptual-q2-balanced",
-                            text: "Both concrete details and subtle energies, appreciating the physical world while sensing the underlying connections.",
+                            text: "You have clear intentions but remain flexible in details.",
                             value: "balanced"
                         },
                         {
                             id: "perceptual-q2-right",
-                            text: "Energy, vibration, and subtle patterns that exist beyond the physical realm, sensing the invisible forces at play.",
+                            text: "You trust life to surprise you in positive ways.",
                             value: "right"
                         }
                     ]
@@ -107,48 +108,48 @@ const assessmentData = {
         {
             id: "kinetic-drive",
             name: "Kinetic Drive",
-            description: "How you generate momentum and take action",
-            leftLabel: "Methodical",
-            rightLabel: "Dynamic",
+            description: "How you approach action and momentum",
+            leftLabel: "Deliberate",
+            rightLabel: "Spontaneous",
             questions: [
                 {
                     id: "kinetic-q1",
-                    text: "When working toward a goal, I prefer to:",
+                    text: "Your typical action-taking style looks like:",
                     options: [
                         {
                             id: "kinetic-q1-left",
-                            text: "Take consistent, methodical action with clear steps and measurable progress markers.",
+                            text: "Thoughtful and intentional, with detailed plans.",
                             value: "left"
                         },
                         {
                             id: "kinetic-q1-balanced",
-                            text: "Alternate between periods of focused action and reflective pauses, adjusting my approach based on results and intuition.",
+                            text: "Adaptive—adjusting your pacing based on current circumstances.",
                             value: "balanced"
                         },
                         {
                             id: "kinetic-q1-right",
-                            text: "Follow the flow of inspiration and energy, taking aligned action when it feels right rather than forcing a predetermined schedule.",
+                            text: "Quick and spontaneous—trusting instinct to guide you.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "kinetic-q2",
-                    text: "I feel most productive and effective when:",
+                    text: "Momentum feels most natural to you when:",
                     options: [
                         {
                             id: "kinetic-q2-left",
-                            text: "I've completed specific tasks according to plan and can see tangible evidence of my progress.",
+                            text: "Following a structured action plan.",
                             value: "left"
                         },
                         {
                             id: "kinetic-q2-balanced",
-                            text: "I've made meaningful progress through a combination of planned actions and inspired adjustments.",
+                            text: "Flowing between structured and spontaneous bursts of activity.",
                             value: "balanced"
                         },
                         {
                             id: "kinetic-q2-right",
-                            text: "I've followed my energy and intuition, allowing my actions to unfold organically in alignment with my vision.",
+                            text: "Acting in spontaneous bursts without detailed planning.",
                             value: "right"
                         }
                     ]
@@ -158,48 +159,48 @@ const assessmentData = {
         {
             id: "choice-navigation",
             name: "Choice Navigation",
-            description: "How you navigate decisions and determine your path",
-            leftLabel: "Strategic",
-            rightLabel: "Flowing",
+            description: "Decision-making style",
+            leftLabel: "Calculative",
+            rightLabel: "Fluid",
             questions: [
                 {
                     id: "choice-q1",
-                    text: "When faced with multiple options or paths, I typically:",
+                    text: "When making important decisions, you tend to:",
                     options: [
                         {
                             id: "choice-q1-left",
-                            text: "Analyze the pros and cons of each option, considering which path is most likely to lead to my desired outcome.",
+                            text: "Carefully weigh every option to ensure clarity.",
                             value: "left"
                         },
                         {
                             id: "choice-q1-balanced",
-                            text: "Consider both practical factors and how each option feels energetically, seeking the path that balances feasibility with alignment.",
+                            text: "Use logic and intuition equally, adjusting as needed.",
                             value: "balanced"
                         },
                         {
                             id: "choice-q1-right",
-                            text: "Tune into which option feels most aligned with my energy and highest good, trusting my intuitive guidance system.",
+                            text: "Trust your intuition and let decisions unfold naturally.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "choice-q2",
-                    text: "I know I've made the right decision when:",
+                    text: "Your approach to uncertainty usually involves:",
                     options: [
                         {
                             id: "choice-q2-left",
-                            text: "The results confirm that my choice was logical and led to the intended outcome.",
+                            text: "Making precise plans to minimize unpredictability.",
                             value: "left"
                         },
                         {
                             id: "choice-q2-balanced",
-                            text: "The path unfolds with a balance of expected results and unexpected gifts that feel aligned with my growth.",
+                            text: "Finding a comfortable balance between planning and flexibility.",
                             value: "balanced"
                         },
                         {
                             id: "choice-q2-right",
-                            text: "I feel a deep sense of rightness and flow, even if the external results aren't immediately visible or understood by others.",
+                            text: "Staying open and responding intuitively as things unfold.",
                             value: "right"
                         }
                     ]
@@ -209,48 +210,48 @@ const assessmentData = {
         {
             id: "resonance-field",
             name: "Resonance Field",
-            description: "How you connect with and influence your environment",
-            leftLabel: "Focused",
-            rightLabel: "Expansive",
+            description: "Emotional interaction in manifestation",
+            leftLabel: "Regulated",
+            rightLabel: "Expressive",
             questions: [
                 {
                     id: "resonance-q1",
-                    text: "I believe my relationship with external reality is primarily:",
+                    text: "When strong emotions arise, you usually:",
                     options: [
                         {
                             id: "resonance-q1-left",
-                            text: "Based on my ability to understand objective conditions and adapt my actions to work effectively within established systems.",
+                            text: "Pause to regulate and stabilize before taking action.",
                             value: "left"
                         },
                         {
                             id: "resonance-q1-balanced",
-                            text: "A co-creative dance where I both respond to existing conditions and influence outcomes through my energy and intentions.",
+                            text: "Allow yourself to feel emotions fully, then adjust as needed.",
                             value: "balanced"
                         },
                         {
                             id: "resonance-q1-right",
-                            text: "A direct reflection of my consciousness, where external circumstances mirror my internal state and shift as I change my vibration.",
+                            text: "Let your emotions immediately shape your actions and next steps.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "resonance-q2",
-                    text: "When I want to create change in my life, I focus most on:",
+                    text: "Your most effective manifestations occur when you:",
                     options: [
                         {
                             id: "resonance-q2-left",
-                            text: "Taking strategic action steps that directly address the specific conditions I want to change.",
+                            text: "Intentionally cultivate emotional stability.",
                             value: "left"
                         },
                         {
                             id: "resonance-q2-balanced",
-                            text: "Aligning my internal state with my desired outcome while taking inspired action steps that feel congruent.",
+                            text: "Allow emotions to inform your process but maintain some stability.",
                             value: "balanced"
                         },
                         {
                             id: "resonance-q2-right",
-                            text: "Shifting my energy, beliefs, and vibration to match my desired reality, trusting that external circumstances will reorganize accordingly.",
+                            text: "Freely channel emotional energy into creating outcomes.",
                             value: "right"
                         }
                     ]
@@ -260,48 +261,48 @@ const assessmentData = {
         {
             id: "manifestation-rhythm",
             name: "Manifestation Rhythm",
-            description: "Your natural timing and flow in the manifestation process",
-            leftLabel: "Sequential",
-            rightLabel: "Cyclical",
+            description: "Sustainability and adaptability over time",
+            leftLabel: "Structured",
+            rightLabel: "Dynamic",
             questions: [
                 {
                     id: "rhythm-q1",
-                    text: "My preferred pace for creating results is:",
+                    text: "You maintain long-term consistency best when:",
                     options: [
                         {
                             id: "rhythm-q1-left",
-                            text: "Steady and methodical, with clear milestones and consistent progress toward well-defined outcomes.",
+                            text: "Following predictable cycles and clear routines.",
                             value: "left"
                         },
                         {
                             id: "rhythm-q1-balanced",
-                            text: "Rhythmic and flexible, alternating between periods of focused action and receptive integration.",
+                            text: "Balancing consistent routines with occasional shifts in approach.",
                             value: "balanced"
                         },
                         {
                             id: "rhythm-q1-right",
-                            text: "Organic and intuitive, following natural cycles of expansion and contraction without forcing artificial timelines.",
+                            text: "Frequently adjusting your methods based on inspiration and changing energy.",
                             value: "right"
                         }
                     ]
                 },
                 {
                     id: "rhythm-q2",
-                    text: "When manifesting something important, I believe the process works best when:",
+                    text: "Your ideal creative process looks most like:",
                     options: [
                         {
                             id: "rhythm-q2-left",
-                            text: "I create a clear plan with specific action steps and follow through consistently until I achieve my desired outcome.",
+                            text: "A structured series of clearly defined steps.",
                             value: "left"
                         },
                         {
                             id: "rhythm-q2-balanced",
-                            text: "I set clear intentions and take aligned action while remaining open to unexpected opportunities and divine timing.",
+                            text: "A sustainable rhythm blending structure and flow.",
                             value: "balanced"
                         },
                         {
                             id: "rhythm-q2-right",
-                            text: "I surrender to the natural unfolding of the process, focusing on energetic alignment and allowing the universe to determine the perfect timing and path.",
+                            text: "A dynamic process that evolves as inspiration strikes.",
                             value: "right"
                         }
                     ]
