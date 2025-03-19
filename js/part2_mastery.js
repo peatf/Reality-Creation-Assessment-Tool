@@ -449,7 +449,7 @@ const masteryAssessmentData = {
     ]
 };
 
-// Function to generate Part 2: Mastery Assessment questions
+// Generate Part 2: Mastery Assessment questions
 function generateMasteryQuestions() {
     const container = document.getElementById('mastery-questions');
     container.innerHTML = '';
@@ -577,6 +577,10 @@ function createQuestionElement(question, type) {
             optionDiv.classList.add('selected');
             
             // Store user response
+            // userResponses.mastery is presumably declared somewhere globally.
+            if (!userResponses.mastery) {
+                userResponses.mastery = {};
+            }
             userResponses.mastery[question.id] = option.value;
         });
         
@@ -591,3 +595,21 @@ function createQuestionElement(question, type) {
     questionContainer.appendChild(answerOptions);
     return questionContainer;
 }
+
+//==========================================
+// NEWLY ADDED: Define calculateMasteryScores globally
+//==========================================
+window.calculateMasteryScores = function() {
+    // This minimal example simply returns the user's selected answers
+    // (stored in userResponses.mastery) so that scoring.js can access it.
+
+    // If you want to do more advanced logic—like combining certain answers 
+    // into numeric scores, counting frequencies, etc.—you can do it here.
+
+    if (!window.userResponses || !window.userResponses.mastery) {
+        return {};
+    }
+
+    // Return the entire mastery selection object as-is:
+    return window.userResponses.mastery;
+};
