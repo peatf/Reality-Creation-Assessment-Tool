@@ -45,6 +45,47 @@ function calculateTypologyScores() {
     };
 }
 
+/**
+ * Typology Pair Mapping System
+ * 
+ * This implementation follows the design from the RTF document's "Typology System: Personalized Reality Creation Identity"
+ * section. The system creates personalized typology pairs based on the user's two strongest spectrum placements.
+ * 
+ * Key concepts:
+ * 
+ * 1. Each spectrum (Cognitive Alignment, Perceptual Focus, etc.) has a placement on a Left-Balanced-Right scale
+ * 2. Left = Structured, Balanced = Adaptive, Right = Fluid/Intuitive
+ * 3. The typology pair is determined by finding the two most clearly defined spectrums (those with consistent Left or Right placements)
+ * 4. If more than two strong placements exist, the system prioritizes based on:
+ *    - Alignment with Mastery Assessment priorities
+ *    - Foundational importance (Cognitive Alignment & Kinetic Drive are considered more foundational)
+ *    - Balance of complementary qualities
+ * 
+ * Example typology pairs:
+ * - Cognitive Alignment (Rational/Left) + Kinetic Drive (Spontaneous/Right) → "Calculated Initiator"
+ * - Perceptual Focus (Receptive/Right) + Choice Navigation (Fluid/Right) → "Quantum Manifestor"
+ * 
+ * The system is designed to encourage nuance rather than rigid identity, feeling like a conceptual
+ * study of self rather than a restrictive categorization.
+ */
+
+// Spectrum priority order (from most to least foundational for typology pair determination)
+const SPECTRUM_PRIORITY_ORDER = [
+    'cognitive-alignment',   // How users mentally process reality
+    'kinetic-drive',         // How users take action and generate momentum
+    'choice-navigation',     // Decision-making style
+    'perceptual-focus',      // Clarity and openness in manifestation
+    'resonance-field',       // Emotional interaction in manifestation
+    'manifestation-rhythm'   // Sustainability and adaptability over time
+];
+
+// Placement mapping for typology pair determination
+const PLACEMENT_MAPPING = {
+    'left': 'structured',      // Grounded, structured, logical, methodical
+    'balanced': 'balanced',    // Integrative and adaptive
+    'right': 'fluid'           // Expansive, intuitive, momentum-driven
+};
+
 // Determine typology pair based on spectrum placements
 function determineTypologyPair(spectrumPlacements) {
     // Calculate strength for each placement
@@ -59,22 +100,11 @@ function determineTypologyPair(spectrumPlacements) {
         .sort(([, strengthA], [, strengthB]) => strengthB - strengthA)
         .map(([spectrumId]) => spectrumId);
     
-    // Prioritize certain spectrums based on your RTF document
-    // Cognitive Alignment and Kinetic Drive are considered more foundational
-    const priorityOrder = [
-        'cognitive-alignment',
-        'kinetic-drive',
-        'choice-navigation',
-        'perceptual-focus',
-        'resonance-field',
-        'manifestation-rhythm'
-    ];
-    
     // Sort by strength first, then by priority if strength is tied
     sortedSpectrums.sort((a, b) => {
         const strengthDiff = spectrumStrengths[b] - spectrumStrengths[a];
         if (strengthDiff !== 0) return strengthDiff;
-        return priorityOrder.indexOf(a) - priorityOrder.indexOf(b);
+        return SPECTRUM_PRIORITY_ORDER.indexOf(a) - SPECTRUM_PRIORITY_ORDER.indexOf(b);
     });
     
     // Get the two strongest spectrums
@@ -85,15 +115,8 @@ function determineTypologyPair(spectrumPlacements) {
     const primaryPlacement = spectrumPlacements[primarySpectrumId];
     const secondaryPlacement = spectrumPlacements[secondarySpectrumId];
     
-    // Map placements to typology key format
-    const placementMap = {
-        'left': 'structured',
-        'balanced': 'balanced',
-        'right': 'fluid'
-    };
-    
-    // Create typology pair key
-    const typologyKey = `${placementMap[primaryPlacement]}-${placementMap[secondaryPlacement]}`;
+    // Create typology pair key using the mapping constants
+    const typologyKey = `${PLACEMENT_MAPPING[primaryPlacement]}-${PLACEMENT_MAPPING[secondaryPlacement]}`;
     
     // Return typology pair information
     return {
