@@ -618,6 +618,8 @@ document.addEventListener('DOMContentLoaded', function() {
 function startAssessment() {
     document.getElementById('introduction').style.display = 'none';
     document.getElementById('part1').style.display = 'block';
+    document.getElementById('progress-container').style.display = 'block';
+    updateProgressIndicator('Part 1: Reality Creation Typology', 0);
 }
 
 // Generate Part 1: Typology Questions
@@ -705,6 +707,7 @@ function showPart2() {
 
     document.getElementById('part1').style.display = 'none';
     document.getElementById('part2').style.display = 'block';
+    updateProgressIndicator('Part 2: Mastery Assessment', 50);
 
     // Generate Part 2 questions if not already generated (handled in part2_mastery.js)
     if (document.getElementById('mastery-questions').children.length === 0) {
@@ -716,6 +719,7 @@ function showPart2() {
 function showPart1() {
     document.getElementById('part2').style.display = 'none';
     document.getElementById('part1').style.display = 'block';
+    updateProgressIndicator('Part 1: Reality Creation Typology', 25);
 }
 
 // Check for unanswered questions (visually highlight them)
@@ -769,6 +773,7 @@ function showResults() {
 
     document.getElementById('part2').style.display = 'none';
     document.getElementById('results').style.display = 'block';
+    updateProgressIndicator('Results', 100);
 
     // Calculate and display results (implemented in results.js)
     generateAndDisplayResults();
@@ -796,6 +801,9 @@ function restartAssessment() {
         typology: {},
         mastery: {}
     };
+
+ // Reset progress indicator
+    document.getElementById('progress-container').style.display = 'none';
 
     // Go back to introduction
     document.getElementById('results').style.display = 'none';
