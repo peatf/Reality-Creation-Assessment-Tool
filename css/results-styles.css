@@ -289,3 +289,193 @@
     margin-top: 0.25rem;
     margin-bottom: 0.25rem;
 }
+/* Radar Chart Styles */
+.radar-chart-container {
+    position: relative;
+    width: 100%;
+    max-width: 500px;
+    height: 500px;
+    margin: 2rem auto;
+}
+
+.radar-chart {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.radar-axis {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 50%;
+    height: 2px;
+    transform-origin: left center;
+    background-color: rgba(200, 200, 200, 0.3);
+}
+
+.radar-axis:before {
+    content: "";
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #3498db;
+    right: -4px;
+    top: -3px;
+}
+
+.radar-axis.primary-spectrum:before {
+    background-color: #e74c3c;
+    width: 10px;
+    height: 10px;
+    right: -5px;
+    top: -4px;
+    z-index: 3;
+}
+
+.radar-axis.secondary-spectrum:before {
+    background-color: #f39c12;
+    width: 9px;
+    height: 9px;
+    right: -4.5px;
+    top: -3.5px;
+    z-index: 2;
+}
+
+.radar-axis.tertiary-spectrum:before {
+    background-color: #2ecc71;
+    width: 8px;
+    height: 8px;
+    right: -4px;
+    top: -3px;
+    z-index: 1;
+}
+
+.radar-label {
+    position: absolute;
+    font-size: 0.9rem;
+    white-space: nowrap;
+}
+
+.radar-circles {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.radar-circle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    border: 1px dotted rgba(150, 150, 150, 0.3);
+}
+
+.placement-marker {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #3498db;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.placement-marker.primary-highlight {
+    background-color: #e74c3c;
+    width: 16px;
+    height: 16px;
+}
+
+.placement-marker.secondary-highlight {
+    background-color: #f39c12;
+    width: 14px;
+    height: 14px;
+}
+
+.placement-marker.tertiary-highlight {
+    background-color: #2ecc71;
+}
+
+.placement-label {
+    position: absolute;
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: #2c3e50;
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 2px 6px;
+    border-radius: 10px;
+    transform: translate(-50%, -50%);
+    white-space: nowrap;
+}
+
+.radar-polygons {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.radar-polygon {
+    fill: rgba(52, 152, 219, 0.1);
+    stroke: rgba(52, 152, 219, 0.6);
+    stroke-width: 2;
+}
+
+.radar-legend {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-top: 1.5rem;
+    padding-top: 1rem;
+    border-top: 1px dashed #ddd;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+}
+
+.legend-marker {
+    display: inline-block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
+
+.primary-marker {
+    background-color: #e74c3c;
+}
+
+.secondary-marker {
+    background-color: #f39c12;
+}
+
+.tertiary-marker {
+    background-color: #2ecc71;
+}
+
+@media (max-width: 600px) {
+    .radar-chart-container {
+        max-width: 350px;
+        height: 350px;
+    }
+    
+    .radar-label {
+        font-size: 0.8rem;
+    }
+    
+    .placement-label {
+        font-size: 0.7rem;
+    }
+}
