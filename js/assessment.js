@@ -585,15 +585,16 @@ const assessmentData = {
             description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
         }
     },
+    
+    resultsTemplates: {}
+};
 
-    // Results Templates
-    get resultsTemplates() {
-    return {
-        typologyPairs: this.typologyPairs,       
-        idealApproaches: this.idealApproaches,
-        misalignments: this.commonMisalignments
-    };
-}
+// Initialize resultsTemplates after the object is defined
+assessmentData.resultsTemplates = {
+    typologyPairs: assessmentData.typologyPairs,
+    idealApproaches: assessmentData.idealApproaches,
+    misalignments: assessmentData.commonMisalignments
+};
 
 // User's assessment responses
 let userResponses = {
