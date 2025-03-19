@@ -178,14 +178,24 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
     return additionalStrong;
 }
     
+    // Generate the typology pair section
+function generateTypologyPairSection(typologyPair) {
+    const typologyContainer = document.getElementById('typology-pair');
+    typologyContainer.innerHTML = '';
+
+    if (!typologyPair.primary || !typologyPair.secondary) {
+        typologyContainer.textContent = 'Unable to determine typology pair from responses.';
+        return;
+    }
+
     // Get typology descriptions
     const primaryDesc = assessmentData.typologyDescriptions[`${typologyPair.primary.spectrumId}-${typologyPair.primary.placement}`];
     const secondaryDesc = assessmentData.typologyDescriptions[`${typologyPair.secondary.spectrumId}-${typologyPair.secondary.placement}`];
-    
+
     // Create typology pair name
     const typologyName = document.createElement('div');
     typologyName.className = 'typology-pair-name';
-    
+
     // Determine typology pair key for template lookup
     let pairKey = '';
     if (typologyPair.primary.placement === 'left') {
@@ -195,9 +205,9 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
     } else {
         pairKey += 'fluid';
     }
-    
+
     pairKey += '-';
-    
+
     if (typologyPair.secondary.placement === 'left') {
         pairKey += 'structured';
     } else if (typologyPair.secondary.placement === 'balanced') {
@@ -205,51 +215,51 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
     } else {
         pairKey += 'fluid';
     }
-    
+
     // Get pair template
     const pairTemplate = assessmentData.resultsTemplates.typologyPairs[pairKey];
-    
+
     typologyName.textContent = pairTemplate.name;
-    
+
     // Create typology description
     const typologyDescription = document.createElement('div');
     typologyDescription.className = 'typology-description';
-    
+
     const descriptionParagraph = document.createElement('p');
     descriptionParagraph.textContent = pairTemplate.description;
     typologyDescription.appendChild(descriptionParagraph);
-    
+
     // Create typology components
     const typologyComponents = document.createElement('div');
     typologyComponents.className = 'typology-components';
-    
+
     const primaryComponent = document.createElement('div');
     primaryComponent.className = 'typology-component primary-component';
-    
+
     const primaryTitle = document.createElement('h5');
     primaryTitle.textContent = 'Primary: ' + primaryDesc.name;
-    
+
     const primaryDescription = document.createElement('p');
     primaryDescription.textContent = primaryDesc.description;
-    
+
     primaryComponent.appendChild(primaryTitle);
     primaryComponent.appendChild(primaryDescription);
-    
+
     const secondaryComponent = document.createElement('div');
     secondaryComponent.className = 'typology-component secondary-component';
-    
+
     const secondaryTitle = document.createElement('h5');
     secondaryTitle.textContent = 'Secondary: ' + secondaryDesc.name;
-    
+
     const secondaryDescription = document.createElement('p');
     secondaryDescription.textContent = secondaryDesc.description;
-    
+
     secondaryComponent.appendChild(secondaryTitle);
     secondaryComponent.appendChild(secondaryDescription);
-    
+
     typologyComponents.appendChild(primaryComponent);
     typologyComponents.appendChild(secondaryComponent);
-    
+
     // Assemble typology section
     typologyContainer.appendChild(typologyName);
     typologyContainer.appendChild(typologyDescription);
