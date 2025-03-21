@@ -1074,6 +1074,9 @@ function showResults() {
 
     // Calculate and display results (implemented in results.js)
     generateAndDisplayResults();
+
+     // Add this line to initialize UI improvements
+    initResultsPageUI();
 }
 
 // Update the header information for the current quiz section
