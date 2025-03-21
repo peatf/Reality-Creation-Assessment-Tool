@@ -621,7 +621,7 @@ function createMasteryQuestion(question, questionNumber) {
         optionDiv.dataset.optionId = option.id;
         optionDiv.dataset.value = option.value;
         
-        // Add click event to register answer with robust checking and logging
+        // Add click event to register answer - DIRECT GLOBAL REFERENCE
         optionDiv.addEventListener('click', function() {
             // Remove selected class from all options in this question
             const allOptions = optionsContainer.querySelectorAll('.answer-option');
@@ -630,16 +630,9 @@ function createMasteryQuestion(question, questionNumber) {
             // Add selected class to this option
             this.classList.add('selected');
             
-            // Check if global userResponses is defined and store the response
-            if (typeof window.userResponses !== 'undefined') {
-                if (!window.userResponses.mastery) {
-                    window.userResponses.mastery = {};
-                }
-                window.userResponses.mastery[question.id] = option.value;
-                console.log(`Set response for ${question.id}: ${option.value}`);
-            } else {
-                console.error("userResponses is not defined. Response not saved.");
-            }
+            // Store response directly in the global userResponses object
+            userResponses.mastery[question.id] = option.value;
+            console.log(`Set response for ${question.id}: ${option.value}`);
         });
         
         // Create radio button visual
@@ -664,6 +657,8 @@ function createMasteryQuestion(question, questionNumber) {
     questionContainer.appendChild(optionsContainer);
     return questionContainer;
 }
+    
+ 
 
 //---------------------------------------------------------------------
 // Add navigation between sections in Part 2
