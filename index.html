@@ -4,113 +4,267 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reality Creation Assessment: A Study in Self-Perception & Personal Architecture</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/results-styles.css">
-    <link rel="stylesheet" href="css/radar-chart.css">
+    <link rel="stylesheet" href="css/new-styles.css">
 </head>
-    <div class="progress-container" id="progress-container" style="display: none;">
-    <div class="progress-text">
-        <span id="progress-stage">Part 1: Reality Creation Typology</span>
-        <span id="progress-percentage">0%</span>
-    </div>
-    <div class="progress-bar">
-        <div class="progress-fill" id="progress-fill"></div>
-    </div>
-</div>
 <body>
     <div class="container">
-        <header>
-            <h1>Reality Creation Assessment</h1>
-            <h2>A Study in Self-Perception & Personal Architecture</h2>
-        </header>
-
+        <!-- Introduction Section -->
         <div class="introduction" id="introduction">
-            <h3>Welcome to Your Reality Creation Journey</h3>
-            <p>This assessment is designed to help you understand how you naturally engage with manifestation and reality creation. By exploring your unique patterns, preferences, and priorities, you'll gain insights into your core identity and discover personalized strategies to enhance your manifestation abilities.</p>
-            <p>The assessment consists of two interconnected parts:</p>
-            <ul>
-                <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
-                <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, priorities, growth areas, and energetic patterns to provide tailored recommendations.</li>
-            </ul>
-            <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
-            <button id="start-assessment" class="btn">Begin Assessment</button>
+            <header>
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <div class="flex items-center">
+                            <div class="h-px w-12 bg-stone-400 mr-4"></div>
+                            <span class="text-xs font-medium uppercase tracking-widest text-stone-500">WELCOME</span>
+                        </div>
+                        <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">REALITY CREATION ASSESSMENT</h1>
+                        <p class="mt-2 text-sm font-light text-stone-500">A Study in Self-Perception & Personal Architecture</p>
+                    </div>
+                </div>
+            </header>
+
+            <div class="intro-content">
+                <h3>Welcome to Your Reality Creation Journey</h3>
+                <p>This assessment is designed to help you understand how you naturally engage with manifestation and reality creation. By exploring your unique patterns, preferences, and priorities, you'll gain insights into your core identity and discover personalized strategies to enhance your manifestation abilities.</p>
+                <p>The assessment consists of two interconnected parts:</p>
+                <ul>
+                    <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
+                    <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, priorities, growth areas, and energetic patterns to provide tailored recommendations.</li>
+                </ul>
+                <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
+                <button id="start-assessment" class="btn">Begin Assessment</button>
+            </div>
         </div>
 
         <!-- Part 1: Reality Creation Typology -->
         <div class="assessment-section" id="part1" style="display: none;">
-            <h3>Part 1: Reality Creation Typology</h3>
-            <div id="spectrum-questions"></div>
-            <div class="navigation-buttons">
-                <button id="part1-next" class="btn">Continue to Part 2</button>
+            <!-- Canvas for animated background -->
+            <canvas id="background-canvas" class="background-canvas"></canvas>
+            
+            <div class="quiz-container">
+                <!-- Header section with editorial design influence -->
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <div class="flex items-center">
+                            <div class="h-px w-12 bg-stone-400 mr-4"></div>
+                            <span class="text-xs font-medium uppercase tracking-widest text-stone-500">SPECTRUM 01/06</span>
+                        </div>
+                        <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">REALITY CREATION TYPOLOGY</h1>
+                        <p class="mt-2 text-sm font-light text-stone-500">How you mentally interact with reality</p>
+                    </div>
+                    
+                    <div class="flex flex-col items-end text-xs uppercase tracking-wider mb-1">
+                        <span class="font-light text-stone-500">REALITY CREATION ASSESSMENT</span>
+                        <div class="mt-1 flex space-x-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-amber-300 opacity-80"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Vertical spectrum reference line -->
+                <div class="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-stone-300 to-transparent opacity-20"></div>
+                
+                <div id="spectrum-questions"></div>
+                
+                <!-- Confirmation and navigation footer -->
+                <div class="mt-16 pt-6 border-t border-stone-200">
+                    <div class="flex items-center justify-between">
+                        <div class="text-xs font-light text-stone-500">
+                            Part 1 of 2
+                        </div>
+                        
+                        <button id="part1-next" class="btn flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-700">
+                            Continue to Part 2
+                            <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Abstract progress indicator -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2">
+                    <div class="flex items-center space-x-6">
+                        <div class="h-3 w-px bg-amber-400"></div>
+                        <div class="h-3 w-px bg-stone-300"></div>
+                        <div class="h-3 w-px bg-stone-300"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Part 2: Mastery Assessment -->
         <div class="assessment-section" id="part2" style="display: none;">
-            <h3>Part 2: Mastery Assessment</h3>
-            <p class="section-description">This part explores your core values, priorities, growth areas, and natural energy patterns to provide tailored recommendations for your manifestation journey.</p>
-            <div id="mastery-questions"></div>
-            <div class="navigation-buttons">
-                <button id="part2-prev" class="btn">Back to Part 1</button>
-                <button id="submit-assessment" class="btn">View Your Results</button>
+            <!-- Canvas for animated background -->
+            <canvas id="background-canvas-part2" class="background-canvas"></canvas>
+            
+            <div class="quiz-container">
+                <!-- Header section with editorial design influence -->
+                <div class="flex items-end justify-between mb-12">
+                    <div>
+                        <div class="flex items-center">
+                            <div class="h-px w-12 bg-stone-400 mr-4"></div>
+                            <span class="text-xs font-medium uppercase tracking-widest text-stone-500">PART 2 OF 2</span>
+                        </div>
+                        <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">MASTERY ASSESSMENT</h1>
+                    </div>
+                    
+                    <div class="flex flex-col items-end text-xs uppercase tracking-wider mb-1">
+                        <span class="font-light text-stone-500">REALITY CREATION ASSESSMENT</span>
+                        <div class="mt-1 flex space-x-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-amber-300 opacity-80"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Progress indicator -->
+                <div class="mb-12">
+                    <div class="flex justify-between text-xs uppercase tracking-wider text-stone-500 mb-2">
+                        <span>Core Priorities</span>
+                        <span>Growth Areas</span>
+                        <span>Alignment Needs</span>
+                    </div>
+                    <div class="h-0.5 w-full bg-stone-200 relative">
+                        <div id="progress-fill-part2" class="absolute h-full bg-gradient-to-r from-amber-300 to-amber-400 transition-all duration-500" style="width: 33%"></div>
+                    </div>
+                </div>
+                
+                <div id="mastery-questions"></div>
+                
+                <!-- Navigation footer -->
+                <div class="mt-16 pt-6 border-t border-stone-200">
+                    <div class="flex items-center justify-between">
+                        <button id="part2-prev" class="group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 transition-all hover:text-stone-700">
+                            <span class="mr-4 h-px w-8 bg-stone-300 transition-all group-hover:w-12 group-hover:bg-stone-500"></span>
+                            Back to Part 1
+                        </button>
+                        
+                        <div class="text-xs font-light text-stone-500">
+                            Part 2 of 2
+                        </div>
+                        
+                        <button id="submit-assessment" class="group flex items-center text-xs font-medium uppercase tracking-widest text-stone-700 transition-all hover:text-amber-700">
+                            View Results
+                            <span class="ml-4 h-px w-8 bg-stone-500 transition-all group-hover:w-12 group-hover:bg-amber-500"></span>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Abstract progress indicator -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2">
+                    <div class="flex items-center space-x-6">
+                        <div class="h-3 w-px bg-stone-300"></div>
+                        <div class="h-3 w-px bg-amber-400"></div>
+                        <div class="h-3 w-px bg-stone-300"></div>
+                    </div>
+                </div>
             </div>
         </div>
 
         <!-- Results Section -->
-        <div class="results-section" id="results" style="display: none;">
-            <h3>Your Reality Creation Profile</h3>
+        <div class="assessment-section" id="results" style="display: none;">
+            <!-- Canvas for animated background -->
+            <canvas id="background-canvas-results" class="background-canvas"></canvas>
             
             <div class="results-container">
-                <div class="spectrum-diagram">
-                    <h4>Your Spectrum Placements</h4>
-                    <div id="spectrum-diagram"></div>
+                <!-- Header section with editorial design influence -->
+                <div class="flex items-end justify-between mb-16">
+                    <div>
+                        <div class="flex items-center">
+                            <div class="h-px w-12 bg-stone-400 mr-4"></div>
+                            <span class="text-xs font-medium uppercase tracking-widest text-stone-500">RESULTS</span>
+                        </div>
+                        <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">YOUR REALITY CREATION PROFILE</h1>
+                    </div>
+                    
+                    <div class="flex flex-col items-end text-xs uppercase tracking-wider mb-1">
+                        <span class="font-light text-stone-500">REALITY CREATION ASSESSMENT</span>
+                        <div class="mt-1 flex space-x-2">
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-stone-300 opacity-60"></span>
+                            <span class="h-1.5 w-1.5 rounded-full bg-amber-300 opacity-80"></span>
+                        </div>
+                    </div>
                 </div>
                 
-                <div class="typology-results">
-                    <h4>1. Reality Creation Typology</h4>
-                    <div id="typology-pair"></div>
+                <!-- Navigation tabs -->
+                <div class="mb-12 border-b border-stone-200">
+                    <div class="flex space-x-8">
+                        <button id="typology-tab" class="pb-4 text-sm font-light tracking-wide relative text-amber-700">
+                            Reality Creation Typology
+                            <div class="absolute bottom-0 left-0 w-full h-0.5 bg-amber-400"></div>
+                        </button>
+                        <button id="approaches-tab" class="pb-4 text-sm font-light tracking-wide relative text-stone-500 hover:text-stone-700">
+                            Ideal Approaches
+                        </button>
+                        <button id="strategy-tab" class="pb-4 text-sm font-light tracking-wide relative text-stone-500 hover:text-stone-700">
+                            Personalized Strategy
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Results Content -->
+                <div id="results-content" class="space-y-16">
+                    <div id="typology-content" class="results-section">
+                        <!-- Spectrum Diagram -->
+                        <div id="spectrum-diagram" class="spectrum-diagram"></div>
+                        
+                        <!-- Typology Pair -->
+                        <div id="typology-pair" class="typology-results"></div>
+                    </div>
+                    
+                    <div id="approaches-content" class="results-section" style="display: none;">
+                        <!-- Ideal Approaches -->
+                        <div id="ideal-approaches" class="ideal-approaches"></div>
+                        
+                        <!-- Common Misalignments -->
+                        <div id="common-misalignments" class="common-misalignments"></div>
+                    </div>
+                    
+                    <div id="strategy-content" class="results-section" style="display: none;">
+                        <!-- Mastery Priorities -->
+                        <div id="mastery-priorities" class="mastery-priorities"></div>
+                        
+                        <!-- Prescriptive Strategy -->
+                        <div id="prescriptive-strategy" class="prescriptive-strategy"></div>
+                    </div>
                 </div>
                 
-                <div class="ideal-approaches">
-                    <h4>2. Ideal Approaches</h4>
-                    <div id="ideal-approaches"></div>
+                <!-- Footer navigation -->
+                <div class="mt-16 pt-6 border-t border-stone-200">
+                    <div class="flex items-center justify-between">
+                        <button id="restart-assessment" class="group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 transition-all hover:text-stone-700">
+                            <span class="mr-4 h-px w-8 bg-stone-300 transition-all group-hover:w-12 group-hover:bg-stone-500"></span>
+                            Retake Assessment
+                        </button>
+                        
+                        <button id="print-results" class="group flex items-center text-xs font-medium uppercase tracking-widest text-stone-700 transition-all hover:text-amber-700">
+                            Download PDF
+                            <span class="ml-4 h-px w-8 bg-stone-500 transition-all group-hover:w-12 group-hover:bg-amber-500"></span>
+                        </button>
+                    </div>
                 </div>
                 
-                <div class="common-misalignments">
-                    <h4>3. Common Misalignments</h4>
-                    <div id="common-misalignments"></div>
+                <!-- Abstract progress indicator -->
+                <div class="absolute bottom-6 left-1/2 -translate-x-1/2">
+                    <div class="flex items-center space-x-6">
+                        <div class="h-3 w-px bg-stone-300"></div>
+                        <div class="h-3 w-px bg-stone-300"></div>
+                        <div class="h-3 w-px bg-amber-400"></div>
+                    </div>
                 </div>
-                
-                <div class="mastery-priorities">
-                    <h4>4. Mastery Priorities & Growth Areas</h4>
-                    <div id="mastery-priorities"></div>
-                </div>
-                
-                <div class="prescriptive-strategy">
-                    <h4>5. Personalized Prescriptive Strategy</h4>
-                    <div id="prescriptive-strategy"></div>
-                </div>
-            </div>
-            
-            <div class="navigation-buttons">
-                <button id="restart-assessment" class="btn">Retake Assessment</button>
-                <button id="print-results" class="btn">Print Results</button>
             </div>
         </div>
     </div>
 
-    <!-- 
-      IMPORTANT SCRIPT ORDER:
-      1) assessment.js (optional – it’s your original order)
-      2) part2_mastery.js (defines calculateMasteryScores)
-      3) scoring.js (calls calculateMasteryScores)
-      4) results.js
-      5) test-results.js
-    -->
+    <!-- Scripts -->
     <script src="js/assessment.js"></script>
     <script src="js/part2_mastery.js"></script>
     <script src="js/scoring.js"></script>
     <script src="js/results.js"></script>
+    <script src="js/animations.js"></script>
     
     <!-- Test script - Remove in production -->
     <script src="js/test-results.js"></script>
