@@ -1,4 +1,7 @@
 // Part 2: Mastery Assessment Questions
+// This file contains the logic for generating the Mastery Assessment questions
+
+// Mastery Assessment Data Structure
 const masteryAssessmentData = {
     // Core Priorities & Values (3 questions)
     corePriorities: [
@@ -449,134 +452,185 @@ const masteryAssessmentData = {
     ]
 };
 
-// Generate Part 2: Mastery Assessment questions
+//---------------------------------------------------------------------
+// Generate Part 2: Mastery Assessment questions (Updated version)
+//---------------------------------------------------------------------
 function generateMasteryQuestions() {
     const container = document.getElementById('mastery-questions');
     container.innerHTML = '';
     
     // Create Core Priorities & Values section
-    const prioritiesSection = document.createElement('div');
-    prioritiesSection.className = 'mastery-section';
-    
-    const prioritiesTitle = document.createElement('h4');
-    prioritiesTitle.className = 'section-title';
-    prioritiesTitle.textContent = 'Core Priorities & Values';
-    prioritiesSection.appendChild(prioritiesTitle);
-    
-    const prioritiesDesc = document.createElement('p');
-    prioritiesDesc.className = 'section-description';
-    prioritiesDesc.textContent = 'These questions help identify your deep values and non-negotiable priorities in the manifestation process.';
-    prioritiesSection.appendChild(prioritiesDesc);
+    const prioritiesSection = createMasterySection(
+        'Core Priorities & Values',
+        'These questions help identify your deep values and non-negotiable priorities in the manifestation process.',
+        'core-priorities',
+        1
+    );
     
     // Add Core Priorities questions
-    masteryAssessmentData.corePriorities.forEach(question => {
-        const questionContainer = createQuestionElement(question, 'mastery');
+    masteryAssessmentData.corePriorities.forEach((question, index) => {
+        const questionContainer = createMasteryQuestion(question, index + 1);
         prioritiesSection.appendChild(questionContainer);
     });
     
     container.appendChild(prioritiesSection);
     
     // Create Growth & Permission Areas section
-    const growthSection = document.createElement('div');
-    growthSection.className = 'mastery-section';
-    
-    const growthTitle = document.createElement('h4');
-    growthTitle.className = 'section-title';
-    growthTitle.textContent = 'Growth & Permission Areas';
-    growthSection.appendChild(growthTitle);
-    
-    const growthDesc = document.createElement('p');
-    growthDesc.className = 'section-description';
-    growthDesc.textContent = 'These questions help diagnose your current growth areas and friction points in your manifestation process.';
-    growthSection.appendChild(growthDesc);
+    const growthSection = createMasterySection(
+        'Growth & Permission Areas',
+        'These questions help diagnose your current growth areas and friction points in your manifestation process.',
+        'growth-areas',
+        2
+    );
     
     // Add Growth Areas questions
-    masteryAssessmentData.growthAreas.forEach(question => {
-        const questionContainer = createQuestionElement(question, 'mastery');
+    masteryAssessmentData.growthAreas.forEach((question, index) => {
+        const questionContainer = createMasteryQuestion(question, index + 1);
         growthSection.appendChild(questionContainer);
     });
     
     container.appendChild(growthSection);
     
     // Create Acceptance & Alignment Needs section
-    const alignmentSection = document.createElement('div');
-    alignmentSection.className = 'mastery-section';
-    
-    const alignmentTitle = document.createElement('h4');
-    alignmentTitle.className = 'section-title';
-    alignmentTitle.textContent = 'Acceptance & Alignment Needs';
-    alignmentSection.appendChild(alignmentTitle);
-    
-    const alignmentDesc = document.createElement('p');
-    alignmentDesc.className = 'section-description';
-    alignmentDesc.textContent = 'These questions help pinpoint areas requiring acceptance or alignment adjustments in your manifestation process.';
-    alignmentSection.appendChild(alignmentDesc);
+    const alignmentSection = createMasterySection(
+        'Acceptance & Alignment Needs',
+        'These questions help pinpoint areas requiring acceptance or alignment adjustments in your manifestation process.',
+        'alignment-needs',
+        3
+    );
     
     // Add Alignment Needs questions
-    masteryAssessmentData.alignmentNeeds.forEach(question => {
-        const questionContainer = createQuestionElement(question, 'mastery');
+    masteryAssessmentData.alignmentNeeds.forEach((question, index) => {
+        const questionContainer = createMasteryQuestion(question, index + 1);
         alignmentSection.appendChild(questionContainer);
     });
     
     container.appendChild(alignmentSection);
     
     // Create Natural Energy Patterns section
-    const energySection = document.createElement('div');
-    energySection.className = 'mastery-section';
-    
-    const energyTitle = document.createElement('h4');
-    energyTitle.className = 'section-title';
-    energyTitle.textContent = 'Natural Energy Patterns';
-    energySection.appendChild(energyTitle);
-    
-    const energyDesc = document.createElement('p');
-    energyDesc.className = 'section-description';
-    energyDesc.textContent = 'These questions help uncover your hidden energetic preferences and needs for optimal manifestation.';
-    energySection.appendChild(energyDesc);
+    const energySection = createMasterySection(
+        'Natural Energy Patterns',
+        'These questions help uncover your hidden energetic preferences and needs for optimal manifestation.',
+        'energy-patterns',
+        4
+    );
     
     // Add Energy Patterns questions
-    masteryAssessmentData.energyPatterns.forEach(question => {
-        const questionContainer = createQuestionElement(question, 'mastery');
+    masteryAssessmentData.energyPatterns.forEach((question, index) => {
+        const questionContainer = createMasteryQuestion(question, index + 1);
         energySection.appendChild(questionContainer);
     });
     
     container.appendChild(energySection);
+    
+    // Add section change handler
+    initSectionNavigation();
 }
 
-// Helper function to create question elements
-function createQuestionElement(question, type) {
+//---------------------------------------------------------------------
+// Helper function to create a section for the mastery assessment
+//---------------------------------------------------------------------
+function createMasterySection(title, description, id, sectionNumber) {
+    const section = document.createElement('div');
+    section.className = 'mastery-section';
+    section.id = id;
+    section.dataset.sectionNumber = sectionNumber;
+    
+    // Create section header with icon
+    const sectionTitle = document.createElement('div');
+    sectionTitle.className = 'section-title';
+    
+    const titleIcon = document.createElement('div');
+    titleIcon.className = 'section-title-icon';
+    titleIcon.innerHTML = `<span>${sectionNumber}</span>`;
+    
+    const titleText = document.createElement('h4');
+    titleText.className = 'section-title-text';
+    titleText.textContent = title;
+    
+    sectionTitle.appendChild(titleIcon);
+    sectionTitle.appendChild(titleText);
+    
+    // Create section description
+    const sectionDesc = document.createElement('p');
+    sectionDesc.className = 'section-description';
+    sectionDesc.textContent = description;
+    
+    // Add header and description to section
+    section.appendChild(sectionTitle);
+    section.appendChild(sectionDesc);
+    
+    // Initially hide all sections except the first one
+    if (sectionNumber > 1) {
+        section.style.display = 'none';
+    }
+    
+    return section;
+}
+
+//---------------------------------------------------------------------
+// Helper function to create a question for the mastery assessment
+//---------------------------------------------------------------------
+function createMasteryQuestion(question, questionNumber) {
     const questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
     questionContainer.dataset.questionId = question.id;
     
-    const questionText = document.createElement('div');
-    questionText.className = 'question-text';
+    // Create question grid
+    const questionGrid = document.createElement('div');
+    questionGrid.className = 'grid grid-cols-12 gap-4 mb-8';
+    
+    // Question number column
+    const questionNumberCol = document.createElement('div');
+    questionNumberCol.className = 'col-span-2';
+    
+    const questionLabel = document.createElement('div');
+    questionLabel.className = 'text-xs font-medium uppercase tracking-widest text-stone-500 mb-1';
+    questionLabel.textContent = 'Question';
+    
+    const questionNumEl = document.createElement('div');
+    questionNumEl.className = 'text-right text-3xl font-light text-stone-800';
+    questionNumEl.textContent = `0${questionNumber}`;
+    
+    questionNumberCol.appendChild(questionLabel);
+    questionNumberCol.appendChild(questionNumEl);
+    
+    // Question text column
+    const questionTextCol = document.createElement('div');
+    questionTextCol.className = 'col-span-10';
+    
+    const questionText = document.createElement('p');
+    questionText.className = 'text-xl font-light leading-relaxed text-stone-700';
     questionText.textContent = question.text;
-    questionContainer.appendChild(questionText);
     
-    const answerOptions = document.createElement('div');
-    answerOptions.className = 'answer-options';
+    questionTextCol.appendChild(questionText);
     
-    // Create radio options
+    // Assemble question grid
+    questionGrid.appendChild(questionNumberCol);
+    questionGrid.appendChild(questionTextCol);
+    questionContainer.appendChild(questionGrid);
+    
+    // Create options container
+    const optionsContainer = document.createElement('div');
+    optionsContainer.className = 'ml-12 space-y-4';
+    
+    // Add each option
     question.options.forEach(option => {
-        const optionDiv = document.createElement('label');
+        const optionDiv = document.createElement('div');
         optionDiv.className = 'answer-option';
-        optionDiv.htmlFor = option.id;
+        optionDiv.dataset.optionId = option.id;
+        optionDiv.dataset.value = option.value;
         
-        const radio = document.createElement('input');
-        radio.type = 'radio';
-        radio.name = question.id;
-        radio.id = option.id;
-        radio.value = option.value;
-        radio.addEventListener('change', function() {
-            // Remove 'selected' from all options in this question
-            const allOptions = questionContainer.querySelectorAll('.answer-option');
+        // Add click event to register answer
+        optionDiv.addEventListener('click', function() {
+            // Remove selected class from all options in this question
+            const allOptions = optionsContainer.querySelectorAll('.answer-option');
             allOptions.forEach(opt => opt.classList.remove('selected'));
             
-            // Add 'selected' to the chosen option
-            optionDiv.classList.add('selected');
+            // Add selected class to this option
+            this.classList.add('selected');
             
-            // Store user response in global object
+            // Store user response
             if (!window.userResponses) {
                 window.userResponses = {};
             }
@@ -586,21 +640,181 @@ function createQuestionElement(question, type) {
             window.userResponses.mastery[question.id] = option.value;
         });
         
-        const optionText = document.createElement('span');
+        // Create radio button visual
+        const radioVisual = document.createElement('div');
+        radioVisual.className = 'answer-radio';
+        
+        const radioDot = document.createElement('div');
+        radioDot.className = 'answer-radio-dot';
+        radioVisual.appendChild(radioDot);
+        
+        // Create option text
+        const optionText = document.createElement('div');
+        optionText.className = 'answer-text';
         optionText.textContent = option.text;
         
-        optionDiv.appendChild(radio);
+        // Assemble option element
+        optionDiv.appendChild(radioVisual);
         optionDiv.appendChild(optionText);
-        answerOptions.appendChild(optionDiv);
+        optionsContainer.appendChild(optionDiv);
     });
     
-    questionContainer.appendChild(answerOptions);
+    questionContainer.appendChild(optionsContainer);
     return questionContainer;
 }
 
-//================================================
-// NEWLY ADDED: calculateMasteryScores (Numeric)
-//================================================
+//---------------------------------------------------------------------
+// Add navigation between sections in Part 2
+//---------------------------------------------------------------------
+function initSectionNavigation() {
+    const sections = document.querySelectorAll('.mastery-section');
+    if (sections.length === 0) return;
+    
+    // Get navigation buttons (assumed to exist in Part 2 container)
+    const prevButton = document.querySelector('#part2 button:first-child');
+    const nextButton = document.querySelector('#submit-assessment');
+    
+    let currentSectionIndex = 0;
+    
+    // Function to update progress indication
+    function updateProgress() {
+        // Update progress text
+        const sectionCountText = document.querySelector('#part2 .text-xs.font-light.text-stone-500');
+        if (sectionCountText) {
+            sectionCountText.textContent = `Section ${currentSectionIndex + 1} of ${sections.length}`;
+        }
+        
+        // Update progress bar
+        const progressFill = document.getElementById('progress-fill-part2');
+        if (progressFill) {
+            const progressPercentage = ((currentSectionIndex + 1) / sections.length) * 100;
+            progressFill.style.width = `${progressPercentage}%`;
+        }
+        
+        // Update bottom progress dots
+        const progressDots = document.querySelectorAll('#part2 .flex.items-center.space-x-6 .h-3.w-px');
+        if (progressDots.length === sections.length) {
+            progressDots.forEach((dot, index) => {
+                if (index === currentSectionIndex) {
+                    dot.className = 'h-3 w-px bg-amber-400';
+                } else {
+                    dot.className = 'h-3 w-px bg-stone-300';
+                }
+            });
+        }
+    }
+    
+    // Create navigation buttons for section change
+    const prevSectionBtn = document.createElement('button');
+    prevSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-300 cursor-not-allowed';
+    prevSectionBtn.innerHTML = `
+        <span class="mr-4 h-px w-8 bg-stone-200"></span>
+        Previous Section
+    `;
+    prevSectionBtn.style.display = 'none'; // Hide initially
+    
+    const nextSectionBtn = document.createElement('button');
+    nextSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-700';
+    nextSectionBtn.innerHTML = `
+        Next Section
+        <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
+    `;
+    
+    // Replace submit button with next section button initially
+    nextButton.parentNode.insertBefore(nextSectionBtn, nextButton);
+    nextButton.style.display = 'none';
+    
+    // Add prev section button next to back to part 1 button
+    prevButton.parentNode.insertBefore(prevSectionBtn, prevButton.nextSibling);
+    
+    // Navigation event handlers
+    prevSectionBtn.addEventListener('click', function() {
+        if (currentSectionIndex > 0) {
+            // Hide current section
+            sections[currentSectionIndex].style.display = 'none';
+            
+            // Show previous section
+            currentSectionIndex--;
+            sections[currentSectionIndex].style.display = 'block';
+            
+            // Update button states
+            if (currentSectionIndex === 0) {
+                prevSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-300 cursor-not-allowed';
+                prevSectionBtn.style.display = 'none';
+                prevButton.style.display = 'flex';
+            }
+            
+            // Show next section button, hide submit button
+            nextSectionBtn.style.display = 'flex';
+            nextButton.style.display = 'none';
+            
+            // Update progress
+            updateProgress();
+            
+            // Scroll to top of section
+            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+    
+    nextSectionBtn.addEventListener('click', function() {
+        // Check if current section is answered
+        const currentSectionQuestions = sections[currentSectionIndex].querySelectorAll('.question-container');
+        let unansweredCount = 0;
+        
+        currentSectionQuestions.forEach(question => {
+            const questionId = question.dataset.questionId;
+            if (!window.userResponses.mastery[questionId]) {
+                unansweredCount++;
+                question.classList.add('unanswered');
+                
+                // Scroll to first unanswered question
+                if (unansweredCount === 1) {
+                    question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                question.classList.remove('unanswered');
+            }
+        });
+        
+        if (unansweredCount > 0) {
+            alert(`Please answer all questions in this section before continuing. You have ${unansweredCount} unanswered questions.`);
+            return;
+        }
+        
+        if (currentSectionIndex < sections.length - 1) {
+            // Hide current section
+            sections[currentSectionIndex].style.display = 'none';
+            
+            // Show next section
+            currentSectionIndex++;
+            sections[currentSectionIndex].style.display = 'block';
+            
+            // Update button states
+            prevSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 hover:text-stone-700';
+            prevSectionBtn.style.display = 'flex';
+            prevButton.style.display = 'none';
+            
+            // If last section, show submit button
+            if (currentSectionIndex === sections.length - 1) {
+                nextSectionBtn.style.display = 'none';
+                nextButton.style.display = 'flex';
+            }
+            
+            // Update progress
+            updateProgress();
+            
+            // Scroll to top of section
+            sections[currentSectionIndex].scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+    
+    // Initialize progress
+    updateProgress();
+}
+
+//---------------------------------------------------------------------
+// EXISTING: calculateMasteryScores (Numeric)
+//---------------------------------------------------------------------
 window.calculateMasteryScores = function() {
     // Make sure we have user responses
     if (!window.userResponses || !window.userResponses.mastery) {
@@ -612,7 +826,7 @@ window.calculateMasteryScores = function() {
         };
     }
 
-    // We'll group answers into 4 categories (objects),
+    // Group answers into 4 categories (objects),
     // and each chosen value becomes a numeric count
     const result = {
         corePriorities: {},
