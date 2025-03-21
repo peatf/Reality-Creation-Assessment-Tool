@@ -877,27 +877,56 @@ function checkUnansweredQuestions(partId) {
             }
         });
     } else if (partId === 'part2') {
-        // Get all questions in Part 2
-        const questions = document.querySelectorAll('#mastery-questions .question-container');
+        // Debug: Log entire contents of userResponses.mastery
+        console.log("Current mastery responses:", userResponses.mastery);
         
-        questions.forEach(question => {
-            const questionId = question.dataset.questionId;
-            const isAnswered = userResponses.mastery[questionId] !== undefined;
+        // For Part 2, we need to check all sections
+        const allSections = document.querySelectorAll('#mastery-questions .mastery-section');
+        
+        allSections.forEach(section => {
+            const questions = section.querySelectorAll('.question-container');
             
-            if (!isAnswered) {
-                unansweredCount++;
-                question.classList.add('unanswered');
+            questions.forEach(question => {
+                const questionId = question.dataset.questionId;
+                const isAnswered = userResponses.mastery && userResponses.mastery[questionId] !== undefined;
                 
-                // Scroll to first unanswered question
-                if (unansweredCount === 1) {
-                    question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                console.log(`Question ${questionId}: ${isAnswered ? 'answered' : 'unanswered'}`);
+                
+                if (!isAnswered) {
+                    unansweredCount++;
+                    question.classList.add('unanswered');
+                    
+                    // Scroll to first unanswered question
+                    if (unansweredCount === 1) {
+                        // Make section visible first if it isn't already
+                        const parentSection = question.closest('.mastery-section');
+                        if (parentSection && parentSection.style.display === 'none') {
+                            // Show all sections temporarily for scrolling
+                            allSections.forEach(s => s.style.display = 'block');
+                            
+                            // Scroll to question
+                            question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                            
+                            // Return to original visibility state after a delay
+                            setTimeout(() => {
+                                allSections.forEach(s => {
+                                    if (s !== parentSection) {
+                                        s.style.display = 'none';
+                                    }
+                                });
+                            }, 100);
+                        } else {
+                            question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                        }
+                    }
+                } else {
+                    question.classList.remove('unanswered');
                 }
-            } else {
-                question.classList.remove('unanswered');
-            }
+            });
         });
     }
     
+    console.log(`Total unanswered questions in ${partId}: ${unansweredCount}`);
     return unansweredCount;
 }
 
