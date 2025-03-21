@@ -1,5 +1,4 @@
 // Assessment Data Structure
-// Assessment Data Structure
 const assessmentData = {
     // Part 1: Reality Creation Typology
     typologySpectrums: [
@@ -12,7 +11,7 @@ const assessmentData = {
             questions: [
                 {
                     id: "cognitive-q1",
-                    text: "When encountering new ideas, you typically:",
+                    text: "When encountering new ideas around spirituality, you typically:",
                     options: [
                         {
                             id: "cognitive-q1-left",
@@ -603,7 +602,6 @@ let userResponses = {
     mastery: {}
 };
 
-// Initialize the assessment after DOM load
 document.addEventListener('DOMContentLoaded', function() {
     // Event listeners for navigation
     document.getElementById('start-assessment').addEventListener('click', startAssessment);
@@ -615,13 +613,15 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Generate Part 1 questions
     generateTypologyQuestions();
+    
+    // Update header info for Part 1
+    updateQuizHeader('part1');
 });
 
 // Start the assessment
 function startAssessment() {
     document.getElementById('introduction').style.display = 'none';
     document.getElementById('part1').style.display = 'block';
-    document.getElementById('progress-container').style.display = 'block';
     updateProgressIndicator('Part 1: Reality Creation Typology', 0);
 }
 
@@ -630,7 +630,7 @@ function generateTypologyQuestions() {
     const container = document.getElementById('spectrum-questions');
     container.innerHTML = '';
 
-    assessmentData.typologySpectrums.forEach(spectrum => {
+    assessmentData.typologySpectrums.forEach((spectrum, spectrumIndex) => {
         // Create spectrum section
         const spectrumSection = document.createElement('div');
         spectrumSection.className = 'spectrum-section';
@@ -647,56 +647,180 @@ function generateTypologyQuestions() {
         spectrumSection.appendChild(spectrumDesc);
 
         // Add questions for this spectrum
-        spectrum.questions.forEach(question => {
+        spectrum.questions.forEach((question, questionIndex) => {
             const questionContainer = document.createElement('div');
             questionContainer.className = 'question-container';
             questionContainer.dataset.questionId = question.id;
 
-            const questionText = document.createElement('div');
-            questionText.className = 'question-text';
+            // Create question grid
+            const questionGrid = document.createElement('div');
+            questionGrid.className = 'grid grid-cols-12 gap-4 mb-8';
+            
+            // Question number column
+            const questionNumberCol = document.createElement('div');
+            questionNumberCol.className = 'col-span-2';
+            
+            const questionLabel = document.createElement('div');
+            questionLabel.className = 'text-xs font-medium uppercase tracking-widest text-stone-500 mb-1';
+            questionLabel.textContent = 'Question';
+            
+            const questionNumber = document.createElement('div');
+            questionNumber.className = 'text-right text-3xl font-light text-stone-800';
+            questionNumber.textContent = `0${questionIndex + 1}`;
+            
+            questionNumberCol.appendChild(questionLabel);
+            questionNumberCol.appendChild(questionNumber);
+            
+            // Question text column
+            const questionTextCol = document.createElement('div');
+            questionTextCol.className = 'col-span-10';
+            
+            const questionText = document.createElement('p');
+            questionText.className = 'text-2xl font-light leading-relaxed text-stone-700';
             questionText.textContent = question.text;
-            questionContainer.appendChild(questionText);
+            
+            questionTextCol.appendChild(questionText);
+            
+            // Add columns to grid
+            questionGrid.appendChild(questionNumberCol);
+            questionGrid.appendChild(questionTextCol);
+            questionContainer.appendChild(questionGrid);
 
-            const answerOptions = document.createElement('div');
-            answerOptions.className = 'answer-options';
-
-            // Create radio options
-            question.options.forEach(option => {
-                const optionDiv = document.createElement('label');
-                optionDiv.className = 'answer-option';
-                optionDiv.htmlFor = option.id;
-
-                const radio = document.createElement('input');
-                radio.type = 'radio';
-                radio.name = question.id;
-                radio.id = option.id;
-                radio.value = option.value;
-                radio.addEventListener('change', function() {
+            // Create interactive spectrum visualization
+            const visualization = document.createElement('div');
+            visualization.className = 'mb-16';
+            
+            // Spectrum labels
+            const spectrumLabels = document.createElement('div');
+            spectrumLabels.className = 'flex justify-between items-center mb-8';
+            
+            const leftLabel = document.createElement('div');
+            leftLabel.className = 'text-xs font-medium uppercase tracking-wide text-stone-500';
+            leftLabel.textContent = spectrum.leftLabel;
+            
+            const trackLine = document.createElement('div');
+            trackLine.className = 'flex-1 h-0.5 mx-6 bg-gradient-to-r from-stone-200 via-stone-300 to-stone-200 rounded-full';
+            
+            const rightLabel = document.createElement('div');
+            rightLabel.className = 'text-xs font-medium uppercase tracking-wide text-stone-500';
+            rightLabel.textContent = spectrum.rightLabel;
+            
+            spectrumLabels.appendChild(leftLabel);
+            spectrumLabels.appendChild(trackLine);
+            spectrumLabels.appendChild(rightLabel);
+            
+            // Option selection with neumorphic styling
+            const optionsContainer = document.createElement('div');
+            optionsContainer.className = 'relative pt-6 pb-10';
+            
+            // Track line connecting the options
+            const trackConnect = document.createElement('div');
+            trackConnect.className = 'absolute top-1/2 left-0 w-full h-0.5 bg-stone-200 transform -translate-y-1/2';
+            optionsContainer.appendChild(trackConnect);
+            
+            // Interactive options
+            const optionsGroup = document.createElement('div');
+            optionsGroup.className = 'relative flex justify-between items-center mb-12';
+            
+            // Create options
+            question.options.forEach((option, optionIndex) => {
+                const optionContainer = document.createElement('div');
+                optionContainer.className = 'option-container';
+                
+                const optionButton = document.createElement('div');
+                optionButton.className = 'option-button';
+                optionButton.dataset.optionId = option.id;
+                optionButton.dataset.value = option.value;
+                
+                // Create inner marker that appears when selected
+                const optionMarker = document.createElement('div');
+                optionMarker.className = 'option-marker';
+                optionButton.appendChild(optionMarker);
+                
+                // Add click event
+                optionButton.addEventListener('click', function() {
                     // Remove selected class from all options in this question
-                    const allOptions = questionContainer.querySelectorAll('.answer-option');
-                    allOptions.forEach(opt => opt.classList.remove('selected'));
-
+                    const allButtons = optionsGroup.querySelectorAll('.option-button');
+                    allButtons.forEach(btn => btn.classList.remove('selected'));
+                    
                     // Add selected class to this option
-                    optionDiv.classList.add('selected');
-
+                    this.classList.add('selected');
+                    
                     // Store user response
                     userResponses.typology[question.id] = option.value;
                 });
-
-                const optionText = document.createElement('span');
+                
+                // Create position indicator line
+                const positionLine = document.createElement('div');
+                positionLine.className = 'option-position-line';
+                
+                // Create text description
+                const optionTextContainer = document.createElement('div');
+                optionTextContainer.className = 'option-text';
+                
+                const optionLabel = document.createElement('div');
+                optionLabel.className = 'option-label';
+                
+                // Set label text based on position
+                let labelText = '';
+                if (option.value === 'left') {
+                    labelText = spectrum.leftLabel;
+                } else if (option.value === 'balanced') {
+                    labelText = 'BALANCED';
+                } else if (option.value === 'right') {
+                    labelText = spectrum.rightLabel;
+                }
+                optionLabel.textContent = labelText;
+                
+                const optionText = document.createElement('p');
+                optionText.className = 'text-sm font-light';
                 optionText.textContent = option.text;
-
-                optionDiv.appendChild(radio);
-                optionDiv.appendChild(optionText);
-                answerOptions.appendChild(optionDiv);
+                
+                optionTextContainer.appendChild(optionLabel);
+                optionTextContainer.appendChild(optionText);
+                
+                // Assemble option container
+                optionContainer.appendChild(optionButton);
+                optionContainer.appendChild(positionLine);
+                optionContainer.appendChild(optionTextContainer);
+                
+                optionsGroup.appendChild(optionContainer);
             });
-
-            questionContainer.appendChild(answerOptions);
+            
+            // Add options to the container
+            optionsContainer.appendChild(optionsGroup);
+            
+            // Add visualization to question container
+            visualization.appendChild(spectrumLabels);
+            visualization.appendChild(optionsContainer);
+            questionContainer.appendChild(visualization);
+            
+            // Add to spectrum section
             spectrumSection.appendChild(questionContainer);
         });
 
         container.appendChild(spectrumSection);
     });
+    
+    // Update progress indicator
+    updateProgressIndicator('Part 1: Reality Creation Typology', 0);
+}
+
+// Update the header information for the current quiz section
+function updateQuizHeader(part) {
+    if (part === 'part1') {
+        // Update active spectrum info based on current view
+        const currentSpectrum = assessmentData.typologySpectrums[0]; // Default to first spectrum
+        
+        // Update header text
+        document.querySelector('#part1 .text-xs.uppercase').textContent = `SPECTRUM 01/0${assessmentData.typologySpectrums.length}`;
+        document.querySelector('#part1 h1').textContent = 'REALITY CREATION TYPOLOGY';
+        document.querySelector('#part1 h1 + p').textContent = currentSpectrum.description;
+    } else if (part === 'part2') {
+        // Update progress indicator
+        const progressFill = document.getElementById('progress-fill-part2');
+        progressFill.style.width = '33%'; // Start with the first section
+    }
 }
 
 // Show Part 2 of the assessment
@@ -712,10 +836,13 @@ function showPart2() {
     document.getElementById('part2').style.display = 'block';
     updateProgressIndicator('Part 2: Mastery Assessment', 50);
 
-    // Generate Part 2 questions if not already generated (handled in part2_mastery.js)
+    // Generate Part 2 questions if not already generated
     if (document.getElementById('mastery-questions').children.length === 0) {
         generateMasteryQuestions();
     }
+    
+    // Update header info for Part 2
+    updateQuizHeader('part2');
 }
 
 // Show Part 1 of the assessment
@@ -727,42 +854,51 @@ function showPart1() {
 
 // Check for unanswered questions (visually highlight them)
 function checkUnansweredQuestions(partId) {
-    let questionContainers;
-
-    if (partId === 'part1') {
-        questionContainers = document.querySelectorAll('#spectrum-questions .question-container');
-    } else if (partId === 'part2') {
-        questionContainers = document.querySelectorAll('#mastery-questions .question-container');
-    }
-
     let unansweredCount = 0;
-
-    // Clear any previous highlighting
-    questionContainers.forEach(container => {
-        container.classList.remove('unanswered');
-    });
-
-    // Check each question and highlight unanswered ones
-    questionContainers.forEach(container => {
-        const answered = container.querySelector('input[type="radio"]:checked');
-        if (!answered) {
-            unansweredCount++;
-            container.classList.add('unanswered');
-
-            // Scroll to first unanswered question
-            if (unansweredCount === 1) {
-                container.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    
+    if (partId === 'part1') {
+        // Get all questions in Part 1
+        const questions = document.querySelectorAll('#spectrum-questions .question-container');
+        
+        questions.forEach(question => {
+            const questionId = question.dataset.questionId;
+            const isAnswered = userResponses.typology[questionId] !== undefined;
+            
+            if (!isAnswered) {
+                unansweredCount++;
+                question.classList.add('unanswered');
+                
+                // Scroll to first unanswered question
+                if (unansweredCount === 1) {
+                    question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                question.classList.remove('unanswered');
             }
-        }
-    });
-
+        });
+    } else if (partId === 'part2') {
+        // Get all questions in Part 2
+        const questions = document.querySelectorAll('#mastery-questions .question-container');
+        
+        questions.forEach(question => {
+            const questionId = question.dataset.questionId;
+            const isAnswered = userResponses.mastery[questionId] !== undefined;
+            
+            if (!isAnswered) {
+                unansweredCount++;
+                question.classList.add('unanswered');
+                
+                // Scroll to first unanswered question
+                if (unansweredCount === 1) {
+                    question.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                question.classList.remove('unanswered');
+            }
+        });
+    }
+    
     return unansweredCount;
-}
-
-// (Placeholder) Generate Part 2 questions in part2_mastery.js
-function generateMasteryQuestions() {
-    // This function would dynamically create mastery questions (separate file logic).
-    // We'll leave it here as a placeholder to prevent errors if the file is missing.
 }
 
 // Show results
@@ -782,20 +918,55 @@ function showResults() {
     generateAndDisplayResults();
 }
 
-// (Placeholder) Results generation function in results.js
-function generateAndDisplayResults() {
-    // Use scoring.js logic and fill #results with final info.
-    // Left blank here as an example stub.
+// Update progress indicator
+function updateProgressIndicator(stage, percentage) {
+    // For visual indication of progress, update the progress markers in the UI
+    if (stage.includes('Part 1')) {
+        // Highlight the first progress dot
+        document.querySelectorAll('#part1 .flex.items-center.space-x-6 .h-3.w-px').forEach((dot, index) => {
+            if (index === 0) {
+                dot.classList.add('bg-amber-400');
+            } else {
+                dot.classList.add('bg-stone-300');
+            }
+        });
+    } else if (stage.includes('Part 2')) {
+        // Highlight the second progress dot
+        document.querySelectorAll('#part2 .flex.items-center.space-x-6 .h-3.w-px').forEach((dot, index) => {
+            if (index === 1) {
+                dot.classList.add('bg-amber-400');
+            } else {
+                dot.classList.add('bg-stone-300');
+            }
+        });
+        
+        // Update the progress bar
+        const progressFill = document.getElementById('progress-fill-part2');
+        if (progressFill) {
+            progressFill.style.width = '50%';
+        }
+    } else if (stage.includes('Results')) {
+        // Highlight the third progress dot
+        document.querySelectorAll('#results .flex.items-center.space-x-6 .h-3.w-px').forEach((dot, index) => {
+            if (index === 2) {
+                dot.classList.add('bg-amber-400');
+            } else {
+                dot.classList.add('bg-stone-300');
+            }
+        });
+    }
 }
 
 // Restart the assessment
 function restartAssessment() {
     // Clear all selections
-    document.querySelectorAll('input[type="radio"]:checked').forEach(radio => {
-        radio.checked = false;
+    const optionButtons = document.querySelectorAll('.option-button');
+    optionButtons.forEach(button => {
+        button.classList.remove('selected');
     });
-
-    document.querySelectorAll('.answer-option.selected').forEach(option => {
+    
+    const answerOptions = document.querySelectorAll('.answer-option');
+    answerOptions.forEach(option => {
         option.classList.remove('selected');
     });
 
@@ -805,12 +976,18 @@ function restartAssessment() {
         mastery: {}
     };
 
- // Reset progress indicator
-    document.getElementById('progress-container').style.display = 'none';
-
     // Go back to introduction
     document.getElementById('results').style.display = 'none';
+    document.getElementById('part1').style.display = 'none';
+    document.getElementById('part2').style.display = 'none';
     document.getElementById('introduction').style.display = 'block';
+    
+    // Reset progress indicators
+    updateQuizHeader('part1');
+    
+    // Regenerate questions to ensure clean state
+    generateTypologyQuestions();
+    document.getElementById('mastery-questions').innerHTML = '';
 }
 
 // Print results
@@ -818,22 +995,14 @@ function printResults() {
     window.print();
 }
 
-// Update progress indicator (optional usage)
-function updateProgressIndicator(stage, percentage) {
-    const progressContainer = document.getElementById('progress-container');
-    const progressStage = document.getElementById('progress-stage');
-    const progressPercentage = document.getElementById('progress-percentage');
-    const progressFill = document.getElementById('progress-fill');
+// (Placeholder) Generate Part 2 questions in part2_mastery.js
+function generateMasteryQuestions() {
+    // This function would dynamically create mastery questions (separate file logic).
+    // We'll leave it here as a placeholder to prevent errors if the file is missing.
+}
 
-    // Show progress bar if hidden
-    progressContainer.style.display = 'block';
-
-    // Update stage text
-    progressStage.textContent = stage;
-
-    // Update percentage text
-    progressPercentage.textContent = `${percentage}%`;
-
-    // Update progress fill width
-    progressFill.style.width = `${percentage}%`;
+// (Placeholder) Results generation function in results.js
+function generateAndDisplayResults() {
+    // Use scoring.js logic and fill #results with final info.
+    // Left blank here as an example stub.
 }
