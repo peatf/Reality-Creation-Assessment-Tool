@@ -98,11 +98,11 @@ function initResultsTabs() {
     const approachesTab = document.getElementById('approaches-tab');
     const strategyTab = document.getElementById('strategy-tab');
     
+    if (!typologyTab || !approachesTab || !strategyTab) return;
+    
     const typologyContent = document.getElementById('typology-content');
     const approachesContent = document.getElementById('approaches-content');
     const strategyContent = document.getElementById('strategy-content');
-    
-    if (!typologyTab || !approachesTab || !strategyTab) return;
     
     typologyTab.addEventListener('click', () => {
         // Update active tab
@@ -159,22 +159,27 @@ function initResultsTabs() {
 
 // Initialize expandable sections in the results
 function initExpandableSections() {
-    const expandableHeaders = document.querySelectorAll('.expandable-header');
-    
-    expandableHeaders.forEach(header => {
-        header.addEventListener('click', () => {
-            const section = header.parentElement;
-            const content = section.querySelector('.expandable-content');
-            const icon = header.querySelector('.expandable-icon');
+    // This will be called when results are displayed
+    document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(() => {
+            const expandableHeaders = document.querySelectorAll('.expandable-header');
             
-            // Toggle expanded state
-            if (content.classList.contains('collapsed')) {
-                content.classList.remove('collapsed');
-                icon.classList.add('expanded');
-            } else {
-                content.classList.add('collapsed');
-                icon.classList.remove('expanded');
-            }
-        });
+            expandableHeaders.forEach(header => {
+                header.addEventListener('click', () => {
+                    const section = header.parentElement;
+                    const content = section.querySelector('.expandable-content');
+                    const icon = header.querySelector('.expandable-icon');
+                    
+                    // Toggle expanded state
+                    if (content.classList.contains('collapsed')) {
+                        content.classList.remove('collapsed');
+                        icon.classList.add('expanded');
+                    } else {
+                        content.classList.add('collapsed');
+                        icon.classList.remove('expanded');
+                    }
+                });
+            });
+        }, 1000); // Small delay to ensure elements are loaded
     });
 }
