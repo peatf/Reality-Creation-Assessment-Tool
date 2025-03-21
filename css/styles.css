@@ -1338,3 +1338,403 @@ p {
         display: none;
     }
 }
+/* Enhanced spectrum visualization styling */
+.spectrum-visualization {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.spectrum-line {
+  height: 1px;
+  width: 100%;
+  background-color: #e7e5e4;
+}
+
+.spectrum-marker {
+  position: absolute;
+  top: 0;
+  width: 1px;
+  height: 4rem;
+  transform: translateX(-50%);
+}
+
+.spectrum-marker.left {
+  left: 25%;
+  background-color: #60a5fa;
+}
+
+.spectrum-marker.balanced {
+  left: 50%;
+  background-color: #4ade80;
+}
+
+.spectrum-marker.right {
+  left: 75%;
+  background-color: #fbbf24;
+}
+
+.spectrum-marker-dot {
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translate(-50%, 50%);
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 9999px;
+  background-color: inherit;
+}
+
+.spectrum-labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 5rem;
+  font-size: 0.75rem;
+  color: #78716c;
+}
+
+.spectrum-placement-name {
+  position: absolute;
+  top: 4.5rem;
+  transform: translateX(-50%);
+  font-size: 0.75rem;
+  color: #44403c;
+  font-weight: 500;
+}
+
+.spectrum-placement-name.left {
+  left: 25%;
+}
+
+.spectrum-placement-name.balanced {
+  left: 50%;
+}
+
+.spectrum-placement-name.right {
+  left: 75%;
+}
+
+/* Typology pair styling */
+.typology-pair-name {
+  display: flex;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.typology-icon {
+  width: 3rem;
+  height: 3rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 1rem;
+}
+
+.typology-icon-inner {
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  background-color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.typology-icon-core {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
+}
+
+.typology-name {
+  font-size: 1.5rem;
+  color: #44403c;
+  font-weight: 300;
+}
+
+.typology-description {
+  font-size: 1rem;
+  color: #57534e;
+  line-height: 1.6;
+  font-weight: 300;
+}
+
+/* Approaches and strategy styling */
+.approach-item, .misalignment-item, .strategy-item {
+  display: flex;
+  margin-bottom: 1rem;
+}
+
+.approach-number, .strategy-number {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: #fff8e6;
+  color: #b45309;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.misalignment-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  border-radius: 9999px;
+  background-color: #f5f5f4;
+  color: #78716c;
+  font-size: 0.875rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 0.125rem;
+  flex-shrink: 0;
+}
+
+.approach-text, .misalignment-text, .strategy-text {
+  margin-left: 1rem;
+  font-size: 1rem;
+  color: #57534e;
+  font-weight: 300;
+}
+
+/* Expandable sections */
+.expandable-section {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f5f5f4;
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.expandable-header {
+  padding: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  width: 100%;
+  text-align: left;
+  border: none;
+  background: transparent;
+}
+
+.expandable-title {
+  font-size: 1.25rem;
+  color: #44403c;
+  font-weight: 300;
+}
+
+.expandable-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.3s ease;
+}
+
+.rotate-180 {
+  transform: rotate(180deg);
+}
+
+.expandable-content {
+  padding: 0 2rem 2rem;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Experimental grid layouts */
+.grid-cols-12 {
+  display: grid;
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.col-span-12 {
+  grid-column: span 12 / span 12;
+}
+
+.col-span-7 {
+  grid-column: span 7 / span 7;
+}
+
+.col-span-6 {
+  grid-column: span 6 / span 6;
+}
+
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
+
+.col-span-1 {
+  grid-column: span 1 / span 1;
+}
+
+.col-start-1 {
+  grid-column-start: 1;
+}
+
+.col-start-6 {
+  grid-column-start: 6;
+}
+
+.gap-x-4 {
+  column-gap: 1rem;
+}
+
+.gap-y-20 {
+  row-gap: 5rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
+}
+
+/* Card styling */
+.bg-white.bg-opacity-70 {
+  background-color: rgba(255, 255, 255, 0.7);
+  backdrop-filter: blur(8px);
+  border-radius: 0.75rem;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  border: 1px solid #f5f5f4;
+}
+
+/* Navigation tabs */
+.tabs-container {
+  margin-bottom: 3rem;
+  border-bottom: 1px solid #e7e5e4;
+}
+
+.tab-buttons {
+  display: flex;
+  gap: 2rem;
+}
+
+.tab-button {
+  padding-bottom: 1rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  letter-spacing: 0.025em;
+  position: relative;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.tab-button.active {
+  color: #b45309;
+}
+
+.tab-button.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: #fbbf24;
+}
+
+.tab-button:not(.active) {
+  color: #78716c;
+}
+
+.tab-button:not(.active):hover {
+  color: #44403c;
+}
+
+.tab-content {
+  display: none;
+}
+
+.tab-content.active {
+  display: block;
+}
+
+/* Legend styling */
+.legend {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 3rem;
+  align-items: flex-end;
+}
+
+.legend-items {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2rem;
+}
+
+.legend-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.legend-bar {
+  width: 0.75rem;
+  margin-bottom: 0.75rem;
+}
+
+.legend-bar.structured {
+  height: 3rem;
+  background-color: #60a5fa;
+}
+
+.legend-bar.balanced {
+  height: 2rem;
+  background-color: #4ade80;
+}
+
+.legend-bar.intuitive {
+  height: 4rem;
+  background-color: #fbbf24;
+}
+
+.legend-label {
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  color: #78716c;
+  letter-spacing: 0.05em;
+  font-weight: 300;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .grid-cols-12 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  
+  .col-span-12, .col-span-7, .col-span-6, .col-span-4, .col-span-1 {
+    grid-column: span 1 / span 1;
+  }
+  
+  .col-start-1, .col-start-6 {
+    grid-column-start: auto;
+  }
+  
+  .spectrum-visualization {
+    margin-top: 2rem;
+  }
+  
+  .legend-items {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
+  
+  .legend {
+    flex-direction: column;
+    align-items: center;
+  }
+}
