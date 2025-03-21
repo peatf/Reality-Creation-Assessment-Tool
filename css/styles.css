@@ -30,6 +30,7 @@ h1 {
     font-size: 2.5rem;
     margin-bottom: 0.5rem;
     letter-spacing: 0.5px;
+    color: #292524;
 }
 
 p {
@@ -169,6 +170,10 @@ p {
     margin-left: 2rem;
 }
 
+.space-y-4 > * + * {
+    margin-top: 1rem;
+}
+
 .space-y-16 > * + * {
     margin-top: 4rem;
 }
@@ -183,6 +188,10 @@ p {
 
 .mt-4 {
     margin-top: 1rem;
+}
+
+.mt-6 {
+    margin-top: 1.5rem;
 }
 
 .mt-16 {
@@ -201,6 +210,10 @@ p {
     margin-bottom: 1.5rem;
 }
 
+.mb-8 {
+    margin-bottom: 2rem;
+}
+
 .mb-12 {
     margin-bottom: 3rem;
 }
@@ -217,12 +230,24 @@ p {
     margin-left: 1rem;
 }
 
+.ml-12 {
+    margin-left: 3rem;
+}
+
 .pt-6 {
     padding-top: 1.5rem;
 }
 
 .pb-4 {
     padding-bottom: 1rem;
+}
+
+.pb-10 {
+    padding-bottom: 2.5rem;
+}
+
+.pt-16 {
+    padding-top: 4rem;
 }
 
 .h-px {
@@ -297,6 +322,26 @@ p {
     font-size: 0.875rem;
 }
 
+.text-base {
+    font-size: 1rem;
+}
+
+.text-lg {
+    font-size: 1.125rem;
+}
+
+.text-xl {
+    font-size: 1.25rem;
+}
+
+.text-2xl {
+    font-size: 1.5rem;
+}
+
+.text-3xl {
+    font-size: 1.875rem;
+}
+
 .text-4xl {
     font-size: 2.25rem;
 }
@@ -333,6 +378,10 @@ p {
     color: #b45309;
 }
 
+.text-red-700 {
+    color: #b91c1c;
+}
+
 .uppercase {
     text-transform: uppercase;
 }
@@ -367,8 +416,26 @@ p {
     border-bottom-style: solid;
 }
 
+.border-l-2 {
+    border-left-width: 2px;
+    border-left-style: solid;
+}
+
+.border-l-4 {
+    border-left-width: 4px;
+    border-left-style: solid;
+}
+
 .border-stone-200 {
     border-color: #e7e5e4;
+}
+
+.border-red-500 {
+    border-color: #ef4444;
+}
+
+.border-amber-500 {
+    border-color: #f59e0b;
 }
 
 .opacity-20 {
@@ -422,12 +489,20 @@ p {
     left: 50%;
 }
 
+.top-1/2 {
+    top: 50%;
+}
+
 .z-10 {
     z-index: 10;
 }
 
 .-translate-x-1/2 {
     transform: translateX(-50%);
+}
+
+.-translate-y-1/2 {
+    transform: translateY(-50%);
 }
 
 .from-transparent {
@@ -480,6 +555,35 @@ p {
     background-color: #f59e0b;
 }
 
+/* Grid Classes */
+.grid {
+    display: grid;
+}
+
+.grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-cols-12 {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.col-span-2 {
+    grid-column: span 2 / span 2;
+}
+
+.col-span-10 {
+    grid-column: span 10 / span 10;
+}
+
+.gap-4 {
+    gap: 1rem;
+}
+
+.gap-6 {
+    gap: 1.5rem;
+}
+
 /* Spectrum Questions */
 .spectrum-section {
     margin-bottom: 3rem;
@@ -512,10 +616,8 @@ p {
     line-height: 1.4;
 }
 
-.answer-options {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 1rem;
+.leading-relaxed {
+    line-height: 1.625;
 }
 
 /* Interactive spectrum visualization */
@@ -535,13 +637,6 @@ p {
     background-color: #e7e5e4;
     border-radius: 0.5rem;
     margin: 1.5rem 0;
-}
-
-.option-group {
-    position: relative;
-    display: flex;
-    justify-content: space-between;
-    margin-top: 2rem;
 }
 
 .option-container {
@@ -816,6 +911,21 @@ p {
     line-height: 1.6;
     margin-bottom: 1.5rem;
     font-weight: 300;
+}
+
+.typology-component {
+    padding: 1.5rem;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.primary-component {
+    border-left: 4px solid #e74c3c;
+}
+
+.secondary-component {
+    border-left: 4px solid #f39c12;
 }
 
 .spectrum-map-title {
@@ -1155,6 +1265,24 @@ p {
     .legend-note {
         margin-top: 2rem;
     }
+
+    .grid-cols-12 {
+        grid-template-columns: 1fr;
+    }
+
+    .col-span-2, .col-span-10 {
+        grid-column: span 1 / span 1;
+    }
+
+    .ml-12 {
+        margin-left: 1rem;
+    }
+}
+
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
 }
 
 @media (max-width: 640px) {
@@ -1170,6 +1298,14 @@ p {
 
     .option-text {
         margin-top: 2rem;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    .text-4xl {
+        font-size: 1.875rem;
     }
 }
 
