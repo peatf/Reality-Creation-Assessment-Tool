@@ -672,14 +672,31 @@ function initSectionNavigation() {
     const sections = document.querySelectorAll('.mastery-section');
     if (sections.length === 0) return;
     
-    // Get navigation buttons (assumed to exist in Part 2 container)
-    const prevButton = document.querySelector('#part2 button:first-child');
-    const nextButton = document.querySelector('#submit-assessment');
+    console.log("Initializing section navigation with", sections.length, "sections");
+    
+    // Get navigation area in Part 2
+    const navigationArea = document.querySelector('#part2 .navigation-buttons') || 
+                          document.querySelector('#part2 .flex.items-center.justify-between');
+    
+    if (!navigationArea) {
+        console.error("Navigation area not found in Part 2");
+        return;
+    }
+    
+    // Get existing buttons
+    const prevButton = document.querySelector('#part2-prev');
+    const submitButton = document.querySelector('#submit-assessment');
+    
+    if (!prevButton || !submitButton) {
+        console.error("Navigation buttons not found:", prevButton, submitButton);
+        return;
+    }
     
     let currentSectionIndex = 0;
     
     // Function to update progress indication
     function updateProgress() {
+        console.log("Updating progress to section", currentSectionIndex + 1);
         // Update progress text
         const sectionCountText = document.querySelector('#part2 .text-xs.font-light.text-stone-500');
         if (sectionCountText) {
@@ -693,9 +710,9 @@ function initSectionNavigation() {
             progressFill.style.width = `${progressPercentage}%`;
         }
         
-        // Update bottom progress dots
+        // Update bottom progress dots if they exist
         const progressDots = document.querySelectorAll('#part2 .flex.items-center.space-x-6 .h-3.w-px');
-        if (progressDots.length === sections.length) {
+        if (progressDots && progressDots.length > 0) {
             progressDots.forEach((dot, index) => {
                 if (index === currentSectionIndex) {
                     dot.className = 'h-3 w-px bg-amber-400';
@@ -706,8 +723,17 @@ function initSectionNavigation() {
         }
     }
     
-    // Create navigation buttons for section change
+    // Create navigation buttons
+    // First remove any existing section navigation buttons to avoid duplicates
+    const existingPrevSection = document.getElementById('prev-section-btn');
+    const existingNextSection = document.getElementById('next-section-btn');
+    
+    if (existingPrevSection) existingPrevSection.remove();
+    if (existingNextSection) existingNextSection.remove();
+    
+    // Create new navigation buttons
     const prevSectionBtn = document.createElement('button');
+    prevSectionBtn.id = 'prev-section-btn';
     prevSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-300 cursor-not-allowed';
     prevSectionBtn.innerHTML = `
         <span class="mr-4 h-px w-8 bg-stone-200"></span>
@@ -716,21 +742,29 @@ function initSectionNavigation() {
     prevSectionBtn.style.display = 'none'; // Hide initially
     
     const nextSectionBtn = document.createElement('button');
+    nextSectionBtn.id = 'next-section-btn';
     nextSectionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest transition-all text-stone-700';
     nextSectionBtn.innerHTML = `
         Next Section
         <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
     `;
     
-    // Replace submit button with next section button initially
-    nextButton.parentNode.insertBefore(nextSectionBtn, nextButton);
-    nextButton.style.display = 'none';
+    // Add the buttons to the navigation area
+    // Make sure to clear previous buttons to avoid duplicates
+    navigationArea.innerHTML = '';
+    navigationArea.appendChild(prevButton);
+    navigationArea.appendChild(prevSectionBtn);
+    navigationArea.appendChild(document.createElement('div')); // Spacer
+    navigationArea.appendChild(nextSectionBtn);
+    navigationArea.appendChild(submitButton);
     
-    // Add prev section button next to back to part 1 button
-    prevButton.parentNode.insertBefore(prevSectionBtn, prevButton.nextSibling);
+    // Initially hide the submit button, show next section button
+    submitButton.style.display = 'none';
+    nextSectionBtn.style.display = 'block';
     
     // Navigation event handlers
     prevSectionBtn.addEventListener('click', function() {
+        console.log("Previous section clicked, current index:", currentSectionIndex);
         if (currentSectionIndex > 0) {
             // Hide current section
             sections[currentSectionIndex].style.display = 'none';
@@ -747,8 +781,8 @@ function initSectionNavigation() {
             }
             
             // Show next section button, hide submit button
-            nextSectionBtn.style.display = 'flex';
-            nextButton.style.display = 'none';
+            nextSectionBtn.style.display = 'block';
+            submitButton.style.display = 'none';
             
             // Update progress
             updateProgress();
@@ -759,13 +793,15 @@ function initSectionNavigation() {
     });
     
     nextSectionBtn.addEventListener('click', function() {
+        console.log("Next section clicked, current index:", currentSectionIndex);
+        
         // Check if current section is answered
         const currentSectionQuestions = sections[currentSectionIndex].querySelectorAll('.question-container');
         let unansweredCount = 0;
         
         currentSectionQuestions.forEach(question => {
             const questionId = question.dataset.questionId;
-            if (!window.userResponses.mastery[questionId]) {
+            if (!userResponses.mastery[questionId]) {
                 unansweredCount++;
                 question.classList.add('unanswered');
                 
@@ -799,7 +835,7 @@ function initSectionNavigation() {
             // If last section, show submit button
             if (currentSectionIndex === sections.length - 1) {
                 nextSectionBtn.style.display = 'none';
-                nextButton.style.display = 'flex';
+                submitButton.style.display = 'flex';
             }
             
             // Update progress
@@ -810,10 +846,14 @@ function initSectionNavigation() {
         }
     });
     
+    // Make sure the navigation area has the right layout
+    navigationArea.style.display = 'flex';
+    navigationArea.style.justifyContent = 'space-between';
+    navigationArea.style.alignItems = 'center';
+    
     // Initialize progress
     updateProgress();
 }
-
 //---------------------------------------------------------------------
 // EXISTING: calculateMasteryScores (Numeric)
 //---------------------------------------------------------------------
