@@ -1,10 +1,10 @@
 // Results Synthesis System for Reality Creation Assessment
-
 // This file contains the logic for generating and displaying personalized results
 // based on the user's responses to both parts of the assessment
 
-
-// Helper function to find additional strong spectrums beyond the primary pair
+//-------------------------------------------------------------------------
+// HELPER: Find Additional Strong Spectrums Beyond the Primary Pair
+//-------------------------------------------------------------------------
 function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
     const additionalStrong = [];
     
@@ -24,259 +24,197 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
         return SPECTRUM_PRIORITY_ORDER.indexOf(a) - SPECTRUM_PRIORITY_ORDER.indexOf(b);
     });
 }
-// Generate the radar chart diagram
+
+//-------------------------------------------------------------------------
+// UPDATED: Generate Spectrum Diagram (with Map Title, Items, and Legend)
+//-------------------------------------------------------------------------
 function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const diagramContainer = document.getElementById('spectrum-diagram');
     diagramContainer.innerHTML = '';
+
+    // Add a title for the spectrum map
+    const mapTitle = document.createElement('div');
+    mapTitle.className = 'spectrum-map-title';
     
-    // Create radar chart container
-    const radarContainer = document.createElement('div');
-    radarContainer.className = 'radar-chart-container';
+    const mapLine = document.createElement('div');
+    mapLine.className = 'spectrum-map-line';
     
-    // Create the radar chart
-    const radarChart = document.createElement('div');
-    radarChart.className = 'radar-chart';
+    const mapText = document.createElement('h3');
+    mapText.className = 'spectrum-map-text';
+    mapText.textContent = 'Your Spectrum Map';
     
-    // Create circles for the radar levels
-    const radarCircles = document.createElement('div');
-    radarCircles.className = 'radar-circles';
-    
-    // Add 3 circles for the 3 levels (left, balanced, right)
-    const circleRadii = [25, 50, 75]; // % of radius for each level
-    
-    circleRadii.forEach(radius => {
-        const circle = document.createElement('div');
-        circle.className = 'radar-circle';
-        circle.style.width = `${radius * 2}%`;
-        circle.style.height = `${radius * 2}%`;
-        radarCircles.appendChild(circle);
-    });
-    
-    radarChart.appendChild(radarCircles);
-    
-    // Get all spectrum objects
-    const spectrumObjects = assessmentData.typologySpectrums;
-    const numAxes = spectrumObjects.length;
-    
-    // Create radar axes and placement markers
-    const markers = [];
-    const labels = [];
-    
-    spectrumObjects.forEach((spectrum, index) => {
-        // Calculate angle for this axis
-        const angle = (index * (360 / numAxes)) * (Math.PI / 180);
+    mapTitle.appendChild(mapLine);
+    mapTitle.appendChild(mapText);
+    diagramContainer.appendChild(mapTitle);
+
+    // Create spectrum items for each spectrum
+    assessmentData.typologySpectrums.forEach((spectrum, index) => {
+        const spectrumItem = document.createElement('div');
+        spectrumItem.className = 'spectrum-item';
         
-        // Create axis
-        const axis = document.createElement('div');
-        axis.className = 'radar-axis';
-        axis.style.transform = `rotate(${angle * (180 / Math.PI)}deg)`;
-        
-        // Highlight typology pair spectrums
-        if (typologyPair.primary && spectrum.id === typologyPair.primary.spectrumId) {
-            axis.classList.add('primary-spectrum');
-        } else if (typologyPair.secondary && spectrum.id === typologyPair.secondary.spectrumId) {
-            axis.classList.add('secondary-spectrum');
-        }
-        
-        // Find any additional strong spectrums
-        const additionalStrongSpectrums = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
-        if (additionalStrongSpectrums.includes(spectrum.id)) {
-            axis.classList.add('tertiary-spectrum');
-        }
-        
-        radarChart.appendChild(axis);
-        
-        // Create axis label
-        const label = document.createElement('div');
-        label.className = 'radar-label';
-        label.textContent = spectrum.name;
-        
-        // Position the label at the end of the axis
-        const labelRadius = 52; // % of container
-        const labelX = 50 + labelRadius * Math.cos(angle);
-        const labelY = 50 + labelRadius * Math.sin(angle);
-        
-        label.style.left = `${labelX}%`;
-        label.style.top = `${labelY}%`;
-        
-        // Adjust text alignment based on position
-        if (labelX > 85) {
-            label.style.transform = 'translateX(-100%)';
-            label.style.textAlign = 'right';
-        } else if (labelX > 60) {
-            label.style.transform = 'translateX(-75%)';
-            label.style.textAlign = 'right';
-        } else if (labelX < 15) {
-            label.style.transform = 'translateX(0)';
-            label.style.textAlign = 'left';
-        } else if (labelX < 40) {
-            label.style.transform = 'translateX(-25%)';
-            label.style.textAlign = 'left';
-        } else {
-            label.style.transform = 'translateX(-50%)';
-            label.style.textAlign = 'center';
-        }
-        
-        if (labelY < 10) {
-            label.style.top = '10%';
-        } else if (labelY > 90) {
-            label.style.top = '90%';
-        }
-        
-        radarChart.appendChild(label);
-        labels.push(label);
-        
-        // Create placement marker
+        // Get placement for this spectrum
         const placement = spectrumPlacements[spectrum.id];
         
-        // Calculate marker position based on placement
-        let markerRadius;
-        switch (placement) {
-            case 'left':
-                markerRadius = 25; // 25% of container radius
-                break;
-            case 'balanced':
-                markerRadius = 50; // 50% of container radius
-                break;
-            case 'right':
-                markerRadius = 75; // 75% of container radius
-                break;
-            default:
-                markerRadius = 50;
-        }
+        // Left column with spectrum info
+        const spectrumInfo = document.createElement('div');
+        spectrumInfo.className = 'spectrum-info';
         
-        const markerX = 50 + markerRadius * Math.cos(angle);
-        const markerY = 50 + markerRadius * Math.sin(angle);
+        const spectrumNumber = document.createElement('div');
+        spectrumNumber.className = 'text-xs text-stone-400';
+        spectrumNumber.textContent = `0${index + 1}`;
         
-        const marker = document.createElement('div');
-        marker.className = 'placement-marker';
-        marker.style.left = `${markerX}%`;
-        marker.style.top = `${markerY}%`;
-        
-        // Highlight typology pair markers
+        const spectrumName = document.createElement('h4');
+        spectrumName.className = 'spectrum-name';
+        // Emphasize based on typology pair
+        let emphasizeClass = '';
         if (typologyPair.primary && spectrum.id === typologyPair.primary.spectrumId) {
-            marker.classList.add('primary-highlight');
+            emphasizeClass = 'text-red-700';
         } else if (typologyPair.secondary && spectrum.id === typologyPair.secondary.spectrumId) {
-            marker.classList.add('secondary-highlight');
+            emphasizeClass = 'text-amber-700';
+        }
+        spectrumName.className = `spectrum-name ${emphasizeClass}`;
+        spectrumName.textContent = spectrum.name;
+        
+        const spectrumPlacementText = document.createElement('div');
+        spectrumPlacementText.className = 'spectrum-placement-text';
+        if (typologyPair.primary && spectrum.id === typologyPair.primary.spectrumId) {
+            spectrumPlacementText.textContent = 'PRIMARY';
+        } else if (typologyPair.secondary && spectrum.id === typologyPair.secondary.spectrumId) {
+            spectrumPlacementText.textContent = 'SECONDARY';
+        } else {
+            spectrumPlacementText.textContent = 'SUPPORTING';
         }
         
-        // Add tertiary highlighting if applicable
-        if (additionalStrongSpectrums.includes(spectrum.id)) {
-            marker.classList.add('tertiary-highlight');
-        }
+        spectrumInfo.appendChild(spectrumNumber);
+        spectrumInfo.appendChild(spectrumName);
+        spectrumInfo.appendChild(spectrumPlacementText);
         
-        radarChart.appendChild(marker);
-        markers.push({ x: markerX, y: markerY, placement, spectrum });
+        // Center separator
+        const separator = document.createElement('div');
+        separator.className = 'spectrum-separator';
         
-        // Create placement label
-        const placementLabel = document.createElement('div');
-        placementLabel.className = 'placement-label';
+        // Right column with visualization
+        const visualization = document.createElement('div');
+        visualization.className = 'spectrum-visualization';
         
-        // Get the typology description for this spectrum and placement
+        // Spectrum line
+        const spectrumLine = document.createElement('div');
+        spectrumLine.className = 'spectrum-line';
+        
+        // Spectrum marker
+        const spectrumMarker = document.createElement('div');
+        spectrumMarker.className = `spectrum-marker ${placement}`;
+        
+        // Marker dot
+        const markerDot = document.createElement('div');
+        markerDot.className = 'spectrum-marker-dot';
+        spectrumMarker.appendChild(markerDot);
+        
+        // Spectrum labels (left and right)
+        const spectrumLabels = document.createElement('div');
+        spectrumLabels.className = 'spectrum-labels';
+        
+        const leftLabel = document.createElement('span');
+        leftLabel.textContent = spectrum.leftLabel;
+        const rightLabel = document.createElement('span');
+        rightLabel.textContent = spectrum.rightLabel;
+        
+        spectrumLabels.appendChild(leftLabel);
+        spectrumLabels.appendChild(rightLabel);
+        
+        // Placement name label (using typology description)
+        const placementName = document.createElement('div');
+        placementName.className = `spectrum-placement-name ${placement}`;
         const typologyDesc = assessmentData.typologyDescriptions[`${spectrum.id}-${placement}`];
         if (typologyDesc) {
-            placementLabel.textContent = typologyDesc.name;
+            placementName.textContent = typologyDesc.name;
         } else {
-            // Fallback text if description not found
-            placementLabel.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
+            placementName.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
         }
         
-        // Position the label near the marker
-        const labelOffsetRadius = markerRadius + 8;
-        const placementLabelX = 50 + labelOffsetRadius * Math.cos(angle);
-        const placementLabelY = 50 + labelOffsetRadius * Math.sin(angle);
+        // Assemble visualization
+        visualization.appendChild(spectrumLine);
+        visualization.appendChild(spectrumMarker);
+        visualization.appendChild(spectrumLabels);
+        visualization.appendChild(placementName);
         
-        placementLabel.style.left = `${placementLabelX}%`;
-        placementLabel.style.top = `${placementLabelY}%`;
+        // Optionally add description
+        const description = document.createElement('p');
+        description.className = 'spectrum-description';
+        if (typologyDesc) {
+            description.textContent = typologyDesc.description;
+        }
+        visualization.appendChild(description);
         
-        radarChart.appendChild(placementLabel);
+        // Assemble spectrum item
+        spectrumItem.appendChild(spectrumInfo);
+        spectrumItem.appendChild(separator);
+        spectrumItem.appendChild(visualization);
+        
+        // Add item to container
+        diagramContainer.appendChild(spectrumItem);
     });
     
-    // Create radar polygon to connect all markers
-    const polygonsContainer = document.createElement('div');
-    polygonsContainer.className = 'radar-polygons';
-    
-    // Create SVG element for the polygon
-    const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
-    svg.setAttribute('width', '100%');
-    svg.setAttribute('height', '100%');
-    svg.setAttribute('viewBox', '0 0 100 100');
-    svg.setAttribute('preserveAspectRatio', 'none');
-    
-    // Create polygon element
-    const polygon = document.createElementNS('http://www.w3.org/2000/svg', 'polygon');
-    polygon.setAttribute('class', 'radar-polygon');
-    
-    // Set polygon points based on marker positions
-    const points = markers.map(marker => `${marker.x},${marker.y}`).join(' ');
-    polygon.setAttribute('points', points);
-    
-    svg.appendChild(polygon);
-    polygonsContainer.appendChild(svg);
-    radarChart.appendChild(polygonsContainer);
-    
-    radarContainer.appendChild(radarChart);
-    
-    // Add legend
+    // Add legend for the spectrum map
     const legend = document.createElement('div');
-    legend.className = 'radar-legend';
+    legend.className = 'legend';
     
-    const primaryLegend = document.createElement('div');
-    primaryLegend.className = 'legend-item';
+    const legendItems = document.createElement('div');
+    legendItems.className = 'legend-items';
     
-    const primaryMarker = document.createElement('span');
-    primaryMarker.className = 'legend-marker primary-marker';
-    
-    const primaryText = document.createElement('span');
-    primaryText.textContent = 'Primary Typology Spectrum';
-    
-    primaryLegend.appendChild(primaryMarker);
-    primaryLegend.appendChild(primaryText);
-    
-    const secondaryLegend = document.createElement('div');
-    secondaryLegend.className = 'legend-item';
-    
-    const secondaryMarker = document.createElement('span');
-    secondaryMarker.className = 'legend-marker secondary-marker';
-    
-    const secondaryText = document.createElement('span');
-    secondaryText.textContent = 'Secondary Typology Spectrum';
-    
-    secondaryLegend.appendChild(secondaryMarker);
-    secondaryLegend.appendChild(secondaryText);
-    
-    legend.appendChild(primaryLegend);
-    legend.appendChild(secondaryLegend);
-    
-    // Add tertiary legend item if there are additional strong spectrums
-    const additionalStrong = findAdditionalStrongSpectrums(spectrumPlacements, typologyPair);
-    if (additionalStrong.length > 0) {
-        const tertiaryLegend = document.createElement('div');
-        tertiaryLegend.className = 'legend-item';
+    // Helper to create legend items
+    function createLegendItem(type, label) {
+        const item = document.createElement('div');
+        item.className = 'legend-item';
         
-        const tertiaryMarker = document.createElement('span');
-        tertiaryMarker.className = 'legend-marker tertiary-marker';
+        const bar = document.createElement('div');
+        bar.className = `legend-bar ${type}`;
         
-        const tertiaryText = document.createElement('span');
-        tertiaryText.textContent = 'Additional Strong Spectrum';
+        const text = document.createElement('span');
+        text.className = 'legend-label';
+        text.textContent = label;
         
-        tertiaryLegend.appendChild(tertiaryMarker);
-        tertiaryLegend.appendChild(tertiaryText);
-        
-        legend.appendChild(tertiaryLegend);
+        item.appendChild(bar);
+        item.appendChild(text);
+        return item;
     }
     
-    radarContainer.appendChild(legend);
-    diagramContainer.appendChild(radarContainer);
+    const structuredLegend = createLegendItem('structured', 'Structured');
+    const balancedLegend = createLegendItem('balanced', 'Balanced');
+    const intuitiveLegend = createLegendItem('intuitive', 'Intuitive');
+    
+    legendItems.appendChild(structuredLegend);
+    legendItems.appendChild(balancedLegend);
+    legendItems.appendChild(intuitiveLegend);
+    
+    // Legend note
+    const legendNote = document.createElement('div');
+    legendNote.className = 'legend-note';
+    
+    const noteLine = document.createElement('div');
+    noteLine.className = 'legend-note-line';
+    
+    const noteText = document.createElement('span');
+    noteText.textContent = 'Your Reality Coordinates';
+    
+    legendNote.appendChild(noteLine);
+    legendNote.appendChild(noteText);
+    
+    legend.appendChild(legendItems);
+    legend.appendChild(legendNote);
+    
+    diagramContainer.appendChild(legend);
     
     // Add a description for the diagram
-    const description = document.createElement('p');
-    description.className = 'spectrum-description';
-    description.textContent = 'This radar chart shows your placement on each of the six reality creation spectrums. The closer to the center, the more structured your approach; the further from center, the more fluid and intuitive.';
-    diagramContainer.appendChild(description);
+    const diagramDescription = document.createElement('p');
+    diagramDescription.className = 'spectrum-description';
+    diagramDescription.textContent = 'This map shows your placement on each of the reality creation spectrums. Primary and secondary spectrums are emphasized while supporting spectrums are also displayed.';
+    diagramContainer.appendChild(diagramDescription);
 }
-    
-    // Generate the typology pair section
+
+//-------------------------------------------------------------------------
+// UPDATED: Generate Typology Pair Section (Enhanced Presentation)
+//-------------------------------------------------------------------------
 function generateTypologyPairSection(typologyPair) {
     const typologyContainer = document.getElementById('typology-pair');
     typologyContainer.innerHTML = '';
@@ -286,13 +224,9 @@ function generateTypologyPairSection(typologyPair) {
         return;
     }
 
-    // Get typology descriptions
+    // Get typology descriptions for primary and secondary
     const primaryDesc = assessmentData.typologyDescriptions[`${typologyPair.primary.spectrumId}-${typologyPair.primary.placement}`];
     const secondaryDesc = assessmentData.typologyDescriptions[`${typologyPair.secondary.spectrumId}-${typologyPair.secondary.placement}`];
-
-    // Create typology pair name
-    const typologyName = document.createElement('div');
-    typologyName.className = 'typology-pair-name';
 
     // Determine typology pair key for template lookup
     let pairKey = '';
@@ -303,9 +237,7 @@ function generateTypologyPairSection(typologyPair) {
     } else {
         pairKey += 'fluid';
     }
-
     pairKey += '-';
-
     if (typologyPair.secondary.placement === 'left') {
         pairKey += 'structured';
     } else if (typologyPair.secondary.placement === 'balanced') {
@@ -317,54 +249,81 @@ function generateTypologyPairSection(typologyPair) {
     // Get pair template
     const pairTemplate = assessmentData.resultsTemplates.typologyPairs[pairKey];
 
+    // Create results card for typology pair with icon and enhanced layout
+    const typologyCard = document.createElement('div');
+    typologyCard.className = 'results-card';
+    
+    const typologyPairName = document.createElement('div');
+    typologyPairName.className = 'typology-pair-name';
+    
+    const typologyIcon = document.createElement('div');
+    typologyIcon.className = 'typology-icon';
+    typologyIcon.innerHTML = `
+        <div class="typology-icon-inner">
+            <div class="typology-icon-core"></div>
+        </div>
+    `;
+    
+    const typologyName = document.createElement('h2');
+    typologyName.className = 'typology-name';
     typologyName.textContent = pairTemplate.name;
-
-    // Create typology description
-    const typologyDescription = document.createElement('div');
+    
+    typologyPairName.appendChild(typologyIcon);
+    typologyPairName.appendChild(typologyName);
+    
+    const typologyDescription = document.createElement('p');
     typologyDescription.className = 'typology-description';
-
-    const descriptionParagraph = document.createElement('p');
-    descriptionParagraph.textContent = pairTemplate.description;
-    typologyDescription.appendChild(descriptionParagraph);
-
-    // Create typology components
+    typologyDescription.textContent = pairTemplate.description;
+    
+    typologyCard.appendChild(typologyPairName);
+    typologyCard.appendChild(typologyDescription);
+    
+    // Create typology components section
+    const componentsTitle = document.createElement('h3');
+    componentsTitle.className = 'results-card-title';
+    componentsTitle.textContent = 'Your Typology Components';
+    
     const typologyComponents = document.createElement('div');
-    typologyComponents.className = 'typology-components';
-
+    typologyComponents.className = 'grid grid-cols-1 md:grid-cols-2 gap-6 mt-6';
+    
+    // Primary component card
     const primaryComponent = document.createElement('div');
     primaryComponent.className = 'typology-component primary-component';
-
-    const primaryTitle = document.createElement('h5');
+    
+    const primaryTitle = document.createElement('h4');
     primaryTitle.textContent = 'Primary: ' + primaryDesc.name;
-
+    
     const primaryDescription = document.createElement('p');
     primaryDescription.textContent = primaryDesc.description;
-
+    
     primaryComponent.appendChild(primaryTitle);
     primaryComponent.appendChild(primaryDescription);
-
+    
+    // Secondary component card
     const secondaryComponent = document.createElement('div');
     secondaryComponent.className = 'typology-component secondary-component';
-
-    const secondaryTitle = document.createElement('h5');
+    
+    const secondaryTitle = document.createElement('h4');
     secondaryTitle.textContent = 'Secondary: ' + secondaryDesc.name;
-
+    
     const secondaryDescription = document.createElement('p');
     secondaryDescription.textContent = secondaryDesc.description;
-
+    
     secondaryComponent.appendChild(secondaryTitle);
     secondaryComponent.appendChild(secondaryDescription);
-
+    
     typologyComponents.appendChild(primaryComponent);
     typologyComponents.appendChild(secondaryComponent);
-
-    // Assemble typology section
-    typologyContainer.appendChild(typologyName);
-    typologyContainer.appendChild(typologyDescription);
+    
+    // Assemble the typology pair section
+    typologyContainer.appendChild(typologyCard);
+    typologyContainer.appendChild(componentsTitle);
     typologyContainer.appendChild(typologyComponents);
 }
 
-// Generate the ideal approaches section
+//-------------------------------------------------------------------------
+// UPDATED: Generate Ideal Approaches Section (Expandable Cards)
+//-------------------------------------------------------------------------
 function generateIdealApproachesSection(typologyPair) {
     const approachesContainer = document.getElementById('ideal-approaches');
     approachesContainer.innerHTML = '';
@@ -383,9 +342,7 @@ function generateIdealApproachesSection(typologyPair) {
     } else {
         pairKey += 'fluid';
     }
-    
     pairKey += '-';
-    
     if (typologyPair.secondary.placement === 'left') {
         pairKey += 'structured';
     } else if (typologyPair.secondary.placement === 'balanced') {
@@ -397,42 +354,59 @@ function generateIdealApproachesSection(typologyPair) {
     // Get approaches template
     const approachesTemplate = assessmentData.resultsTemplates.idealApproaches[pairKey];
     
-    // Create strengths section
-    const strengthsSection = document.createElement('div');
-    strengthsSection.className = 'strengths-section';
+    // Create a strengths card
+    const strengthsCard = document.createElement('div');
+    strengthsCard.className = 'results-card';
     
-    const strengthsHeading = document.createElement('h5');
-    strengthsHeading.textContent = 'Your Natural Strengths:';
+    const strengthsTitle = document.createElement('h3');
+    strengthsTitle.className = 'results-card-title';
+    strengthsTitle.textContent = 'Your Natural Strengths';
     
-    const strengthsParagraph = document.createElement('p');
-    strengthsParagraph.textContent = approachesTemplate.strengths;
+    const strengthsText = document.createElement('p');
+    strengthsText.className = 'strengths-text';
+    strengthsText.textContent = approachesTemplate.strengths;
     
-    strengthsSection.appendChild(strengthsHeading);
-    strengthsSection.appendChild(strengthsParagraph);
+    strengthsCard.appendChild(strengthsTitle);
+    strengthsCard.appendChild(strengthsText);
     
-    // Create approaches section
-    const approachesSection = document.createElement('div');
-    approachesSection.className = 'approaches-section';
+    // Create an approaches card
+    const approachesCard = document.createElement('div');
+    approachesCard.className = 'results-card';
     
-    const approachesHeading = document.createElement('h5');
-    approachesHeading.textContent = 'Optimal Manifestation Approaches:';
+    const approachesTitle = document.createElement('h3');
+    approachesTitle.className = 'results-card-title';
+    approachesTitle.textContent = 'Optimal Manifestation Approaches';
     
-    const approachesList = document.createElement('ul');
-    approachesTemplate.approaches.forEach(approach => {
-        const listItem = document.createElement('li');
-        listItem.textContent = approach;
-        approachesList.appendChild(listItem);
+    const approachesList = document.createElement('div');
+    approachesList.className = 'space-y-4';
+    
+    approachesTemplate.approaches.forEach((approach, index) => {
+        const approachItem = document.createElement('div');
+        approachItem.className = 'approach-item';
+        
+        const approachNumber = document.createElement('div');
+        approachNumber.className = 'approach-number';
+        approachNumber.textContent = index + 1;
+        
+        const approachText = document.createElement('p');
+        approachText.className = 'approach-text';
+        approachText.textContent = approach;
+        
+        approachItem.appendChild(approachNumber);
+        approachItem.appendChild(approachText);
+        approachesList.appendChild(approachItem);
     });
     
-    approachesSection.appendChild(approachesHeading);
-    approachesSection.appendChild(approachesList);
+    approachesCard.appendChild(approachesTitle);
+    approachesCard.appendChild(approachesList);
     
-    // Assemble approaches container
-    approachesContainer.appendChild(strengthsSection);
-    approachesContainer.appendChild(approachesSection);
+    approachesContainer.appendChild(strengthsCard);
+    approachesContainer.appendChild(approachesCard);
 }
 
-// Generate the common misalignments section
+//-------------------------------------------------------------------------
+// UPDATED: Generate Misalignments Section
+//-------------------------------------------------------------------------
 function generateMisalignmentsSection(typologyPair) {
     const misalignmentsContainer = document.getElementById('common-misalignments');
     misalignmentsContainer.innerHTML = '';
@@ -451,9 +425,7 @@ function generateMisalignmentsSection(typologyPair) {
     } else {
         pairKey += 'fluid';
     }
-    
     pairKey += '-';
-    
     if (typologyPair.secondary.placement === 'left') {
         pairKey += 'structured';
     } else if (typologyPair.secondary.placement === 'balanced') {
@@ -465,43 +437,56 @@ function generateMisalignmentsSection(typologyPair) {
     // Get misalignments template
     const misalignmentsTemplate = assessmentData.resultsTemplates.misalignments[pairKey];
     
-    // Create heading
-    const misalignmentsHeading = document.createElement('h5');
-    misalignmentsHeading.textContent = 'Approaches That May Create Friction:';
+    // Create misalignments card
+    const misalignmentsCard = document.createElement('div');
+    misalignmentsCard.className = 'results-card';
     
-    // Create description
-    const misalignmentsDescription = document.createElement('p');
-    misalignmentsDescription.textContent = 'Based on your typology, these approaches may create resistance or inefficiency in your manifestation process:';
+    const misalignmentsTitle = document.createElement('h3');
+    misalignmentsTitle.className = 'results-card-title';
+    misalignmentsTitle.textContent = 'Approaches That May Create Friction';
     
-    // Create list
-    const misalignmentsList = document.createElement('ul');
-    misalignmentsTemplate.forEach(misalignment => {
-        const listItem = document.createElement('li');
-        listItem.textContent = misalignment;
-        misalignmentsList.appendChild(listItem);
+    const misalignmentsList = document.createElement('div');
+    misalignmentsList.className = 'space-y-4';
+    
+    misalignmentsTemplate.forEach((misalignment, index) => {
+        const misalignmentItem = document.createElement('div');
+        misalignmentItem.className = 'misalignment-item';
+        
+        const misalignmentIcon = document.createElement('div');
+        misalignmentIcon.className = 'misalignment-icon';
+        misalignmentIcon.textContent = '!';
+        
+        const misalignmentText = document.createElement('p');
+        misalignmentText.className = 'misalignment-text';
+        misalignmentText.textContent = misalignment;
+        
+        misalignmentItem.appendChild(misalignmentIcon);
+        misalignmentItem.appendChild(misalignmentText);
+        misalignmentsList.appendChild(misalignmentItem);
     });
     
-    // Assemble misalignments container
-    misalignmentsContainer.appendChild(misalignmentsHeading);
-    misalignmentsContainer.appendChild(misalignmentsDescription);
-    misalignmentsContainer.appendChild(misalignmentsList);
+    misalignmentsCard.appendChild(misalignmentsTitle);
+    misalignmentsCard.appendChild(misalignmentsList);
+    misalignmentsContainer.appendChild(misalignmentsCard);
 }
 
-// Generate the mastery priorities section
+//-------------------------------------------------------------------------
+// UPDATED: Generate Mastery Priorities Section
+//-------------------------------------------------------------------------
 function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     const prioritiesContainer = document.getElementById('mastery-priorities');
     prioritiesContainer.innerHTML = '';
     
-    // Create core values section
-    const valuesSection = document.createElement('div');
-    valuesSection.className = 'values-section';
+    // Create core values card
+    const valuesCard = document.createElement('div');
+    valuesCard.className = 'results-card';
     
-    const valuesHeading = document.createElement('h5');
-    valuesHeading.textContent = 'Your Core Values & Priorities:';
+    const valuesTitle = document.createElement('h3');
+    valuesTitle.className = 'results-card-title';
+    valuesTitle.textContent = 'Your Core Values & Priorities';
     
-    valuesSection.appendChild(valuesHeading);
-    
-    const valuesList = document.createElement('ul');
+    const valuesList = document.createElement('div');
+    valuesList.className = 'space-y-4';
     
     // Map priority values to descriptions
     const priorityDescriptions = {
@@ -516,29 +501,39 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
         'possibility': 'Maintaining your sense of possibility and not settling for less than what feels right is crucial to your well-being.'
     };
     
-    // Add core values based on dominant values
-    dominantValues.corePriorities.forEach(value => {
+    dominantValues.corePriorities.forEach((value, index) => {
         if (priorityDescriptions[value]) {
-            const listItem = document.createElement('li');
-            listItem.textContent = priorityDescriptions[value];
-            valuesList.appendChild(listItem);
+            const valueItem = document.createElement('div');
+            valueItem.className = 'priority-item';
+            
+            const valueNumber = document.createElement('div');
+            valueNumber.className = 'approach-number';
+            valueNumber.textContent = index + 1;
+            
+            const valueText = document.createElement('p');
+            valueText.className = 'priority-text';
+            valueText.textContent = priorityDescriptions[value];
+            
+            valueItem.appendChild(valueNumber);
+            valueItem.appendChild(valueText);
+            valuesList.appendChild(valueItem);
         }
     });
     
-    valuesSection.appendChild(valuesList);
+    valuesCard.appendChild(valuesTitle);
+    valuesCard.appendChild(valuesList);
     
-    // Create growth areas section
-    const growthSection = document.createElement('div');
-    growthSection.className = 'growth-section';
+    // Create growth areas card
+    const growthCard = document.createElement('div');
+    growthCard.className = 'results-card';
     
-    const growthHeading = document.createElement('h5');
-    growthHeading.textContent = 'Your Growth & Permission Areas:';
+    const growthTitle = document.createElement('h3');
+    growthTitle.className = 'results-card-title';
+    growthTitle.textContent = 'Your Growth & Permission Areas';
     
-    growthSection.appendChild(growthHeading);
+    const growthList = document.createElement('div');
+    growthList.className = 'space-y-4';
     
-    const growthList = document.createElement('ul');
-    
-    // Map growth areas to descriptions
     const growthDescriptions = {
         'trust-intuition': 'Developing greater trust in your intuitive guidance, especially when it contradicts logical analysis.',
         'practical-action': 'Taking more consistent practical action to ground your visions in physical reality.',
@@ -551,186 +546,146 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
         'release-attachment': 'Releasing attachment to specific outcomes and embracing more flow and flexibility.'
     };
     
-    // Add growth areas based on dominant values
-    dominantValues.growthAreas.forEach(value => {
+    dominantValues.growthAreas.forEach((value, index) => {
         if (growthDescriptions[value]) {
-            const listItem = document.createElement('li');
-            listItem.textContent = growthDescriptions[value];
-            growthList.appendChild(listItem);
+            const growthItem = document.createElement('div');
+            growthItem.className = 'priority-item';
+            
+            const growthNumber = document.createElement('div');
+            growthNumber.className = 'approach-number';
+            growthNumber.textContent = index + 1;
+            
+            const growthText = document.createElement('p');
+            growthText.className = 'priority-text';
+            growthText.textContent = growthDescriptions[value];
+            
+            growthItem.appendChild(growthNumber);
+            growthItem.appendChild(growthText);
+            growthList.appendChild(growthItem);
         }
     });
     
-    growthSection.appendChild(growthList);
+    growthCard.appendChild(growthTitle);
+    growthCard.appendChild(growthList);
     
-    // Assemble priorities container
-    prioritiesContainer.appendChild(valuesSection);
-    prioritiesContainer.appendChild(growthSection);
+    prioritiesContainer.appendChild(valuesCard);
+    prioritiesContainer.appendChild(growthCard);
 }
 
-// Generate the prescriptive strategy section
+//-------------------------------------------------------------------------
+// UPDATED: Generate Prescriptive Strategy Section (with Expandable Sections)
+//-------------------------------------------------------------------------
 function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
     const strategyContainer = document.getElementById('prescriptive-strategy');
     strategyContainer.innerHTML = '';
     
-    // Create shifts needed section
-    const shiftsSection = document.createElement('div');
-    shiftsSection.className = 'shifts-section';
+    // Create expandable sections for shifts, permissions, and energy support tools
+    const shiftsSection = createExpandableSection('Shifts Needed', generateTypologyShifts(typologyPair.key, dominantValues.growthAreas));
+    const permissionsSection = createExpandableSection('Acceptance Permissions', generateAcceptancePermissions(dominantValues.alignmentNeeds, typologyPair.key));
+    const toolsSection = createExpandableSection('Energy Support Tools', generateEnergySupportTools(dominantValues.energyPatterns, typologyPair.key));
     
-    const shiftsHeading = document.createElement('h5');
-    shiftsHeading.textContent = 'Shifts Needed:';
-    
-    const shiftsList = document.createElement('ul');
-    shiftsList.className = 'shifts-list';
-    
-    // Determine typology pair key
-    let pairKey = '';
-    if (typologyPair.primary.placement === 'left') {
-        pairKey += 'structured';
-    } else if (typologyPair.primary.placement === 'balanced') {
-        pairKey += 'balanced';
-    } else {
-        pairKey += 'fluid';
-    }
-    
-    pairKey += '-';
-    
-    if (typologyPair.secondary.placement === 'left') {
-        pairKey += 'structured';
-    } else if (typologyPair.secondary.placement === 'balanced') {
-        pairKey += 'balanced';
-    } else {
-        pairKey += 'fluid';
-    }
-    
-    // Generate shifts based on typology and growth areas
-    const shifts = generateTypologyShifts(pairKey, dominantValues.growthAreas);
-    
-    shifts.forEach(shift => {
-        const listItem = document.createElement('li');
-        listItem.textContent = shift;
-        shiftsList.appendChild(listItem);
-    });
-    
-    shiftsSection.appendChild(shiftsHeading);
-    shiftsSection.appendChild(shiftsList);
-    
-    // Create permissions section
-    const permissionsSection = document.createElement('div');
-    permissionsSection.className = 'permissions-section';
-    
-    const permissionsHeading = document.createElement('h5');
-    permissionsHeading.textContent = 'Acceptance Permissions:';
-    
-    const permissionsList = document.createElement('ul');
-    permissionsList.className = 'permissions-list';
-    
-    // Generate permissions based on alignment needs and typology
-    const permissions = generateAcceptancePermissions(dominantValues.alignmentNeeds, pairKey);
-    
-    permissions.forEach(permission => {
-        const listItem = document.createElement('li');
-        listItem.textContent = permission;
-        permissionsList.appendChild(listItem);
-    });
-    
-    permissionsSection.appendChild(permissionsHeading);
-    permissionsSection.appendChild(permissionsList);
-    
-    // Create energy support tools section
-    const energySection = document.createElement('div');
-    energySection.className = 'energy-section';
-    
-    const energyHeading = document.createElement('h5');
-    energyHeading.textContent = 'Energy Support Tools:';
-    
-    const toolsList = document.createElement('ul');
-    toolsList.className = 'tools-list';
-    
-    // Generate energy support tools based on energy patterns and typology
-    const tools = generateEnergySupportTools(dominantValues.energyPatterns, pairKey);
-    
-    tools.forEach(tool => {
-        const listItem = document.createElement('li');
-        listItem.textContent = tool;
-        toolsList.appendChild(listItem);
-    });
-    
-    energySection.appendChild(energyHeading);
-    energySection.appendChild(toolsList);
-    
-    // Add personalized integration advice
-    const integrationSection = document.createElement('div');
-    integrationSection.className = 'integration-section';
-    
-    const integrationHeading = document.createElement('h5');
-    integrationHeading.textContent = 'Personalized Integration Strategy:';
-    
-    const integrationParagraph = document.createElement('p');
-    integrationParagraph.textContent = generateIntegrationStrategy(pairKey, dominantValues);
-    
-    integrationSection.appendChild(integrationHeading);
-    integrationSection.appendChild(integrationParagraph);
-    
-    // Assemble strategy container
     strategyContainer.appendChild(shiftsSection);
     strategyContainer.appendChild(permissionsSection);
-    strategyContainer.appendChild(energySection);
-    strategyContainer.appendChild(integrationSection);
+    strategyContainer.appendChild(toolsSection);
+    
+    // Helper function to create an expandable section
+    function createExpandableSection(title, items) {
+        const section = document.createElement('div');
+        section.className = 'expandable-section';
+        
+        const header = document.createElement('div');
+        header.className = 'expandable-header';
+        
+        const headerTitle = document.createElement('h3');
+        headerTitle.className = 'expandable-title';
+        headerTitle.textContent = title;
+        
+        const headerIcon = document.createElement('div');
+        headerIcon.className = 'expandable-icon';
+        headerIcon.innerHTML = `
+            <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M1 1L6 6L11 1" stroke="#78716C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+        `;
+        
+        header.appendChild(headerTitle);
+        header.appendChild(headerIcon);
+        
+        const content = document.createElement('div');
+        content.className = 'expandable-content collapsed';
+        
+        const itemsList = document.createElement('div');
+        itemsList.className = 'space-y-4';
+        
+        items.forEach((item, index) => {
+            const strategyItem = document.createElement('div');
+            strategyItem.className = 'strategy-item';
+            
+            const strategyNumber = document.createElement('div');
+            strategyNumber.className = 'strategy-number';
+            strategyNumber.textContent = index + 1;
+            
+            const strategyText = document.createElement('p');
+            strategyText.className = 'strategy-text';
+            strategyText.textContent = item;
+            
+            strategyItem.appendChild(strategyNumber);
+            strategyItem.appendChild(strategyText);
+            itemsList.appendChild(strategyItem);
+        });
+        
+        content.appendChild(itemsList);
+        
+        section.appendChild(header);
+        section.appendChild(content);
+        return section;
+    }
 }
 
-// Helper function to generate typology-specific shifts
+//-------------------------------------------------------------------------
+// HELPER: Generate Typology Shifts
+//-------------------------------------------------------------------------
 function generateTypologyShifts(typologyKey, growthAreas) {
     const shifts = [];
     
-    // Add shifts based on growth areas
     if (growthAreas.includes('consistency-challenge')) {
         shifts.push('Develop a flexible consistency framework that honors your natural rhythm while providing enough structure for momentum.');
     }
-    
     if (growthAreas.includes('clarity-challenge')) {
         shifts.push('Create a clarity practice that combines analytical reflection with intuitive exploration to help crystallize your true desires.');
     }
-    
     if (growthAreas.includes('action-challenge') || growthAreas.includes('action-gap')) {
         shifts.push('Design an action approach that aligns with your energy patterns—powerful bursts or steady progress based on your nature.');
     }
-    
     if (growthAreas.includes('intuition-challenge')) {
         shifts.push('Strengthen your intuition through regular practices that help you recognize, trust, and validate your inner knowing.');
     }
-    
     if (growthAreas.includes('emotion-challenge') || growthAreas.includes('emotional-block')) {
-        shifts.push('Develop emotional fluency practices that help you navigate emotional states without being overwhelmed or disconnected from them.');
+        shifts.push('Develop emotional fluency practices that help you navigate emotional states without being overwhelmed or disconnected.');
     }
-    
     if (growthAreas.includes('receiving-challenge')) {
         shifts.push('Create receiving rituals that help you open to and recognize manifestations as they emerge, especially in unexpected forms.');
     }
-    
     if (growthAreas.includes('decision-doubt')) {
         shifts.push('Establish a personalized decision-making protocol that incorporates both analytical validation and intuitive confirmation.');
     }
-    
     if (growthAreas.includes('focus-challenge')) {
-        shifts.push('Design focus containers that work with your natural attention style, providing structure while allowing for necessary flexibility.');
+        shifts.push('Design focus containers that work with your natural attention style, providing structure while allowing for flexibility.');
     }
-    
     if (growthAreas.includes('burnout-pattern')) {
         shifts.push('Implement energy management practices that honor your natural cycles of output and restoration.');
     }
-    
     if (growthAreas.includes('commitment-hesitation')) {
         shifts.push('Develop incremental commitment practices that allow you to build confidence and momentum without triggering resistance.');
     }
     
-    // Add typology-specific shifts
     switch (typologyKey) {
         case 'structured-structured':
             shifts.push('Create intentional space for intuitive exploration within your highly structured approach.');
             shifts.push('Develop practices for recognizing when flexibility would serve better than rigid adherence to your plans.');
             break;
         case 'structured-balanced':
-            shifts.push('Notice when you default to structure out of habit rather than conscious choice, and experiment with more fluid approaches in those moments.');
+            shifts.push('Notice when you default to structure out of habit rather than conscious choice, and experiment with more fluid approaches.');
             shifts.push('Leverage your balanced secondary aspect to soften potential rigidity in your structured primary approach.');
             break;
         case 'structured-fluid':
@@ -742,12 +697,12 @@ function generateTypologyShifts(typologyKey, growthAreas) {
             shifts.push('Use your structured secondary aspect to provide grounding when your balanced primary approach needs more focus.');
             break;
         case 'balanced-balanced':
-            shifts.push('Develop clear decision criteria for choosing between structured and fluid approaches in different manifestation contexts.');
+            shifts.push('Develop clear decision criteria for choosing between structured and fluid approaches in different contexts.');
             shifts.push('Create enough structure to provide momentum without restricting your natural adaptability.');
             break;
         case 'balanced-fluid':
-            shifts.push('Allow your fluid aspects to lead your creative process while using your balanced aspects for integration and implementation.');
-            shifts.push('Develop practices that help you maintain enough grounding when your fluid aspects pull you into expansive states.');
+            shifts.push('Allow your fluid aspects to lead your creative process while using your balanced aspects for integration.');
+            shifts.push('Develop practices that help you maintain grounding when your fluid aspects pull you into expansive states.');
             break;
         case 'fluid-structured':
             shifts.push('Create bridges between your intuitive insights and structured implementation to manifest your visions effectively.');
@@ -766,312 +721,242 @@ function generateTypologyShifts(typologyKey, growthAreas) {
     return shifts;
 }
 
-// Helper function to generate acceptance permissions
+//-------------------------------------------------------------------------
+// HELPER: Generate Acceptance Permissions
+//-------------------------------------------------------------------------
 function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
     const permissions = [];
     
-    // Add permissions based on alignment needs
     if (alignmentNeeds.includes('accept-cycles')) {
-        permissions.push('Give yourself permission to honor your natural cycles of energy, creativity, and focus rather than forcing constant output.');
+        permissions.push('Give yourself permission to honor your natural cycles rather than forcing constant output.');
     }
-    
     if (alignmentNeeds.includes('accept-structure')) {
         permissions.push('Give yourself permission to create and maintain the structures you need, even if others thrive with more spontaneity.');
     }
-    
     if (alignmentNeeds.includes('accept-emotions')) {
-        permissions.push('Give yourself permission to acknowledge how your emotional states influence your manifestation process without judgment.');
+        permissions.push('Give yourself permission to acknowledge your emotional states without judgment.');
     }
-    
     if (alignmentNeeds.includes('accept-gradual-clarity')) {
         permissions.push('Give yourself permission to allow clarity to emerge gradually rather than forcing immediate certainty.');
     }
-    
     if (alignmentNeeds.includes('accept-intuition')) {
-        permissions.push('Give yourself permission to trust your intuitive guidance, even when you cannot immediately justify it logically.');
+        permissions.push('Give yourself permission to trust your intuitive guidance, even without immediate logical justification.');
     }
-    
     if (alignmentNeeds.includes('accept-flexibility')) {
-        permissions.push('Give yourself permission to remain flexible and open rather than locking into fixed outcomes or approaches.');
+        permissions.push('Give yourself permission to remain flexible and open rather than locking into fixed outcomes.');
     }
-    
     if (alignmentNeeds.includes('control-outcomes')) {
-        permissions.push('Give yourself permission to release attachment to specific timelines and forms that your manifestations might take.');
+        permissions.push('Give yourself permission to release attachment to specific timelines and forms.');
     }
-    
     if (alignmentNeeds.includes('control-emotions')) {
-        permissions.push('Give yourself permission to experience the full range of emotions as valuable information in your manifestation process.');
+        permissions.push('Give yourself permission to experience your full range of emotions as valuable information.');
     }
-    
     if (alignmentNeeds.includes('control-consistency')) {
-        permissions.push('Give yourself permission to work with your natural rhythm even when it doesn\'t match external expectations of consistency.');
+        permissions.push('Give yourself permission to work with your natural rhythm even if it doesn’t match external expectations.');
     }
-    
     if (alignmentNeeds.includes('control-clarity')) {
-        permissions.push('Give yourself permission to explore and experiment before committing to a clear vision.');
+        permissions.push('Give yourself permission to explore before committing to a clear vision.');
     }
-    
     if (alignmentNeeds.includes('control-decisions')) {
-        permissions.push('Give yourself permission to make decisions from multiple sources of wisdom, not just analytical certainty.');
+        permissions.push('Give yourself permission to make decisions from multiple sources of wisdom.');
     }
-    
     if (alignmentNeeds.includes('control-intuition')) {
-        permissions.push('Give yourself permission to follow intuitive nudges without needing to justify or explain them.');
+        permissions.push('Give yourself permission to follow intuitive nudges without needing to justify them.');
     }
     
-    // Add typology-specific permissions
     switch (typologyKey) {
         case 'structured-structured':
-            permissions.push('Give yourself permission to embrace uncertainty and organic development as part of the manifestation process.');
+            permissions.push('Embrace uncertainty and organic development as part of your process.');
             break;
         case 'structured-balanced':
-            permissions.push('Give yourself permission to trust your natural sense of when structure serves and when flexibility is needed.');
+            permissions.push('Trust your sense of when structure serves and when flexibility is needed.');
             break;
         case 'structured-fluid':
-            permissions.push('Give yourself permission to honor both your need for structure and your intuitive, flowing nature without seeing them as contradictory.');
+            permissions.push('Honor both your need for structure and your intuitive, flowing nature.');
             break;
         case 'balanced-structured':
-            permissions.push('Give yourself permission to adjust your approach in response to changing circumstances without seeing it as inconsistency.');
+            permissions.push('Adjust your approach as circumstances change without seeing it as inconsistency.');
             break;
         case 'balanced-balanced':
-            permissions.push('Give yourself permission to embrace your adaptable nature without needing to commit to one "correct" manifestation approach.');
+            permissions.push('Embrace your adaptability without committing to one “correct” approach.');
             break;
         case 'balanced-fluid':
-            permissions.push('Give yourself permission to lead with intuition while creating just enough structure to support effective manifestation.');
+            permissions.push('Lead with intuition while creating just enough structure to support manifestation.');
             break;
         case 'fluid-structured':
-            permissions.push('Give yourself permission to honor your intuitive knowing first, then engage your structured aspects for implementation.');
+            permissions.push('Honor your intuitive knowing first, then engage your structured aspects.');
             break;
         case 'fluid-balanced':
-            permissions.push('Give yourself permission to follow inspiration and trust that practical implementation can follow organically.');
+            permissions.push('Follow inspiration and trust that practical implementation can follow organically.');
             break;
         case 'fluid-fluid':
-            permissions.push('Give yourself permission to trust your fluid, intuitive process even when others advocate for more structured approaches.');
+            permissions.push('Trust your fluid process even when others advocate for more structure.');
             break;
     }
     
     return permissions;
 }
 
-// Helper function to generate energy support tools
+//-------------------------------------------------------------------------
+// HELPER: Generate Energy Support Tools
+//-------------------------------------------------------------------------
 function generateEnergySupportTools(energyPatterns, typologyKey) {
     const tools = [];
     
-    // Add tools based on energy patterns
     if (energyPatterns.includes('clear-instructions') || energyPatterns.includes('structured-productivity')) {
-        tools.push('A structured manifestation journal with clear prompts and sections for tracking progress and insights.');
+        tools.push('A structured manifestation journal with clear prompts for tracking progress.');
     }
-    
     if (energyPatterns.includes('intuitive-instincts') || energyPatterns.includes('flexible-productivity')) {
-        tools.push('Intuitive visualization exercises that allow for spontaneous insights and creative exploration.');
+        tools.push('Intuitive visualization exercises for spontaneous creative insights.');
     }
-    
     if (energyPatterns.includes('emotional-inspiration') || energyPatterns.includes('emotional-productivity')) {
-        tools.push('Emotional state practices that help you intentionally cultivate high-vibration feelings aligned with your desires.');
+        tools.push('Emotional state practices to cultivate high-vibration feelings aligned with your desires.');
     }
-    
     if (energyPatterns.includes('balanced-rhythm') || energyPatterns.includes('balanced-productivity')) {
-        tools.push('Flexible routines that provide structure while allowing for intuitive adjustments based on energy and inspiration.');
+        tools.push('Flexible routines that provide structure while allowing for intuitive adjustments.');
     }
-    
     if (energyPatterns.includes('gradual-clarity') || energyPatterns.includes('adaptive-productivity')) {
-        tools.push('Progressive clarity exercises that allow your vision to develop and refine over time rather than forcing immediate precision.');
+        tools.push('Progressive clarity exercises that let your vision refine over time.');
     }
-    
     if (energyPatterns.includes('process-trust') || energyPatterns.includes('spontaneous-productivity')) {
-        tools.push('Surrender practices that strengthen your ability to release attachment and trust divine timing.');
+        tools.push('Surrender practices to help you release attachment and trust divine timing.');
     }
-    
     if (energyPatterns.includes('rigid-routines') || energyPatterns.includes('structured-environment')) {
-        tools.push('Adaptable planning systems that provide structure without becoming restrictive.');
+        tools.push('Adaptable planning systems that offer structure without being restrictive.');
     }
-    
     if (energyPatterns.includes('ignored-intuition') || energyPatterns.includes('dynamic-environment')) {
-        tools.push('Regular intuition check-ins that help you recognize and honor subtle guidance.');
+        tools.push('Regular intuition check-ins to help you honor subtle guidance.');
     }
-    
     if (energyPatterns.includes('suppressed-emotions') || energyPatterns.includes('emotionally-supportive-environment')) {
-        tools.push('Emotional awareness practices that help you recognize and work with emotional energies in manifestation.');
+        tools.push('Emotional awareness practices to help you work with your emotional energies.');
     }
-    
     if (energyPatterns.includes('forced-clarity') || energyPatterns.includes('inspiring-environment')) {
-        tools.push('Exploratory vision boards or mind maps that allow clarity to emerge through creative expression.');
+        tools.push('Exploratory vision boards or mind maps for creative clarity.');
     }
     
-    if (energyPatterns.includes('ignored-cycles') || energyPatterns.includes('balanced-environment')) {
-        tools.push('Energy tracking systems that help you work with your natural cycles rather than against them.');
-    }
-    
-    if (energyPatterns.includes('overcontrolling') || energyPatterns.includes('pressure-free-environment')) {
-        tools.push('Release rituals that help you let go of attachment to specific outcomes and timelines.');
-    }
-    
-    // Add typology-specific tools
     switch (typologyKey) {
         case 'structured-structured':
-            tools.push('Structured intuition exercises that provide a clear framework for accessing and interpreting intuitive insights.');
-            tools.push('Manifestation systems with built-in flexibility points that prevent excessive rigidity.');
+            tools.push('Structured intuition exercises with clear frameworks.');
+            tools.push('Manifestation systems with built-in flexibility.');
             break;
         case 'structured-balanced':
-            tools.push('Alternating structure and flow practices that leverage both aspects of your typology.');
-            tools.push('Decision frameworks that incorporate both analytical and intuitive components.');
+            tools.push('Alternating structure and flow practices that leverage both aspects.');
+            tools.push('Decision frameworks that integrate analytical and intuitive components.');
             break;
         case 'structured-fluid':
-            tools.push('Structured containers for intuitive exploration that provide enough foundation without restricting creative flow.');
-            tools.push('Practices that help you translate intuitive insights into structured implementation plans.');
+            tools.push('Structured containers for intuitive exploration that don’t restrict creativity.');
+            tools.push('Practices that help translate intuitive insights into actionable plans.');
             break;
         case 'balanced-structured':
-            tools.push('Adaptable frameworks that provide structure when needed but can flex with changing circumstances.');
-            tools.push('Balance assessments that help you determine when to apply more structure or more flow.');
+            tools.push('Adaptable frameworks that flex with changing circumstances.');
+            tools.push('Balance assessments to decide when to apply more structure or flow.');
             break;
         case 'balanced-balanced':
-            tools.push('Integration practices that help you harmonize different manifestation approaches into a cohesive personal system.');
-            tools.push('Discernment tools for selecting the right approach for different manifestation contexts.');
+            tools.push('Integration practices to harmonize multiple manifestation approaches.');
+            tools.push('Discernment tools for selecting the right approach for each context.');
             break;
         case 'balanced-fluid':
-            tools.push('Minimal planning systems that support your fluid nature while providing just enough structure.');
-            tools.push('Grounding practices that help anchor your expansive energy when needed.');
+            tools.push('Minimal planning systems that support your fluid nature with enough structure.');
+            tools.push('Grounding practices to anchor your expansive energy.');
             break;
         case 'fluid-structured':
-            tools.push('Intuition-led planning methods that start with inspired vision and then apply structure for implementation.');
-            tools.push('Bridges between intuitive insights and practical action steps.');
+            tools.push('Intuition-led planning methods that start with inspired vision then apply structure.');
+            tools.push('Bridges between intuitive insights and practical action.');
             break;
         case 'fluid-balanced':
-            tools.push('Vision anchoring practices that help translate expansive ideas into manageable projects.');
-            tools.push('Fluid manifestation rituals with just enough structure to support manifestation.');
+            tools.push('Vision anchoring practices to translate expansive ideas into projects.');
+            tools.push('Fluid manifestation rituals with minimal yet sufficient structure.');
             break;
         case 'fluid-fluid':
-            tools.push('Energetic alignment practices that focus on vibrational matching rather than forced action.');
-            tools.push('Minimal grounding techniques that provide just enough foundation without restricting your expansive approach.');
+            tools.push('Energetic alignment practices focused on vibrational matching.');
+            tools.push('Minimal grounding techniques to support your expansive approach.');
             break;
     }
     
     return tools;
 }
 
-// Helper function to generate personalized integration strategy
+//-------------------------------------------------------------------------
+// HELPER: Generate Personalized Integration Strategy
+//-------------------------------------------------------------------------
 function generateIntegrationStrategy(typologyKey, dominantValues) {
     let strategy = '';
     
-    // Generate base strategy based on typology pair
     switch (typologyKey) {
         case 'structured-structured':
-            strategy = "Your optimal integration strategy involves creating intentional space for intuitive exploration within your highly structured approach. As a Structured-Structured type, you thrive with clear systems, but your manifestation power amplifies when you balance this with scheduled periods of open receptivity and flow. Consider implementing regular 'intuition days' where you temporarily set aside your analytical framework and connect purely with inspiration. Additionally, build flexibility checkpoints into your manifestation plans where you pause to ensure your structured approach is serving your true desires rather than limiting them.";
+            strategy = "Your integration strategy involves creating intentional space for intuitive exploration within your structured approach. Schedule regular 'intuition days' and include flexibility checkpoints in your plans.";
             break;
         case 'structured-balanced':
-            strategy = "Your integration strategy leverages your natural balance between structure and adaptability. As a Structured-Balanced type, you benefit from creating clear frameworks that include designated spaces for intuitive adjustment. Start your manifestation process with structured planning, then schedule regular reflection points where you consciously check in with your intuition to refine your approach. Your strength lies in your ability to maintain enough structure for momentum while remaining flexible enough to adjust as circumstances evolve or new insights emerge.";
+            strategy = "Leverage your balance between structure and adaptability. Begin with clear planning, then schedule reflection points to check in with your intuition.";
             break;
         case 'structured-fluid':
-            strategy = "Your integration strategy embraces the creative tension between your structured foundation and fluid inspiration. As a Structured-Fluid type, you thrive when you use structure to support rather than constrain your intuitive insights. Create a strong initial framework for your manifestation practice, then allow your fluid aspect to guide the details and implementation. Regular practices that help you move consciously between structured thinking and intuitive flow will amplify your manifestation power.";
+            strategy = "Honor the tension between structure and fluidity. Use your structured foundation to support intuitive insights and allow each to lead when appropriate.";
             break;
         case 'balanced-structured':
-            strategy = "Your integration strategy utilizes your adaptability as a guide for applying structure appropriately. As a Balanced-Structured type, you naturally sense when more or less structure is needed in your manifestation process. Develop a personalized approach that includes both consistent foundational practices and flexible components that can be adjusted based on current needs and energy levels. Your strength lies in knowing when to apply structure for momentum and when to create space for organic development.";
+            strategy = "Utilize your adaptability to apply structure when needed while remaining flexible. Create organized systems with built-in adjustments.";
             break;
         case 'balanced-balanced':
-            strategy = "Your integration strategy embraces your naturally adaptable approach to manifestation. As a Balanced-Balanced type, you thrive with a flexible framework that can be adjusted based on the specific manifestation, your current energy, and evolving circumstances. Develop clear discernment practices that help you determine when to apply more structure or more flow in different situations. Your strength lies in your ability to select the right tool from multiple approaches without becoming rigid in your methodology.";
+            strategy = "Embrace your naturally adaptable approach. Develop clear criteria for when to use structure versus flow and adjust as circumstances evolve.";
             break;
         case 'balanced-fluid':
-            strategy = "Your integration strategy honors your primarily intuitive approach while maintaining enough structure for effective manifestation. As a Balanced-Fluid type, you thrive when you lead with inspiration and follow with just enough organization to bring your visions into reality. Develop lightweight systems that support rather than restrict your natural flow, and create regular grounding practices that help you translate expansive ideas into tangible form without losing their essence.";
+            strategy = "Lead with your intuitive insights while maintaining minimal structure for effective manifestation. Use grounding practices to translate expansive ideas into action.";
             break;
         case 'fluid-structured':
-            strategy = "Your integration strategy creates bridges between your intuitive insights and structured implementation. As a Fluid-Structured type, you thrive when you allow your intuition to guide the vision while engaging your structured aspect for manifestation. Create a two-phase approach where you first connect deeply with intuitive guidance, then activate your structured abilities to implement effectively. Regular practices that strengthen the connection between these two aspects will amplify your manifestation power.";
+            strategy = "Bridge your intuitive insights with structured implementation. Develop a two-phase approach: first connect with your vision, then implement using clear steps.";
             break;
         case 'fluid-balanced':
-            strategy = "Your integration strategy leverages your intuitive leadership while incorporating practical elements through your balanced secondary aspect. As a Fluid-Balanced type, you thrive when you maintain connection with your expansive vision while creating enough structure to manifest effectively. Develop practices that help you ground and anchor your inspirations without diminishing their potential. Your strength lies in your ability to translate intuitive insights into practical steps while maintaining alignment with the original vision.";
+            strategy = "Maintain your intuitive leadership while incorporating practical elements. Create space for full creative flow followed by grounding practices.";
             break;
         case 'fluid-fluid':
-            strategy = "Your integration strategy honors your highly intuitive and expansive approach while creating minimal anchoring for effective manifestation. As a Fluid-Fluid type, you thrive with an approach focused primarily on energetic alignment, inspired action, and surrender to divine timing. Create simple touchpoints that help ground your visions without restricting their expansive nature. Regular practices that help you maintain connection between your expansive vision and physical reality will amplify your manifestation power.";
+            strategy = "Trust your highly intuitive process while establishing minimal anchoring to bring your visions into reality. Simple touchpoints can help translate expansive ideas into tangible steps.";
             break;
         default:
-            strategy = "Your integration strategy embraces a balanced approach that honors both structure and flow in your manifestation process. Create a flexible framework that provides enough consistency for momentum while allowing space for intuitive guidance and adjustment. Regular practices that help you connect with both your analytical mind and intuitive wisdom will strengthen your manifestation abilities. Pay attention to which elements of your process feel most natural and aligned, and allow yourself to customize your approach accordingly.";
+            strategy = "Develop a balanced approach that integrates both structure and flow. Regularly connect with both analytical and intuitive insights to guide your manifestation process.";
     }
     
-    // Enhance with personalization based on dominant values
+    // Enhance strategy based on dominant core values
     const corePriorities = dominantValues.corePriorities;
-    
     if (corePriorities.includes('creative-expression') || corePriorities.includes('craft-mastery')) {
-        strategy += " Incorporate creative expression as a core component of your manifestation practice, using artistic exploration to connect with and clarify your desires.";
+        strategy += " Incorporate creative expression as a core component, using artistic exploration to clarify your desires.";
     }
-    
     if (corePriorities.includes('financial-abundance') || corePriorities.includes('wealth-security')) {
-        strategy += " Focus on creating a sense of expansive possibility in your relationship with resources, releasing scarcity thinking through targeted abundance practices.";
+        strategy += " Focus on abundance practices that release scarcity thinking.";
     }
-    
     if (corePriorities.includes('emotional-fulfillment') || corePriorities.includes('emotional-peace')) {
-        strategy += " Prioritize emotional alignment practices, recognizing that your emotional state forms the foundation of your manifestation energy.";
+        strategy += " Prioritize emotional alignment practices to ground your manifestation energy.";
     }
-    
     if (corePriorities.includes('personal-autonomy') || corePriorities.includes('personal-freedom')) {
-        strategy += " Design your manifestation practice to enhance your sense of choice and self-determination, avoiding approaches that feel restrictive or externally imposed.";
+        strategy += " Design your process to enhance self-determination and avoid restrictive approaches.";
     }
-    
     if (corePriorities.includes('deep-relationships') || corePriorities.includes('deep-connection')) {
-        strategy += " Incorporate connection with others as a supportive element in your manifestation journey, creating opportunities for authentic sharing and mutual support.";
+        strategy += " Include practices that foster authentic connection and mutual support.";
     }
-    
     if (corePriorities.includes('spiritual-connection') || corePriorities.includes('higher-meaning')) {
-        strategy += " Center your manifestation practice around connection with a higher purpose, regularly reconnecting with the deeper meaning behind your desires.";
+        strategy += " Center your practice around a higher purpose and reconnect with deeper meaning regularly.";
     }
     
     return strategy;
 }
 
-// Helper function to generate typology-specific recommendations
-function generateTypologyRecommendations(typologyKey) {
-    // Generate recommendations based on typology pair
-    let recommendations = '';
-    
-    switch (typologyKey) {
-        case 'structured-structured':
-            recommendations = "Create more space for intuitive insights and divine timing within your structured approach. Schedule regular 'intuition time' where you temporarily set aside analytical thinking and connect with your deeper knowing. Practice recognizing when precision is truly needed versus when flexibility would serve better.";
-            break;
-        case 'structured-balanced':
-            recommendations = "When you notice yourself defaulting to excessive structure, consciously shift to more intuitive approaches. Your strength lies in your adaptability—trust your ability to know when structure or flow is needed. Create flexible frameworks that provide enough structure for progress without restricting creative possibilities.";
-            break;
-        case 'structured-fluid':
-            recommendations = "Use your structured foundation to support rather than restrict your intuitive insights. Create simple systems that capture inspired ideas without overanalyzing them. Allow full creative exploration before organizing implementation. Balance your methodical nature with regular practices that nurture your intuitive side.";
-            break;
-        case 'balanced-structured':
-            recommendations = "Recognize when your structured tendencies are serving you and when they're creating limitation. Create organized systems with built-in flexibility to honor both aspects of your nature. Practice trusting intuitive nudges even when they don't immediately make logical sense, while maintaining your practical foundation.";
-            break;
-        case 'balanced-balanced':
-            recommendations = "Avoid overthinking which approach to use in different situations. Trust your natural ability to select the right tool for each circumstance without excessive analysis. When facing important decisions, briefly check in with both your analytical mind and intuitive wisdom, then move forward with confidence.";
-            break;
-        case 'balanced-fluid':
-            recommendations = "Honor your intuitive nature while maintaining enough structure to manifest effectively. Create minimal frameworks that support rather than restrict your natural flow. Schedule regular grounding practices to balance your expansive tendencies. Trust your ability to integrate practical action with inspired guidance.";
-            break;
-        case 'fluid-structured':
-            recommendations = "Use your structured aspects to ground and implement your intuitive insights. Create simple systems to capture inspired ideas without overanalyzing them. Balance energetic practices with consistent action steps. Allow your methodical side to serve your visionary nature rather than restricting it.";
-            break;
-        case 'fluid-balanced':
-            recommendations = "Maintain your intuitive leadership while incorporating practical elements that help manifest your visions. Create space for full creative flow followed by grounding practices. Use your balanced aspects to translate intuitive insights into actionable steps. Trust your ability to bridge the spiritual and practical realms.";
-            break;
-        case 'fluid-fluid':
-            recommendations = "Incorporate minimal structure to help ground your expansive visions into reality. Schedule regular 'manifestation anchoring' sessions where you identify concrete steps. Remember that some form of consistent practice strengthens your natural gifts. Honor your intuitive process while creating enough structure for effective manifestation.";
-            break;
-        default:
-            recommendations = "Focus on developing a balanced approach that honors both structure and flow. Pay attention to which aspects of manifestation feel most natural to you, and allow yourself to lean into your strengths while developing complementary skills. Create a personalized process that integrates both practical action and intuitive guidance.";
-    }
-    
-    return recommendations;
-}
-
-// Calculate and display results
+//-------------------------------------------------------------------------
+// FINAL: Generate and Display Results
+//-------------------------------------------------------------------------
 function generateAndDisplayResults() {
-    // Get data from scoring.js calculations
+    // Assume getTypologyAndMasteryData() gathers scoring and analysis data
     const scoringData = getTypologyAndMasteryData();
     
     const spectrumPlacements = scoringData.typologyResults.placements;
     const typologyPair = scoringData.typologyPair;
     const masteryScores = scoringData.masteryScores;
     const dominantValues = scoringData.dominantValues;
-    const personalizedInsights = scoringData.personalizedInsights;
     
-    // Display results
+    // Display various result sections
     generateSpectrumDiagram(spectrumPlacements, typologyPair);
     generateTypologyPairSection(typologyPair);
     generateIdealApproachesSection(typologyPair);
     generateMisalignmentsSection(typologyPair);
     generateMasteryPrioritiesSection(masteryScores, dominantValues);
     generatePrescriptiveStrategySection(typologyPair, dominantValues);
+    
+    // Note: Other core functions like generatePersonalizedInsights() remain unchanged.
 }
