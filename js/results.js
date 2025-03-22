@@ -934,6 +934,153 @@ function generateIntegrationStrategy(typologyKey, dominantValues) {
     
     return strategy;
 }
+// Add to results.js
+function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
+    const prioritiesContainer = document.getElementById('mastery-priorities');
+    prioritiesContainer.innerHTML = '';
+    
+    // Create core values card
+    const valuesCard = document.createElement('div');
+    valuesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    
+    const valuesTitle = document.createElement('h3');
+    valuesTitle.className = 'text-xl font-light text-stone-800 mb-4';
+    valuesTitle.textContent = 'Your Core Values & Priorities';
+    
+    const valuesList = document.createElement('div');
+    valuesList.className = 'space-y-4';
+    
+    // Map priority values to descriptions
+    const priorityDescriptions = {
+        'stability': 'You deeply value clarity, stability, and a sense of control in your life circumstances.',
+        'meaning': 'You prioritize deep connection, meaning, and purpose in your relationships and activities.',
+        'freedom': 'You deeply value freedom, flexibility, and the ability to follow your inspiration wherever it leads.',
+        'practicality': 'Having practical viability and tangible results that improve your concrete circumstances is essential to you.',
+        'authenticity': 'Alignment with your authentic self and deeper values, even if it requires more effort, is non-negotiable for you.',
+        'feeling': 'The feeling and energetic quality of your experiences, regardless of how they look to others, is paramount to you.',
+        'creative-expression': 'You value the freedom to express your creativity and bring new ideas into being.',
+        'financial-abundance': 'You prioritize creating abundance and financial security in your life.',
+        'emotional-fulfillment': 'Emotional depth and authentic connection are core values for you.',
+        'personal-autonomy': 'Personal freedom and the ability to determine your own path are essential to you.',
+        'deep-relationships': 'Meaningful connections and relationships are foundational to your well-being.',
+        'spiritual-connection': 'Connection to something larger than yourself provides meaning and purpose.'
+    };
+    
+    // Create items for the dominant core priorities
+    if (dominantValues.corePriorities && dominantValues.corePriorities.length > 0) {
+        dominantValues.corePriorities.forEach((value, index) => {
+            // Find appropriate description
+            let description = priorityDescriptions[value];
+            if (!description) {
+                // If no exact match, try to find a partial match
+                for (const [key, text] of Object.entries(priorityDescriptions)) {
+                    if (value.includes(key) || key.includes(value)) {
+                        description = text;
+                        break;
+                    }
+                }
+            }
+            
+            // Default description if still not found
+            if (!description) {
+                description = `You deeply value aspects related to ${value.replace(/-/g, ' ')}.`;
+            }
+            
+            const valueItem = document.createElement('div');
+            valueItem.className = 'priority-item';
+            
+            const valueText = document.createElement('p');
+            valueText.className = 'text-base font-light text-stone-600';
+            valueText.textContent = description;
+            
+            valueItem.appendChild(valueText);
+            valuesList.appendChild(valueItem);
+        });
+    } else {
+        // Default values if none are present
+        const defaultValue = document.createElement('p');
+        defaultValue.className = 'text-base font-light text-stone-600';
+        defaultValue.textContent = 'You value balance and integration across multiple areas of your life.';
+        valuesList.appendChild(defaultValue);
+    }
+    
+    valuesCard.appendChild(valuesTitle);
+    valuesCard.appendChild(valuesList);
+    
+    // Create growth areas card
+    const growthCard = document.createElement('div');
+    growthCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    
+    const growthTitle = document.createElement('h3');
+    growthTitle.className = 'text-xl font-light text-stone-800 mb-4';
+    growthTitle.textContent = 'Your Growth & Permission Areas';
+    
+    const growthList = document.createElement('div');
+    growthList.className = 'space-y-4';
+    
+    // Map growth areas to descriptions
+    const growthDescriptions = {
+        'trust-intuition': 'Developing greater trust in your intuitive guidance, especially when it contradicts logical analysis.',
+        'practical-action': 'Taking more consistent practical action to ground your visions in physical reality.',
+        'focus-commitment': 'Maintaining focus and commitment to specific outcomes without getting distracted by new possibilities.',
+        'doubt-approach': 'Working through doubts about whether your approach is too unrealistic or lacking practical grounding.',
+        'seek-meaning': 'Understanding the deeper reasons or lessons behind manifestation delays or challenges.',
+        'energy-misalignment': 'Aligning your energy or vibration more effectively with your desires.',
+        'trust-process': 'Learning to trust the unfolding process even when you can\'t see the entire path ahead.',
+        'develop-structure': 'Creating more structure and consistency in your manifestation practices.',
+        'release-attachment': 'Releasing attachment to specific outcomes and embracing more flow and flexibility.',
+        'consistency-challenge': 'Building greater consistency in your manifestation practices over time.',
+        'clarity-challenge': 'Developing clearer vision around what you truly desire to manifest.',
+        'action-challenge': 'Taking consistent inspired action toward your manifestations.',
+        'intuition-challenge': 'Trusting your inner guidance more fully in your manifestation process.',
+        'emotion-challenge': 'Managing emotional states to support your manifestation process.',
+        'receiving-challenge': 'Opening yourself to receive the manifestations that are ready to come to you.'
+    };
+    
+    // Create items for the dominant growth areas
+    if (dominantValues.growthAreas && dominantValues.growthAreas.length > 0) {
+        dominantValues.growthAreas.forEach((value, index) => {
+            // Find appropriate description
+            let description = growthDescriptions[value];
+            if (!description) {
+                // If no exact match, try to find a partial match
+                for (const [key, text] of Object.entries(growthDescriptions)) {
+                    if (value.includes(key) || key.includes(value)) {
+                        description = text;
+                        break;
+                    }
+                }
+            }
+            
+            // Default description if still not found
+            if (!description) {
+                description = `Developing greater awareness and skill in areas related to ${value.replace(/-/g, ' ')}.`;
+            }
+            
+            const growthItem = document.createElement('div');
+            growthItem.className = 'priority-item';
+            
+            const growthText = document.createElement('p');
+            growthText.className = 'text-base font-light text-stone-600';
+            growthText.textContent = description;
+            
+            growthItem.appendChild(growthText);
+            growthList.appendChild(growthItem);
+        });
+    } else {
+        // Default growth area if none are present
+        const defaultGrowth = document.createElement('p');
+        defaultGrowth.className = 'text-base font-light text-stone-600';
+        defaultGrowth.textContent = 'Developing a balanced approach that honors both structure and intuition in your manifestation process.';
+        growthList.appendChild(defaultGrowth);
+    }
+    
+    growthCard.appendChild(growthTitle);
+    growthCard.appendChild(growthList);
+    
+    prioritiesContainer.appendChild(valuesCard);
+    prioritiesContainer.appendChild(growthCard);
+}
 
 //-------------------------------------------------------------------------
 // FINAL: Generate and Display Results
@@ -976,8 +1123,8 @@ function initResultsTabs() {
     function updateActiveTab(activeTab) {
         // Remove active styles from all tabs
         [typologyTab, approachesTab, strategyTab].forEach(tab => {
-            tab.classList.remove('text-amber-700');
-            tab.classList.add('text-stone-500');
+        tab.classList.remove('text-amber-700');
+        tab.classList.add('text-stone-500');
             
             // Remove active indicator
             const indicator = tab.querySelector('div');
@@ -985,14 +1132,14 @@ function initResultsTabs() {
         });
         
         // Add active styles to selected tab
-        activeTab.classList.remove('text-stone-500');
-        activeTab.classList.add('text-amber-700');
+    activeTab.classList.remove('text-stone-500');
+    activeTab.classList.add('text-amber-700');
         
         // Add active indicator
-        const indicator = document.createElement('div');
-        indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
-        activeTab.appendChild(indicator);
-    }
+    const indicator = document.createElement('div');
+    indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
+    activeTab.appendChild(indicator);
+}
     
     typologyTab.addEventListener('click', () => {
         // Update active tab
