@@ -81,13 +81,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         // Create numbered indicator
         const numberedIndicator = document.createElement('div');
         numberedIndicator.className = `absolute -top-10 ${
-            leftAligned ? 'left-0' : 
-            rightAligned ? 'right-0' : 
-            'left-1/2 transform -translate-x-1/2'
-        } flex items-center`;
+    leftAligned ? 'left-0' : 
+    rightAligned ? 'right-0' : 
+    'left-1/2 transform -translate-x-1/2'
+} flex items-center`;
         
         const numberCircle = document.createElement('div');
-        numberCircle.className = 'w-6 h-6 mr-2 flex items-center justify-center';
+        numberCircle.className = 'w-6 h-6 mr-4 flex items-center justify-center';
         
         const numberText = document.createElement('span');
         numberText.className = 'text-xs font-light text-stone-400';
