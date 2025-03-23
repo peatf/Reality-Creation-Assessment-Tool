@@ -1,7 +1,13 @@
-// Enhanced Results UI JavaScript
-// This script improves the visual presentation and interactions of the results page
+/*
+ * This script enhances the UI for the Reality Creation Assessment results page
+ * It fixes issues with expandable sections, spectrum visualization, and interactive elements
+ * Replace your existing js/enhanced-ui.js with this code or incorporate the changes
+ */
 
+// Main function to initialize all enhanced UI features
 function enhanceResultsPageUI() {
+    console.log("Enhancing Results UI...");
+    
     // First update the background animation with enhanced particles
     enhancedBackgroundAnimation('background-canvas-results');
     
@@ -146,6 +152,8 @@ function initEnhancedResultsTabs() {
         // Remove active styles from all tabs
         [typologyTab, approachesTab, strategyTab].forEach(tab => {
             tab.classList.remove('active');
+            tab.classList.remove('text-amber-700');
+            tab.classList.add('text-stone-500');
             tab.setAttribute('aria-selected', 'false');
             
             // Remove active indicator
@@ -168,6 +176,8 @@ function initEnhancedResultsTabs() {
         
         // Add active styles to selected tab
         activeTab.classList.add('active');
+        activeTab.classList.remove('text-stone-500');
+        activeTab.classList.add('text-amber-700');
         activeTab.setAttribute('aria-selected', 'true');
         
         // Add active indicator
@@ -234,30 +244,38 @@ function initEnhancedResultsTabs() {
 // Enhanced expandable sections with improved animations
 function initEnhancedExpandableSections() {
     const expandableSections = document.querySelectorAll('.expandable-section');
+    console.log("Found expandable sections:", expandableSections.length);
     
-    expandableSections.forEach(section => {
+    expandableSections.forEach((section, index) => {
         const header = section.querySelector('.expandable-header');
         const content = section.querySelector('.expandable-content');
-        const icon = section.querySelector('.expandable-icon');
+        let icon = section.querySelector('.expandable-icon');
         
-        if (header && content && icon) {
+        if (header && content) {
+            // Create the icon if it doesn't exist
+            if (!icon) {
+                icon = document.createElement('div');
+                icon.className = 'expandable-icon';
+                icon.innerHTML = `<svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>`;
+                header.appendChild(icon);
+            }
+            
             // Set initial state
             header.setAttribute('aria-expanded', 'false');
             content.classList.add('hidden');
             
-            // Replace icon if needed
-            if (!icon.querySelector('svg')) {
-                icon.innerHTML = `
-                    <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M1 1L6 6L11 1" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                `;
-            }
+            // Ensure content has ID for accessibility
+            const sectionId = section.id || `expandable-section-${index}`;
+            section.id = sectionId;
             
-            // Accessibility attributes
+            const contentId = `${sectionId}-content`;
+            content.id = contentId;
+            
+            // Set ARIA attributes
             header.setAttribute('role', 'button');
-            header.setAttribute('aria-controls', section.id + '-content');
-            content.id = section.id + '-content';
+            header.setAttribute('aria-controls', contentId);
             
             // Toggle function with improved animation
             header.addEventListener('click', () => {
@@ -266,23 +284,28 @@ function initEnhancedExpandableSections() {
                 
                 // Toggle content visibility with animation
                 if (isExpanded) {
-                    // Closing animation
+                    // First set a fixed height to allow animation
                     content.style.maxHeight = content.scrollHeight + 'px';
                     // Force reflow to enable transition
                     void content.offsetWidth; 
+                    
+                    // Then animate to 0
                     content.style.maxHeight = '0';
                     content.style.opacity = '0';
                     
                     // Add hidden class after animation completes
                     setTimeout(() => {
                         content.classList.add('hidden');
-                    }, 300);
+                        console.log("Added hidden class to", contentId);
+                    }, 500);
                     
                     // Rotate icon back
-                    icon.classList.remove('rotate-180');
+                    icon.classList.remove('expanded');
                 } else {
-                    // Opening animation
+                    // Opening animation - first remove hidden class
                     content.classList.remove('hidden');
+                    console.log("Removed hidden class from", contentId);
+                    
                     // Force reflow to make sure hidden is removed
                     void content.offsetWidth;
                     
@@ -291,36 +314,187 @@ function initEnhancedExpandableSections() {
                     content.style.opacity = '1';
                     
                     // Rotate icon
-                    icon.classList.add('rotate-180');
+                    icon.classList.add('expanded');
                     
                     // Remove fixed height after animation to allow content to expand if needed
                     setTimeout(() => {
                         if (header.getAttribute('aria-expanded') === 'true') {
                             content.style.maxHeight = 'none';
                         }
-                    }, 300);
+                    }, 500);
                 }
             });
         }
     });
 }
 
-// Function to add scroll-to-top on tab change
-function addScrollToTopOnTabChange() {
-    const tabs = document.querySelectorAll('.tab-button');
+// Function to apply smooth transitions to elements
+function applySmoothTransitions() {
+    // Add transition class to all major elements for smoother animations
+    const transitionElements = document.querySelectorAll('.results-card, .expandable-section, .approach-item, .strategy-item');
     
-    tabs.forEach(tab => {
-        tab.addEventListener('click', () => {
-            // Scroll to top of results container with smooth animation
-            const resultsContainer = document.querySelector('.results-container');
-            if (resultsContainer) {
-                resultsContainer.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            }
-        });
+    transitionElements.forEach((element, index) => {
+        // Add staggered entrance animation
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(20px)';
+        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        
+        // Staggered delay based on index
+        setTimeout(() => {
+            element.style.opacity = '1';
+            element.style.transform = 'translateY(0)';
+        }, 100 + (index * 50));
     });
+}
+
+// Function to enhance spectrum diagram visuals
+function enhanceSpectrumDiagram() {
+    console.log("Enhancing spectrum diagram");
+    
+    // First, make sure spectrum items have proper layout
+    const spectrumItems = document.querySelectorAll('.spectrum-item');
+    if (!spectrumItems.length) {
+        console.log("No spectrum items found");
+        return;
+    }
+    
+    console.log("Found spectrum items:", spectrumItems.length);
+    
+    // Fix spectrum markers which may be missing or incorrectly styled
+    spectrumItems.forEach(item => {
+        // Get the spectrum visualization element
+        const visualization = item.querySelector('.spectrum-visualization, .mb-6.relative');
+        if (!visualization) return;
+        
+        // Get placement value
+        let placementValue = "balanced"; // Default
+        
+        // Try to determine placement based on existing elements
+        const placementText = item.querySelector('.text-xs.font-light.text-stone-500.uppercase');
+        if (placementText) {
+            const text = placementText.textContent.toLowerCase();
+            if (text.includes('left')) placementValue = "left";
+            else if (text.includes('right')) placementValue = "right";
+        }
+        
+        // Check if we need to create or update spectrum marker
+        let marker = visualization.querySelector('.spectrum-marker');
+        if (!marker) {
+            // Create marker line
+            marker = document.createElement('div');
+            marker.className = `spectrum-marker ${placementValue}`;
+            
+            // Position based on placement
+            let leftPosition = '50%'; // Default balanced
+            if (placementValue === 'left') leftPosition = '25%';
+            else if (placementValue === 'right') leftPosition = '75%';
+            
+            marker.style.left = leftPosition;
+            
+            // Create marker dot
+            const dot = document.createElement('div');
+            dot.className = 'spectrum-marker-dot';
+            marker.appendChild(dot);
+            
+            // Create placement name
+            const placementName = document.createElement('div');
+            placementName.className = `spectrum-placement-name ${placementValue}`;
+            placementName.textContent = placementValue.charAt(0).toUpperCase() + placementValue.slice(1);
+            placementName.style.left = leftPosition;
+            
+            // Add to visualization
+            visualization.appendChild(marker);
+            visualization.appendChild(placementName);
+        } else {
+            // Update existing marker
+            marker.className = `spectrum-marker ${placementValue}`;
+            
+            // Check for dot and add if missing
+            if (!marker.querySelector('.spectrum-marker-dot')) {
+                const dot = document.createElement('div');
+                dot.className = 'spectrum-marker-dot';
+                marker.appendChild(dot);
+            }
+        }
+    });
+    
+    // Create or update the legend if it doesn't exist
+    let legend = document.querySelector('.legend');
+    const spectrumDiagram = document.getElementById('spectrum-diagram');
+    
+    if (!legend && spectrumDiagram) {
+        legend = document.createElement('div');
+        legend.className = 'legend';
+        
+        const legendItems = document.createElement('div');
+        legendItems.className = 'legend-items';
+        
+        // Structured legend item
+        const structuredItem = document.createElement('div');
+        structuredItem.className = 'legend-item';
+        
+        const structuredBar = document.createElement('div');
+        structuredBar.className = 'legend-bar structured';
+        
+        const structuredLabel = document.createElement('span');
+        structuredLabel.className = 'legend-label';
+        structuredLabel.textContent = 'STRUCTURED';
+        
+        structuredItem.appendChild(structuredBar);
+        structuredItem.appendChild(structuredLabel);
+        
+        // Balanced legend item
+        const balancedItem = document.createElement('div');
+        balancedItem.className = 'legend-item';
+        
+        const balancedBar = document.createElement('div');
+        balancedBar.className = 'legend-bar balanced';
+        
+        const balancedLabel = document.createElement('span');
+        balancedLabel.className = 'legend-label';
+        balancedLabel.textContent = 'BALANCED';
+        
+        balancedItem.appendChild(balancedBar);
+        balancedItem.appendChild(balancedLabel);
+        
+        // Intuitive legend item
+        const intuitiveItem = document.createElement('div');
+        intuitiveItem.className = 'legend-item';
+        
+        const intuitiveBar = document.createElement('div');
+        intuitiveBar.className = 'legend-bar intuitive';
+        
+        const intuitiveLabel = document.createElement('span');
+        intuitiveLabel.className = 'legend-label';
+        intuitiveLabel.textContent = 'INTUITIVE';
+        
+        intuitiveItem.appendChild(intuitiveBar);
+        intuitiveItem.appendChild(intuitiveLabel);
+        
+        // Legend note
+        const legendNote = document.createElement('div');
+        legendNote.className = 'text-xs font-light text-stone-400 uppercase tracking-wider flex items-center';
+        
+        const noteLine = document.createElement('div');
+        noteLine.className = 'w-8 h-px bg-stone-300 mr-2';
+        
+        const noteText = document.createElement('span');
+        noteText.textContent = 'YOUR REALITY COORDINATES';
+        
+        legendNote.appendChild(noteLine);
+        legendNote.appendChild(noteText);
+        
+        // Assemble legend
+        legendItems.appendChild(structuredItem);
+        legendItems.appendChild(balancedItem);
+        legendItems.appendChild(intuitiveItem);
+        
+        legend.appendChild(legendItems);
+        legend.appendChild(legendNote);
+        
+        // Add to diagram
+        spectrumDiagram.appendChild(legend);
+    }
 }
 
 // Function to enhance navigation buttons
@@ -359,52 +533,21 @@ function enhanceNavigationButtons() {
     });
 }
 
-// Function to enhance spectrum diagram visuals
-function enhanceSpectrumDiagram() {
-    // Improve spectrum legend
-    const legendBars = document.querySelectorAll('.legend-bar');
-    legendBars.forEach(bar => {
-        bar.addEventListener('mouseenter', () => {
-            bar.style.height = parseFloat(getComputedStyle(bar).height) * 1.2 + 'px';
-        });
-        
-        bar.addEventListener('mouseleave', () => {
-            bar.style.height = '';
-        });
-    });
+// Function to add scroll-to-top on tab change
+function addScrollToTopOnTabChange() {
+    const tabs = document.querySelectorAll('.tab-button');
     
-    // Add subtle animation to spectrum markers
-    const spectrumMarkers = document.querySelectorAll('.spectrum-marker');
-    spectrumMarkers.forEach(marker => {
-        // Create subtle floating animation
-        setInterval(() => {
-            const currentHeight = parseFloat(getComputedStyle(marker).height);
-            const newHeight = currentHeight + (Math.random() * 2 - 1);
-            
-            // Ensure height stays within reasonable bounds
-            if (newHeight >= 3.8 && newHeight <= 4.2) {
-                marker.style.height = newHeight + 'px';
+    tabs.forEach(tab => {
+        tab.addEventListener('click', () => {
+            // Scroll to top of results container with smooth animation
+            const resultsContainer = document.querySelector('.results-container');
+            if (resultsContainer) {
+                resultsContainer.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
             }
-        }, 1500);
-    });
-}
-
-// Function to apply smooth transitions
-function applySmoothTransitions() {
-    // Add transition class to all major elements for smoother animations
-    const transitionElements = document.querySelectorAll('.results-card, .expandable-section, .approach-item, .strategy-item');
-    
-    transitionElements.forEach((element, index) => {
-        // Add staggered entrance animation
-        element.style.opacity = '0';
-        element.style.transform = 'translateY(20px)';
-        element.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-        
-        // Staggered delay based on index
-        setTimeout(() => {
-            element.style.opacity = '1';
-            element.style.transform = 'translateY(0)';
-        }, 100 + (index * 50));
+        });
     });
 }
 
@@ -456,23 +599,34 @@ function addCardHoverEffects() {
     });
 }
 
-// Call this function to initialize all enhanced UI elements
+// Modify the original initResultsPageUI function to ensure it's called at the right time
+function initResultsPageUI() {
+    console.log("Initializing enhanced Results UI");
+    
+    // Call the enhanced version
+    enhanceResultsPageUI();
+}
+
+// Event listener for when DOM is ready
 document.addEventListener('DOMContentLoaded', function() {
     // Check if we're on the results page and it's currently visible
     const resultsSection = document.getElementById('results');
     if (resultsSection && window.getComputedStyle(resultsSection).display !== 'none') {
+        console.log("Results section is visible on page load");
         enhanceResultsPageUI();
     }
-    
-    // Update the showResults function to ensure UI enhancements are applied
-    const originalShowResults = window.showResults;
-    if (typeof originalShowResults === 'function') {
-        window.showResults = function() {
-            // Call the original function
-            if (originalShowResults.apply(this, arguments) !== false) {
-                // Then apply our UI enhancements
-                enhanceResultsPageUI();
-            }
-        };
-    }
 });
+
+// Override the original showResults function to ensure UI enhancements are applied
+const originalShowResults = window.showResults;
+if (typeof originalShowResults === 'function') {
+    window.showResults = function() {
+        console.log("Overridden showResults function called");
+        
+        // Call the original function
+        originalShowResults.apply(this, arguments);
+        
+        // Then apply our UI enhancements with a slight delay to ensure DOM is updated
+        setTimeout(enhanceResultsPageUI, 200);
+    };
+}
