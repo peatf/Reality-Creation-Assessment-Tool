@@ -27,7 +27,7 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
 }
 
 //-------------------------------------------------------------------------
-// UPDATED: Generate Spectrum Diagram (with refined layout)
+// UPDATED (FIXED): Generate Spectrum Diagram (with refined layout)
 //-------------------------------------------------------------------------
 function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const diagramContainer = document.getElementById('spectrum-diagram');
@@ -35,13 +35,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
 
     // Add a title for the spectrum map with more editorial design
     const mapTitle = document.createElement('div');
-    mapTitle.className = 'flex items-center mb-16';
+    mapTitle.className = 'spectrum-map-title flex items-center mb-16';
     
     const titleLine = document.createElement('div');
-    titleLine.className = 'h-px w-12 bg-stone-400 mr-4';
+    titleLine.className = 'spectrum-map-line h-px w-12 bg-stone-400 mr-4';
     
-    const titleText = document.createElement('h3');
-    titleText.className = 'text-xl font-light text-stone-700 uppercase tracking-wider';
+    const titleText = document.createElement('div');
+    titleText.className = 'spectrum-map-text text-xl font-light text-stone-700 uppercase tracking-wider';
     titleText.textContent = 'Your Spectrum Map';
     
     mapTitle.appendChild(titleLine);
@@ -72,7 +72,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Create spectrum item container
         const spectrumItem = document.createElement('div');
-        spectrumItem.className = `relative ${
+        spectrumItem.className = `spectrum-item relative ${
             isFullWidth ? 'col-span-12' : 
             leftAligned ? 'col-span-7 col-start-1' : 
             rightAligned ? 'col-span-7 col-start-6' : 'col-span-6'
@@ -81,10 +81,10 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         // Create numbered indicator
         const numberedIndicator = document.createElement('div');
         numberedIndicator.className = `absolute -top-10 ${
-    leftAligned ? 'left-0' : 
-    rightAligned ? 'right-0' : 
-    'left-1/2 transform -translate-x-1/2'
-} flex items-center`;
+            leftAligned ? 'left-0' : 
+            rightAligned ? 'right-0' : 
+            'left-1/2 transform -translate-x-1/2'
+        } flex items-center`;
         
         const numberCircle = document.createElement('div');
         numberCircle.className = 'w-6 h-6 mr-4 flex items-center justify-center';
@@ -118,7 +118,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         spectrumLabel.textContent = 'Spectrum';
         
         const spectrumName = document.createElement('h4');
-        spectrumName.className = 'text-lg font-light text-stone-700';
+        spectrumName.className = 'spectrum-name text-lg font-light text-stone-700';
         spectrumName.textContent = spectrum.name;
         
         nameHeader.appendChild(spectrumLabel);
@@ -133,7 +133,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Vertical separator
         const separator = document.createElement('div');
-        separator.className = 'col-span-1 flex justify-center';
+        separator.className = 'spectrum-separator col-span-1 flex justify-center';
         
         const separatorLine = document.createElement('div');
         separatorLine.className = 'h-full w-px bg-stone-200';
@@ -146,11 +146,11 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Spectrum visualization
         const visualization = document.createElement('div');
-        visualization.className = 'mb-6 relative';
+        visualization.className = 'spectrum-visualization mb-6 relative';
         
         // Base line
         const baseLine = document.createElement('div');
-        baseLine.className = 'h-px w-full bg-stone-200';
+        baseLine.className = 'spectrum-line h-px w-full bg-stone-200';
         
         // Placement indicator
         const indicator = document.createElement('div');
@@ -159,24 +159,26 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Vertical line
         const verticalLine = document.createElement('div');
-        verticalLine.className = `absolute top-0 w-px h-16 transform -translate-x-1/2 ${
-            placement === 'left' ? 'bg-blue-400' :
-            placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
+        verticalLine.className = `spectrum-marker ${placement} absolute top-0 w-px h-16 transform -translate-x-1/2 ${
+            placement === 'left' ? 'bg-blue-400 left-25%' :
+            placement === 'right' ? 'bg-amber-400 left-75%' : 'bg-green-400 left-50%'
         }`;
         
         // Circle indicator
         const circleIndicator = document.createElement('div');
-        circleIndicator.className = `absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
+        circleIndicator.className = `spectrum-marker-dot absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
             placement === 'left' ? 'bg-blue-400' :
             placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
         }`;
         
-        indicator.appendChild(verticalLine);
-        indicator.appendChild(circleIndicator);
+        // Create placement name
+        const placementName = document.createElement('div');
+        placementName.className = `spectrum-placement-name ${placement}`;
+        placementName.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
         
         // Left-right labels
         const labelsContainer = document.createElement('div');
-        labelsContainer.className = 'flex justify-between mt-20 text-xs tracking-wide text-stone-500';
+        labelsContainer.className = 'spectrum-labels flex justify-between mt-20 text-xs tracking-wide text-stone-500';
         
         const leftLabel = document.createElement('span');
         leftLabel.textContent = spectrum.leftLabel;
@@ -189,7 +191,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Description
         const description = document.createElement('p');
-        description.className = 'text-sm font-light text-stone-600 leading-relaxed';
+        description.className = 'spectrum-description text-sm font-light text-stone-600 leading-relaxed';
         
         // Get description from typology descriptions
         const typologyDesc = assessmentData.typologyDescriptions[`${spectrum.id}-${placement}`];
@@ -199,21 +201,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Assemble visualization
         visualization.appendChild(baseLine);
-        visualization.appendChild(indicator);
+        visualization.appendChild(verticalLine);
+        visualization.appendChild(circleIndicator);
+        visualization.appendChild(placementName);
         visualization.appendChild(labelsContainer);
         
         visualColumn.appendChild(visualization);
         visualColumn.appendChild(description);
-        
-        // Background decoration elements
-        const decoration = document.createElement('div');
-        if (isFullWidth) {
-            decoration.className = 'absolute right-0 -bottom-12 w-24 h-px bg-stone-200 opacity-70';
-        } else if (leftAligned) {
-            decoration.className = 'absolute -right-8 top-1/2 w-16 h-px bg-stone-200 opacity-70';
-        } else if (rightAligned) {
-            decoration.className = 'absolute -left-8 top-1/2 w-16 h-px bg-stone-200 opacity-70';
-        }
         
         // Assemble spectrum item
         contentGrid.appendChild(nameColumn);
@@ -222,7 +216,6 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         spectrumItem.appendChild(numberedIndicator);
         spectrumItem.appendChild(contentGrid);
-        spectrumItem.appendChild(decoration);
         
         // Add to grid container
         gridContainer.appendChild(spectrumItem);
@@ -232,20 +225,20 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     
     // Add refined legend with experimental styling
     const legend = document.createElement('div');
-    legend.className = 'mt-24 flex justify-between items-end';
+    legend.className = 'legend mt-24 flex justify-between items-end';
     
     const legendItems = document.createElement('div');
-    legendItems.className = 'grid grid-cols-3 gap-8 w-1/2';
+    legendItems.className = 'legend-items grid grid-cols-3 gap-8 w-1/2';
     
     // Structured legend item
     const structuredItem = document.createElement('div');
-    structuredItem.className = 'flex flex-col items-center';
+    structuredItem.className = 'legend-item flex flex-col items-center';
     
     const structuredBar = document.createElement('div');
-    structuredBar.className = 'w-3 h-12 bg-blue-400 mb-3';
+    structuredBar.className = 'legend-bar structured w-3 h-12 bg-blue-400 mb-3';
     
     const structuredLabel = document.createElement('span');
-    structuredLabel.className = 'text-xs font-light uppercase tracking-wider text-stone-500';
+    structuredLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
     structuredLabel.textContent = 'Structured';
     
     structuredItem.appendChild(structuredBar);
@@ -253,13 +246,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     
     // Balanced legend item
     const balancedItem = document.createElement('div');
-    balancedItem.className = 'flex flex-col items-center';
+    balancedItem.className = 'legend-item flex flex-col items-center';
     
     const balancedBar = document.createElement('div');
-    balancedBar.className = 'w-3 h-8 bg-green-400 mb-3';
+    balancedBar.className = 'legend-bar balanced w-3 h-8 bg-green-400 mb-3';
     
     const balancedLabel = document.createElement('span');
-    balancedLabel.className = 'text-xs font-light uppercase tracking-wider text-stone-500';
+    balancedLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
     balancedLabel.textContent = 'Balanced';
     
     balancedItem.appendChild(balancedBar);
@@ -267,13 +260,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     
     // Intuitive legend item
     const intuitiveItem = document.createElement('div');
-    intuitiveItem.className = 'flex flex-col items-center';
+    intuitiveItem.className = 'legend-item flex flex-col items-center';
     
     const intuitiveBar = document.createElement('div');
-    intuitiveBar.className = 'w-3 h-16 bg-amber-400 mb-3';
+    intuitiveBar.className = 'legend-bar intuitive w-3 h-16 bg-amber-400 mb-3';
     
     const intuitiveLabel = document.createElement('span');
-    intuitiveLabel.className = 'text-xs font-light uppercase tracking-wider text-stone-500';
+    intuitiveLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
     intuitiveLabel.textContent = 'Intuitive';
     
     intuitiveItem.appendChild(intuitiveBar);
@@ -304,7 +297,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
 }
 
 //-------------------------------------------------------------------------
-// UPDATED: Generate Typology Pair Section (Enhanced Design)
+// UPDATED (FIXED): Generate Typology Pair Section (Enhanced Design)
 //-------------------------------------------------------------------------
 function generateTypologyPairSection(typologyPair) {
     const typologyContainer = document.getElementById('typology-pair');
@@ -342,28 +335,28 @@ function generateTypologyPairSection(typologyPair) {
 
     // Create results card for typology pair with enhanced design
     const typologyCard = document.createElement('div');
-    typologyCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    typologyCard.className = 'results-card bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     
     // Create typology pair name with icon
     const typologyPairName = document.createElement('div');
-    typologyPairName.className = 'flex items-center mb-6';
+    typologyPairName.className = 'typology-pair-name flex items-center mb-6';
     
     // Create icon with nested circles for visual interest
     const typologyIcon = document.createElement('div');
-    typologyIcon.className = 'w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center';
+    typologyIcon.className = 'typology-icon w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center';
     
     const iconInner = document.createElement('div');
-    iconInner.className = 'w-10 h-10 rounded-full bg-white flex items-center justify-center';
+    iconInner.className = 'typology-icon-inner w-10 h-10 rounded-full bg-white flex items-center justify-center';
     
     const iconCore = document.createElement('div');
-    iconCore.className = 'w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400';
+    iconCore.className = 'typology-icon-core w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400';
     
     iconInner.appendChild(iconCore);
     typologyIcon.appendChild(iconInner);
     
     // Create typology name
     const typologyName = document.createElement('h2');
-    typologyName.className = 'text-3xl font-light text-stone-800 ml-4';
+    typologyName.className = 'typology-name text-3xl font-light text-stone-800 ml-4';
     typologyName.textContent = pairTemplate.name;
     
     typologyPairName.appendChild(typologyIcon);
@@ -371,7 +364,7 @@ function generateTypologyPairSection(typologyPair) {
     
     // Create typology description
     const typologyDescription = document.createElement('p');
-    typologyDescription.className = 'text-lg font-light text-stone-600 leading-relaxed';
+    typologyDescription.className = 'typology-description text-lg font-light text-stone-600 leading-relaxed';
     typologyDescription.textContent = pairTemplate.description;
     
     // Assemble typology card
@@ -383,6 +376,7 @@ function generateTypologyPairSection(typologyPair) {
 
 //-------------------------------------------------------------------------
 // UPDATED: Generate Ideal Approaches Section (Improved Visual Styling)
+// (No changes needed here except references remain the same)
 //-------------------------------------------------------------------------
 function generateIdealApproachesSection(typologyPair) {
     const approachesContainer = document.getElementById('ideal-approaches');
@@ -474,6 +468,7 @@ function generateIdealApproachesSection(typologyPair) {
 
 //-------------------------------------------------------------------------
 // UPDATED: Generate Misalignments Section (Enhanced Styling)
+// (No changes needed here except references remain the same)
 //-------------------------------------------------------------------------
 function generateMisalignmentsSection(typologyPair) {
     const misalignmentsContainer = document.getElementById('common-misalignments');
@@ -548,7 +543,156 @@ function generateMisalignmentsSection(typologyPair) {
 }
 
 //-------------------------------------------------------------------------
-// UPDATED: Generate Prescriptive Strategy Section (with Expandable Sections)
+// Mastery Priorities Section
+// (No changes; this part remains as in your existing code)
+//-------------------------------------------------------------------------
+function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
+    const prioritiesContainer = document.getElementById('mastery-priorities');
+    prioritiesContainer.innerHTML = '';
+    
+    // Create core values card
+    const valuesCard = document.createElement('div');
+    valuesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    
+    const valuesTitle = document.createElement('h3');
+    valuesTitle.className = 'text-xl font-light text-stone-800 mb-4';
+    valuesTitle.textContent = 'Your Core Values & Priorities';
+    
+    const valuesList = document.createElement('div');
+    valuesList.className = 'space-y-4';
+    
+    // Map priority values to descriptions
+    const priorityDescriptions = {
+        'stability': 'You deeply value clarity, stability, and a sense of control in your life circumstances.',
+        'meaning': 'You prioritize deep connection, meaning, and purpose in your relationships and activities.',
+        'freedom': 'You deeply value freedom, flexibility, and the ability to follow your inspiration wherever it leads.',
+        'practicality': 'Having practical viability and tangible results that improve your concrete circumstances is essential to you.',
+        'authenticity': 'Alignment with your authentic self and deeper values, even if it requires more effort, is non-negotiable for you.',
+        'feeling': 'The feeling and energetic quality of your experiences, regardless of how they look to others, is paramount to you.',
+        'creative-expression': 'You value the freedom to express your creativity and bring new ideas into being.',
+        'financial-abundance': 'You prioritize creating abundance and financial security in your life.',
+        'emotional-fulfillment': 'Emotional depth and authentic connection are core values for you.',
+        'personal-autonomy': 'Personal freedom and the ability to determine your own path are essential to you.',
+        'deep-relationships': 'Meaningful connections and relationships are foundational to your well-being.',
+        'spiritual-connection': 'Connection to something larger than yourself provides meaning and purpose.'
+    };
+    
+    // Create items for the dominant core priorities
+    if (dominantValues.corePriorities && dominantValues.corePriorities.length > 0) {
+        dominantValues.corePriorities.forEach((value, index) => {
+            // Find appropriate description
+            let description = priorityDescriptions[value];
+            if (!description) {
+                // If no exact match, try partial
+                for (const [key, text] of Object.entries(priorityDescriptions)) {
+                    if (value.includes(key) || key.includes(value)) {
+                        description = text;
+                        break;
+                    }
+                }
+            }
+            
+            // Default if still not found
+            if (!description) {
+                description = `You deeply value aspects related to ${value.replace(/-/g, ' ')}.`;
+            }
+            
+            const valueItem = document.createElement('div');
+            valueItem.className = 'priority-item';
+            
+            const valueText = document.createElement('p');
+            valueText.className = 'text-base font-light text-stone-600';
+            valueText.textContent = description;
+            
+            valueItem.appendChild(valueText);
+            valuesList.appendChild(valueItem);
+        });
+    } else {
+        // Default if none
+        const defaultValue = document.createElement('p');
+        defaultValue.className = 'text-base font-light text-stone-600';
+        defaultValue.textContent = 'You value balance and integration across multiple areas of your life.';
+        valuesList.appendChild(defaultValue);
+    }
+    
+    valuesCard.appendChild(valuesTitle);
+    valuesCard.appendChild(valuesList);
+    
+    // Create growth areas card
+    const growthCard = document.createElement('div');
+    growthCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    
+    const growthTitle = document.createElement('h3');
+    growthTitle.className = 'text-xl font-light text-stone-800 mb-4';
+    growthTitle.textContent = 'Your Growth & Permission Areas';
+    
+    const growthList = document.createElement('div');
+    growthList.className = 'space-y-4';
+    
+    // Map growth areas to descriptions
+    const growthDescriptions = {
+        'trust-intuition': 'Developing greater trust in your intuitive guidance, especially when it contradicts logical analysis.',
+        'practical-action': 'Taking more consistent practical action to ground your visions in physical reality.',
+        'focus-commitment': 'Maintaining focus and commitment to specific outcomes without getting distracted by new possibilities.',
+        'doubt-approach': 'Working through doubts about whether your approach is too unrealistic or lacking practical grounding.',
+        'seek-meaning': 'Understanding the deeper reasons or lessons behind manifestation delays or challenges.',
+        'energy-misalignment': 'Aligning your energy or vibration more effectively with your desires.',
+        'trust-process': 'Learning to trust the unfolding process even when you can\'t see the entire path ahead.',
+        'develop-structure': 'Creating more structure and consistency in your manifestation practices.',
+        'release-attachment': 'Releasing attachment to specific outcomes and embracing more flow and flexibility.',
+        'consistency-challenge': 'Building greater consistency in your manifestation practices over time.',
+        'clarity-challenge': 'Developing clearer vision around what you truly desire to manifest.',
+        'action-challenge': 'Taking consistent inspired action toward your manifestations.',
+        'intuition-challenge': 'Trusting your inner guidance more fully in your manifestation process.',
+        'emotion-challenge': 'Managing emotional states to support your manifestation process.',
+        'receiving-challenge': 'Opening yourself to receive the manifestations that are ready to come to you.'
+    };
+    
+    // Create items for the dominant growth areas
+    if (dominantValues.growthAreas && dominantValues.growthAreas.length > 0) {
+        dominantValues.growthAreas.forEach((value, index) => {
+            let description = growthDescriptions[value];
+            if (!description) {
+                // If no exact match, try partial
+                for (const [key, text] of Object.entries(growthDescriptions)) {
+                    if (value.includes(key) || key.includes(value)) {
+                        description = text;
+                        break;
+                    }
+                }
+            }
+            if (!description) {
+                description = `Developing greater awareness and skill in areas related to ${value.replace(/-/g, ' ')}.`;
+            }
+            
+            const growthItem = document.createElement('div');
+            growthItem.className = 'priority-item';
+            
+            const growthText = document.createElement('p');
+            growthText.className = 'text-base font-light text-stone-600';
+            growthText.textContent = description;
+            
+            growthItem.appendChild(growthText);
+            growthList.appendChild(growthItem);
+        });
+    } else {
+        // Default if none
+        const defaultGrowth = document.createElement('p');
+        defaultGrowth.className = 'text-base font-light text-stone-600';
+        defaultGrowth.textContent = 'Developing a balanced approach that honors both structure and intuition in your manifestation process.';
+        growthList.appendChild(defaultGrowth);
+    }
+    
+    growthCard.appendChild(growthTitle);
+    growthCard.appendChild(growthList);
+    
+    prioritiesContainer.appendChild(valuesCard);
+    prioritiesContainer.appendChild(growthCard);
+}
+
+//-------------------------------------------------------------------------
+// HELPER: Generate Prescriptive Strategy Section
+// (Here we replace with the FIXED version for expandable sections)
 //-------------------------------------------------------------------------
 function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
     const strategyContainer = document.getElementById('prescriptive-strategy');
@@ -565,19 +709,22 @@ function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
     
     // Helper function to create an expandable section
     function createExpandableSection(title, items) {
+        const sectionId = title.toLowerCase().replace(/\s+/g, '-');
+        
         const section = document.createElement('div');
-        section.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl shadow-sm border border-stone-100 overflow-hidden mb-6';
+        section.className = 'expandable-section bg-white bg-opacity-70 backdrop-blur-sm rounded-xl shadow-sm border border-stone-100 overflow-hidden mb-6';
+        section.id = sectionId;
         
         const header = document.createElement('button');
-        header.className = 'w-full flex items-center justify-between p-8';
+        header.className = 'expandable-header w-full flex items-center justify-between p-8';
         header.setAttribute('aria-expanded', 'false');
         
         const headerTitle = document.createElement('h3');
-        headerTitle.className = 'text-xl font-light text-stone-800';
+        headerTitle.className = 'expandable-title text-xl font-light text-stone-800';
         headerTitle.textContent = title;
         
         const headerIcon = document.createElement('div');
-        headerIcon.className = 'transform transition-transform';
+        headerIcon.className = 'expandable-icon';
         headerIcon.innerHTML = `
             <svg width="12" height="8" viewBox="0 0 12 8" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path d="M1 1L6 6L11 1" stroke="#78716C" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -588,17 +735,18 @@ function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
         header.appendChild(headerIcon);
         
         const content = document.createElement('div');
-        content.className = 'px-8 pb-8 pt-0 hidden';
+        content.className = 'expandable-content hidden';
+        content.id = `${sectionId}-content`;
         
         const itemsList = document.createElement('div');
         itemsList.className = 'space-y-4';
         
         items.forEach((item, index) => {
             const strategyItem = document.createElement('div');
-            strategyItem.className = 'flex items-start';
+            strategyItem.className = 'strategy-item flex items-start';
             
             const strategyNumber = document.createElement('div');
-            strategyNumber.className = 'w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mt-0.5 shrink-0';
+            strategyNumber.className = 'strategy-number w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mt-0.5 shrink-0';
             
             const numberText = document.createElement('span');
             numberText.className = 'text-sm font-medium text-amber-700';
@@ -607,7 +755,7 @@ function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
             strategyNumber.appendChild(numberText);
             
             const strategyText = document.createElement('p');
-            strategyText.className = 'ml-4 text-base font-light text-stone-600';
+            strategyText.className = 'strategy-text ml-4 text-base font-light text-stone-600';
             strategyText.textContent = item;
             
             strategyItem.appendChild(strategyNumber);
@@ -618,22 +766,6 @@ function generatePrescriptiveStrategySection(typologyPair, dominantValues) {
         content.appendChild(itemsList);
         section.appendChild(header);
         section.appendChild(content);
-        
-        // Add toggle functionality
-        header.addEventListener('click', function() {
-            const expanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !expanded);
-            
-            // Toggle icon rotation
-            headerIcon.classList.toggle('rotate-180');
-            
-            // Toggle content visibility
-            if (expanded) {
-                content.classList.add('hidden');
-            } else {
-                content.classList.remove('hidden');
-            }
-        });
         
         return section;
     }
@@ -934,153 +1066,6 @@ function generateIntegrationStrategy(typologyKey, dominantValues) {
     
     return strategy;
 }
-// Add to results.js
-function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
-    const prioritiesContainer = document.getElementById('mastery-priorities');
-    prioritiesContainer.innerHTML = '';
-    
-    // Create core values card
-    const valuesCard = document.createElement('div');
-    valuesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
-    
-    const valuesTitle = document.createElement('h3');
-    valuesTitle.className = 'text-xl font-light text-stone-800 mb-4';
-    valuesTitle.textContent = 'Your Core Values & Priorities';
-    
-    const valuesList = document.createElement('div');
-    valuesList.className = 'space-y-4';
-    
-    // Map priority values to descriptions
-    const priorityDescriptions = {
-        'stability': 'You deeply value clarity, stability, and a sense of control in your life circumstances.',
-        'meaning': 'You prioritize deep connection, meaning, and purpose in your relationships and activities.',
-        'freedom': 'You deeply value freedom, flexibility, and the ability to follow your inspiration wherever it leads.',
-        'practicality': 'Having practical viability and tangible results that improve your concrete circumstances is essential to you.',
-        'authenticity': 'Alignment with your authentic self and deeper values, even if it requires more effort, is non-negotiable for you.',
-        'feeling': 'The feeling and energetic quality of your experiences, regardless of how they look to others, is paramount to you.',
-        'creative-expression': 'You value the freedom to express your creativity and bring new ideas into being.',
-        'financial-abundance': 'You prioritize creating abundance and financial security in your life.',
-        'emotional-fulfillment': 'Emotional depth and authentic connection are core values for you.',
-        'personal-autonomy': 'Personal freedom and the ability to determine your own path are essential to you.',
-        'deep-relationships': 'Meaningful connections and relationships are foundational to your well-being.',
-        'spiritual-connection': 'Connection to something larger than yourself provides meaning and purpose.'
-    };
-    
-    // Create items for the dominant core priorities
-    if (dominantValues.corePriorities && dominantValues.corePriorities.length > 0) {
-        dominantValues.corePriorities.forEach((value, index) => {
-            // Find appropriate description
-            let description = priorityDescriptions[value];
-            if (!description) {
-                // If no exact match, try to find a partial match
-                for (const [key, text] of Object.entries(priorityDescriptions)) {
-                    if (value.includes(key) || key.includes(value)) {
-                        description = text;
-                        break;
-                    }
-                }
-            }
-            
-            // Default description if still not found
-            if (!description) {
-                description = `You deeply value aspects related to ${value.replace(/-/g, ' ')}.`;
-            }
-            
-            const valueItem = document.createElement('div');
-            valueItem.className = 'priority-item';
-            
-            const valueText = document.createElement('p');
-            valueText.className = 'text-base font-light text-stone-600';
-            valueText.textContent = description;
-            
-            valueItem.appendChild(valueText);
-            valuesList.appendChild(valueItem);
-        });
-    } else {
-        // Default values if none are present
-        const defaultValue = document.createElement('p');
-        defaultValue.className = 'text-base font-light text-stone-600';
-        defaultValue.textContent = 'You value balance and integration across multiple areas of your life.';
-        valuesList.appendChild(defaultValue);
-    }
-    
-    valuesCard.appendChild(valuesTitle);
-    valuesCard.appendChild(valuesList);
-    
-    // Create growth areas card
-    const growthCard = document.createElement('div');
-    growthCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
-    
-    const growthTitle = document.createElement('h3');
-    growthTitle.className = 'text-xl font-light text-stone-800 mb-4';
-    growthTitle.textContent = 'Your Growth & Permission Areas';
-    
-    const growthList = document.createElement('div');
-    growthList.className = 'space-y-4';
-    
-    // Map growth areas to descriptions
-    const growthDescriptions = {
-        'trust-intuition': 'Developing greater trust in your intuitive guidance, especially when it contradicts logical analysis.',
-        'practical-action': 'Taking more consistent practical action to ground your visions in physical reality.',
-        'focus-commitment': 'Maintaining focus and commitment to specific outcomes without getting distracted by new possibilities.',
-        'doubt-approach': 'Working through doubts about whether your approach is too unrealistic or lacking practical grounding.',
-        'seek-meaning': 'Understanding the deeper reasons or lessons behind manifestation delays or challenges.',
-        'energy-misalignment': 'Aligning your energy or vibration more effectively with your desires.',
-        'trust-process': 'Learning to trust the unfolding process even when you can\'t see the entire path ahead.',
-        'develop-structure': 'Creating more structure and consistency in your manifestation practices.',
-        'release-attachment': 'Releasing attachment to specific outcomes and embracing more flow and flexibility.',
-        'consistency-challenge': 'Building greater consistency in your manifestation practices over time.',
-        'clarity-challenge': 'Developing clearer vision around what you truly desire to manifest.',
-        'action-challenge': 'Taking consistent inspired action toward your manifestations.',
-        'intuition-challenge': 'Trusting your inner guidance more fully in your manifestation process.',
-        'emotion-challenge': 'Managing emotional states to support your manifestation process.',
-        'receiving-challenge': 'Opening yourself to receive the manifestations that are ready to come to you.'
-    };
-    
-    // Create items for the dominant growth areas
-    if (dominantValues.growthAreas && dominantValues.growthAreas.length > 0) {
-        dominantValues.growthAreas.forEach((value, index) => {
-            // Find appropriate description
-            let description = growthDescriptions[value];
-            if (!description) {
-                // If no exact match, try to find a partial match
-                for (const [key, text] of Object.entries(growthDescriptions)) {
-                    if (value.includes(key) || key.includes(value)) {
-                        description = text;
-                        break;
-                    }
-                }
-            }
-            
-            // Default description if still not found
-            if (!description) {
-                description = `Developing greater awareness and skill in areas related to ${value.replace(/-/g, ' ')}.`;
-            }
-            
-            const growthItem = document.createElement('div');
-            growthItem.className = 'priority-item';
-            
-            const growthText = document.createElement('p');
-            growthText.className = 'text-base font-light text-stone-600';
-            growthText.textContent = description;
-            
-            growthItem.appendChild(growthText);
-            growthList.appendChild(growthItem);
-        });
-    } else {
-        // Default growth area if none are present
-        const defaultGrowth = document.createElement('p');
-        defaultGrowth.className = 'text-base font-light text-stone-600';
-        defaultGrowth.textContent = 'Developing a balanced approach that honors both structure and intuition in your manifestation process.';
-        growthList.appendChild(defaultGrowth);
-    }
-    
-    growthCard.appendChild(growthTitle);
-    growthCard.appendChild(growthList);
-    
-    prioritiesContainer.appendChild(valuesCard);
-    prioritiesContainer.appendChild(growthCard);
-}
 
 //-------------------------------------------------------------------------
 // FINAL: Generate and Display Results
@@ -1106,7 +1091,7 @@ function generateAndDisplayResults() {
 }
 
 //-------------------------------------------------------------------------
-// Update initResultsTabs function for improved tab navigation
+// UPDATED (FIXED): initResultsTabs function for improved tab navigation
 //-------------------------------------------------------------------------
 function initResultsTabs() {
     const typologyTab = document.getElementById('typology-tab');
@@ -1119,12 +1104,18 @@ function initResultsTabs() {
     const approachesContent = document.getElementById('approaches-content');
     const strategyContent = document.getElementById('strategy-content');
     
+    // Add tab-content class if not present
+    [typologyContent, approachesContent, strategyContent].forEach(content => {
+        if (content) content.classList.add('tab-content');
+    });
+    
     // Helper function to update active tab styling
     function updateActiveTab(activeTab) {
         // Remove active styles from all tabs
         [typologyTab, approachesTab, strategyTab].forEach(tab => {
-        tab.classList.remove('text-amber-700');
-        tab.classList.add('text-stone-500');
+            tab.classList.remove('active');
+            tab.classList.remove('text-amber-700');
+            tab.classList.add('text-stone-500');
             
             // Remove active indicator
             const indicator = tab.querySelector('div');
@@ -1132,45 +1123,65 @@ function initResultsTabs() {
         });
         
         // Add active styles to selected tab
-    activeTab.classList.remove('text-stone-500');
-    activeTab.classList.add('text-amber-700');
+        activeTab.classList.add('active');
+        activeTab.classList.remove('text-stone-500');
+        activeTab.classList.add('text-amber-700');
         
         // Add active indicator
-    const indicator = document.createElement('div');
-    indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
-    activeTab.appendChild(indicator);
-}
+        const indicator = document.createElement('div');
+        indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
+        activeTab.appendChild(indicator);
+    }
     
     typologyTab.addEventListener('click', () => {
         // Update active tab
         updateActiveTab(typologyTab);
         
-        // Show content
+        // Show content with transition
         typologyContent.style.display = 'block';
         approachesContent.style.display = 'none';
         strategyContent.style.display = 'none';
+        
+        // Force reflow for animation
+        void typologyContent.offsetWidth;
+        typologyContent.classList.add('active');
+        approachesContent.classList.remove('active');
+        strategyContent.classList.remove('active');
     });
     
     approachesTab.addEventListener('click', () => {
         // Update active tab
         updateActiveTab(approachesTab);
         
-        // Show content
+        // Show content with transition
         typologyContent.style.display = 'none';
         approachesContent.style.display = 'block';
         strategyContent.style.display = 'none';
+        
+        // Force reflow for animation
+        void approachesContent.offsetWidth;
+        typologyContent.classList.remove('active');
+        approachesContent.classList.add('active');
+        strategyContent.classList.remove('active');
     });
     
     strategyTab.addEventListener('click', () => {
         // Update active tab
         updateActiveTab(strategyTab);
         
-        // Show content
+        // Show content with transition
         typologyContent.style.display = 'none';
         approachesContent.style.display = 'none';
         strategyContent.style.display = 'block';
+        
+        // Force reflow for animation
+        void strategyContent.offsetWidth;
+        typologyContent.classList.remove('active');
+        approachesContent.classList.remove('active');
+        strategyContent.classList.add('active');
     });
     
     // Initialize first tab as active
     updateActiveTab(typologyTab);
+    typologyContent.classList.add('active');
 }
