@@ -1,9 +1,10 @@
-// animations.js - Updated to match React example
+// redesigned-animations.js
 document.addEventListener('DOMContentLoaded', function() {
     // Initialize background animations for each section
-    initBackgroundAnimation('background-canvas');
-    initBackgroundAnimation('background-canvas-part2');
-    initBackgroundAnimation('background-canvas-results');
+    initBackgroundAnimation('intro-background-canvas');
+    initBackgroundAnimation('part1-background-canvas');
+    initBackgroundAnimation('part2-background-canvas');
+    initBackgroundAnimation('results-background-canvas');
 
     // Initialize tabs in results page
     initResultsTabs();
@@ -103,127 +104,88 @@ function initResultsTabs() {
     const approachesContent = document.getElementById('approaches-content');
     const strategyContent = document.getElementById('strategy-content');
     
+    // Helper function to update active tab styling
+    function updateActiveTab(activeTab, activeContent) {
+        // Remove active styles from all tabs
+        [typologyTab, approachesTab, strategyTab].forEach(tab => {
+            tab.classList.remove('active');
+            tab.classList.remove('text-amber-700');
+            tab.classList.add('text-stone-500');
+            
+            // Remove active indicator
+            const indicator = tab.querySelector('div');
+            if (indicator) indicator.remove();
+        });
+        
+        // Hide all content sections
+        [typologyContent, approachesContent, strategyContent].forEach(content => {
+            content.style.display = 'none';
+            content.classList.remove('active');
+        });
+        
+        // Add active styles to selected tab
+        activeTab.classList.add('active');
+        activeTab.classList.remove('text-stone-500');
+        activeTab.classList.add('text-amber-700');
+        
+        // Add active indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
+        activeTab.appendChild(indicator);
+        
+        // Show active content
+        activeContent.style.display = 'block';
+        
+        // Force reflow and add active class for animation
+        void activeContent.offsetWidth;
+        activeContent.classList.add('active');
+    }
+    
     typologyTab.addEventListener('click', () => {
-        // Update active tab
-        typologyTab.classList.add('text-amber-700');
-        typologyTab.classList.remove('text-stone-500');
-        approachesTab.classList.add('text-stone-500');
-        approachesTab.classList.remove('text-amber-700');
-        strategyTab.classList.add('text-stone-500');
-        strategyTab.classList.remove('text-amber-700');
-        
-        // Update indicators
-        let indicator = typologyTab.querySelector('div');
-        if (!indicator) {
-            indicator = document.createElement('div');
-            indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
-            typologyTab.appendChild(indicator);
-        }
-        
-        // Remove other indicators
-        const approachesIndicator = approachesTab.querySelector('div');
-        if (approachesIndicator) approachesIndicator.remove();
-        
-        const strategyIndicator = strategyTab.querySelector('div');
-        if (strategyIndicator) strategyIndicator.remove();
-        
-        // Show/hide content
-        typologyContent.style.display = 'block';
-        approachesContent.style.display = 'none';
-        strategyContent.style.display = 'none';
+        updateActiveTab(typologyTab, typologyContent);
     });
     
     approachesTab.addEventListener('click', () => {
-        // Update active tab
-        approachesTab.classList.add('text-amber-700');
-        approachesTab.classList.remove('text-stone-500');
-        typologyTab.classList.add('text-stone-500');
-        typologyTab.classList.remove('text-amber-700');
-        strategyTab.classList.add('text-stone-500');
-        strategyTab.classList.remove('text-amber-700');
-        
-        // Update indicators
-        let indicator = approachesTab.querySelector('div');
-        if (!indicator) {
-            indicator = document.createElement('div');
-            indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
-            approachesTab.appendChild(indicator);
-        }
-        
-        // Remove other indicators
-        const typologyIndicator = typologyTab.querySelector('div');
-        if (typologyIndicator) typologyIndicator.remove();
-        
-        const strategyIndicator = strategyTab.querySelector('div');
-        if (strategyIndicator) strategyIndicator.remove();
-        
-        // Show/hide content
-        typologyContent.style.display = 'none';
-        approachesContent.style.display = 'block';
-        strategyContent.style.display = 'none';
+        updateActiveTab(approachesTab, approachesContent);
     });
     
     strategyTab.addEventListener('click', () => {
-        // Update active tab
-        strategyTab.classList.add('text-amber-700');
-        strategyTab.classList.remove('text-stone-500');
-        typologyTab.classList.add('text-stone-500');
-        typologyTab.classList.remove('text-amber-700');
-        approachesTab.classList.add('text-stone-500');
-        approachesTab.classList.remove('text-amber-700');
-        
-        // Update indicators
-        let indicator = strategyTab.querySelector('div');
-        if (!indicator) {
-            indicator = document.createElement('div');
-            indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
-            strategyTab.appendChild(indicator);
-        }
-        
-        // Remove other indicators
-        const typologyIndicator = typologyTab.querySelector('div');
-        if (typologyIndicator) typologyIndicator.remove();
-        
-        const approachesIndicator = approachesTab.querySelector('div');
-        if (approachesIndicator) approachesIndicator.remove();
-        
-        // Show/hide content
-        typologyContent.style.display = 'none';
-        approachesContent.style.display = 'none';
-        strategyContent.style.display = 'block';
+        updateActiveTab(strategyTab, strategyContent);
     });
+    
+    // Initialize first tab as active
+    updateActiveTab(typologyTab, typologyContent);
 }
 
 // Initialize expandable sections
 function initExpandableSections() {
-    const expandableSections = document.querySelectorAll('.expandable-section');
-    
-    expandableSections.forEach(section => {
-        const header = section.querySelector('.expandable-header');
-        const content = section.querySelector('.expandable-content');
-        const icon = section.querySelector('.expandable-icon');
+    // Find all section headers (we'll enhance these in results.js)
+    document.querySelectorAll('.expandable-header').forEach(header => {
+        const content = header.nextElementSibling;
+        const icon = header.querySelector('.expandable-icon');
         
-        if (!header || !content || !icon) return;
+        if (!content || !icon) return;
         
-        // Set initial states
+        // Set initial state
+        header.setAttribute('aria-expanded', 'false');
         content.style.maxHeight = '0';
         content.style.opacity = '0';
+        content.style.padding = '0 2rem';
         content.style.overflow = 'hidden';
-        content.style.transition = 'max-height 0.3s ease, opacity 0.3s ease, padding 0.3s ease';
         
-        // Toggle expansion on click
+        // Add click handler
         header.addEventListener('click', () => {
             const isExpanded = header.getAttribute('aria-expanded') === 'true';
             
             if (isExpanded) {
-                // Collapse
+                // Collapse section
                 content.style.maxHeight = '0';
                 content.style.opacity = '0';
                 content.style.padding = '0 2rem';
                 icon.style.transform = 'rotate(0deg)';
                 header.setAttribute('aria-expanded', 'false');
             } else {
-                // Expand
+                // Expand section
                 content.style.maxHeight = content.scrollHeight + 'px';
                 content.style.opacity = '1';
                 content.style.padding = '0 2rem 2rem';
@@ -233,3 +195,41 @@ function initExpandableSections() {
         });
     });
 }
+
+// Add hover and active effects for various UI elements
+function enhanceUIInteractions() {
+    // Add hover effects to cards
+    document.querySelectorAll('.results-card, .bg-white.bg-opacity-70').forEach(card => {
+        card.addEventListener('mouseenter', () => {
+            card.style.transform = 'translateY(-3px)';
+            card.style.boxShadow = '0 8px 30px rgba(0, 0, 0, 0.08)';
+        });
+        
+        card.addEventListener('mouseleave', () => {
+            card.style.transform = 'translateY(0)';
+            card.style.boxShadow = '0 4px 20px rgba(0, 0, 0, 0.05)';
+        });
+    });
+    
+    // Add hover effects to spectrum items
+    document.querySelectorAll('.spectrum-item').forEach(item => {
+        item.addEventListener('mouseenter', () => {
+            const marker = item.querySelector('.spectrum-indicator');
+            const dot = item.querySelector('.spectrum-indicator-dot');
+            
+            if (marker) marker.style.height = '4.5rem';
+            if (dot) dot.style.transform = 'translate(-50%, 50%) scale(1.2)';
+        });
+        
+        item.addEventListener('mouseleave', () => {
+            const marker = item.querySelector('.spectrum-indicator');
+            const dot = item.querySelector('.spectrum-indicator-dot');
+            
+            if (marker) marker.style.height = '4rem';
+            if (dot) dot.style.transform = 'translate(-50%, 50%) scale(1)';
+        });
+    });
+}
+
+// Call this function when page loads and after dynamic content is added
+document.addEventListener('DOMContentLoaded', enhanceUIInteractions);
