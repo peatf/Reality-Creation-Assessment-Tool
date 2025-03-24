@@ -363,8 +363,8 @@
           // Record the selected answer for this question
           window.userResponses.mastery[questionId] = optionValue;
           
-          // Optionally, call the original function if further processing is required
-          // originalSelectMasteryOption(element, questionId, optionValue);
+          // Re-enable the original UI update for selecting the option
+          originalSelectMasteryOption(element, questionId, optionValue);
           
           setTimeout(fixRadioButtonAlignment, 10);
         };
