@@ -582,6 +582,8 @@ window.determineDominantValues = determineDominantValues;
 function generateMasteryQuestions() {
   const container = document.getElementById('mastery-questions');
   container.innerHTML = '';
+  const currentSection = masterySections[currentSectionIndex];
+  console.log("Generating questions for section:", currentSection);
 
   // Create a container for each mastery question
   const currentSection = masterySections[currentSectionIndex];
