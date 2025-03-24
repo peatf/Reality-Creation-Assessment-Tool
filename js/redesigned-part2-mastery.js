@@ -583,7 +583,7 @@ function generateMasteryQuestions() {
   const container = document.getElementById('mastery-questions');
   container.innerHTML = '';
   const currentSection = masterySections[currentSectionIndex];
-  console.log("Generating questions for section:", currentSection);
+  console.log("Generating questions for section:", currentSection,"Current section data:", JSON.stringify(masterySections[currentSectionIndex], null, 2));
 
   currentSection.questions.forEach((question, questionIndex) => {
     // Create question container
