@@ -5,8 +5,416 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reality Creation Assessment: A Study in Self-Perception & Personal Architecture</title>
   <link rel="stylesheet" href="css/redesigned-styles.css">
-  <link rel="stylesheet" href="css/style-fixes.css">
-<link rel="stylesheet" href="css/mastery-fixes.css">
+  <!-- Step 1: Inline CSS to Fix Mastery Section Issues -->
+<style>
+/* Fix the spectrum indicators in "Your Spectrum Map" section */
+.spectrum-diagram .relative .h-px.w-full + .relative .absolute.top-0.w-px {
+  height: 12px !important; /* Shorter line */
+}
+
+.spectrum-diagram .relative .h-px.w-full + .relative .absolute.top-16 {
+  top: 12px !important; /* Adjust dot position */
+  transform: translate(-50%, 0) !important; /* Center the dot */
+  width: 8px !important; /* Slightly larger dot */
+  height: 8px !important;
+}
+
+/* Add more space between indicator and text */
+.spectrum-diagram .text-sm.font-light.text-stone-600 {
+  margin-top: 12px;
+}
+
+/* Fix alignment of numbered items and "!" icons */
+.approach-item .approach-number,
+.misalignment-item .misalignment-icon,
+.w-6.h-6.rounded-full.bg-amber-100,
+.w-6.h-6.rounded-full.bg-stone-100 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 24px !important; /* Ensure consistent width */
+}
+
+/* Center the white dot in orange dot for selected answers */
+.mt-1.h-4.w-4.shrink-0.rounded-full .flex.h-full.items-center.justify-center .h-1.5.w-1.5.rounded-full.bg-white {
+  margin: auto !important;
+}
+
+.flex.h-full.items-center.justify-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Improve styling of Part 2 Mastery section */
+#mastery-questions .question-container {
+  display: none; /* Hide all questions initially */
+  margin-bottom: 2rem;
+}
+
+#mastery-questions .question-container.active {
+  display: block; /* Only show active question */
+}
+
+#mastery-questions .text-xl.font-light.leading-relaxed.text-stone-700 {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+#mastery-questions .ml-12.space-y-4 {
+  margin-left: 3rem;
+}
+
+/* Improve spacing of option items */
+#mastery-questions .group.relative.flex {
+  padding: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* Fix for question numbers in section header */
+#section-number {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* Fix for specific mastery question numbers in grid */
+#mastery-questions .col-span-2 .text-right.text-3xl.font-light.text-stone-800 {
+  text-align: center !important;
+}
+
+/* Remove background color for iframe embedding */
+body, 
+.bg-stone-50, 
+.introduction-section, 
+.assessment-section {
+  background-color: transparent !important;
+}
+
+/* Make content containers transparent but elements still visible */
+.relative.z-20.w-full.max-w-4xl.mx-auto.p-6 {
+  background-color: transparent !important;
+}
+
+/* Restore floating dust animations */
+.background-canvas {
+  opacity: 0.7; /* Make particles visible but subtle */
+}
+</style>
+
+<!-- Step 2: Inline JavaScript to Fix Mastery Section Issues -->
+<script>
+// Wait for the document to fully load
+document.addEventListener('DOMContentLoaded', function() {
+  // Fix for Part 2 Mastery section to show one question at a time
+  function enhanceMasterySection() {
+    // Get questions container
+    const questionsContainer = document.getElementById('mastery-questions');
+    if (!questionsContainer) return;
+    
+    // Get all question containers
+    const questions = questionsContainer.querySelectorAll('.question-container');
+    if (questions.length === 0) return;
+    
+    // Hide all questions and only show the first one
+    questions.forEach((question, index) => {
+      question.style.display = index === 0 ? 'block' : 'none';
+      question.classList.toggle('active', index === 0);
+    });
+    
+    // Fix the section number in the circle
+    const sectionNumber = document.getElementById('section-number');
+    if (sectionNumber) {
+      sectionNumber.style.display = 'flex';
+      sectionNumber.style.justifyContent = 'center';
+      sectionNumber.style.alignItems = 'center';
+      sectionNumber.style.width = '100%';
+      sectionNumber.style.height = '100%';
+    }
+    
+    // Create navigation buttons if they don't exist
+    if (!document.getElementById('next-question-btn')) {
+      const navFooter = document.querySelector('#part2-section .mt-16.pt-6.border-t.border-stone-200 .flex.items-center.justify-between');
+      
+      if (navFooter) {
+        // Create next question button
+        const nextBtn = document.createElement('button');
+        nextBtn.id = 'next-question-btn';
+        nextBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-700';
+        nextBtn.innerHTML = `
+          Next Question
+          <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
+        `;
+        
+        // Create prev question button
+        const prevBtn = document.createElement('button');
+        prevBtn.id = 'prev-question-btn';
+        prevBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 transition-all hover:text-stone-700';
+        prevBtn.style.display = 'none';
+        prevBtn.innerHTML = `
+          <span class="mr-4 h-px w-8 bg-stone-300 transition-all group-hover:w-12 group-hover:bg-stone-500"></span>
+          Previous Question
+        `;
+        
+        // Get navigation elements
+        const prevSectionBtn = document.getElementById('prev-section-btn');
+        const nextSectionBtn = document.getElementById('next-section-btn');
+        
+        // Hide next section button initially, will show later
+        if (nextSectionBtn) nextSectionBtn.style.display = 'none';
+        
+        // Insert buttons in appropriate places
+        if (prevSectionBtn && prevSectionBtn.parentNode) {
+          prevSectionBtn.parentNode.insertBefore(prevBtn, prevSectionBtn);
+        }
+        
+        if (nextSectionBtn && nextSectionBtn.parentNode) {
+          nextSectionBtn.parentNode.insertBefore(nextBtn, nextSectionBtn);
+        }
+        
+        // Add current question/total questions indicator
+        const questionCounter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
+        if (questionCounter) {
+          const currentSection = parseInt(document.getElementById('current-section').textContent) || 1;
+          const totalSections = parseInt(document.getElementById('total-sections').textContent) || 3;
+          
+          questionCounter.innerHTML = `
+            Question <span id="current-question">1</span> of <span id="total-questions">${questions.length}</span> • Section ${currentSection} of ${totalSections}
+          `;
+        }
+        
+        // Track current question index
+        let currentQuestionIndex = 0;
+        
+        // Next question button handler
+        nextBtn.addEventListener('click', function() {
+          // Check if current question is answered
+          const currentQuestion = questions[currentQuestionIndex];
+          const questionId = currentQuestion.dataset.questionId;
+          
+          if (!window.userResponses.mastery || !window.userResponses.mastery[questionId]) {
+            alert('Please answer the current question before proceeding.');
+            return;
+          }
+          
+          // Go to next question
+          if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            
+            // Update display
+            questions.forEach((q, idx) => {
+              q.style.display = idx === currentQuestionIndex ? 'block' : 'none';
+              q.classList.toggle('active', idx === currentQuestionIndex);
+            });
+            
+            // Update question counter
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Show/hide navigation buttons
+            prevBtn.style.display = 'flex';
+            
+            if (currentQuestionIndex === questions.length - 1) {
+              nextBtn.style.display = 'none';
+              nextSectionBtn.style.display = 'flex';
+            }
+          }
+        });
+        
+        // Previous question button handler
+        prevBtn.addEventListener('click', function() {
+          if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            
+            // Update display
+            questions.forEach((q, idx) => {
+              q.style.display = idx === currentQuestionIndex ? 'block' : 'none';
+              q.classList.toggle('active', idx === currentQuestionIndex);
+            });
+            
+            // Update question counter
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Show/hide navigation buttons
+            if (currentQuestionIndex === 0) {
+              prevBtn.style.display = 'none';
+            }
+            
+            nextBtn.style.display = 'flex';
+            nextSectionBtn.style.display = 'none';
+          }
+        });
+      }
+    }
+    
+    // Fix alignment of radio buttons and dots
+    fixRadioButtonAlignment();
+  }
+  
+  // Fix the radio button alignment and centering
+  function fixRadioButtonAlignment() {
+    // Fix all radio buttons in mastery options
+    const radioButtons = document.querySelectorAll('.group.relative.flex .mt-1.h-4.w-4.shrink-0.rounded-full');
+    
+    radioButtons.forEach(radio => {
+      // Style the radio button
+      radio.style.display = 'flex';
+      radio.style.alignItems = 'center';
+      radio.style.justifyContent = 'center';
+      
+      // Get the inner dot container if it exists
+      const dot = radio.querySelector('.flex.h-full.items-center.justify-center');
+      if (dot) {
+        dot.style.display = 'flex';
+        dot.style.alignItems = 'center';
+        dot.style.justifyContent = 'center';
+        dot.style.width = '100%';
+        dot.style.height = '100%';
+        
+        // Get the white dot itself
+        const whiteDot = dot.querySelector('.h-1\\.5.w-1\\.5.rounded-full.bg-white');
+        if (whiteDot) {
+          whiteDot.style.margin = 'auto';
+        }
+      }
+    });
+  }
+  
+  // Enhanced background animation
+  function enhanceBackgroundAnimation() {
+    // Get all canvases
+    const canvases = document.querySelectorAll('.background-canvas');
+    
+    canvases.forEach(canvas => {
+      if (!canvas || !canvas.getContext) return;
+      
+      // Set opacity to make particles visible
+      canvas.style.opacity = '0.7';
+      
+      // Reset any existing canvas animation
+      const ctx = canvas.getContext('2d');
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    });
+  }
+  
+  // Fix spectrum diagram alignment
+  function fixSpectrumDiagramAlignment() {
+    const spectrumDiagram = document.getElementById('spectrum-diagram');
+    if (!spectrumDiagram) return;
+    
+    // Get all spectrum items with indicators
+    const spectrumItems = spectrumDiagram.querySelectorAll('.relative[style*="margin-left"]');
+    
+    spectrumItems.forEach(item => {
+      // Find and adjust the indicator line
+      const indicatorLine = item.querySelector('.absolute.top-0.w-px');
+      if (indicatorLine) {
+        indicatorLine.style.height = '12px';
+        indicatorLine.style.transform = 'translateX(-50%)';
+      }
+      
+      // Find and adjust the indicator dot
+      const indicatorDot = item.querySelector('.absolute.top-16');
+      if (indicatorDot) {
+        indicatorDot.style.top = '12px';
+        indicatorDot.style.width = '8px';
+        indicatorDot.style.height = '8px';
+        indicatorDot.style.transform = 'translateX(-50%)';
+      }
+    });
+    
+    // Add more space between indicator and text
+    const descriptionTexts = spectrumDiagram.querySelectorAll('.text-sm.font-light.text-stone-600');
+    descriptionTexts.forEach(text => {
+      text.style.marginTop = '12px';
+    });
+  }
+  
+  // Fix approaches alignment
+  function fixApproachesAlignment() {
+    // Fix alignment of approach numbers and text
+    const approachItems = document.querySelectorAll('.approach-item, .flex.items-start');
+    
+    approachItems.forEach(item => {
+      const number = item.querySelector('.w-6.h-6.rounded-full');
+      if (number) {
+        number.style.display = 'flex';
+        number.style.alignItems = 'center';
+        number.style.justifyContent = 'center';
+        number.style.minWidth = '24px';
+        number.style.textAlign = 'center';
+      }
+    });
+  }
+  
+  // Remove background color completely
+  function removeBackgroundColor() {
+    document.body.style.backgroundColor = 'transparent';
+    
+    const elementsToMakeTransparent = [
+      ...document.querySelectorAll('.bg-stone-50'),
+      ...document.querySelectorAll('.introduction-section'),
+      ...document.querySelectorAll('.assessment-section'),
+      ...document.querySelectorAll('.relative.z-20.w-full.max-w-4xl.mx-auto.p-6')
+    ];
+    
+    elementsToMakeTransparent.forEach(el => {
+      if (el) el.style.backgroundColor = 'transparent';
+    });
+  }
+  
+  // Apply all fixes
+  enhanceMasterySection();
+  enhanceBackgroundAnimation();
+  fixSpectrumDiagramAlignment();
+  fixApproachesAlignment();
+  removeBackgroundColor();
+  
+  // Also fix radio button alignment when selectMasteryOption is called
+  if (window.selectMasteryOption) {
+    const originalSelectMasteryOption = window.selectMasteryOption;
+    
+    window.selectMasteryOption = function(element, questionId, optionValue) {
+      // Call the original function
+      originalSelectMasteryOption(element, questionId, optionValue);
+      
+      // Then fix the alignment
+      setTimeout(fixRadioButtonAlignment, 10);
+    };
+  }
+  
+  // Apply fixes when Part 2 is shown
+  if (window.showPart2) {
+    const originalShowPart2 = window.showPart2;
+    
+    window.showPart2 = function() {
+      originalShowPart2();
+      
+      // Apply fixes after Part 2 is shown
+      setTimeout(enhanceMasterySection, 100);
+    };
+  }
+  
+  // Handle results section
+  if (window.showResults) {
+    const originalShowResults = window.showResults;
+    
+    window.showResults = function() {
+      originalShowResults();
+      
+      // Fix spectrum diagram alignment in results
+      setTimeout(fixSpectrumDiagramAlignment, 500);
+      setTimeout(fixApproachesAlignment, 500);
+    };
+  }
+  
+  console.log("All fixes applied successfully");
+});
+</script>
 </head>
 <body>
   <div class="container">
@@ -307,7 +715,5 @@
   <script src="js/redesigned-part2-mastery.js"></script>
   <script src="js/redesigned-scoring.js"></script>
   <script src="js/redesigned-results.js"></script>
-  <script src="js/enhancement-fixes.js"></script>
-<script src="js/mastery-fixes.js"></script>
 </body>
 </html>
