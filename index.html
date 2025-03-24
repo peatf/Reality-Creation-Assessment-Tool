@@ -4,44 +4,51 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Reality Creation Assessment: A Study in Self-Perception & Personal Architecture</title>
-  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/redesigned-styles.css">
 </head>
 <body>
   <div class="container">
     <!-- Introduction Section -->
-    <section class="introduction" id="introduction">
-      <!-- Header -->
-      <header>
-        <div class="flex items-end justify-between mb-16">
-          <div>
-            <div class="flex items-center">
-              <div class="h-px w-12 bg-stone-400 mr-4"></div>
-              <span class="text-xs font-medium uppercase tracking-widest text-stone-500">WELCOME</span>
+    <section class="introduction-section" id="introduction-section">
+      <canvas id="intro-background-canvas" class="background-canvas"></canvas>
+      
+      <div class="introduction">
+        <header>
+          <div class="flex items-end justify-between mb-16">
+            <div>
+              <div class="flex items-center">
+                <div class="h-px w-12 bg-stone-400 mr-4"></div>
+                <span class="text-xs font-medium uppercase tracking-widest text-stone-500">WELCOME</span>
+              </div>
+              <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">REALITY CREATION ASSESSMENT</h1>
+              <p class="mt-2 text-sm font-light text-stone-500">A Study in Self-Perception & Personal Architecture</p>
             </div>
-            <h1 class="mt-4 text-4xl font-light tracking-tight text-stone-800">REALITY CREATION ASSESSMENT</h1>
-            <p class="mt-2 text-sm font-light text-stone-500">A Study in Self-Perception & Personal Architecture</p>
           </div>
+        </header>
+        
+        <div class="intro-content">
+          <h3>Welcome to Your Reality Creation Journey</h3>
+          <p>This assessment is designed to help you understand how you naturally engage with manifestation and reality creation. By exploring your unique patterns, preferences, and priorities, you'll gain insights into your core identity and discover personalized strategies to enhance your manifestation abilities.</p>
+          <p>The assessment consists of two interconnected parts:</p>
+          <ul>
+            <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
+            <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, priorities, growth areas, and energetic patterns to provide tailored recommendations.</li>
+          </ul>
+          <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
+          <button id="start-assessment" class="btn">Begin Assessment</button>
         </div>
-      </header>
-      <!-- Content -->
-      <div class="intro-content">
-        <h3>Welcome to Your Reality Creation Journey</h3>
-        <p>This assessment is designed to help you understand how you naturally engage with manifestation and reality creation. By exploring your unique patterns, preferences, and priorities, you'll gain insights into your core identity and discover personalized strategies to enhance your manifestation abilities.</p>
-        <p>The assessment consists of two interconnected parts:</p>
-        <ul>
-          <li><strong>Part 1: Reality Creation Typology</strong> - Identifies your natural tendencies across six fundamental spectrums of reality creation.</li>
-          <li><strong>Part 2: Mastery Assessment</strong> - Explores your core values, priorities, growth areas, and energetic patterns to provide tailored recommendations.</li>
-        </ul>
-        <p>Your responses will generate a comprehensive profile with actionable insights specifically designed for your unique energy signature.</p>
-        <button id="start-assessment" class="btn">Begin Assessment</button>
       </div>
     </section>
 
     <!-- Part 1: Reality Creation Typology -->
-    <section class="assessment-section" id="part1" style="display: none;">
+    <section class="assessment-section" id="part1-section" style="display: none;">
       <!-- Canvas for animated background -->
-      <canvas id="background-canvas" class="background-canvas"></canvas>
-      <div class="quiz-container">
+      <canvas id="part1-background-canvas" class="background-canvas"></canvas>
+      
+      <div class="relative z-20 w-full max-w-4xl mx-auto p-6">
+        <!-- Vertical spectrum reference line -->
+        <div class="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-stone-300 to-transparent opacity-20"></div>
+        
         <!-- Header with spectrum info -->
         <div class="flex items-end justify-between mb-16">
           <div>
@@ -61,9 +68,6 @@
             </div>
           </div>
         </div>
-        
-        <!-- Vertical spectrum reference line -->
-        <div class="absolute inset-y-0 left-1/2 z-10 w-px -translate-x-1/2 bg-gradient-to-b from-transparent via-stone-300 to-transparent opacity-20"></div>
         
         <!-- Questions container -->
         <div id="spectrum-questions"></div>
@@ -97,10 +101,11 @@
     </section>
 
     <!-- Part 2: Mastery Assessment -->
-    <section class="assessment-section" id="part2" style="display: none;">
+    <section class="assessment-section" id="part2-section" style="display: none;">
       <!-- Canvas for animated background -->
-      <canvas id="background-canvas-part2" class="background-canvas"></canvas>
-      <div class="quiz-container">
+      <canvas id="part2-background-canvas" class="background-canvas"></canvas>
+      
+      <div class="relative z-20 w-full max-w-4xl mx-auto p-6">
         <!-- Header -->
         <div class="flex items-end justify-between mb-12">
           <div>
@@ -130,6 +135,19 @@
           <div class="h-0.5 w-full bg-stone-200 relative">
             <div id="progress-fill-part2" class="absolute h-full bg-gradient-to-r from-amber-300 to-amber-400 transition-all duration-500" style="width: 33%"></div>
           </div>
+        </div>
+        
+        <!-- Section header -->
+        <div class="mb-12">
+          <div class="flex items-center mb-2">
+            <div class="w-8 h-8 rounded-full flex items-center justify-center bg-amber-50 border border-amber-200">
+              <span id="section-number" class="text-xs font-medium text-amber-700">1</span>
+            </div>
+            <h2 id="section-title" class="ml-4 text-2xl font-light text-stone-800">Core Priorities & Values</h2>
+          </div>
+          <p id="section-description" class="text-sm font-light text-stone-500 ml-12">
+            These questions help identify your deep values and non-negotiable priorities in the manifestation process.
+          </p>
         </div>
         
         <!-- Questions container -->
@@ -167,8 +185,8 @@
         <!-- Abstract progress indicator -->
         <div class="absolute bottom-6 left-1/2 -translate-x-1/2">
           <div class="flex items-center space-x-6">
-            <div class="h-3 w-px bg-stone-300"></div>
             <div class="h-3 w-px bg-amber-400"></div>
+            <div class="h-3 w-px bg-stone-300"></div>
             <div class="h-3 w-px bg-stone-300"></div>
           </div>
         </div>
@@ -176,10 +194,11 @@
     </section>
 
     <!-- Results Section -->
-    <section class="assessment-section" id="results" style="display: none;">
+    <section class="assessment-section" id="results-section" style="display: none;">
       <!-- Canvas for animated background -->
-      <canvas id="background-canvas-results" class="background-canvas"></canvas>
-      <div class="results-container">
+      <canvas id="results-background-canvas" class="background-canvas"></canvas>
+      
+      <div class="relative z-20 w-full max-w-4xl mx-auto p-6 pt-16 pb-24">
         <!-- Header -->
         <div class="flex items-end justify-between mb-16">
           <div>
@@ -220,25 +239,37 @@
           <!-- Typology Tab Content -->
           <div id="typology-content" class="tab-content active" role="tabpanel" aria-labelledby="typology-tab">
             <!-- Typology Pair -->
-            <div id="typology-pair" class="typology-results mb-12"></div>
+            <div id="typology-pair" class="typology-results mb-12">
+              <!-- This content will be dynamically generated -->
+            </div>
             <!-- Spectrum Diagram -->
-            <div id="spectrum-diagram" class="spectrum-diagram"></div>
+            <div id="spectrum-diagram" class="spectrum-diagram">
+              <!-- This content will be dynamically generated -->
+            </div>
           </div>
           
           <!-- Approaches Tab Content -->
           <div id="approaches-content" class="tab-content" role="tabpanel" aria-labelledby="approaches-tab" style="display: none;">
             <!-- Ideal Approaches -->
-            <div id="ideal-approaches" class="ideal-approaches space-y-8"></div>
+            <div id="ideal-approaches" class="ideal-approaches space-y-8">
+              <!-- This content will be dynamically generated -->
+            </div>
             <!-- Common Misalignments -->
-            <div id="common-misalignments" class="common-misalignments mt-12"></div>
+            <div id="common-misalignments" class="common-misalignments mt-12">
+              <!-- This content will be dynamically generated -->
+            </div>
           </div>
           
           <!-- Strategy Tab Content -->
           <div id="strategy-content" class="tab-content" role="tabpanel" aria-labelledby="strategy-tab" style="display: none;">
             <!-- Mastery Priorities -->
-            <div id="mastery-priorities" class="mastery-priorities space-y-8"></div>
+            <div id="mastery-priorities" class="mastery-priorities space-y-8">
+              <!-- This content will be dynamically generated -->
+            </div>
             <!-- Prescriptive Strategy -->
-            <div id="prescriptive-strategy" class="prescriptive-strategy mt-12"></div>
+            <div id="prescriptive-strategy" class="prescriptive-strategy mt-12">
+              <!-- This content will be dynamically generated -->
+            </div>
           </div>
         </div>
         
@@ -269,10 +300,10 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/assessment.js"></script>
-  <script src="js/part2_mastery.js"></script>
-  <script src="js/scoring.js"></script>
-  <script src="js/results.js"></script>
-  <script src="js/animations.js"></script>
+  <script src="js/redesigned-animations.js"></script>
+  <script src="js/redesigned-assessment.js"></script>
+  <script src="js/redesigned-part2-mastery.js"></script>
+  <script src="js/redesigned-scoring.js"></script>
+  <script src="js/redesigned-results.js"></script>
 </body>
 </html>
