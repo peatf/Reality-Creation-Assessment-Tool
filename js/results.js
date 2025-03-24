@@ -26,9 +26,9 @@ function findAdditionalStrongSpectrums(spectrumPlacements, typologyPair) {
     });
 }
 
-// Enhanced Spectrum Diagram Generator
-// This function replaces the generateSpectrumDiagram function in results.js
-
+//-------------------------------------------------------------------------
+// UPDATED (FIXED): Generate Spectrum Diagram (with refined layout)
+//-------------------------------------------------------------------------
 function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const diagramContainer = document.getElementById('spectrum-diagram');
     diagramContainer.innerHTML = '';
@@ -50,9 +50,9 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
 
     // Create grid container for spectrum items
     const gridContainer = document.createElement('div');
-    gridContainer.className = 'grid grid-cols-1 gap-y-20';
+    gridContainer.className = 'grid grid-cols-12 gap-x-4 gap-y-20';
     
-    // Create spectrum items with improved layout
+    // Create spectrum items with experimental layout
     assessmentData.typologySpectrums.forEach((spectrum, index) => {
         // Get placement and value for this spectrum
         const placement = spectrumPlacements[spectrum.id];
@@ -65,13 +65,26 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
             value = 75;
         }
         
+        // Determine layout style based on index
+        const isFullWidth = index === 0 || index === 3 || index === 5;
+        const leftAligned = index === 1 || index === 4;
+        const rightAligned = index === 2;
+        
         // Create spectrum item container
         const spectrumItem = document.createElement('div');
-        spectrumItem.className = 'spectrum-item relative';
+        spectrumItem.className = `spectrum-item relative ${
+            isFullWidth ? 'col-span-12' : 
+            leftAligned ? 'col-span-7 col-start-1' : 
+            rightAligned ? 'col-span-7 col-start-6' : 'col-span-6'
+        }`;
         
         // Create numbered indicator
         const numberedIndicator = document.createElement('div');
-        numberedIndicator.className = 'absolute -top-10 left-1/2 transform -translate-x-1/2 flex items-center';
+        numberedIndicator.className = `absolute -top-10 ${
+            leftAligned ? 'left-0' : 
+            rightAligned ? 'right-0' : 
+            'left-1/2 transform -translate-x-1/2'
+        } flex items-center`;
         
         const numberCircle = document.createElement('div');
         numberCircle.className = 'w-6 h-6 mr-4 flex items-center justify-center';
@@ -89,7 +102,6 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         numberCircle.appendChild(numberText);
         numberedIndicator.appendChild(numberCircle);
         numberedIndicator.appendChild(indicatorLine);
-        spectrumItem.appendChild(numberedIndicator);
         
         // Create main grid for spectrum content
         const contentGrid = document.createElement('div');
@@ -138,12 +150,35 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Base line
         const baseLine = document.createElement('div');
-        baseLine.className = 'spectrum-line absolute top-2 left-0 w-full h-px';
-        visualization.appendChild(baseLine);
+        baseLine.className = 'spectrum-line h-px w-full bg-stone-200';
+        
+        // Placement indicator
+        const indicator = document.createElement('div');
+        indicator.className = 'relative';
+        indicator.style.marginLeft = `${value}%`;
+        
+        // Vertical line
+        const verticalLine = document.createElement('div');
+        verticalLine.className = `spectrum-marker ${placement} absolute top-0 w-px h-16 transform -translate-x-1/2 ${
+            placement === 'left' ? 'bg-blue-400 left-25%' :
+            placement === 'right' ? 'bg-amber-400 left-75%' : 'bg-green-400 left-50%'
+        }`;
+        
+        // Circle indicator
+        const circleIndicator = document.createElement('div');
+        circleIndicator.className = `spectrum-marker-dot absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
+            placement === 'left' ? 'bg-blue-400' :
+            placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
+        }`;
+        
+        // Create placement name
+        const placementName = document.createElement('div');
+        placementName.className = `spectrum-placement-name ${placement}`;
+        placementName.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
         
         // Left-right labels
         const labelsContainer = document.createElement('div');
-        labelsContainer.className = 'spectrum-labels flex justify-between absolute top-0 w-full';
+        labelsContainer.className = 'spectrum-labels flex justify-between mt-20 text-xs tracking-wide text-stone-500';
         
         const leftLabel = document.createElement('span');
         leftLabel.textContent = spectrum.leftLabel;
@@ -153,26 +188,6 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         labelsContainer.appendChild(leftLabel);
         labelsContainer.appendChild(rightLabel);
-        visualization.appendChild(labelsContainer);
-        
-        // Placement marker with enhanced styling
-        const marker = document.createElement('div');
-        marker.className = `spectrum-marker ${placement}`;
-        marker.style.left = `${value}%`;
-        
-        // Add dot indicator
-        const markerDot = document.createElement('div');
-        markerDot.className = 'spectrum-marker-dot';
-        marker.appendChild(markerDot);
-        
-        // Add placement label
-        const placementName = document.createElement('div');
-        placementName.className = `spectrum-placement-name ${placement}`;
-        placementName.textContent = placement.charAt(0).toUpperCase() + placement.slice(1);
-        placementName.style.left = `${value}%`;
-        
-        visualization.appendChild(marker);
-        visualization.appendChild(placementName);
         
         // Description
         const description = document.createElement('p');
@@ -184,6 +199,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
             description.textContent = typologyDesc.description;
         }
         
+        // Assemble visualization
+        visualization.appendChild(baseLine);
+        visualization.appendChild(verticalLine);
+        visualization.appendChild(circleIndicator);
+        visualization.appendChild(placementName);
+        visualization.appendChild(labelsContainer);
+        
         visualColumn.appendChild(visualization);
         visualColumn.appendChild(description);
         
@@ -192,6 +214,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         contentGrid.appendChild(separator);
         contentGrid.appendChild(visualColumn);
         
+        spectrumItem.appendChild(numberedIndicator);
         spectrumItem.appendChild(contentGrid);
         
         // Add to grid container
@@ -200,23 +223,23 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     
     diagramContainer.appendChild(gridContainer);
     
-    // Add refined legend with improved styling
+    // Add refined legend with experimental styling
     const legend = document.createElement('div');
     legend.className = 'legend mt-24 flex justify-between items-end';
     
     const legendItems = document.createElement('div');
-    legendItems.className = 'legend-items grid grid-cols-3 gap-8';
+    legendItems.className = 'legend-items grid grid-cols-3 gap-8 w-1/2';
     
     // Structured legend item
     const structuredItem = document.createElement('div');
     structuredItem.className = 'legend-item flex flex-col items-center';
     
     const structuredBar = document.createElement('div');
-    structuredBar.className = 'legend-bar structured';
+    structuredBar.className = 'legend-bar structured w-3 h-12 bg-blue-400 mb-3';
     
     const structuredLabel = document.createElement('span');
-    structuredLabel.className = 'legend-label';
-    structuredLabel.textContent = 'STRUCTURED';
+    structuredLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
+    structuredLabel.textContent = 'Structured';
     
     structuredItem.appendChild(structuredBar);
     structuredItem.appendChild(structuredLabel);
@@ -226,11 +249,11 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     balancedItem.className = 'legend-item flex flex-col items-center';
     
     const balancedBar = document.createElement('div');
-    balancedBar.className = 'legend-bar balanced';
+    balancedBar.className = 'legend-bar balanced w-3 h-8 bg-green-400 mb-3';
     
     const balancedLabel = document.createElement('span');
-    balancedLabel.className = 'legend-label';
-    balancedLabel.textContent = 'BALANCED';
+    balancedLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
+    balancedLabel.textContent = 'Balanced';
     
     balancedItem.appendChild(balancedBar);
     balancedItem.appendChild(balancedLabel);
@@ -240,11 +263,11 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     intuitiveItem.className = 'legend-item flex flex-col items-center';
     
     const intuitiveBar = document.createElement('div');
-    intuitiveBar.className = 'legend-bar intuitive';
+    intuitiveBar.className = 'legend-bar intuitive w-3 h-16 bg-amber-400 mb-3';
     
     const intuitiveLabel = document.createElement('span');
-    intuitiveLabel.className = 'legend-label';
-    intuitiveLabel.textContent = 'INTUITIVE';
+    intuitiveLabel.className = 'legend-label text-xs font-light uppercase tracking-wider text-stone-500';
+    intuitiveLabel.textContent = 'Intuitive';
     
     intuitiveItem.appendChild(intuitiveBar);
     intuitiveItem.appendChild(intuitiveLabel);
@@ -257,7 +280,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     noteLine.className = 'w-8 h-px bg-stone-300 mr-2';
     
     const noteText = document.createElement('span');
-    noteText.textContent = 'YOUR REALITY COORDINATES';
+    noteText.textContent = 'Your Reality Coordinates';
     
     legendNote.appendChild(noteLine);
     legendNote.appendChild(noteText);
