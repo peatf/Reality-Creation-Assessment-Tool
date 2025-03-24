@@ -761,6 +761,10 @@ function selectMasteryOption(element, questionId, optionValue) {
   if (text) {
     text.className = 'text-base font-light text-stone-800';
   }
+    const questions = container.querySelectorAll('.question-container');
+  if (questions.length > 0) {
+    questions[0].classList.add('active');
+  }
 
   // Update navigation button state
   updateNavigationButtons();
