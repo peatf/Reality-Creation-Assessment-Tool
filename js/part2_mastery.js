@@ -568,9 +568,7 @@ function createMasterySection(title, description, id, sectionNumber) {
     return section;
 }
 
-//---------------------------------------------------------------------
-// Helper function to create a question for the mastery assessment
-//---------------------------------------------------------------------
+// Updated function in js/part2_mastery.js
 function createMasteryQuestion(question, questionNumber) {
     const questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
@@ -614,51 +612,135 @@ function createMasteryQuestion(question, questionNumber) {
     const optionsContainer = document.createElement('div');
     optionsContainer.className = 'ml-12 space-y-4';
     
-    // Add each option
+    // Add each option with hover effects
     question.options.forEach(option => {
         const optionDiv = document.createElement('div');
-        optionDiv.className = 'answer-option';
-        optionDiv.dataset.optionId = option.id;
-        optionDiv.dataset.value = option.value;
+        optionDiv.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300';
         
-        // Add click event to register answer - DIRECT GLOBAL REFERENCE
-        optionDiv.addEventListener('click', function() {
-            // Remove selected class from all options in this question
-            const allOptions = optionsContainer.querySelectorAll('.answer-option');
-            allOptions.forEach(opt => opt.classList.remove('selected'));
-            
-            // Add selected class to this option
-            this.classList.add('selected');
-            
-            // Store response directly in the global userResponses object
-            userResponses.mastery[question.id] = option.value;
-            console.log(`Set response for ${question.id}: ${option.value}`);
-        });
+        // Set initial styling based on selection
+        if (userResponses.mastery && userResponses.mastery[question.id] === option.value) {
+            optionDiv.classList.add('bg-amber-50', 'border-l-2', 'border-amber-400', 'shadow-sm');
+        } else {
+            optionDiv.classList.add('border-l-2', 'border-transparent', 'hover:bg-white', 'hover:shadow-sm');
+        }
         
-        // Create radio button visual
+        // Radio button visual
         const radioVisual = document.createElement('div');
-        radioVisual.className = 'answer-radio';
+        radioVisual.className = 'mt-1 h-4 w-4 shrink-0 rounded-full border transition-all duration-300';
         
-        const radioDot = document.createElement('div');
-        radioDot.className = 'answer-radio-dot';
-        radioVisual.appendChild(radioDot);
+        if (userResponses.mastery && userResponses.mastery[question.id] === option.value) {
+            radioVisual.classList.add('border-amber-400', 'bg-amber-400');
+            
+            const radioDot = document.createElement('div');
+            radioDot.className = 'flex h-full items-center justify-center';
+            
+            const innerDot = document.createElement('div');
+            innerDot.className = 'h-1.5 w-1.5 rounded-full bg-white';
+            
+            radioDot.appendChild(innerDot);
+            radioVisual.appendChild(radioDot);
+        } else {
+            radioVisual.classList.add('border-stone-300', 'group-hover:border-amber-300');
+        }
         
-        // Create option text
-        const optionText = document.createElement('div');
-        optionText.className = 'answer-text';
+        // Option text
+        const textContainer = document.createElement('div');
+        textContainer.className = 'ml-4';
+        
+        const optionText = document.createElement('p');
+        
+        if (userResponses.mastery && userResponses.mastery[question.id] === option.value) {
+            optionText.className = 'text-base font-light text-stone-800';
+        } else {
+            optionText.className = 'text-base font-light text-stone-600 group-hover:text-stone-700';
+        }
+        
         optionText.textContent = option.text;
         
-        // Assemble option element
+        textContainer.appendChild(optionText);
+        
+        // Add event listener for selection
+        optionDiv.addEventListener('click', () => {
+            // Store response
+            if (!userResponses.mastery) {
+                userResponses.mastery = {};
+            }
+            userResponses.mastery[question.id] = option.value;
+            
+            // Update visual state
+            const allOptions = optionsContainer.querySelectorAll('.group');
+            
+            allOptions.forEach(opt => {
+                // Reset styles
+                opt.classList.remove('bg-amber-50', 'border-amber-400', 'shadow-sm');
+                opt.classList.add('border-transparent');
+                
+                // Reset radio button
+                const radio = opt.querySelector('.rounded-full');
+                if (radio) {
+                    radio.classList.remove('border-amber-400', 'bg-amber-400');
+                    radio.classList.add('border-stone-300');
+                    
+                    // Remove inner dot if exists
+                    const dot = radio.querySelector('.flex');
+                    if (dot) dot.remove();
+                }
+                
+                // Reset text
+                const text = opt.querySelector('p');
+                if (text) {
+                    text.classList.remove('text-stone-800');
+                    text.classList.add('text-stone-600', 'group-hover:text-stone-700');
+                }
+            });
+            
+            // Set active styles
+            optionDiv.classList.add('bg-amber-50', 'border-amber-400', 'shadow-sm');
+            optionDiv.classList.remove('border-transparent');
+            
+            radioVisual.classList.remove('border-stone-300');
+            radioVisual.classList.add('border-amber-400', 'bg-amber-400');
+            
+            if (!radioVisual.querySelector('.flex')) {
+                const radioDot = document.createElement('div');
+                radioDot.className = 'flex h-full items-center justify-center';
+                
+                const innerDot = document.createElement('div');
+                innerDot.className = 'h-1.5 w-1.5 rounded-full bg-white';
+                
+                radioDot.appendChild(innerDot);
+                radioVisual.appendChild(radioDot);
+            }
+            
+            optionText.classList.remove('text-stone-600', 'group-hover:text-stone-700');
+            optionText.classList.add('text-stone-800');
+        });
+        
+        // Mouse enter event for hover effects
+        optionDiv.addEventListener('mouseenter', () => {
+            if (userResponses.mastery && userResponses.mastery[question.id] === option.value) return;
+            
+            optionDiv.classList.add('bg-white', 'shadow-sm');
+        });
+        
+        // Mouse leave event
+        optionDiv.addEventListener('mouseleave', () => {
+            if (userResponses.mastery && userResponses.mastery[question.id] === option.value) return;
+            
+            optionDiv.classList.remove('bg-white', 'shadow-sm');
+        });
+        
+        // Assemble option
         optionDiv.appendChild(radioVisual);
-        optionDiv.appendChild(optionText);
+        optionDiv.appendChild(textContainer);
+        
+        // Add to options container
         optionsContainer.appendChild(optionDiv);
     });
     
     questionContainer.appendChild(optionsContainer);
     return questionContainer;
 }
-    
- 
 
 //---------------------------------------------------------------------
 // Add navigation between sections in Part 2
