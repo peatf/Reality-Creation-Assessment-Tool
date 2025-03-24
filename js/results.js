@@ -308,10 +308,6 @@ function generateTypologyPairSection(typologyPair) {
         return;
     }
 
-    // Get typology descriptions for primary and secondary
-    const primaryDesc = assessmentData.typologyDescriptions[`${typologyPair.primary.spectrumId}-${typologyPair.primary.placement}`];
-    const secondaryDesc = assessmentData.typologyDescriptions[`${typologyPair.secondary.spectrumId}-${typologyPair.secondary.placement}`];
-
     // Determine typology pair key for template lookup
     let pairKey = '';
     if (typologyPair.primary.placement === 'left') {
@@ -333,30 +329,30 @@ function generateTypologyPairSection(typologyPair) {
     // Get pair template
     const pairTemplate = assessmentData.resultsTemplates.typologyPairs[pairKey];
 
-    // Create results card for typology pair with enhanced design
+    // Create results card with enhanced design
     const typologyCard = document.createElement('div');
-    typologyCard.className = 'results-card bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    typologyCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     
     // Create typology pair name with icon
     const typologyPairName = document.createElement('div');
-    typologyPairName.className = 'typology-pair-name flex items-center mb-6';
+    typologyPairName.className = 'flex items-center mb-6';
     
-    // Create icon with nested circles for visual interest
+    // Create icon with nested circles
     const typologyIcon = document.createElement('div');
-    typologyIcon.className = 'typology-icon w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center';
+    typologyIcon.className = 'w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center';
     
     const iconInner = document.createElement('div');
-    iconInner.className = 'typology-icon-inner w-10 h-10 rounded-full bg-white flex items-center justify-center';
+    iconInner.className = 'w-10 h-10 rounded-full bg-white flex items-center justify-center';
     
     const iconCore = document.createElement('div');
-    iconCore.className = 'typology-icon-core w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400';
+    iconCore.className = 'w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400';
     
     iconInner.appendChild(iconCore);
     typologyIcon.appendChild(iconInner);
     
     // Create typology name
     const typologyName = document.createElement('h2');
-    typologyName.className = 'typology-name text-3xl font-light text-stone-800 ml-4';
+    typologyName.className = 'text-3xl font-light text-stone-800 ml-4';
     typologyName.textContent = pairTemplate.name;
     
     typologyPairName.appendChild(typologyIcon);
@@ -364,7 +360,7 @@ function generateTypologyPairSection(typologyPair) {
     
     // Create typology description
     const typologyDescription = document.createElement('p');
-    typologyDescription.className = 'typology-description text-lg font-light text-stone-600 leading-relaxed';
+    typologyDescription.className = 'text-lg font-light text-stone-600 leading-relaxed';
     typologyDescription.textContent = pairTemplate.description;
     
     // Assemble typology card
