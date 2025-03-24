@@ -585,9 +585,6 @@ function generateMasteryQuestions() {
   const currentSection = masterySections[currentSectionIndex];
   console.log("Generating questions for section:", currentSection);
 
-  // Create a container for each mastery question
-  const currentSection = masterySections[currentSectionIndex];
-
   currentSection.questions.forEach((question, questionIndex) => {
     // Create question container
     const questionContainer = document.createElement('div');
