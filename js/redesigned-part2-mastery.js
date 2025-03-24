@@ -763,15 +763,25 @@ if (text) {
   text.className = 'text-base font-light text-stone-800';
 }
 
+
+  // Update navigation button state
+  updateNavigationButtons();
+}
+
 // Make sure the current question is active
 const currentQuestion = element.closest('.question-container');
 if (currentQuestion) {
   currentQuestion.classList.add('active');
 }
 
-  // Update navigation button state
-  updateNavigationButtons();
-}
+const allQuestions = container.querySelectorAll('.question-container');
+console.log(`Generated ${allQuestions.length} questions. Setting display style.`);
+  
+allQuestions.forEach((q, index) => {
+  // Make sure CSS display property is explicitly set
+  q.style.display = index === 0 ? 'block' : 'none';
+  q.classList.toggle('active', index === 0);
+});
 
 function updateSectionHeader() {
   // Get header elements
@@ -871,6 +881,8 @@ function prevSection() {
 
 // Go to next section
 function nextSection() {
+  console.log("Starting nextSection(). Current index:", currentSectionIndex);
+  
   // Check if all questions in current section are answered
   const currentSection = masterySections[currentSectionIndex];
   let unansweredQuestions = 0;
@@ -888,7 +900,13 @@ function nextSection() {
 
   if (currentSectionIndex < masterySections.length - 1) {
     currentSectionIndex++;
+    console.log("Incremented to section:", currentSectionIndex);
     generateMasteryQuestions();
+    
+    // Verify DOM after generation
+    const container = document.getElementById('mastery-questions');
+    console.log("Container after generation:", container);
+    console.log("Number of questions created:", container.querySelectorAll('.question-container').length);
   }
 }
 
