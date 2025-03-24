@@ -1,0 +1,103 @@
+/* 1. Fix the spectrum indicators in the "Your Spectrum Map" section */
+.spectrum-diagram .relative .h-px.w-full + .relative .absolute.top-0.w-px {
+  height: 12px !important; /* Shorter line */
+}
+
+.spectrum-diagram .relative .h-px.w-full + .relative .absolute.top-16 {
+  top: 12px !important; /* Adjust dot position */
+  transform: translate(-50%, 0) !important; /* Center the dot */
+  width: 8px !important; /* Slightly larger dot */
+  height: 8px !important;
+}
+
+/* Add more space between indicator and text */
+.spectrum-diagram .text-sm.font-light.text-stone-600 {
+  margin-top: 12px;
+}
+
+/* 3 & 4. Fix alignment of numbered items and "!" icons */
+.approach-item .approach-number,
+.misalignment-item .misalignment-icon,
+.w-6.h-6.rounded-full.bg-amber-100,
+.w-6.h-6.rounded-full.bg-stone-100 {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  min-width: 24px !important; /* Ensure consistent width */
+}
+
+/* 5. Center the white dot in orange dot for selected answers */
+.mt-1.h-4.w-4.shrink-0.rounded-full .flex.h-full.items-center.justify-center .h-1.5.w-1.5.rounded-full.bg-white {
+  margin: auto !important;
+}
+
+.flex.h-full.items-center.justify-center {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* 6. Improve styling of Part 2 Mastery section */
+#mastery-questions .question-container {
+  display: none; /* Hide all questions initially */
+  margin-bottom: 2rem;
+}
+
+#mastery-questions .question-container.active {
+  display: block; /* Only show active question */
+}
+
+#mastery-questions .text-xl.font-light.leading-relaxed.text-stone-700 {
+  line-height: 1.6;
+  margin-bottom: 2rem;
+}
+
+#mastery-questions .ml-12.space-y-4 {
+  margin-left: 3rem;
+}
+
+/* Improve spacing of option items */
+#mastery-questions .group.relative.flex {
+  padding: 1.25rem;
+  margin-bottom: 0.5rem;
+  border-radius: 0.5rem;
+}
+
+/* 7. Remove background color for iframe embedding */
+body {
+  background-color: transparent !important;
+}
+
+.bg-stone-50 {
+  background-color: transparent !important;
+}
+
+/* Make content containers transparent but elements still visible */
+.relative.z-20.w-full.max-w-4xl.mx-auto.p-6 {
+  background-color: transparent;
+}
+
+/* Restore floating dust animations */
+.background-canvas {
+  opacity: 0.7; /* Make particles visible but subtle */
+}
+
+/* Improve spacing in results section */
+.tab-content {
+  padding-top: 1rem;
+}
+
+/* Ensure proper alignment for selection dots */
+.mt-1.h-4.w-4.shrink-0.rounded-full {
+  position: relative;
+}
+
+.mt-1.h-4.w-4.shrink-0.rounded-full .flex.h-full.items-center.justify-center {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
