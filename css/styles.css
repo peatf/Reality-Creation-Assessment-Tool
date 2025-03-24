@@ -24,49 +24,53 @@ body {
     position: relative;
 }
 
-/* Typography Base + Claude’s Hierarchy Refinements */
+/* Base Typography */
 h1, h2, h3, h4, h5, h6 {
     font-weight: 300;
     line-height: 1.2;
+}
+
+/* Claude’s refinement for headers */
+h1, h2, h3, h4, h5 {
     letter-spacing: -0.015em;
+    color: #292524; /* from Claude’s “typography hierarchy” */
+}
+
+/* Original h1, then overridden by Claude’s final specs */
+h1 {
+    font-size: 2.75rem; /* final override from 2.5rem */
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em; /* narrower letter-spacing from Claude */
+    font-weight: 300;
+    line-height: 1.2;
     color: #292524;
 }
 
-h1 {
-    font-size: 2.75rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em; /* Slightly tighter for refined look */
-    font-weight: 300;
-    line-height: 1.2;
-}
-
 h2 {
-    font-size: 2.25rem;
+    font-size: 2.25rem; /* from Claude */
     margin-bottom: 1rem;
     font-weight: 300;
 }
 
 h3 {
-    font-size: 1.75rem;
+    font-size: 1.75rem; /* from Claude */
     margin-bottom: 1rem;
     font-weight: 300;
 }
 
-h4, h5, h6 {
-    /* Remain at font-weight: 300, line-height: 1.2 from above */
-}
-
-.text-xl {
-    font-size: 1.35rem;
+/* Special heading class from original snippet + Claude’s text-xl override */
+h3.text-xl {
+    font-size: 1.35rem; 
     margin-bottom: 1.25rem;
     color: #3a3836;
 }
 
+/* Paragraph refinements */
 p {
-    margin-bottom: 1rem;
+    margin-bottom: 1rem; 
     font-weight: 300;
-    line-height: 1.6;
-    color: #57534e;
+    line-height: 1.6; /* from Claude’s snippet */
+    color: #57534e;   /* from Claude’s snippet */
 }
 
 /*************************************
@@ -75,9 +79,9 @@ p {
 
 .introduction {
     text-align: center;
-    max-width: 850px; /* Claude's expansion to 850px */
+    max-width: 850px; /* Claude’s enhancement (was 800px originally) */
     margin: 4rem auto;
-    padding: 3rem; /* Claude’s improved padding */
+    padding: 3rem; /* from Claude */
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
@@ -90,10 +94,10 @@ p {
 }
 
 .introduction h3 {
-    font-size: 1.75rem; /* Claude’s refinement */
+    font-size: 1.75rem; /* Claude’s improvement */
     margin-bottom: 1.5rem;
     font-weight: 300;
-    color: #2c3e50;
+    color: #2c3e50; /* from your original color spec */
 }
 
 .intro-content {
@@ -126,7 +130,7 @@ p {
   4. ASSESSMENT & QUIZ CONTAINER
 *************************************/
 
-.quiz-container,
+.quiz-container, 
 .results-container {
     position: relative;
     width: 100%;
@@ -149,6 +153,7 @@ p {
   5. BUTTON STYLES & INTERACTION
 *************************************/
 
+/* Base .btn plus Claude’s improvements */
 .btn {
     display: inline-flex;
     align-items: center;
@@ -171,12 +176,12 @@ p {
     transform: translateY(-1px);
 }
 
-/* Start assessment button override (with Claude's gradient enhancement) */
+/* Start assessment button override (includes Claude’s gradient) */
 #start-assessment {
     background-image: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
     padding: 1rem 2.5rem;
-    margin-top: 2rem;
+    margin-top: 2rem;  /* Claude’s final override */
     transition: all 0.3s ease;
     border-radius: 6px;
     font-weight: 500;
@@ -196,319 +201,100 @@ p {
   6. UTILITY CLASSES
 *************************************/
 
-.flex {
-    display: flex;
-}
-
-.items-center {
-    align-items: center;
-}
-
-.items-end {
-    align-items: flex-end;
-}
-
-.justify-between {
-    justify-content: space-between;
-}
-
-.flex-col {
-    flex-direction: column;
-}
-
-.space-x-2 > * + * {
-    margin-left: 0.5rem;
-}
-
-.space-x-6 > * + * {
-    margin-left: 1.5rem;
-}
-
-.space-x-8 > * + * {
-    margin-left: 2rem;
-}
-
-.space-y-4 > * + * {
-    margin-top: 1rem;
-}
-
-.space-y-16 > * + * {
-    margin-top: 4rem;
-}
-
-.mt-1 {
-    margin-top: 0.25rem;
-}
-
-.mt-2 {
-    margin-top: 0.5rem;
-}
-
-.mt-4 {
-    margin-top: 1rem;
-}
-
-.mt-6 {
-    margin-top: 1.5rem;
-}
-
-.mt-16 {
-    margin-top: 4rem;
-}
-
-.mb-1 {
-    margin-bottom: 0.25rem;
-}
-
-.mb-2 {
-    margin-bottom: 0.5rem;
-}
-
-.mb-6 {
-    margin-bottom: 1.5rem;
-}
-
-.mb-8 {
-    margin-bottom: 2rem;
-}
-
-.mb-12 {
-    margin-bottom: 3rem;
-}
-
-.mb-16 {
-    margin-bottom: 4rem;
-}
-
-.mr-4 {
-    margin-right: 1rem;
-}
-
-.ml-4 {
-    margin-left: 1rem;
-}
-
-.ml-12 {
-    margin-left: 3rem;
-}
-
-.pt-6 {
-    padding-top: 1.5rem;
-}
-
-.pb-4 {
-    padding-bottom: 1rem;
-}
-
-.pb-10 {
-    padding-bottom: 2.5rem;
-}
-
-.pt-16 {
-    padding-top: 4rem;
-}
-
-.h-px {
-    height: 1px;
-}
-
-.w-px {
-    width: 1px;
-}
-
-.h-0.5 {
-    height: 0.125rem;
-}
-
-.h-1.5 {
-    height: 0.375rem;
-}
-
-.h-3 {
-    height: 0.75rem;
-}
-
-.w-1.5 {
-    width: 0.375rem;
-}
-
-.w-8 {
-    width: 2rem;
-}
-
-.w-12 {
-    width: 3rem;
-}
-
-.w-full {
-    width: 100%;
-}
-
-.bg-stone-200 {
-    background-color: #e7e5e4;
-}
-
-.bg-stone-300 {
-    background-color: #d6d3d1;
-}
-
-.bg-stone-400 {
-    background-color: #a8a29e;
-}
-
-.bg-stone-500 {
-    background-color: #78716c;
-}
-
-.bg-amber-300 {
-    background-color: #fcd34d;
-}
-
-.bg-amber-400 {
-    background-color: #fbbf24;
-}
-
-.bg-amber-500 {
-    background-color: #f59e0b;
-}
-
-.text-xs {
-    font-size: 0.75rem;
-    letter-spacing: 0.05em; /* from Claude’s snippet */
-}
-
-.text-sm {
-    font-size: 0.875rem;
-    letter-spacing: 0.02em; /* from Claude’s snippet */
-}
-
-.text-base {
-    font-size: 1rem;
-}
-
-.text-lg {
-    font-size: 1.125rem;
-}
-
-.text-xl {
-    font-size: 1.25rem;
-}
-
-.text-2xl {
-    font-size: 1.5rem;
-}
-
-.text-3xl {
-    font-size: 1.875rem;
-}
-
-.text-4xl {
-    font-size: 2.25rem;
-}
-
-.font-light {
-    font-weight: 300;
-}
-
-.font-medium {
-    font-weight: 500;
-}
-
-.text-stone-400 {
-    color: #a8a29e;
-}
-
-.text-stone-500 {
-    color: #78716c;
-}
-
-.text-stone-600 {
-    color: #57534e;
-}
-
-.text-stone-700 {
-    color: #44403c;
-}
-
-.text-stone-800 {
-    color: #292524;
-}
-
-.text-amber-700 {
-    color: #b45309;
-}
-
-.text-red-700 {
-    color: #b91c1c;
-}
-
-.uppercase {
-    text-transform: uppercase;
-}
-
-.tracking-tight {
-    letter-spacing: -0.025em;
-}
-
-.tracking-wide {
-    letter-spacing: 0.025em;
-}
-
-.tracking-wider {
-    letter-spacing: 0.05em;
-}
-
-.tracking-widest {
-    letter-spacing: 0.1em;
-}
-
-.rounded-full {
-    border-radius: 9999px;
-}
-
-.border-t {
-    border-top-width: 1px;
-    border-top-style: solid;
-}
-
-.border-b {
-    border-bottom-width: 1px;
-    border-bottom-style: solid;
-}
-
-.border-l-2 {
-    border-left-width: 2px;
-    border-left-style: solid;
-}
-
-.border-l-4 {
-    border-left-width: 4px;
-    border-left-style: solid;
-}
-
-.border-stone-200 {
-    border-color: #e7e5e4;
-}
-
-.border-red-500 {
-    border-color: #ef4444;
-}
-
-.border-amber-500 {
-    border-color: #f59e0b;
-}
-
-.opacity-20 {
-    opacity: 0.2;
-}
-
-.opacity-60 {
-    opacity: 0.6;
-}
-
-.opacity-80 {
-    opacity: 0.8;
-}
+.flex { display: flex; }
+.items-center { align-items: center; }
+.items-end { align-items: flex-end; }
+.justify-between { justify-content: space-between; }
+.flex-col { flex-direction: column; }
+
+.space-x-2 > * + * { margin-left: 0.5rem; }
+.space-x-6 > * + * { margin-left: 1.5rem; }
+.space-x-8 > * + * { margin-left: 2rem; }
+
+.space-y-4 > * + * { margin-top: 1rem; }
+.space-y-16 > * + * { margin-top: 4rem; }
+
+.mt-1 { margin-top: 0.25rem; }
+.mt-2 { margin-top: 0.5rem; }
+.mt-4 { margin-top: 1rem; }
+.mt-6 { margin-top: 1.5rem; }
+.mt-16 { margin-top: 4rem; }
+
+.mb-1 { margin-bottom: 0.25rem; }
+.mb-2 { margin-bottom: 0.5rem; }
+.mb-6 { margin-bottom: 1.5rem; }
+.mb-8 { margin-bottom: 2rem; }
+.mb-12 { margin-bottom: 3rem; }
+.mb-16 { margin-bottom: 4rem; }
+
+.mr-4 { margin-right: 1rem; }
+.ml-4 { margin-left: 1rem; }
+.ml-12 { margin-left: 3rem; }
+
+.pt-6 { padding-top: 1.5rem; }
+.pb-4 { padding-bottom: 1rem; }
+.pb-10 { padding-bottom: 2.5rem; }
+.pt-16 { padding-top: 4rem; }
+
+.h-px { height: 1px; }
+.w-px { width: 1px; }
+.h-0.5 { height: 0.125rem; }
+.h-1.5 { height: 0.375rem; }
+.h-3 { height: 0.75rem; }
+.w-1.5 { width: 0.375rem; }
+.w-8 { width: 2rem; }
+.w-12 { width: 3rem; }
+.w-full { width: 100%; }
+
+.bg-stone-200 { background-color: #e7e5e4; }
+.bg-stone-300 { background-color: #d6d3d1; }
+.bg-stone-400 { background-color: #a8a29e; }
+.bg-stone-500 { background-color: #78716c; }
+.bg-amber-300 { background-color: #fcd34d; }
+.bg-amber-400 { background-color: #fbbf24; }
+.bg-amber-500 { background-color: #f59e0b; }
+
+.text-xs { font-size: 0.75rem; letter-spacing: 0.05em; /* from Claude */ }
+.text-sm { font-size: 0.875rem; letter-spacing: 0.02em; /* from Claude */ }
+.text-base { font-size: 1rem; }
+.text-lg { font-size: 1.125rem; }
+.text-xl { font-size: 1.25rem; }
+.text-2xl { font-size: 1.5rem; }
+.text-3xl { font-size: 1.875rem; }
+.text-4xl { font-size: 2.25rem; }
+
+.font-light { font-weight: 300; }
+.font-medium { font-weight: 500; }
+
+.text-stone-400 { color: #a8a29e; }
+.text-stone-500 { color: #78716c; }
+.text-stone-600 { color: #57534e; }
+.text-stone-700 { color: #44403c; }
+.text-stone-800 { color: #292524; }
+.text-amber-700 { color: #b45309; }
+.text-red-700 { color: #b91c1c; }
+
+.uppercase { text-transform: uppercase; }
+
+.tracking-tight { letter-spacing: -0.025em; }
+.tracking-wide { letter-spacing: 0.025em; }
+.tracking-wider { letter-spacing: 0.05em; }
+.tracking-widest { letter-spacing: 0.1em; }
+
+.rounded-full { border-radius: 9999px; }
+
+.border-t { border-top-width: 1px; border-top-style: solid; }
+.border-b { border-bottom-width: 1px; border-bottom-style: solid; }
+.border-l-2 { border-left-width: 2px; border-left-style: solid; }
+.border-l-4 { border-left-width: 4px; border-left-style: solid; }
+
+.border-stone-200 { border-color: #e7e5e4; }
+.border-red-500 { border-color: #ef4444; }
+.border-amber-500 { border-color: #f59e0b; }
+
+.opacity-20 { opacity: 0.2; }
+.opacity-60 { opacity: 0.6; }
+.opacity-80 { opacity: 0.8; }
 
 .transition-all {
     transition-property: all;
@@ -516,133 +302,46 @@ p {
     transition-duration: 0.15s;
 }
 
-.duration-500 {
-    transition-duration: 0.5s;
-}
+.duration-500 { transition-duration: 0.5s; }
 
-.absolute {
-    position: absolute;
-}
+.absolute { position: absolute; }
+.relative { position: relative; }
 
-.relative {
-    position: relative;
-}
+.inset-y-0 { top: 0; bottom: 0; }
+.bottom-0 { bottom: 0; }
+.bottom-6 { bottom: 1.5rem; }
+.left-0 { left: 0; }
+.left-1/2 { left: 50%; }
+.top-1/2 { top: 50%; }
+.z-10 { z-index: 10; }
 
-.inset-y-0 {
-    top: 0;
-    bottom: 0;
-}
+.-translate-x-1/2 { transform: translateX(-50%); }
+.-translate-y-1/2 { transform: translateY(-50%); }
 
-.bottom-0 {
-    bottom: 0;
-}
+.from-transparent { --tw-gradient-from: transparent; }
+.via-stone-300 { --tw-gradient-stops: var(--tw-gradient-from), #d6d3d1, var(--tw-gradient-to); }
+.to-transparent { --tw-gradient-to: transparent; }
+.from-amber-300 { --tw-gradient-from: #fcd34d; }
+.to-amber-400 { --tw-gradient-to: #fbbf24; }
 
-.bottom-6 {
-    bottom: 1.5rem;
-}
+.bg-gradient-to-b { background-image: linear-gradient(to bottom, var(--tw-gradient-stops)); }
+.bg-gradient-to-r { background-image: linear-gradient(to right, var(--tw-gradient-stops)); }
 
-.left-0 {
-    left: 0;
-}
+.hover\:text-stone-700:hover { color: #44403c; }
+.hover\:text-amber-700:hover { color: #b45309; }
 
-.left-1/2 {
-    left: 50%;
-}
+.group:hover .group-hover\:w-12 { width: 3rem; }
+.group:hover .group-hover\:bg-stone-500 { background-color: #78716c; }
+.group:hover .group-hover\:bg-amber-500 { background-color: #f59e0b; }
 
-.top-1/2 {
-    top: 50%;
-}
-
-.z-10 {
-    z-index: 10;
-}
-
-.-translate-x-1/2 {
-    transform: translateX(-50%);
-}
-
-.-translate-y-1/2 {
-    transform: translateY(-50%);
-}
-
-.from-transparent {
-    --tw-gradient-from: transparent;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.via-stone-300 {
-    --tw-gradient-stops: var(--tw-gradient-from), #d6d3d1, var(--tw-gradient-to);
-}
-
-.to-transparent {
-    --tw-gradient-to: transparent;
-}
-
-.from-amber-300 {
-    --tw-gradient-from: #fcd34d;
-    --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to);
-}
-
-.to-amber-400 {
-    --tw-gradient-to: #fbbf24;
-}
-
-.bg-gradient-to-b {
-    background-image: linear-gradient(to bottom, var(--tw-gradient-stops));
-}
-
-.bg-gradient-to-r {
-    background-image: linear-gradient(to right, var(--tw-gradient-stops));
-}
-
-.hover\:text-stone-700:hover {
-    color: #44403c;
-}
-
-.hover\:text-amber-700:hover {
-    color: #b45309;
-}
-
-.group:hover .group-hover\:w-12 {
-    width: 3rem;
-}
-
-.group:hover .group-hover\:bg-stone-500 {
-    background-color: #78716c;
-}
-
-.group:hover .group-hover\:bg-amber-500 {
-    background-color: #f59e0b;
-}
-
-/* Grid Classes */
-.grid {
-    display: grid;
-}
-
-.grid-cols-1 {
-    grid-template-columns: repeat(1, minmax(0, 1fr));
-}
-
-.grid-cols-12 {
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.col-span-2 {
-    grid-column: span 2 / span 2;
-}
-
-.col-span-10 {
-    grid-column: span 10 / span 10;
-}
-
-.gap-4 {
-    gap: 1rem;
-}
-
-.gap-6 {
-    gap: 1.5rem;
-}
+/* Grid classes */
+.grid { display: grid; }
+.grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
+.grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
+.col-span-2 { grid-column: span 2 / span 2; }
+.col-span-10 { grid-column: span 10 / span 10; }
+.gap-4 { gap: 1rem; }
+.gap-6 { gap: 1.5rem; }
 
 /*************************************
   7. SPECTRUM QUESTIONS & VISUALIZATION
@@ -666,6 +365,7 @@ p {
     font-style: italic;
 }
 
+/* Container around each question */
 .question-container {
     margin-bottom: 2.5rem;
     position: relative;
@@ -683,150 +383,118 @@ p {
     line-height: 1.625;
 }
 
-/* Interactive spectrum visualization container */
+/* Spectrum Visualization (Claude’s improvements) */
 .spectrum-visualization {
     position: relative;
     margin-bottom: 3rem;
-    padding: 2rem 0; /* Claude’s additional padding */
+    padding: 2rem 0; /* from Claude’s snippet */
 }
 
-/* Spectrum line (horizontal track) */
-.spectrum-line {
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
+.spectrum-label {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
 }
 
-/* Markers */
-.spectrum-marker {
-    position: absolute;
-    top: 2rem;
-    width: 1px;
-    height: 4rem;
-    transform: translateX(-50%);
-    transition: height 0.3s ease;
+.spectrum-track {
+    position: relative;
+    height: 0.125rem;
+    background-color: #e7e5e4;
+    border-radius: 0.5rem;
+    margin: 1.5rem 0;
 }
 
-/* Original color classes + Claude’s gradient */
-.spectrum-marker.left {
-    left: 25%;
-    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
-}
-
-.spectrum-marker.balanced {
-    left: 50%;
-    background: linear-gradient(to bottom, #4ade80, #4ade8090);
-}
-
-.spectrum-marker.right {
-    left: 75%;
-    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
-}
-
-/* Marker dot refinement */
-.spectrum-marker-dot {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    width: 0.85rem;
-    height: 0.85rem;
-    border-radius: 9999px;
-    background-color: inherit;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-/* Placement name labels */
-.spectrum-placement-name {
-    position: absolute;
-    top: 4.75rem;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
-    font-weight: 500;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-placement-name.left {
-    left: 25%;
-}
-
-.spectrum-placement-name.balanced {
-    left: 50%;
-}
-
-.spectrum-placement-name.right {
-    left: 75%;
-}
-
-/* Additional layout for the spectrum item row */
-.spectrum-item {
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    gap: 1.5rem; /* Overridden from earlier snippet */
-    margin-bottom: 5.5rem; /* Overridden from 5rem */
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-item:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.spectrum-separator {
-    height: 100%;
-    width: 1px;
-    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
-}
-
-.spectrum-info {
+/* Option containers along the track */
+.option-container {
+    position: relative;
+    width: 33.333%;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
+    align-items: center;
 }
 
-.spectrum-name {
-    font-size: 1.25rem; /* Claude’s override from 1.125rem */
-    margin-bottom: 0.5rem;
-    font-weight: 300;
-    letter-spacing: -0.01em;
-}
-
-/* Interactive hover expansions on marker/dot */
-.spectrum-item:hover .spectrum-marker {
-    height: 4.5rem;
-}
-.spectrum-item:hover .spectrum-marker-dot {
-    transform: translate(-50%, 50%) scale(1.2);
-}
-
-/* Updated descriptive text inside spectrum sections */
-.spectrum-description {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-top: 1rem;
-}
-
-/* Spectrum labels layout */
-.spectrum-labels {
+/* Interactive option buttons */
+.option-button {
+    position: relative;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 9999px;
     display: flex;
-    justify-content: space-between;
-    margin-top: 5rem;
-    font-size: 0.75rem;
-    color: #78716c;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border: 1px solid #e7e5e4;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 2;
+}
+.option-button:hover {
+    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+    border-color: #fcd34d;
+}
+.option-button.selected {
+    background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
+    box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
+}
+.option-button.selected .option-marker {
+    background-color: white;
+    width: 0.75rem;
+    height: 0.75rem;
+}
 
+/* Marker inside the button when selected */
+.option-marker {
+    width: 0;
+    height: 0;
+    border-radius: 9999px;
+    transition: all 0.3s ease;
+}
+
+/* Position line below each button */
+.option-position-line {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0 0.5rem;
+    bottom: -2rem;
+    width: 1px;
+    height: 1.5rem;
+    background-color: #d6d3d1;
+    opacity: 0.4;
+    transition: all 0.3s ease;
+}
+.option-button.selected + .option-position-line,
+.option-button:hover + .option-position-line {
+    background-color: #fbbf24;
+    opacity: 1;
+}
+
+/* Text label for each option */
+.option-text {
+    margin-top: 3rem;
+    text-align: center;
+    padding: 0 1rem;
+    font-size: 0.875rem;
+    color: #57534e;
+    transition: all 0.3s ease;
+    font-weight: 300;
+}
+.option-label {
+    display: none;
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    color: #b45309;
+    margin-bottom: 0.5rem;
+}
+.option-button.selected ~ .option-text {
+    color: #b45309;
+}
+.option-button.selected ~ .option-text .option-label {
+    display: block;
+}
+.option-button:hover ~ .option-text {
+    color: #44403c;
 }
 
 /*************************************
@@ -857,9 +525,9 @@ p {
 }
 
 .section-title-text {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 1.25rem;
     color: #44403c;
+    font-weight: 300;
 }
 
 .section-description {
@@ -870,27 +538,27 @@ p {
     font-style: italic;
 }
 
+/* Answer option blocks (includes Claude’s improvements) */
 .answer-option {
     display: flex;
     align-items: flex-start;
     padding: 1.5rem; /* Claude’s improvement */
-    border-radius: 8px; /* Claude’s improvement */
+    border-radius: 8px;
     border-left: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
 }
-
 .answer-option:hover {
     background-color: rgba(255, 255, 255, 0.6);
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
-
 .answer-option.selected {
     background-color: rgba(255, 248, 230, 0.6);
     border-left: 2px solid #fbbf24;
     box-shadow: 0 2px 12px rgba(251, 191, 36, 0.1);
 }
 
+/* Small radio dot inside each answer option */
 .answer-radio {
     position: relative;
     width: 1rem;
@@ -901,20 +569,16 @@ p {
     margin-top: 0.25rem;
     transition: all 0.3s ease;
 }
-
 .answer-option:hover .answer-radio {
     border-color: #fbbf24;
 }
-
 .answer-option.selected .answer-radio {
     border-color: #fbbf24;
     background-color: #fbbf24;
 }
-
 .answer-radio-dot {
     position: absolute;
-    top: 50%;
-    left: 50%;
+    top: 50%; left: 50%;
     transform: translate(-50%, -50%);
     width: 0.375rem;
     height: 0.375rem;
@@ -923,11 +587,11 @@ p {
     opacity: 0;
     transition: opacity 0.3s ease;
 }
-
 .answer-option.selected .answer-radio-dot {
     opacity: 1;
 }
 
+/* Answer text label */
 .answer-text {
     margin-left: 1rem;
     color: #57534e;
@@ -935,7 +599,6 @@ p {
     font-weight: 300;
     transition: color 0.3s ease;
 }
-
 .answer-option.selected .answer-text {
     color: #44403c;
 }
@@ -945,10 +608,21 @@ p {
 *************************************/
 
 .results-section {
-    margin-bottom: 4rem; /* Overridden from original 3rem */
+    margin-bottom: 4rem; /* bigger margin from Claude */
 }
 
-/* Final refined results-card + .bg-white.bg-opacity-70 styles */
+/* Original .results-card + Claude’s refined .bg-white.bg-opacity-70 */
+.results-card {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+    padding: 2rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f5f5f4;
+    margin-bottom: 1.5rem;
+}
+
+/* Then the refined styling overrides (Claude’s) */
 .results-card,
 .bg-white.bg-opacity-70 {
     background-color: rgba(255, 255, 255, 0.75);
@@ -960,20 +634,18 @@ p {
     transition: all 0.3s ease;
     padding: 2rem;
 }
-
 .results-card:hover,
 .bg-white.bg-opacity-70:hover {
     transform: translateY(-3px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
-/* Typology pairs */
+/* Typology pair styling (Claude’s refinements) */
 .typology-pair-name {
     display: flex;
     align-items: center;
-    margin-bottom: 2rem;
+    margin-bottom: 2rem; /* override original 1.5rem */
 }
-
 .typology-icon {
     width: 3.5rem;
     height: 3.5rem;
@@ -985,7 +657,6 @@ p {
     align-items: center;
     justify-content: center;
 }
-
 .typology-icon-inner {
     width: 2.75rem;
     height: 2.75rem;
@@ -995,20 +666,17 @@ p {
     align-items: center;
     justify-content: center;
 }
-
 .typology-icon-core {
     width: 1.75rem;
     height: 1.75rem;
     border-radius: 50%;
     background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
 }
-
 .typology-name {
     font-size: 1.875rem;
     font-weight: 300;
     color: #44403c;
 }
-
 .typology-description {
     font-size: 1.125rem;
     line-height: 1.7;
@@ -1043,30 +711,159 @@ p {
 }
 
 .spectrum-diagram {
-    margin-bottom: 4rem; /* Claude’s override from 3rem */
+    margin-bottom: 4rem; /* from Claude */
     position: relative;
 }
 
-/* We unify with the above .spectrum-item if needed */
+/* .spectrum-item layout + Claude’s refinements */
+.spectrum-item {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 1.5rem; /* override from 0.75rem */
+    margin-bottom: 5.5rem; /* override from 5rem */
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+.spectrum-item:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.spectrum-separator {
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
+}
+
+.spectrum-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+/* Original .spectrum-name + Claude’s override */
+.spectrum-name {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    color: #44403c;
+    font-weight: 300;
+    letter-spacing: -0.01em;
+}
+
+.spectrum-placement-text {
+    font-size: 0.75rem;
+    color: #78716c;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Additional lines from Claude’s second snippet for .spectrum-line, .spectrum-marker, etc. */
+.spectrum-line {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
+}
+.spectrum-marker {
+    position: absolute;
+    top: 2rem;
+    width: 1px;
+    height: 4rem;
+    transform: translateX(-50%);
+    transition: height 0.3s ease;
+}
+
+/* Original color classes, merged with Claude’s gradient overrides */
+.spectrum-marker.left {
+    left: 25%;
+    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
+}
+.spectrum-marker.balanced {
+    left: 50%;
+    background: linear-gradient(to bottom, #4ade80, #4ade8090);
+}
+.spectrum-marker.right {
+    left: 75%;
+    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
+}
+
+/* Dot on the marker */
+.spectrum-marker-dot {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background-color: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* On hover, marker grows slightly; dot gets bigger */
+.spectrum-item:hover .spectrum-marker {
+    height: 4.5rem;
+}
+.spectrum-item:hover .spectrum-marker-dot {
+    transform: translate(-50%, 50%) scale(1.2);
+}
+
+.spectrum-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5rem;
+    font-size: 0.75rem;
+    color: #78716c;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 0.5rem;
+}
+
+.spectrum-placement-name {
+    position: absolute;
+    top: 4.75rem;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+.spectrum-placement-name.left { left: 25%; }
+.spectrum-placement-name.balanced { left: 50%; }
+.spectrum-placement-name.right { left: 75%; }
+
+.spectrum-description {
+    font-size: 1rem;     /* from Claude */
+    line-height: 1.7;    /* from Claude */
+    margin-top: 1rem;    /* from Claude override */
+}
 
 /*************************************
   11. LEGEND
 *************************************/
 
 .legend {
-    margin-top: 4rem; /* Overridden from 3rem */
-    padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    margin-top: 4rem; /* override from 3rem */
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
 }
 
 .legend-items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3rem; /* Overridden from 2rem */
+    gap: 3rem; /* override from 2rem */
 }
 
 .legend-item {
@@ -1081,17 +878,15 @@ p {
     transition: height 0.3s ease;
 }
 
-/* Gradient bars per Claude’s refinement */
+/* Original color + Claude’s gradient overrides */
 .legend-bar.structured {
     height: 3rem;
     background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
 }
-
 .legend-bar.balanced {
     height: 2rem;
     background: linear-gradient(to bottom, #4ade80, #4ade8090);
 }
-
 .legend-bar.intuitive {
     height: 4rem;
     background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
@@ -1105,6 +900,7 @@ p {
     font-weight: 300;
 }
 
+/* Hover effect from second snippet */
 .legend-bar:hover {
     height: calc(100% * 1.2);
 }
@@ -1120,12 +916,21 @@ p {
     font-weight: 300;
 }
 
+/* Original approach, misalignment, strategy items + Claude’s expansions */
 .approach-item,
 .misalignment-item,
 .priority-item,
 .strategy-item {
     display: flex;
     margin-bottom: 1rem;
+}
+
+/* Overridden by Claude for spacing */
+.approach-item,
+.misalignment-item,
+.strategy-item {
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
 }
 
 .approach-number,
@@ -1148,7 +953,6 @@ p {
     height: 2rem;
     background-color: rgba(163, 163, 163, 0.15);
     color: #78716c;
-    font-weight: 500;
     border-radius: 9999px;
     display: flex;
     align-items: center;
@@ -1156,22 +960,16 @@ p {
     flex-shrink: 0;
 }
 
+/* Original approach text, plus Claude’s refinements */
 .approach-text,
 .misalignment-text,
 .priority-text,
 .strategy-text {
     margin-left: 1rem;
-    font-size: 1.0625rem; /* from Claude’s snippet */
+    font-size: 1.0625rem; /* from Claude */
     line-height: 1.6;
     font-weight: 300;
-}
-
-/* Adjust spacing for approach/strategy items per Claude */
-.approach-item,
-.misalignment-item,
-.strategy-item {
-    margin-bottom: 1.5rem;
-    align-items: flex-start;
+    color: #57534e; /* from your base color usage */
 }
 
 /*************************************
@@ -1193,8 +991,9 @@ p {
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
+/* Header portion is clickable to expand/collapse */
 .expandable-header {
-    padding: 1.75rem 2rem;
+    padding: 1.75rem 2rem; /* from Claude */
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -1205,37 +1004,35 @@ p {
     background: transparent;
     transition: all 0.3s ease;
 }
-
 .expandable-header:hover {
     background-color: rgba(255, 255, 255, 0.5);
 }
-
 .expandable-title {
     font-size: 1.25rem;
     color: #44403c;
     font-weight: 300;
 }
 
+/* Expand/collapse icon */
 .expandable-icon {
     width: 1.5rem;
     height: 1.5rem;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease; /* deeper transform time from Claude */
     color: #78716c;
 }
-
 .expandable-icon svg {
     width: 1.25rem;
     height: 1.25rem;
     stroke-width: 1.5;
 }
-
 .expandable-icon.expanded {
     transform: rotate(180deg);
 }
 
+/* Content region, hidden by default and expanded on click */
 .expandable-content {
     max-height: 0;
     overflow: hidden;
@@ -1243,12 +1040,9 @@ p {
     transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
     padding: 0 2rem;
 }
-
 .expandable-content.collapsed {
-    display: none; /* Original approach to hide content if needed */
+    display: none; /* from original snippet */
 }
-
-/* Claude’s approach using .hidden class (merged with original) */
 .expandable-content:not(.hidden) {
     max-height: 1000px;
     opacity: 1;
@@ -1260,16 +1054,17 @@ p {
 *************************************/
 
 .tabs-container {
-    margin-bottom: 3.5rem; /* Claude’s refinement from 3rem */
+    margin-bottom: 3.5rem; /* Claude’s override of 3rem */
     position: relative;
     border-bottom: 1px solid #e7e5e4; /* from original snippet */
 }
 
 .tab-buttons {
     display: flex;
-    gap: 3rem; /* Claude’s refinement */
+    gap: 3rem; /* from Claude’s refinement */
 }
 
+/* Base tab-button, then Claude’s expansions */
 .tab-button {
     padding-bottom: 1.25rem;
     font-size: 0.95rem;
@@ -1283,10 +1078,10 @@ p {
     margin-bottom: -1px;
 }
 
+/* Active/inactive states + colored bottom border */
 .tab-button.active {
     color: #b45309;
 }
-
 .tab-button.active::after {
     content: '';
     position: absolute;
@@ -1301,11 +1096,9 @@ p {
 .tab-button:not(.active) {
     color: #78716c;
 }
-
 .tab-button:not(.active):hover {
     color: #44403c;
 }
-
 .tab-button:not(.active):hover::after {
     content: '';
     position: absolute;
@@ -1319,13 +1112,13 @@ p {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+/* Tab content transitions */
 .tab-content {
-    display: none; /* Original approach to hide inactive tab */
+    display: none;
     opacity: 0;
     transform: translateY(10px);
     transition: opacity 0.4s ease, transform 0.4s ease;
 }
-
 .tab-content.active {
     display: block;
     opacity: 1;
@@ -1341,55 +1134,34 @@ p {
     grid-template-columns: repeat(12, minmax(0, 1fr));
 }
 
-.col-span-12 {
-    grid-column: span 12 / span 12;
-}
+.col-span-12 { grid-column: span 12 / span 12; }
+.col-span-7  { grid-column: span 7 / span 7; }
+.col-span-6  { grid-column: span 6 / span 6; }
+.col-span-4  { grid-column: span 4 / span 4; }
+.col-span-1  { grid-column: span 1 / span 1; }
+.col-start-1 { grid-column-start: 1; }
+.col-start-6 { grid-column-start: 6; }
 
-.col-span-7 {
-    grid-column: span 7 / span 7;
-}
+.gap-x-4 { column-gap: 1rem; }
+.gap-y-20 { row-gap: 5rem; }
+.gap-3 { gap: 0.75rem; }
 
-.col-span-6 {
-    grid-column: span 6 / span 6;
+.bg-white.bg-opacity-70 {
+    background-color: rgba(255, 255, 255, 0.7);
+    backdrop-filter: blur(8px);
+    border-radius: 0.75rem;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    border: 1px solid #f5f5f4;
+    /* Overridden by the more refined .bg-white.bg-opacity-70 above */
 }
-
-.col-span-4 {
-    grid-column: span 4 / span 4;
-}
-
-.col-span-1 {
-    grid-column: span 1 / span 1;
-}
-
-.col-start-1 {
-    grid-column-start: 1;
-}
-
-.col-start-6 {
-    grid-column-start: 6;
-}
-
-.gap-x-4 {
-    column-gap: 1rem;
-}
-
-.gap-y-20 {
-    row-gap: 5rem;
-}
-
-.gap-3 {
-    gap: 0.75rem;
-}
-
-/* Card styling variations for .bg-white.bg-opacity-70 (already merged above) */
 
 /*************************************
   16. MEDIA QUERIES
 *************************************/
 
-/* Original + Claude’s merged adjustments */
+/* Original + Claude’s merged media queries */
 
-/* Up to 768px, etc. */
+/* Up to 768px */
 @media (max-width: 768px) {
     .quiz-container,
     .results-container {
@@ -1397,7 +1169,7 @@ p {
     }
     .spectrum-item {
         grid-template-columns: 1fr;
-        gap: 1.5rem; /* Overridden by Claude's snippet */
+        gap: 1.5rem; /* Claude’s override */
     }
     .spectrum-separator {
         display: none;
@@ -1407,12 +1179,11 @@ p {
     }
     .legend-items {
         grid-template-columns: 1fr;
-        gap: 1.5rem; /* Claude’s override */
+        gap: 1rem; /* from original snippet -> some merges might override to 1.5rem, but we keep unique rules from older snippet. If you want to keep 1.5rem, update here */
     }
     .legend {
         flex-direction: column;
         align-items: center;
-        gap: 2rem; /* From Claude’s snippet */
     }
     .grid-cols-12 {
         grid-template-columns: 1fr;
@@ -1431,14 +1202,25 @@ p {
         grid-column-start: auto;
     }
     .tab-buttons {
-        gap: 1.5rem; /* Claude’s refinement */
+        gap: 1.5rem; /* from Claude’s snippet */
     }
     h1 {
-        font-size: 2.25rem; /* override for smaller screens */
+        font-size: 2.25rem; /* override from earlier media rule */
+    }
+    /* Additional from older snippet */
+    .ml-12 {
+        margin-left: 1rem;
     }
 }
 
-/* Additional rule for max-width 640px */
+/* min-width 768px for .md:grid-cols-2 usage */
+@media (min-width: 768px) {
+    .md\:grid-cols-2 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+}
+
+/* Up to 640px */
 @media (max-width: 640px) {
     .option-group {
         flex-direction: column;
@@ -1450,6 +1232,9 @@ p {
     }
     .option-text {
         margin-top: 2rem;
+    }
+    h1 {
+        font-size: 2rem; /* from original snippet, but overridden by your next rule to 2.25rem if you prefer. Or keep this for narrower screens. */
     }
     .text-4xl {
         font-size: 1.875rem;
@@ -1477,7 +1262,7 @@ p {
     }
 }
 
-/* For devices up to 1024px, from Claude’s snippet */
+/* Additional from Claude’s snippet for up to 1024px */
 @media (max-width: 1024px) {
     .grid-cols-12 {
         grid-template-columns: repeat(8, minmax(0, 1fr));
@@ -1489,7 +1274,7 @@ p {
         font-size: 1.625rem;
     }
     .tab-buttons {
-        gap: 2rem;
+        gap: 2rem; /* from Claude */
     }
 }
 
@@ -1522,16 +1307,15 @@ p {
   17. EXTRA BUTTON INTERACTION
 *************************************/
 
-/* Ensuring .btn transitions remain */
+/* Additional .btn transitions, from your snippet + Claude’s combined */
 .btn {
     transition: all 0.3s ease;
 }
-
 .btn:hover {
     transform: translateY(-1px);
 }
 
-/* Slightly increased spacing for .flex.items-end.justify-between.mb-16 */
+/* Slight spacing tweak for .flex.items-end.justify-between.mb-16 from Claude */
 .flex.items-end.justify-between.mb-16 {
-    margin-bottom: 3.5rem;
+    margin-bottom: 3.5rem; /* Slightly increased spacing */
 }
