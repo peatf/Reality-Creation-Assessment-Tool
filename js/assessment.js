@@ -1077,6 +1077,9 @@ function showResults() {
 
      // Add this line to initialize UI improvements
     initResultsPageUI();
+// Add this line to initialize UI improvements
+  enhanceResultsPageUI();
+
 }
 
 // Update the header information for the current quiz section
