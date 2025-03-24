@@ -415,6 +415,298 @@ document.addEventListener('DOMContentLoaded', function() {
   console.log("All fixes applied successfully");
 });
 </script>
+  <!-- Additional CSS fix for progress indicator labels -->
+<style>
+/* Fix overlap between progress indicator labels and visual indicators */
+#part2-section .mb-12 .flex.justify-between.text-xs.uppercase.tracking-wider.text-stone-500.mb-2 {
+  margin-bottom: 1rem !important; /* Increase space between labels and progress bar */
+}
+
+/* Add more space between the progress bar and the content below */
+#part2-section .mb-12 {
+  margin-bottom: 3rem !important;
+}
+
+/* Additional fix for progress bar width */
+#progress-fill-part2 {
+  transition: width 0.5s ease-in-out;
+}
+</style>
+
+<!-- Fixed JavaScript for userResponses error -->
+<script>
+// Wait for the document to fully load
+document.addEventListener('DOMContentLoaded', function() {
+  // Ensure userResponses object exists
+  if (typeof window.userResponses === 'undefined') {
+    window.userResponses = {
+      typology: {},
+      mastery: {}
+    };
+  } else if (typeof window.userResponses.mastery === 'undefined') {
+    window.userResponses.mastery = {};
+  }
+  
+  // Fix for Part 2 Mastery section to show one question at a time
+  function enhanceMasterySection() {
+    // Get questions container
+    const questionsContainer = document.getElementById('mastery-questions');
+    if (!questionsContainer) return;
+    
+    // Get all question containers
+    const questions = questionsContainer.querySelectorAll('.question-container');
+    if (questions.length === 0) return;
+    
+    // Hide all questions and only show the first one
+    questions.forEach((question, index) => {
+      question.style.display = index === 0 ? 'block' : 'none';
+      question.classList.toggle('active', index === 0);
+    });
+    
+    // Fix the section number in the circle
+    const sectionNumber = document.getElementById('section-number');
+    if (sectionNumber) {
+      sectionNumber.style.display = 'flex';
+      sectionNumber.style.justifyContent = 'center';
+      sectionNumber.style.alignItems = 'center';
+      sectionNumber.style.width = '100%';
+      sectionNumber.style.height = '100%';
+    }
+    
+    // Create navigation buttons if they don't exist
+    if (!document.getElementById('next-question-btn')) {
+      const navFooter = document.querySelector('#part2-section .mt-16.pt-6.border-t.border-stone-200 .flex.items-center.justify-between');
+      
+      if (navFooter) {
+        // Create next question button
+        const nextBtn = document.createElement('button');
+        nextBtn.id = 'next-question-btn';
+        nextBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-700';
+        nextBtn.innerHTML = `
+          Next Question
+          <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
+        `;
+        
+        // Create prev question button
+        const prevBtn = document.createElement('button');
+        prevBtn.id = 'prev-question-btn';
+        prevBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 transition-all hover:text-stone-700';
+        prevBtn.style.display = 'none';
+        prevBtn.innerHTML = `
+          <span class="mr-4 h-px w-8 bg-stone-300 transition-all group-hover:w-12 group-hover:bg-stone-500"></span>
+          Previous Question
+        `;
+        
+        // Get navigation elements
+        const prevSectionBtn = document.getElementById('prev-section-btn');
+        const nextSectionBtn = document.getElementById('next-section-btn');
+        
+        // Hide next section button initially, will show later
+        if (nextSectionBtn) nextSectionBtn.style.display = 'none';
+        
+        // Insert buttons in appropriate places
+        if (prevSectionBtn && prevSectionBtn.parentNode) {
+          prevSectionBtn.parentNode.insertBefore(prevBtn, prevSectionBtn);
+        }
+        
+        if (nextSectionBtn && nextSectionBtn.parentNode) {
+          nextSectionBtn.parentNode.insertBefore(nextBtn, nextSectionBtn);
+        }
+        
+        // Add current question/total questions indicator
+        const questionCounter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
+        if (questionCounter) {
+          const currentSection = parseInt(document.getElementById('current-section').textContent) || 1;
+          const totalSections = parseInt(document.getElementById('total-sections').textContent) || 3;
+          
+          questionCounter.innerHTML = `
+            Question <span id="current-question">1</span> of <span id="total-questions">${questions.length}</span> • Section ${currentSection} of ${totalSections}
+          `;
+        }
+        
+        // Track current question index
+        let currentQuestionIndex = 0;
+        
+        // Next question button handler
+        nextBtn.addEventListener('click', function() {
+          // Check if current question is answered
+          const currentQuestion = questions[currentQuestionIndex];
+          const questionId = currentQuestion.dataset.questionId;
+          
+          // Safe check for userResponses and mastery
+          if (!window.userResponses || !window.userResponses.mastery || !window.userResponses.mastery[questionId]) {
+            // Initialize if needed
+            if (!window.userResponses) window.userResponses = { typology: {}, mastery: {} };
+            if (!window.userResponses.mastery) window.userResponses.mastery = {};
+            
+            // Check if an option is selected visually but not recorded
+            const selectedOption = currentQuestion.querySelector('.bg-amber-50.border-l-2.border-amber-400');
+            if (selectedOption && selectedOption.dataset.optionValue) {
+              // Record the selection
+              window.userResponses.mastery[questionId] = selectedOption.dataset.optionValue;
+            } else {
+              alert('Please answer the current question before proceeding.');
+              return;
+            }
+          }
+          
+          // Go to next question
+          if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            
+            // Update display
+            questions.forEach((q, idx) => {
+              q.style.display = idx === currentQuestionIndex ? 'block' : 'none';
+              q.classList.toggle('active', idx === currentQuestionIndex);
+            });
+            
+            // Update question counter
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Show/hide navigation buttons
+            prevBtn.style.display = 'flex';
+            
+            if (currentQuestionIndex === questions.length - 1) {
+              nextBtn.style.display = 'none';
+              nextSectionBtn.style.display = 'flex';
+            }
+          }
+        });
+        
+        // Previous question button handler
+        prevBtn.addEventListener('click', function() {
+          if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            
+            // Update display
+            questions.forEach((q, idx) => {
+              q.style.display = idx === currentQuestionIndex ? 'block' : 'none';
+              q.classList.toggle('active', idx === currentQuestionIndex);
+            });
+            
+            // Update question counter
+            document.getElementById('current-question').textContent = currentQuestionIndex + 1;
+            
+            // Show/hide navigation buttons
+            if (currentQuestionIndex === 0) {
+              prevBtn.style.display = 'none';
+            }
+            
+            nextBtn.style.display = 'flex';
+            nextSectionBtn.style.display = 'none';
+          }
+        });
+      }
+    }
+  }
+  
+  // Check for the missing script and add a fix if needed
+  function fixMissingScoring() {
+    // Check if scoring.js is missing
+    if (!window.calculateMasteryScores || !window.determineDominantValues) {
+      console.log("Adding fallback scoring functions");
+      
+      // Fallback implementation for calculateMasteryScores
+      window.calculateMasteryScores = function() {
+        if (!window.userResponses || !window.userResponses.mastery) {
+          return {
+            corePriorities: {},
+            growthAreas: {},
+            alignmentNeeds: {},
+            energyPatterns: {}
+          };
+        }
+      
+        // Group answers into categories based on question IDs
+        const result = {
+          corePriorities: {},
+          growthAreas: {},
+          alignmentNeeds: {},
+          energyPatterns: {}
+        };
+      
+        // For each answered question ID → chosen value
+        for (const [questionId, chosenValue] of Object.entries(window.userResponses.mastery)) {
+          if (questionId.startsWith("core-")) {
+            if (!result.corePriorities[chosenValue]) {
+              result.corePriorities[chosenValue] = 0;
+            }
+            result.corePriorities[chosenValue]++;
+          } else if (questionId.startsWith("growth-")) {
+            if (!result.growthAreas[chosenValue]) {
+              result.growthAreas[chosenValue] = 0;
+            }
+            result.growthAreas[chosenValue]++;
+          } else if (questionId.startsWith("alignment-")) {
+            if (!result.alignmentNeeds[chosenValue]) {
+              result.alignmentNeeds[chosenValue] = 0;
+            }
+            result.alignmentNeeds[chosenValue]++;
+          } else if (questionId.startsWith("energy-")) {
+            if (!result.energyPatterns[chosenValue]) {
+              result.energyPatterns[chosenValue] = 0;
+            }
+            result.energyPatterns[chosenValue]++;
+          }
+        }
+      
+        return result;
+      };
+      
+      // Fallback implementation for determineDominantValues
+      window.determineDominantValues = function(masteryScores) {
+        const dominantValues = {
+          corePriorities: [],
+          growthAreas: [],
+          alignmentNeeds: [],
+          energyPatterns: []
+        };
+      
+        // Helper function to get dominant values from a score category
+        function getDominantValues(scoreCategory) {
+          if (Object.keys(scoreCategory).length === 0) {
+            return [];
+          }
+      
+          // Find the maximum score
+          const maxScore = Math.max(...Object.values(scoreCategory));
+      
+          // Get all values with the maximum score
+          return Object.entries(scoreCategory)
+            .filter(([, score]) => score === maxScore)
+            .map(([value]) => value);
+        }
+      
+        // Determine the dominant values for each category
+        dominantValues.corePriorities = getDominantValues(masteryScores.corePriorities);
+        dominantValues.growthAreas = getDominantValues(masteryScores.growthAreas);
+        dominantValues.alignmentNeeds = getDominantValues(masteryScores.alignmentNeeds);
+        dominantValues.energyPatterns = getDominantValues(masteryScores.energyPatterns);
+      
+        return dominantValues;
+      };
+    }
+  }
+  
+  // Apply fixes
+  enhanceMasterySection();
+  fixMissingScoring();
+  
+  // Execute on page load
+  setTimeout(function() {
+    // Ensure progress indicators don't overlap
+    const progressLabels = document.querySelector('#part2-section .mb-12 .flex.justify-between.text-xs.uppercase');
+    if (progressLabels) {
+      progressLabels.style.marginBottom = '1rem';
+    }
+    
+    // Apply fixes again for cases where the page might have been partially loaded
+    enhanceMasterySection();
+  }, 300);
+  
+  console.log("Final fixes applied successfully");
+});
+</script>
 </head>
 <body>
   <div class="container">
