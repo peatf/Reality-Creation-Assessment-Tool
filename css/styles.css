@@ -1928,3 +1928,614 @@ p {
 .flex.items-end.justify-between.mb-16 {
     margin-bottom: 3.5rem; /* Slightly increased spacing */
 }
+
+/* -----------------------------------------------
+   Enhanced Styling for Reality Creation Assessment
+   Add this to the end of your existing css/styles.css file
+----------------------------------------------- */
+
+/*************************************
+  TYPOGRAPHY HIERARCHY REFINEMENTS
+*************************************/
+
+h1, h2, h3, h4, h5 {
+    letter-spacing: -0.015em;
+    color: #292524;
+}
+
+h1 {
+    font-size: 2.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em;
+    font-weight: 300;
+    line-height: 1.2;
+}
+
+h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
+}
+
+.text-xl {
+    font-size: 1.35rem;
+    margin-bottom: 1.25rem;
+    color: #3a3836;
+}
+
+.section-title-text {
+    font-size: 1.5rem;
+    font-weight: 300;
+    color: #44403c;
+}
+
+p {
+    font-weight: 300;
+    line-height: 1.6;
+    color: #57534e;
+}
+
+.text-xs {
+    letter-spacing: 0.05em;
+}
+
+.text-sm {
+    letter-spacing: 0.02em;
+}
+
+.font-light {
+    font-weight: 300;
+}
+
+/*************************************
+  SPECTRUM VISUALIZATION IMPROVEMENTS
+*************************************/
+
+.spectrum-visualization {
+    position: relative;
+    margin-bottom: 3rem;
+    padding: 2rem 0;
+}
+
+.spectrum-line {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
+}
+
+.spectrum-marker {
+    position: absolute;
+    top: 2rem;
+    width: 1px;
+    height: 4rem;
+    transform: translateX(-50%);
+    transition: height 0.3s ease;
+}
+
+.spectrum-marker.left {
+    left: 25%;
+    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
+}
+
+.spectrum-marker.balanced {
+    left: 50%;
+    background: linear-gradient(to bottom, #4ade80, #4ade8090);
+}
+
+.spectrum-marker.right {
+    left: 75%;
+    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
+}
+
+.spectrum-marker-dot {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background-color: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.spectrum-placement-name {
+    position: absolute;
+    top: 4.75rem;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.spectrum-placement-name.left {
+    left: 25%;
+}
+
+.spectrum-placement-name.balanced {
+    left: 50%;
+}
+
+.spectrum-placement-name.right {
+    left: 75%;
+}
+
+.spectrum-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 1rem;
+}
+
+.spectrum-item:hover .spectrum-marker {
+    height: 4.5rem;
+}
+
+.spectrum-item:hover .spectrum-marker-dot {
+    transform: translate(-50%, 50%) scale(1.2);
+}
+
+/* Vertical separator refinements */
+.spectrum-separator {
+    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
+}
+
+/* Bar graph legend styling */
+.legend {
+    margin-top: 4rem;
+    padding: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 8px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.legend-items {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 3rem;
+}
+
+.legend-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.legend-bar {
+    width: 0.75rem;
+    margin-bottom: 0.75rem;
+    transition: height 0.3s ease;
+}
+
+.legend-bar.structured {
+    height: 3rem;
+    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
+}
+
+.legend-bar.balanced {
+    height: 2rem;
+    background: linear-gradient(to bottom, #4ade80, #4ade8090);
+}
+
+.legend-bar.intuitive {
+    height: 4rem;
+    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
+}
+
+.legend-label {
+    text-transform: uppercase;
+    font-size: 0.75rem;
+    color: #78716c;
+    letter-spacing: 0.05em;
+    font-weight: 300;
+}
+
+.legend-bar:hover {
+    height: calc(100% * 1.2);
+}
+
+/*************************************
+  CARD STYLING IMPROVEMENTS
+*************************************/
+
+.results-card,
+.bg-white.bg-opacity-70 {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(245, 245, 244, 0.8);
+    margin-bottom: 2rem;
+    transition: all 0.3s ease;
+    padding: 2rem;
+}
+
+.results-card:hover,
+.bg-white.bg-opacity-70:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Typology pair styling improvements */
+.typology-pair-name {
+    margin-bottom: 2rem;
+    display: flex;
+    align-items: center;
+}
+
+.typology-icon {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
+    margin-right: 1.25rem;
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typology-icon-inner {
+    width: 2.75rem;
+    height: 2.75rem;
+    border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.typology-icon-core {
+    width: 1.75rem;
+    height: 1.75rem;
+    border-radius: 50%;
+    background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
+}
+
+.typology-name {
+    font-size: 1.875rem;
+    font-weight: 300;
+    color: #44403c;
+}
+
+.typology-description {
+    font-size: 1.125rem;
+    line-height: 1.7;
+    margin-bottom: 2.5rem;
+    font-weight: 300;
+    color: #57534e;
+}
+
+/*************************************
+  EXPANDABLE SECTIONS IMPROVEMENTS
+*************************************/
+
+.expandable-section {
+    background-color: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(10px);
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(245, 245, 244, 0.8);
+    overflow: hidden;
+    margin-bottom: 1.5rem;
+    transition: all 0.3s ease;
+}
+
+.expandable-section:hover {
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+.expandable-header {
+    padding: 1.75rem 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    width: 100%;
+    text-align: left;
+    border: none;
+    background: transparent;
+    transition: all 0.3s ease;
+}
+
+.expandable-header:hover {
+    background-color: rgba(255, 255, 255, 0.5);
+}
+
+.expandable-title {
+    font-size: 1.25rem;
+    color: #44403c;
+    font-weight: 300;
+}
+
+.expandable-icon {
+    width: 1.5rem;
+    height: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.4s ease;
+    color: #78716c;
+}
+
+.expandable-icon svg {
+    width: 1.25rem;
+    height: 1.25rem;
+    stroke-width: 1.5;
+}
+
+.expandable-icon.expanded {
+    transform: rotate(180deg);
+}
+
+.expandable-content {
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
+    padding: 0 2rem;
+}
+
+.expandable-content:not(.hidden) {
+    max-height: 1000px;
+    opacity: 1;
+    padding: 0 2rem 2rem;
+}
+
+/*************************************
+  COLOR USAGE REFINEMENTS
+*************************************/
+
+/* Accent color button refinements */
+#start-assessment {
+    background-image: linear-gradient(135deg, #f59e0b, #d97706);
+    color: white;
+    padding: 1rem 2.5rem;
+    margin-top: 2rem;
+    transition: all 0.3s ease;
+    border-radius: 6px;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+}
+
+#start-assessment:hover {
+    background-image: linear-gradient(135deg, #d97706, #b45309);
+    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35);
+    transform: translateY(-1px);
+}
+
+/* Numbered badges and icons */
+.approach-number, 
+.strategy-number {
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(251, 191, 36, 0.15);
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.1);
+    font-weight: 500;
+    color: #b45309;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.misalignment-icon {
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(163, 163, 163, 0.15);
+    color: #78716c;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+/* Tab indicators */
+.tab-button.active {
+    color: #b45309;
+}
+
+.tab-button.active::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #f59e0b;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.tab-button:not(.active):hover {
+    color: #44403c;
+}
+
+.tab-button:not(.active):hover::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #d6d3d1;
+    transform: scaleX(0.6);
+    opacity: 0.5;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/*************************************
+  SPACING & ALIGNMENT IMPROVEMENTS
+*************************************/
+
+/* Card and content spacing */
+.results-section {
+    margin-bottom: 4rem;
+}
+
+.tabs-container {
+    margin-bottom: 3.5rem;
+    position: relative;
+}
+
+.tab-buttons {
+    gap: 3rem;
+}
+
+.tab-button {
+    padding-bottom: 1.25rem;
+    font-size: 0.95rem;
+    transition: color 0.3s ease;
+    margin-bottom: -1px;
+}
+
+/* List item spacing */
+.approach-item,
+.misalignment-item,
+.strategy-item {
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
+}
+
+.approach-text,
+.misalignment-text,
+.strategy-text {
+    font-size: 1.0625rem;
+    line-height: 1.6;
+    margin-left: 1rem;
+}
+
+/* Spectrum item spacing */
+.spectrum-item {
+    gap: 1.5rem;
+    margin-bottom: 5.5rem;
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.spectrum-name {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: -0.01em;
+}
+
+/*************************************
+  INTERACTIVE ELEMENTS IMPROVEMENTS
+*************************************/
+
+/* Button hover states */
+.btn {
+    transition: all 0.3s ease;
+}
+
+.btn:hover {
+    transform: translateY(-1px);
+}
+
+/* Tab transitions */
+.tab-content {
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
+}
+
+.tab-content.active {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Answer options improvements */
+.answer-option {
+    padding: 1.5rem;
+    border-radius: 8px;
+    border-left: 2px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.answer-option:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+}
+
+.answer-option.selected {
+    background-color: rgba(255, 248, 230, 0.6);
+    border-left: 2px solid #fbbf24;
+    box-shadow: 0 2px 12px rgba(251, 191, 36, 0.1);
+}
+
+/*************************************
+  MEDIA QUERY REFINEMENTS
+*************************************/
+
+@media (max-width: 1024px) {
+    .typology-name {
+        font-size: 1.625rem;
+    }
+    
+    .tab-buttons {
+        gap: 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .spectrum-item {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+    
+    .tab-buttons {
+        gap: 1.5rem;
+    }
+    
+    h1 {
+        font-size: 2.25rem;
+    }
+}
+
+@media (max-width: 640px) {
+    .typology-pair-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    
+    .typology-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    
+    .tab-buttons {
+        gap: 1rem;
+    }
+    
+    .tab-button {
+        font-size: 0.8rem;
+        padding-bottom: 1rem;
+    }
+    
+    .expandable-header {
+        padding: 1.5rem;
+    }
+    
+    .expandable-content:not(.hidden) {
+        padding: 0 1.5rem 1.5rem;
+    }
+}
