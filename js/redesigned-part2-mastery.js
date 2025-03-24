@@ -767,31 +767,52 @@ function selectMasteryOption(element, questionId, optionValue) {
   updateNavigationButtons();
 }
 
-// Update section header based on current section
 function updateSectionHeader() {
+  // Get header elements
+  var currentSectionElement = document.getElementById('current-section');
+  var totalSectionsElement = document.getElementById('total-sections');
+  var sectionTitleElement = document.getElementById('section-title');
+  var sectionDescriptionElement = document.getElementById('section-description');
+  var sectionNumberElement = document.getElementById('section-number');
+  var progressFillElement = document.getElementById('progress-fill-part2');
+  
+  // Check and update current and total sections if elements exist
+  if (currentSectionElement) {
+    currentSectionElement.textContent = currentSectionIndex + 1;
+  } else {
+    console.warn("Element with id 'current-section' not found.");
+  }
+  
+  if (totalSectionsElement) {
+    totalSectionsElement.textContent = masterySections ? masterySections.length : totalSections;
+  } else {
+    console.warn("Element with id 'total-sections' not found.");
+  }
+  
+  // Assuming masterySections and currentSectionIndex are defined
   const currentSection = masterySections[currentSectionIndex];
-
-  // Update title and description
-  document.getElementById('section-title').textContent = currentSection.title;
-  document.getElementById('section-description').textContent = currentSection.description;
-  document.getElementById('section-number').textContent = currentSectionIndex + 1;
-
+  
+  // Update title and description if elements exist
+  if (sectionTitleElement) {
+    sectionTitleElement.textContent = currentSection.title;
+  }
+  if (sectionDescriptionElement) {
+    sectionDescriptionElement.textContent = currentSection.description;
+  }
+  if (sectionNumberElement) {
+    sectionNumberElement.textContent = currentSectionIndex + 1;
+  }
+  
   // Update progress bar
-  document.getElementById('progress-fill-part2').style.width = `${currentSection.progress}%`;
-
-  // Update section counter
-  document.getElementById('current-section').textContent = currentSectionIndex + 1;
-  document.getElementById('total-sections').textContent = masterySections.length;
-
+  if (progressFillElement) {
+    progressFillElement.style.width = `${currentSection.progress}%`;
+  }
+  
   // Update bottom progress indicators
   const progressDots = document.querySelectorAll('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6 .h-3.w-px');
   if (progressDots && progressDots.length > 0) {
     progressDots.forEach((dot, index) => {
-      if (index === currentSectionIndex) {
-        dot.className = 'h-3 w-px bg-amber-400';
-      } else {
-        dot.className = 'h-3 w-px bg-stone-300';
-      }
+      dot.className = index === currentSectionIndex ? 'h-3 w-px bg-amber-400' : 'h-3 w-px bg-stone-300';
     });
   }
 }
