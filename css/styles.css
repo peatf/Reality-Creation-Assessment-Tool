@@ -24,44 +24,49 @@ body {
     position: relative;
 }
 
-/* Typography */
+/* Typography Base + Claude’s Hierarchy Refinements */
 h1, h2, h3, h4, h5, h6 {
+    font-weight: 300;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: #292524;
+}
+
+h1 {
+    font-size: 2.75rem;
+    margin-bottom: 0.75rem;
+    letter-spacing: -0.02em; /* Slightly tighter for refined look */
     font-weight: 300;
     line-height: 1.2;
 }
 
-/* Enhanced typography for headers (Claude) */
-h1, h2, h3, h4, h5 {
-    letter-spacing: -0.015em;
+h2 {
+    font-size: 2.25rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
 }
 
-h1 {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: 0.5px;
-    color: #292524;
+h3 {
+    font-size: 1.75rem;
+    margin-bottom: 1rem;
+    font-weight: 300;
 }
 
-/* Claude’s refinement to h1 */
-h1 {
-    font-size: 2.75rem; /* Overridden from the original 2.5rem */
-    margin-bottom: 0.75rem;
+h4, h5, h6 {
+    /* Remain at font-weight: 300, line-height: 1.2 from above */
 }
 
-h3.text-xl {
-    font-size: 1.35rem; /* from Claude’s snippet */
+.text-xl {
+    font-size: 1.35rem;
     margin-bottom: 1.25rem;
     color: #3a3836;
 }
 
-h2, h3, h4, h5, h6 {
-    /* keep original line-height, weight, etc. from base above */
-}
-
-/* Paragraphs */
 p {
     margin-bottom: 1rem;
     font-weight: 300;
+    line-height: 1.6;
+    color: #57534e;
 }
 
 /*************************************
@@ -70,21 +75,13 @@ p {
 
 .introduction {
     text-align: center;
-    max-width: 800px;
+    max-width: 850px; /* Claude's expansion to 850px */
     margin: 4rem auto;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-/* Claude’s enhancement for introduction */
-.introduction {
-    max-width: 850px;
-    padding: 3rem;
+    padding: 3rem; /* Claude’s improved padding */
     background-color: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(10px);
     box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+    border-radius: 8px;
 }
 
 .introduction header {
@@ -93,16 +90,10 @@ p {
 }
 
 .introduction h3 {
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
-    color: #2c3e50;
-}
-
-/* Claude’s refinement for .introduction h3 */
-.introduction h3 {
-    font-size: 1.75rem;
+    font-size: 1.75rem; /* Claude’s refinement */
     margin-bottom: 1.5rem;
     font-weight: 300;
+    color: #2c3e50;
 }
 
 .intro-content {
@@ -135,7 +126,8 @@ p {
   4. ASSESSMENT & QUIZ CONTAINER
 *************************************/
 
-.quiz-container, .results-container {
+.quiz-container,
+.results-container {
     position: relative;
     width: 100%;
     max-width: 1000px;
@@ -176,19 +168,10 @@ p {
 
 .btn:hover {
     color: #d97706;
-    transform: translateY(-1px); /* from Claude’s snippet */
+    transform: translateY(-1px);
 }
 
-/* Start assessment button override */
-#start-assessment {
-    background-color: #d97706;
-    color: white;
-    padding: 1rem 2rem;
-    margin-top: 1.5rem;
-    transition: background-color 0.3s;
-}
-
-/* Claude’s enhanced gradient styling for #start-assessment */
+/* Start assessment button override (with Claude's gradient enhancement) */
 #start-assessment {
     background-image: linear-gradient(135deg, #f59e0b, #d97706);
     color: white;
@@ -391,10 +374,12 @@ p {
 
 .text-xs {
     font-size: 0.75rem;
+    letter-spacing: 0.05em; /* from Claude’s snippet */
 }
 
 .text-sm {
     font-size: 0.875rem;
+    letter-spacing: 0.02em; /* from Claude’s snippet */
 }
 
 .text-base {
@@ -698,122 +683,150 @@ p {
     line-height: 1.625;
 }
 
-/* Interactive spectrum visualization */
+/* Interactive spectrum visualization container */
 .spectrum-visualization {
+    position: relative;
     margin-bottom: 3rem;
-    position: relative; /* from new snippet */
+    padding: 2rem 0; /* Claude’s additional padding */
 }
 
-/* Original style */
-.spectrum-label {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 0.5rem;
+/* Spectrum line (horizontal track) */
+.spectrum-line {
+    position: absolute;
+    top: 2rem;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
 }
 
-.spectrum-track {
-    position: relative;
-    height: 0.125rem;
-    background-color: #e7e5e4;
-    border-radius: 0.5rem;
-    margin: 1.5rem 0;
+/* Markers */
+.spectrum-marker {
+    position: absolute;
+    top: 2rem;
+    width: 1px;
+    height: 4rem;
+    transform: translateX(-50%);
+    transition: height 0.3s ease;
 }
 
-/* Options on the spectrum track */
-.option-container {
-    position: relative;
-    width: 33.333%;
+/* Original color classes + Claude’s gradient */
+.spectrum-marker.left {
+    left: 25%;
+    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
+}
+
+.spectrum-marker.balanced {
+    left: 50%;
+    background: linear-gradient(to bottom, #4ade80, #4ade8090);
+}
+
+.spectrum-marker.right {
+    left: 75%;
+    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
+}
+
+/* Marker dot refinement */
+.spectrum-marker-dot {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translate(-50%, 50%);
+    width: 0.85rem;
+    height: 0.85rem;
+    border-radius: 9999px;
+    background-color: inherit;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+/* Placement name labels */
+.spectrum-placement-name {
+    position: absolute;
+    top: 4.75rem;
+    transform: translateX(-50%);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background-color: rgba(255, 255, 255, 0.6);
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.spectrum-placement-name.left {
+    left: 25%;
+}
+
+.spectrum-placement-name.balanced {
+    left: 50%;
+}
+
+.spectrum-placement-name.right {
+    left: 75%;
+}
+
+/* Additional layout for the spectrum item row */
+.spectrum-item {
+    display: grid;
+    grid-template-columns: 1fr 1px 1fr;
+    gap: 1.5rem; /* Overridden from earlier snippet */
+    margin-bottom: 5.5rem; /* Overridden from 5rem */
+    padding: 1.5rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.spectrum-item:hover {
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+.spectrum-separator {
+    height: 100%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
+}
+
+.spectrum-info {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
 }
 
-.option-button {
-    position: relative;
-    width: 4rem;
-    height: 4rem;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: white;
-    border: 1px solid #e7e5e4;
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-    transition: all 0.3s ease;
-    z-index: 2;
-}
-
-.option-button:hover {
-    box-shadow: 0 8px 15px -3px rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
-    border-color: #fcd34d;
-}
-
-.option-button.selected {
-    background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
-    box-shadow: 0 10px 15px -3px rgba(251, 191, 36, 0.3);
-}
-
-.option-button.selected .option-marker {
-    background-color: white;
-    width: 0.75rem;
-    height: 0.75rem;
-}
-
-.option-marker {
-    width: 0;
-    height: 0;
-    border-radius: 9999px;
-    transition: all 0.3s ease;
-}
-
-.option-position-line {
-    position: absolute;
-    bottom: -2rem;
-    width: 1px;
-    height: 1.5rem;
-    background-color: #d6d3d1;
-    opacity: 0.4;
-    transition: all 0.3s ease;
-}
-
-.option-button.selected + .option-position-line,
-.option-button:hover + .option-position-line {
-    background-color: #fbbf24;
-    opacity: 1;
-}
-
-.option-text {
-    margin-top: 3rem;
-    text-align: center;
-    padding: 0 1rem;
-    font-size: 0.875rem;
-    color: #57534e;
-    transition: all 0.3s ease;
-    font-weight: 300;
-}
-
-.option-label {
-    display: none;
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    color: #b45309;
+.spectrum-name {
+    font-size: 1.25rem; /* Claude’s override from 1.125rem */
     margin-bottom: 0.5rem;
+    font-weight: 300;
+    letter-spacing: -0.01em;
 }
 
-.option-button.selected ~ .option-text {
-    color: #b45309;
+/* Interactive hover expansions on marker/dot */
+.spectrum-item:hover .spectrum-marker {
+    height: 4.5rem;
+}
+.spectrum-item:hover .spectrum-marker-dot {
+    transform: translate(-50%, 50%) scale(1.2);
 }
 
-.option-button.selected ~ .option-text .option-label {
-    display: block;
+/* Updated descriptive text inside spectrum sections */
+.spectrum-description {
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-top: 1rem;
 }
 
-.option-button:hover ~ .option-text {
-    color: #44403c;
+/* Spectrum labels layout */
+.spectrum-labels {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5rem;
+    font-size: 0.75rem;
+    color: #78716c;
+
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 0 0.5rem;
 }
 
 /*************************************
@@ -844,9 +857,9 @@ p {
 }
 
 .section-title-text {
-    font-size: 1.25rem;
-    color: #44403c;
+    font-size: 1.5rem;
     font-weight: 300;
+    color: #44403c;
 }
 
 .section-description {
@@ -860,22 +873,22 @@ p {
 .answer-option {
     display: flex;
     align-items: flex-start;
-    padding: 1.25rem;
-    border-radius: 0.5rem;
+    padding: 1.5rem; /* Claude’s improvement */
+    border-radius: 8px; /* Claude’s improvement */
     border-left: 2px solid transparent;
     cursor: pointer;
     transition: all 0.3s ease;
 }
 
 .answer-option:hover {
-    background-color: white;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    background-color: rgba(255, 255, 255, 0.6);
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
 .answer-option.selected {
-    background-color: #fff8e6;
+    background-color: rgba(255, 248, 230, 0.6);
     border-left: 2px solid #fbbf24;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    box-shadow: 0 2px 12px rgba(251, 191, 36, 0.1);
 }
 
 .answer-radio {
@@ -927,49 +940,15 @@ p {
     color: #44403c;
 }
 
-/* Claude’s improvement for .answer-option styles */
-.answer-option {
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 2px solid transparent;
-}
-
-.answer-option:hover {
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-.answer-option.selected {
-    background-color: rgba(255, 248, 230, 0.6);
-    border-left: 2px solid #fbbf24;
-    box-shadow: 0 2px 12px rgba(251, 191, 36, 0.1);
-}
-
 /*************************************
   9. RESULTS STYLING & CARDS
 *************************************/
 
 .results-section {
-    margin-bottom: 3rem;
+    margin-bottom: 4rem; /* Overridden from original 3rem */
 }
 
-/* Claude’s improvement: bigger bottom margin */
-.results-section {
-    margin-bottom: 4rem; /* override original 3rem */
-}
-
-/* Original results card styling */
-.results-card {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
-    padding: 2rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #f5f5f4;
-    margin-bottom: 1.5rem;
-}
-
-/* Claude’s refined results card & .bg-white.bg-opacity-70 styling */
+/* Final refined results-card + .bg-white.bg-opacity-70 styles */
 .results-card,
 .bg-white.bg-opacity-70 {
     background-color: rgba(255, 255, 255, 0.75);
@@ -979,59 +958,20 @@ p {
     border: 1px solid rgba(245, 245, 244, 0.8);
     margin-bottom: 2rem;
     transition: all 0.3s ease;
+    padding: 2rem;
 }
 
+.results-card:hover,
+.bg-white.bg-opacity-70:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+}
+
+/* Typology pairs */
 .typology-pair-name {
     display: flex;
     align-items: center;
-    margin-bottom: 1.5rem;
-}
-
-.typology-icon {
-    width: 3rem;
-    height: 3rem;
-    border-radius: 9999px;
-    background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-right: 1rem;
-}
-
-.typology-icon-inner {
-    width: 2.5rem;
-    height: 2.5rem;
-    border-radius: 9999px;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.typology-icon-core {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 9999px;
-    background-image: linear-gradient(to bottom right, #fcd34d, #fbbf24);
-}
-
-.typology-name {
-    font-size: 1.5rem;
-    color: #44403c;
-    font-weight: 300;
-}
-
-.typology-description {
-    font-size: 1rem;
-    color: #57534e;
-    line-height: 1.6;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-}
-
-/* Claude’s typology pair refinements */
-.typology-pair-name {
-    margin-bottom: 2rem; /* override original 1.5rem */
+    margin-bottom: 2rem;
 }
 
 .typology-icon {
@@ -1041,12 +981,19 @@ p {
     background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
     margin-right: 1.25rem;
     box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .typology-icon-inner {
     width: 2.75rem;
     height: 2.75rem;
     border-radius: 50%;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .typology-icon-core {
@@ -1058,12 +1005,16 @@ p {
 
 .typology-name {
     font-size: 1.875rem;
+    font-weight: 300;
+    color: #44403c;
 }
 
 .typology-description {
     font-size: 1.125rem;
     line-height: 1.7;
     margin-bottom: 2.5rem;
+    font-weight: 300;
+    color: #57534e;
 }
 
 /*************************************
@@ -1092,1009 +1043,18 @@ p {
 }
 
 .spectrum-diagram {
-    margin-bottom: 3rem;
-}
-
-/* Claude’s refinement for .spectrum-diagram */
-.spectrum-diagram {
-    margin-bottom: 4rem;
+    margin-bottom: 4rem; /* Claude’s override from 3rem */
     position: relative;
 }
 
-.spectrum-item {
-    position: relative;
-    display: grid;
-    grid-template-columns: 1fr 1px 1fr;
-    gap: 0.75rem;
-    margin-bottom: 5rem;
-}
-
-/* Claude’s refined .spectrum-item */
-.spectrum-item {
-    gap: 1.5rem; /* override from 0.75rem */
-    margin-bottom: 5.5rem; /* override from 5rem */
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-item:hover {
-    background-color: rgba(255, 255, 255, 0.4);
-}
-
-.spectrum-separator {
-    height: 100%;
-    width: 1px;
-    background-color: #e7e5e4;
-}
-
-/* Claude’s better gradient separator */
-.spectrum-separator {
-    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
-}
-
-.spectrum-info {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.spectrum-name {
-    font-size: 1.125rem;
-    color: #44403c;
-    margin-bottom: 0.25rem;
-    font-weight: 300;
-}
-
-/* Claude’s override for .spectrum-name */
-.spectrum-name {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
-}
-
-.spectrum-placement-text {
-    font-size: 0.75rem;
-    color: #78716c;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-}
-
-.spectrum-visualization {
-    position: relative;
-    margin-bottom: 2rem; /* from Claude’s snippet */
-    padding: 2rem 0;     /* additional from Claude */
-}
-
-.spectrum-line {
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background-color: #e7e5e4;
-}
-
-/* Claude’s override for .spectrum-line */
-.spectrum-line {
-    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
-}
-
-.spectrum-marker {
-    position: absolute;
-    top: 2rem;
-    width: 1px;
-    height: 4rem;
-    transform: translateX(-50%);
-}
-
-/* Original color classes for .left, .balanced, .right */
-.spectrum-marker.left {
-    left: 25%;
-    background-color: #60a5fa;
-}
-
-.spectrum-marker.balanced {
-    left: 50%;
-    background-color: #4ade80;
-}
-
-.spectrum-marker.right {
-    left: 75%;
-    background-color: #fbbf24;
-}
-
-/* Claude’s refined gradient backgrounds for .spectrum-marker */
-.spectrum-marker.left {
-    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
-}
-
-.spectrum-marker.balanced {
-    background: linear-gradient(to bottom, #4ade80, #4ade8090);
-}
-
-.spectrum-marker.right {
-    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
-}
-
-.spectrum-marker-dot {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    width: 0.75rem;
-    height: 0.75rem;
-    border-radius: 9999px;
-    background-color: inherit;
-}
-
-/* Claude’s refinement for .spectrum-marker-dot */
-.spectrum-marker-dot {
-    width: 0.85rem;
-    height: 0.85rem;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
-}
-
-.spectrum-labels {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 5rem;
-    font-size: 0.75rem;
-    color: #78716c;
-}
-
-.spectrum-labels {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    padding: 0 0.5rem; /* from Claude */
-}
-
-.spectrum-placement-name {
-    position: absolute;
-    top: 4.5rem;
-    transform: translateX(-50%);
-    font-size: 0.75rem;
-    color: #44403c;
-    font-weight: 500;
-}
-
-/* Claude’s refined placement name */
-.spectrum-placement-name {
-    top: 4.75rem;
-    font-size: 0.8rem;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-placement-name.left {
-    left: 25%;
-}
-
-.spectrum-placement-name.balanced {
-    left: 50%;
-}
-
-.spectrum-placement-name.right {
-    left: 75%;
-}
-
-.spectrum-description {
-    margin-top: 5rem;
-    font-size: 0.875rem;
-    color: #57534e;
-    font-weight: 300;
-}
-
-/* Claude’s override for .spectrum-description */
-.spectrum-description {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-top: 1rem;
-}
+/* We unify with the above .spectrum-item if needed */
 
 /*************************************
   11. LEGEND
 *************************************/
 
 .legend {
-    display: flex;
-    justify-content: space-between;
-    margin-top: 3rem;
-    align-items: flex-end;
-}
-
-.legend-items {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 2rem;
-}
-
-.legend-item {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.legend-bar {
-    width: 0.75rem;
-    margin-bottom: 0.75rem;
-}
-
-/* Original structured, balanced, intuitive bars */
-.legend-bar.structured {
-    height: 3rem;
-    background-color: #60a5fa;
-}
-
-.legend-bar.balanced {
-    height: 2rem;
-    background-color: #4ade80;
-}
-
-.legend-bar.intuitive {
-    height: 4rem;
-    background-color: #fbbf24;
-}
-
-/* Claude’s gradient overrides */
-.legend-bar.structured {
-    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
-}
-
-.legend-bar.balanced {
-    background: linear-gradient(to bottom, #4ade80, #4ade8090);
-}
-
-.legend-bar.intuitive {
-    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
-}
-
-.legend-label {
-    text-transform: uppercase;
-    font-size: 0.75rem;
-    color: #78716c;
-    letter-spacing: 0.05em;
-    font-weight: 300;
-}
-
-/* Claude’s refined legend container */
-.legend {
-    margin-top: 4rem; /* override from 3rem */
-    padding: 1.5rem;
-    background-color: rgba(255, 255, 255, 0.4);
-    border-radius: 8px;
-}
-
-.legend-items {
-    gap: 3rem; /* override from 2rem */
-}
-
-/*************************************
-  12. STRENGTHS & APPROACHES
-*************************************/
-
-.strengths-text {
-    font-size: 1rem;
-    color: #57534e;
-    margin-bottom: 1.5rem;
-    font-weight: 300;
-}
-
-.approach-item, .misalignment-item, .priority-item, .strategy-item {
-    display: flex;
-    margin-bottom: 1rem;
-}
-
-.approach-number, .strategy-number {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 9999px;
-    background-color: #fff8e6;
-    color: #b45309;
-    font-size: 0.875rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0.125rem;
-    flex-shrink: 0;
-}
-
-.misalignment-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    border-radius: 9999px;
-    background-color: #f5f5f4;
-    color: #78716c;
-    font-size: 0.875rem;
-    font-weight: 500;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 0.125rem;
-    flex-shrink: 0;
-}
-
-.approach-text, .misalignment-text, .priority-text, .strategy-text {
-    margin-left: 1rem;
-    font-size: 1rem;
-    color: #57534e;
-    font-weight: 300;
-}
-
-/* Claude’s refinement for approach, strategy items */
-.approach-item,
-.misalignment-item,
-.strategy-item {
-    margin-bottom: 1.5rem;
-    align-items: flex-start;
-}
-
-.approach-number,
-.strategy-number {
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(251, 191, 36, 0.15);
-    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.1);
-    font-weight: 500;
-}
-
-.misalignment-icon {
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(163, 163, 163, 0.15);
-    color: #78716c;
-}
-
-.approach-text,
-.misalignment-text,
-.strategy-text {
-    font-size: 1.0625rem;
-    line-height: 1.6;
-}
-
-/*************************************
-  13. EXPANDABLE SECTIONS
-*************************************/
-
-.expandable-section {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #f5f5f4;
-    overflow: hidden;
-    margin-bottom: 1.5rem;
-}
-
-/* Claude’s refinements for .expandable-section */
-.expandable-section {
-    background-color: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(245, 245, 244, 0.8);
-    transition: all 0.3s ease;
-}
-
-.expandable-section:hover {
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-}
-
-.expandable-header {
-    padding: 2rem;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    width: 100%;
-    text-align: left;
-    border: none;
-    background: transparent;
-}
-
-/* Claude’s hover refinement */
-.expandable-header {
-    padding: 1.75rem 2rem;
-    transition: all 0.3s ease;
-}
-
-.expandable-header:hover {
-    background-color: rgba(255, 255, 255, 0.5);
-}
-
-.expandable-title {
-    font-size: 1.25rem;
-    color: #44403c;
-    font-weight: 300;
-}
-
-.expandable-icon {
-    width: 1.5rem;
-    height: 1.5rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.3s ease;
-}
-
-.expandable-icon.expanded {
-    transform: rotate(180deg);
-}
-
-/* Claude’s deeper transform times, icons */
-.expandable-icon {
-    transition: transform 0.4s ease;
-    color: #78716c;
-}
-
-.expandable-icon svg {
-    width: 1.25rem;
-    height: 1.25rem;
-    stroke-width: 1.5;
-}
-
-.expandable-content {
-    padding: 0 2rem 2rem;
-}
-
-.expandable-content.collapsed {
-    display: none;  /* Original approach to hide content */
-}
-
-/* Claude’s approach: transitions via max-height and .hidden class */
-.expandable-content {
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height 0.5s ease, opacity 0.3s ease, padding 0.3s ease;
-}
-
-.expandable-content:not(.hidden) {
-    max-height: 1000px;
-    opacity: 1;
-}
-
-/*************************************
-  14. TAB NAVIGATION
-*************************************/
-
-.tabs-container {
-    margin-bottom: 3rem;
-    border-bottom: 1px solid #e7e5e4;
-}
-
-/* Claude’s refinements for .tabs-container */
-.tabs-container {
-    margin-bottom: 3.5rem;
-    position: relative;
-}
-
-.tab-buttons {
-    display: flex;
-    gap: 2rem;
-}
-
-/* Claude’s refinements for .tab-buttons */
-.tab-buttons {
-    gap: 3rem;
-}
-
-.tab-button {
-    padding-bottom: 1rem;
-    font-size: 0.875rem;
-    font-weight: 300;
-    letter-spacing: 0.025em;
-    position: relative;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-}
-
-/* Claude’s override for .tab-button spacing, transitions */
-.tab-button {
-    padding-bottom: 1.25rem;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-    margin-bottom: -1px;
-}
-
-.tab-button.active {
-    color: #b45309;
-}
-
-.tab-button.active::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #f59e0b;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.tab-button:not(.active) {
-    color: #78716c;
-}
-
-.tab-button:not(.active):hover {
-    color: #44403c;
-}
-
-.tab-button:not(.active):hover::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background-color: #d6d3d1;
-    transform: scaleX(0.6);
-    opacity: 0.5;
-    transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-.tab-content {
-    display: none;
-}
-
-.tab-content.active {
-    display: block;
-}
-
-/* Claude’s tab-content transitions */
-.tab-content {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.tab-content.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/*************************************
-  15. EXPERIMENTAL GRID LAYOUTS
-*************************************/
-
-.grid-cols-12 {
-    display: grid;
-    grid-template-columns: repeat(12, minmax(0, 1fr));
-}
-
-.col-span-12 {
-    grid-column: span 12 / span 12;
-}
-
-.col-span-7 {
-    grid-column: span 7 / span 7;
-}
-
-.col-span-6 {
-    grid-column: span 6 / span 6;
-}
-
-.col-span-4 {
-    grid-column: span 4 / span 4;
-}
-
-.col-span-1 {
-    grid-column: span 1 / span 1;
-}
-
-.col-start-1 {
-    grid-column-start: 1;
-}
-
-.col-start-6 {
-    grid-column-start: 6;
-}
-
-.gap-x-4 {
-    column-gap: 1rem;
-}
-
-.gap-y-20 {
-    row-gap: 5rem;
-}
-
-.gap-3 {
-    gap: 0.75rem;
-}
-
-/* Card styling */
-.bg-white.bg-opacity-70 {
-    background-color: rgba(255, 255, 255, 0.7);
-    backdrop-filter: blur(8px);
-    border-radius: 0.75rem;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-    border: 1px solid #f5f5f4;
-}
-
-/* Overridden by Claude’s .bg-white.bg-opacity-70 (above) */
-
-/*************************************
-  16. MEDIA QUERIES
-*************************************/
-
-/* Original media queries */
-@media (max-width: 768px) {
-    .quiz-container, .results-container {
-        padding: 1.5rem;
-    }
-
-    .spectrum-item {
-        grid-template-columns: 1fr;
-        gap: 2rem;
-    }
-
-    .spectrum-separator {
-        display: none;
-    }
-
-    .spectrum-visualization {
-        margin-top: 2rem;
-    }
-
-    .legend-items {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .legend {
-        flex-direction: column;
-        align-items: center;
-    }
-
-    .grid-cols-12 {
-        grid-template-columns: 1fr;
-    }
-
-    .col-span-2, .col-span-10 {
-        grid-column: span 1 / span 1;
-    }
-
-    .ml-12 {
-        margin-left: 1rem;
-    }
-}
-
-@media (min-width: 768px) {
-    .md\:grid-cols-2 {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
-}
-
-@media (max-width: 640px) {
-    .option-group {
-        flex-direction: column;
-        align-items: center;
-        gap: 3rem;
-    }
-
-    .option-container {
-        width: 100%;
-    }
-
-    .option-text {
-        margin-top: 2rem;
-    }
-
-    h1 {
-        font-size: 2rem;
-    }
-
-    .text-4xl {
-        font-size: 1.875rem;
-    }
-}
-
-/* Print styles for PDF download */
-@media print {
-    .background-canvas {
-        display: none;
-    }
-
-    body {
-        background-color: white;
-    }
-
-    .assessment-section {
-        padding: 1rem;
-        min-height: auto;
-    }
-
-    .results-container {
-        padding: 1rem;
-    }
-
-    .results-card {
-        box-shadow: none;
-        border: 1px solid #e7e5e4;
-        break-inside: avoid;
-    }
-
-    .navigation-buttons {
-        display: none;
-    }
-}
-
-/* Claude’s additional responsive adjustments */
-@media (max-width: 1024px) {
-    .grid-cols-12 {
-        grid-template-columns: repeat(8, minmax(0, 1fr));
-    }
-
-    .col-span-7 {
-        grid-column: span 5 / span 5;
-    }
-
-    .typology-name {
-        font-size: 1.625rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .grid-cols-12 {
-        grid-template-columns: repeat(1, minmax(0, 1fr));
-    }
-
-    .spectrum-item {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .spectrum-separator {
-        display: none;
-    }
-
-    .col-span-12, .col-span-7, .col-span-6, .col-span-4, .col-span-1 {
-        grid-column: span 1 / span 1;
-    }
-
-    .col-start-1, .col-start-6 {
-        grid-column-start: auto;
-    }
-
-    .legend-items {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .legend {
-        flex-direction: column;
-        align-items: center;
-        gap: 2rem;
-    }
-
-    .tab-buttons {
-        gap: 1.5rem;
-    }
-
-    h1 {
-        font-size: 2.25rem; /* override from earlier media rule */
-    }
-}
-
-@media (max-width: 640px) {
-    .typology-pair-name {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
-    .typology-icon {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-
-    .tab-buttons {
-        gap: 1rem;
-    }
-
-    .tab-button {
-        font-size: 0.8rem;
-        padding-bottom: 1rem;
-    }
-
-    .expandable-header {
-        padding: 1.5rem;
-    }
-
-    .expandable-content {
-        padding: 0 1.5rem 1.5rem;
-    }
-}
-
-/*************************************
-  17. EXTRA BUTTON INTERACTION
-*************************************/
-
-.btn {
-    transition: all 0.3s ease;
-}
-
-.btn:hover {
-    transform: translateY(-1px);
-}
-
-/* For .flex.items-end.justify-between.mb-16 from Claude snippet */
-.flex.items-end.justify-between.mb-16 {
-    margin-bottom: 3.5rem; /* Slightly increased spacing */
-}
-
-/* -----------------------------------------------
-   Enhanced Styling for Reality Creation Assessment
-   Add this to the end of your existing css/styles.css file
------------------------------------------------ */
-
-/*************************************
-  TYPOGRAPHY HIERARCHY REFINEMENTS
-*************************************/
-
-h1, h2, h3, h4, h5 {
-    letter-spacing: -0.015em;
-    color: #292524;
-}
-
-h1 {
-    font-size: 2.75rem;
-    margin-bottom: 0.75rem;
-    letter-spacing: -0.02em;
-    font-weight: 300;
-    line-height: 1.2;
-}
-
-h2 {
-    font-size: 2.25rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-}
-
-h3 {
-    font-size: 1.75rem;
-    margin-bottom: 1rem;
-    font-weight: 300;
-}
-
-.text-xl {
-    font-size: 1.35rem;
-    margin-bottom: 1.25rem;
-    color: #3a3836;
-}
-
-.section-title-text {
-    font-size: 1.5rem;
-    font-weight: 300;
-    color: #44403c;
-}
-
-p {
-    font-weight: 300;
-    line-height: 1.6;
-    color: #57534e;
-}
-
-.text-xs {
-    letter-spacing: 0.05em;
-}
-
-.text-sm {
-    letter-spacing: 0.02em;
-}
-
-.font-light {
-    font-weight: 300;
-}
-
-/*************************************
-  SPECTRUM VISUALIZATION IMPROVEMENTS
-*************************************/
-
-.spectrum-visualization {
-    position: relative;
-    margin-bottom: 3rem;
-    padding: 2rem 0;
-}
-
-.spectrum-line {
-    position: absolute;
-    top: 2rem;
-    left: 0;
-    width: 100%;
-    height: 1px;
-    background: linear-gradient(to right, transparent, #e7e5e4 10%, #e7e5e4 90%, transparent);
-}
-
-.spectrum-marker {
-    position: absolute;
-    top: 2rem;
-    width: 1px;
-    height: 4rem;
-    transform: translateX(-50%);
-    transition: height 0.3s ease;
-}
-
-.spectrum-marker.left {
-    left: 25%;
-    background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
-}
-
-.spectrum-marker.balanced {
-    left: 50%;
-    background: linear-gradient(to bottom, #4ade80, #4ade8090);
-}
-
-.spectrum-marker.right {
-    left: 75%;
-    background: linear-gradient(to bottom, #f59e0b, #f59e0b90);
-}
-
-.spectrum-marker-dot {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translate(-50%, 50%);
-    width: 0.85rem;
-    height: 0.85rem;
-    border-radius: 9999px;
-    background-color: inherit;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s ease;
-}
-
-.spectrum-placement-name {
-    position: absolute;
-    top: 4.75rem;
-    transform: translateX(-50%);
-    font-size: 0.8rem;
-    font-weight: 500;
-    background-color: rgba(255, 255, 255, 0.6);
-    padding: 0.2rem 0.5rem;
-    border-radius: 4px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-placement-name.left {
-    left: 25%;
-}
-
-.spectrum-placement-name.balanced {
-    left: 50%;
-}
-
-.spectrum-placement-name.right {
-    left: 75%;
-}
-
-.spectrum-description {
-    font-size: 1rem;
-    line-height: 1.7;
-    margin-top: 1rem;
-}
-
-.spectrum-item:hover .spectrum-marker {
-    height: 4.5rem;
-}
-
-.spectrum-item:hover .spectrum-marker-dot {
-    transform: translate(-50%, 50%) scale(1.2);
-}
-
-/* Vertical separator refinements */
-.spectrum-separator {
-    background: linear-gradient(to bottom, transparent, #e7e5e4 20%, #e7e5e4 80%, transparent);
-}
-
-/* Bar graph legend styling */
-.legend {
-    margin-top: 4rem;
+    margin-top: 4rem; /* Overridden from 3rem */
     padding: 1.5rem;
     background-color: rgba(255, 255, 255, 0.4);
     border-radius: 8px;
@@ -2106,7 +1066,7 @@ p {
 .legend-items {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 3rem;
+    gap: 3rem; /* Overridden from 2rem */
 }
 
 .legend-item {
@@ -2121,6 +1081,7 @@ p {
     transition: height 0.3s ease;
 }
 
+/* Gradient bars per Claude’s refinement */
 .legend-bar.structured {
     height: 3rem;
     background: linear-gradient(to bottom, #60a5fa, #60a5fa90);
@@ -2149,79 +1110,72 @@ p {
 }
 
 /*************************************
-  CARD STYLING IMPROVEMENTS
+  12. STRENGTHS & APPROACHES
 *************************************/
 
-.results-card,
-.bg-white.bg-opacity-70 {
-    background-color: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(10px);
-    border-radius: 12px;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-    border: 1px solid rgba(245, 245, 244, 0.8);
-    margin-bottom: 2rem;
-    transition: all 0.3s ease;
-    padding: 2rem;
-}
-
-.results-card:hover,
-.bg-white.bg-opacity-70:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
-}
-
-/* Typology pair styling improvements */
-.typology-pair-name {
-    margin-bottom: 2rem;
-    display: flex;
-    align-items: center;
-}
-
-.typology-icon {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 50%;
-    background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
-    margin-right: 1.25rem;
-    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.15);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.typology-icon-inner {
-    width: 2.75rem;
-    height: 2.75rem;
-    border-radius: 50%;
-    background-color: white;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-.typology-icon-core {
-    width: 1.75rem;
-    height: 1.75rem;
-    border-radius: 50%;
-    background-image: linear-gradient(135deg, #fcd34d, #f59e0b);
-}
-
-.typology-name {
-    font-size: 1.875rem;
-    font-weight: 300;
-    color: #44403c;
-}
-
-.typology-description {
-    font-size: 1.125rem;
-    line-height: 1.7;
-    margin-bottom: 2.5rem;
-    font-weight: 300;
+.strengths-text {
+    font-size: 1rem;
     color: #57534e;
+    margin-bottom: 1.5rem;
+    font-weight: 300;
+}
+
+.approach-item,
+.misalignment-item,
+.priority-item,
+.strategy-item {
+    display: flex;
+    margin-bottom: 1rem;
+}
+
+.approach-number,
+.strategy-number {
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(251, 191, 36, 0.15);
+    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.1);
+    font-weight: 500;
+    color: #b45309;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.misalignment-icon {
+    width: 2rem;
+    height: 2rem;
+    background-color: rgba(163, 163, 163, 0.15);
+    color: #78716c;
+    font-weight: 500;
+    border-radius: 9999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.approach-text,
+.misalignment-text,
+.priority-text,
+.strategy-text {
+    margin-left: 1rem;
+    font-size: 1.0625rem; /* from Claude’s snippet */
+    line-height: 1.6;
+    font-weight: 300;
+}
+
+/* Adjust spacing for approach/strategy items per Claude */
+.approach-item,
+.misalignment-item,
+.strategy-item {
+    margin-bottom: 1.5rem;
+    align-items: flex-start;
 }
 
 /*************************************
-  EXPANDABLE SECTIONS IMPROVEMENTS
+  13. EXPANDABLE SECTIONS
 *************************************/
 
 .expandable-section {
@@ -2290,6 +1244,11 @@ p {
     padding: 0 2rem;
 }
 
+.expandable-content.collapsed {
+    display: none; /* Original approach to hide content if needed */
+}
+
+/* Claude’s approach using .hidden class (merged with original) */
 .expandable-content:not(.hidden) {
     max-height: 1000px;
     opacity: 1;
@@ -2297,59 +1256,33 @@ p {
 }
 
 /*************************************
-  COLOR USAGE REFINEMENTS
+  14. TAB NAVIGATION
 *************************************/
 
-/* Accent color button refinements */
-#start-assessment {
-    background-image: linear-gradient(135deg, #f59e0b, #d97706);
-    color: white;
-    padding: 1rem 2.5rem;
-    margin-top: 2rem;
-    transition: all 0.3s ease;
-    border-radius: 6px;
-    font-weight: 500;
-    letter-spacing: 0.05em;
-    text-transform: uppercase;
-    font-size: 0.9rem;
-    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.25);
+.tabs-container {
+    margin-bottom: 3.5rem; /* Claude’s refinement from 3rem */
+    position: relative;
+    border-bottom: 1px solid #e7e5e4; /* from original snippet */
 }
 
-#start-assessment:hover {
-    background-image: linear-gradient(135deg, #d97706, #b45309);
-    box-shadow: 0 6px 18px rgba(217, 119, 6, 0.35);
-    transform: translateY(-1px);
-}
-
-/* Numbered badges and icons */
-.approach-number, 
-.strategy-number {
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(251, 191, 36, 0.15);
-    box-shadow: 0 2px 6px rgba(251, 191, 36, 0.1);
-    font-weight: 500;
-    color: #b45309;
-    border-radius: 9999px;
+.tab-buttons {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+    gap: 3rem; /* Claude’s refinement */
 }
 
-.misalignment-icon {
-    width: 2rem;
-    height: 2rem;
-    background-color: rgba(163, 163, 163, 0.15);
-    color: #78716c;
-    border-radius: 9999px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
+.tab-button {
+    padding-bottom: 1.25rem;
+    font-size: 0.95rem;
+    font-weight: 300;
+    letter-spacing: 0.025em;
+    position: relative;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    margin-bottom: -1px;
 }
 
-/* Tab indicators */
 .tab-button.active {
     color: #b45309;
 }
@@ -2363,6 +1296,10 @@ p {
     height: 2px;
     background-color: #f59e0b;
     transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.tab-button:not(.active) {
+    color: #78716c;
 }
 
 .tab-button:not(.active):hover {
@@ -2382,67 +1319,210 @@ p {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
-/*************************************
-  SPACING & ALIGNMENT IMPROVEMENTS
-*************************************/
-
-/* Card and content spacing */
-.results-section {
-    margin-bottom: 4rem;
+.tab-content {
+    display: none; /* Original approach to hide inactive tab */
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.4s ease, transform 0.4s ease;
 }
 
-.tabs-container {
-    margin-bottom: 3.5rem;
-    position: relative;
-}
-
-.tab-buttons {
-    gap: 3rem;
-}
-
-.tab-button {
-    padding-bottom: 1.25rem;
-    font-size: 0.95rem;
-    transition: color 0.3s ease;
-    margin-bottom: -1px;
-}
-
-/* List item spacing */
-.approach-item,
-.misalignment-item,
-.strategy-item {
-    margin-bottom: 1.5rem;
-    align-items: flex-start;
-}
-
-.approach-text,
-.misalignment-text,
-.strategy-text {
-    font-size: 1.0625rem;
-    line-height: 1.6;
-    margin-left: 1rem;
-}
-
-/* Spectrum item spacing */
-.spectrum-item {
-    gap: 1.5rem;
-    margin-bottom: 5.5rem;
-    padding: 1.5rem;
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
-
-.spectrum-name {
-    font-size: 1.25rem;
-    margin-bottom: 0.5rem;
-    letter-spacing: -0.01em;
+.tab-content.active {
+    display: block;
+    opacity: 1;
+    transform: translateY(0);
 }
 
 /*************************************
-  INTERACTIVE ELEMENTS IMPROVEMENTS
+  15. EXPERIMENTAL GRID LAYOUTS
 *************************************/
 
-/* Button hover states */
+.grid-cols-12 {
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+
+.col-span-12 {
+    grid-column: span 12 / span 12;
+}
+
+.col-span-7 {
+    grid-column: span 7 / span 7;
+}
+
+.col-span-6 {
+    grid-column: span 6 / span 6;
+}
+
+.col-span-4 {
+    grid-column: span 4 / span 4;
+}
+
+.col-span-1 {
+    grid-column: span 1 / span 1;
+}
+
+.col-start-1 {
+    grid-column-start: 1;
+}
+
+.col-start-6 {
+    grid-column-start: 6;
+}
+
+.gap-x-4 {
+    column-gap: 1rem;
+}
+
+.gap-y-20 {
+    row-gap: 5rem;
+}
+
+.gap-3 {
+    gap: 0.75rem;
+}
+
+/* Card styling variations for .bg-white.bg-opacity-70 (already merged above) */
+
+/*************************************
+  16. MEDIA QUERIES
+*************************************/
+
+/* Original + Claude’s merged adjustments */
+
+/* Up to 768px, etc. */
+@media (max-width: 768px) {
+    .quiz-container,
+    .results-container {
+        padding: 1.5rem;
+    }
+    .spectrum-item {
+        grid-template-columns: 1fr;
+        gap: 1.5rem; /* Overridden by Claude's snippet */
+    }
+    .spectrum-separator {
+        display: none;
+    }
+    .spectrum-visualization {
+        margin-top: 2rem;
+    }
+    .legend-items {
+        grid-template-columns: 1fr;
+        gap: 1.5rem; /* Claude’s override */
+    }
+    .legend {
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem; /* From Claude’s snippet */
+    }
+    .grid-cols-12 {
+        grid-template-columns: 1fr;
+    }
+    .col-span-2,
+    .col-span-10,
+    .col-span-12,
+    .col-span-7,
+    .col-span-6,
+    .col-span-4,
+    .col-span-1 {
+        grid-column: span 1 / span 1;
+    }
+    .col-start-1,
+    .col-start-6 {
+        grid-column-start: auto;
+    }
+    .tab-buttons {
+        gap: 1.5rem; /* Claude’s refinement */
+    }
+    h1 {
+        font-size: 2.25rem; /* override for smaller screens */
+    }
+}
+
+/* Additional rule for max-width 640px */
+@media (max-width: 640px) {
+    .option-group {
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+    }
+    .option-container {
+        width: 100%;
+    }
+    .option-text {
+        margin-top: 2rem;
+    }
+    .text-4xl {
+        font-size: 1.875rem;
+    }
+    .typology-pair-name {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .typology-icon {
+        margin-right: 0;
+        margin-bottom: 1rem;
+    }
+    .tab-buttons {
+        gap: 1rem;
+    }
+    .tab-button {
+        font-size: 0.8rem;
+        padding-bottom: 1rem;
+    }
+    .expandable-header {
+        padding: 1.5rem;
+    }
+    .expandable-content:not(.hidden) {
+        padding: 0 1.5rem 1.5rem;
+    }
+}
+
+/* For devices up to 1024px, from Claude’s snippet */
+@media (max-width: 1024px) {
+    .grid-cols-12 {
+        grid-template-columns: repeat(8, minmax(0, 1fr));
+    }
+    .col-span-7 {
+        grid-column: span 5 / span 5;
+    }
+    .typology-name {
+        font-size: 1.625rem;
+    }
+    .tab-buttons {
+        gap: 2rem;
+    }
+}
+
+/* Print styles for PDF download */
+@media print {
+    .background-canvas {
+        display: none;
+    }
+    body {
+        background-color: white;
+    }
+    .assessment-section {
+        padding: 1rem;
+        min-height: auto;
+    }
+    .results-container {
+        padding: 1rem;
+    }
+    .results-card {
+        box-shadow: none;
+        border: 1px solid #e7e5e4;
+        break-inside: avoid;
+    }
+    .navigation-buttons {
+        display: none;
+    }
+}
+
+/*************************************
+  17. EXTRA BUTTON INTERACTION
+*************************************/
+
+/* Ensuring .btn transitions remain */
 .btn {
     transition: all 0.3s ease;
 }
@@ -2451,91 +1531,7 @@ p {
     transform: translateY(-1px);
 }
 
-/* Tab transitions */
-.tab-content {
-    opacity: 0;
-    transform: translateY(10px);
-    transition: opacity 0.4s ease, transform 0.4s ease;
-}
-
-.tab-content.active {
-    opacity: 1;
-    transform: translateY(0);
-}
-
-/* Answer options improvements */
-.answer-option {
-    padding: 1.5rem;
-    border-radius: 8px;
-    border-left: 2px solid transparent;
-    transition: all 0.3s ease;
-}
-
-.answer-option:hover {
-    background-color: rgba(255, 255, 255, 0.6);
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
-}
-
-.answer-option.selected {
-    background-color: rgba(255, 248, 230, 0.6);
-    border-left: 2px solid #fbbf24;
-    box-shadow: 0 2px 12px rgba(251, 191, 36, 0.1);
-}
-
-/*************************************
-  MEDIA QUERY REFINEMENTS
-*************************************/
-
-@media (max-width: 1024px) {
-    .typology-name {
-        font-size: 1.625rem;
-    }
-    
-    .tab-buttons {
-        gap: 2rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .spectrum-item {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-    
-    .tab-buttons {
-        gap: 1.5rem;
-    }
-    
-    h1 {
-        font-size: 2.25rem;
-    }
-}
-
-@media (max-width: 640px) {
-    .typology-pair-name {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-    
-    .typology-icon {
-        margin-right: 0;
-        margin-bottom: 1rem;
-    }
-    
-    .tab-buttons {
-        gap: 1rem;
-    }
-    
-    .tab-button {
-        font-size: 0.8rem;
-        padding-bottom: 1rem;
-    }
-    
-    .expandable-header {
-        padding: 1.5rem;
-    }
-    
-    .expandable-content:not(.hidden) {
-        padding: 0 1.5rem 1.5rem;
-    }
+/* Slightly increased spacing for .flex.items-end.justify-between.mb-16 */
+.flex.items-end.justify-between.mb-16 {
+    margin-bottom: 3.5rem;
 }
