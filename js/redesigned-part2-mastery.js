@@ -709,7 +709,7 @@ function selectMasteryOption(element, questionId, optionValue) {
     userResponses.mastery = {};
   }
   userResponses.mastery[questionId] = optionValue;
-
+  
   // Find all options for this question
   const question = element.closest('.question-container');
   const allOptions = question.querySelectorAll('.group.relative.flex');
