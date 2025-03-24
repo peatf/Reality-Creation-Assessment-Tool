@@ -27,66 +27,65 @@ const typologyDescriptions = {
         description: "You trust inner knowing and direct experience over logic. Your intuition guides your perception and decisions in reality creation."
     },
     "perceptual-focus-left": {
-            name: "Definitive",
-            description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
-        },
-        "perceptual-focus-balanced": {
-            name: "Adaptive",
-            description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
-        },
-        "perceptual-focus-right": {
-            name: "Receptive",
-            description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
-        },
-        "kinetic-drive-left": {
-            name: "Deliberate",
-            description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
-        },
-        "kinetic-drive-balanced": {
-            name: "Rhythmic",
-            description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
-        },
-        "kinetic-drive-right": {
-            name: "Spontaneous",
-            description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
-        },
-        "choice-navigation-left": {
-            name: "Calculative",
-            description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
-        },
-        "choice-navigation-balanced": {
-            name: "Balanced",
-            description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
-        },
-"choice-navigation-right": {
-            name: "Fluid",
-            description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
-        },
-        "resonance-field-left": {
-            name: "Regulated",
-            description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
-        },
-        "resonance-field-balanced": {
-            name: "Attuned",
-            description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
-        },
-        "resonance-field-right": {
-            name: "Expressive",
-            description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
-        },
-        "manifestation-rhythm-left": {
-            name: "Structured",
-            description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
-        },
-        "manifestation-rhythm-balanced": {
-            name: "Sustainable",
-            description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
-        },
-        "manifestation-rhythm-right": {
-            name: "Dynamic",
-            description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
-        }
+        name: "Definitive",
+        description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
     },
+    "perceptual-focus-balanced": {
+        name: "Adaptive",
+        description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
+    },
+    "perceptual-focus-right": {
+        name: "Receptive",
+        description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
+    },
+    "kinetic-drive-left": {
+        name: "Deliberate",
+        description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
+    },
+    "kinetic-drive-balanced": {
+        name: "Rhythmic",
+        description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
+    },
+    "kinetic-drive-right": {
+        name: "Spontaneous",
+        description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
+    },
+    "choice-navigation-left": {
+        name: "Calculative",
+        description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
+    },
+    "choice-navigation-balanced": {
+        name: "Balanced",
+        description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
+    },
+    "choice-navigation-right": {
+        name: "Fluid",
+        description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
+    },
+    "resonance-field-left": {
+        name: "Regulated",
+        description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
+    },
+    "resonance-field-balanced": {
+        name: "Attuned",
+        description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
+    },
+    "resonance-field-right": {
+        name: "Expressive",
+        description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
+    },
+    "manifestation-rhythm-left": {
+        name: "Structured",
+        description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
+    },
+    "manifestation-rhythm-balanced": {
+        name: "Sustainable",
+        description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
+    },
+    "manifestation-rhythm-right": {
+        name: "Dynamic",
+        description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
+    }
 };
 
 // Typology Pair templates
@@ -290,7 +289,11 @@ const commonMisalignments = {
     ]
 };
 
-// Generate and display results
+// ------------------------------
+// FUNCTION DEFINITIONS
+// ------------------------------
+
+// Main function to generate and display results
 function generateAndDisplayResults() {
     // Calculate typology scores from Part 1
     const typologyResults = calculateTypologyScores();
@@ -303,7 +306,7 @@ function generateAndDisplayResults() {
     // Determine typology pair
     const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
     
-    // Generate results content
+    // Generate sections
     generateTypologyPairSection(typologyPair);
     generateSpectrumDiagram(spectrumPlacements, typologyPair);
     generateIdealApproachesSection(typologyPair);
@@ -311,10 +314,8 @@ function generateAndDisplayResults() {
     generateMasteryPrioritiesSection(masteryScores, dominantValues);
     generateStrategySection(typologyPair, dominantValues);
     
-    // Initialize expandable sections
+    // Initialize expandable sections and UI enhancements
     initExpandableSections();
-    
-    // Add hover effects to results cards
     enhanceUIInteractions();
 }
 
@@ -350,7 +351,6 @@ function calculateTypologyScores() {
             placement = 'balanced';
         }
         
-        // Store placement
         placements[spectrum.id] = placement;
     });
     
@@ -380,10 +380,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-    // This is a simplified implementation - in a full version, you would implement
-    // the complete typology pair determination logic from the original scoring.js
-    
-    // For this example, we'll use fluid-structured as a default
+    // Simplified logic – use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
@@ -405,32 +402,241 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
     };
 }
 
-// Generate Typology Pair section
+// Generate Typology Pair section (displays name and description)
 function generateTypologyPairSection(typologyPair) {
     const container = document.getElementById('typology-pair');
     if (!container) return;
     
     const pairKey = typologyPair.key;
-    const misalignmentsData = commonMisalignments[pairKey] || commonMisalignments['fluid-structured']; // Fallback
+    const pairTemplate = typologyPairs[pairKey] || typologyPairs['fluid-structured'];
     
-    // Clear container
+    container.innerHTML = `
+        <div class="bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100">
+            <div class="flex items-center mb-6">
+                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center">
+                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400"></div>
+                    </div>
+                </div>
+                <h2 class="text-3xl font-light text-stone-800 ml-4">${pairTemplate.name}</h2>
+            </div>
+            <p class="text-lg font-light text-stone-600 leading-relaxed">
+                ${pairTemplate.description}
+            </p>
+        </div>
+    `;
+}
+
+// Generate Spectrum Diagram
+function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
+    const container = document.getElementById('spectrum-diagram');
+    if (!container) return;
+    
     container.innerHTML = '';
     
-    // Create misalignments card
+    // Title section
+    const titleSection = document.createElement('div');
+    titleSection.className = 'flex items-center mb-16';
+    titleSection.innerHTML = `
+        <div class="h-px w-12 bg-stone-400 mr-4"></div>
+        <h3 class="text-xl font-light text-stone-700 uppercase tracking-wider">Your Spectrum Map</h3>
+    `;
+    container.appendChild(titleSection);
+    
+    // Grid container for spectrums
+    const gridContainer = document.createElement('div');
+    gridContainer.className = 'grid grid-cols-12 gap-x-4 gap-y-20';
+    
+    // Add spectrum items
+    typologySpectrums.forEach((spectrum, index) => {
+        const placement = spectrumPlacements[spectrum.id] || 'balanced';
+        
+        // Calculate value position
+        let value = 50;
+        if (placement === 'left') value = 25;
+        if (placement === 'right') value = 75;
+        
+        const isFullWidth = index === 0 || index === 3 || index === 5;
+        const leftAligned = index === 1 || index === 4;
+        const rightAligned = index === 2;
+        
+        const spectrumItem = document.createElement('div');
+        spectrumItem.className = `relative ${
+            isFullWidth ? 'col-span-12' : 
+            leftAligned ? 'col-span-7 col-start-1' : 
+            rightAligned ? 'col-span-7 col-start-6' : 'col-span-6'
+        }`;
+        
+        const descriptionKey = `${spectrum.id}-${placement}`;
+        const descriptionText = typologyDescriptions[descriptionKey] ? 
+            typologyDescriptions[descriptionKey].description : 
+            "This is your natural tendency along this spectrum.";
+        
+        spectrumItem.innerHTML = `
+            <div class="absolute -top-10 ${
+                leftAligned ? 'left-0' : 
+                rightAligned ? 'right-0' : 
+                'left-1/2 transform -translate-x-1/2'
+            } flex items-center">
+                <div class="w-6 h-6 mr-2 flex items-center justify-center">
+                    <span class="text-xs font-light text-stone-400">${index + 1}</span>
+                </div>
+                <div class="h-px w-16 ${
+                    placement === 'left' ? 'bg-blue-300' :
+                    placement === 'right' ? 'bg-amber-300' : 'bg-green-300'
+                }"></div>
+            </div>
+            
+            <div class="grid grid-cols-12 gap-3">
+                <div class="col-span-4 flex flex-col justify-between pr-2">
+                    <div>
+                        <div class="text-xs uppercase tracking-wider text-stone-400 mb-1">Spectrum</div>
+                        <h4 class="text-lg font-light text-stone-700">${spectrum.name}</h4>
+                    </div>
+                    <div class="text-xs font-light text-stone-500 uppercase tracking-wider">
+                        ${placement.charAt(0).toUpperCase() + placement.slice(1)}
+                    </div>
+                </div>
+                
+                <div class="col-span-1 flex justify-center">
+                    <div class="h-full w-px bg-stone-200"></div>
+                </div>
+                
+                <div class="col-span-7 flex flex-col">
+                    <div class="mb-6 relative">
+                        <div class="h-px w-full bg-stone-200"></div>
+                        <div class="relative" style="margin-left: ${value}%">
+                            <div class="absolute top-0 w-px h-16 transform -translate-x-1/2 ${
+                                placement === 'left' ? 'bg-blue-400' :
+                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
+                            }"></div>
+                            <div class="absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
+                                placement === 'left' ? 'bg-blue-400' :
+                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
+                            }"></div>
+                        </div>
+                        
+                        <div class="flex justify-between mt-20 text-xs tracking-wide text-stone-500">
+                            <span>${spectrum.leftLabel}</span>
+                            <span>${spectrum.rightLabel}</span>
+                        </div>
+                    </div>
+                    
+                    <p class="text-sm font-light text-stone-600 leading-relaxed">
+                        ${descriptionText}
+                    </p>
+                </div>
+            </div>
+            
+            ${isFullWidth ? 
+                '<div class="absolute right-0 -bottom-12 w-24 h-px bg-stone-200 opacity-70"></div>' : ''}
+            ${leftAligned ? 
+                '<div class="absolute -right-8 top-1/2 w-16 h-px bg-stone-200 opacity-70"></div>' : ''}
+            ${rightAligned ? 
+                '<div class="absolute -left-8 top-1/2 w-16 h-px bg-stone-200 opacity-70"></div>' : ''}
+        `;
+        
+        gridContainer.appendChild(spectrumItem);
+    });
+    
+    container.appendChild(gridContainer);
+    
+    // Add legend
+    const legend = document.createElement('div');
+    legend.className = 'mt-24 flex justify-between items-end';
+    legend.innerHTML = `
+        <div class="grid grid-cols-3 gap-8 w-1/2">
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-12 bg-blue-400 mb-3"></div>
+                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Structured</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-8 bg-green-400 mb-3"></div>
+                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Balanced</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-16 bg-amber-400 mb-3"></div>
+                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Intuitive</span>
+            </div>
+        </div>
+        
+        <div class="text-xs font-light text-stone-400 uppercase tracking-wider flex items-center">
+            <div class="w-8 h-px bg-stone-300 mr-2"></div>
+            <span>Your Reality Coordinates</span>
+        </div>
+    `;
+    
+    container.appendChild(legend);
+}
+
+// Generate Ideal Approaches section
+function generateIdealApproachesSection(typologyPair) {
+    const container = document.getElementById('ideal-approaches');
+    if (!container) return;
+    
+    const pairKey = typologyPair.key;
+    const approachesData = idealApproaches[pairKey] || idealApproaches['fluid-structured'];
+    
+    container.innerHTML = '';
+    
+    // Strengths card
+    const strengthsCard = document.createElement('div');
+    strengthsCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    strengthsCard.innerHTML = `
+        <h3 class="text-xl font-light text-stone-800 mb-4">Your Natural Strengths</h3>
+        <p class="text-base font-light text-stone-600">${approachesData.strengths}</p>
+    `;
+    container.appendChild(strengthsCard);
+    
+    // Approaches card
+    const approachesCard = document.createElement('div');
+    approachesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
+    
+    const approachesHeader = document.createElement('h3');
+    approachesHeader.className = 'text-xl font-light text-stone-800 mb-6';
+    approachesHeader.textContent = 'Optimal Manifestation Approaches';
+    approachesCard.appendChild(approachesHeader);
+    
+    const approachesList = document.createElement('div');
+    approachesList.className = 'space-y-4';
+    
+    approachesData.approaches.forEach((approach, index) => {
+        const approachItem = document.createElement('div');
+        approachItem.className = 'flex items-start';
+        approachItem.innerHTML = `
+            <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mt-0.5 shrink-0">
+                <span class="text-sm font-medium text-amber-700">${index + 1}</span>
+            </div>
+            <p class="ml-4 text-base font-light text-stone-600">${approach}</p>
+        `;
+        approachesList.appendChild(approachItem);
+    });
+    
+    approachesCard.appendChild(approachesList);
+    container.appendChild(approachesCard);
+}
+
+// Generate Misalignments section
+function generateMisalignmentsSection(typologyPair) {
+    const container = document.getElementById('common-misalignments');
+    if (!container) return;
+    
+    const pairKey = typologyPair.key;
+    const misalignmentsData = commonMisalignments[pairKey] || commonMisalignments['fluid-structured'];
+    
+    container.innerHTML = '';
+    
     const misalignmentsCard = document.createElement('div');
     misalignmentsCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     
-    // Create header
     const misalignmentsHeader = document.createElement('h3');
     misalignmentsHeader.className = 'text-xl font-light text-stone-800 mb-6';
     misalignmentsHeader.textContent = 'Approaches That May Create Friction';
     misalignmentsCard.appendChild(misalignmentsHeader);
     
-    // Create misalignments list
     const misalignmentsList = document.createElement('div');
     misalignmentsList.className = 'space-y-4';
     
-    // Add each misalignment
     misalignmentsData.forEach((misalignment, index) => {
         const misalignmentItem = document.createElement('div');
         misalignmentItem.className = 'flex items-start';
@@ -452,10 +658,8 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     const container = document.getElementById('mastery-priorities');
     if (!container) return;
     
-    // Clear container
     container.innerHTML = '';
     
-    // Core values mapping
     const priorityDescriptions = {
         'creative-expression': 'You deeply value the freedom to express your creativity and bring new ideas into being.',
         'financial-abundance': 'You prioritize creating abundance and financial security in your life.',
@@ -477,7 +681,6 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
         'joy-excitement': 'Experiencing joy and excitement regularly is a priority in how you design your life.'
     };
     
-    // Growth areas mapping
     const growthDescriptions = {
         'consistency-challenge': 'Building greater consistency in your manifestation practices over time.',
         'clarity-challenge': 'Developing clearer vision around what you truly desire to manifest.',
@@ -499,35 +702,28 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
         'control-resistance': 'Developing comfort with uncertainty and releasing excessive control.'
     };
     
-    // Create core values card
+    // Core Values Card
     const valuesCard = document.createElement('div');
     valuesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     
-    // Create header
     const valuesHeader = document.createElement('h3');
     valuesHeader.className = 'text-xl font-light text-stone-800 mb-4';
     valuesHeader.textContent = 'Your Core Values & Priorities';
     valuesCard.appendChild(valuesHeader);
     
-    // Create values list
     const valuesList = document.createElement('div');
     valuesList.className = 'space-y-3';
     
-    // Add core values
     if (dominantValues.corePriorities && dominantValues.corePriorities.length > 0) {
         dominantValues.corePriorities.forEach(value => {
             const valueItem = document.createElement('p');
             valueItem.className = 'text-base font-light text-stone-600';
-            
-            // Find description or use fallback
             const description = priorityDescriptions[value] || 
                 `You deeply value aspects related to ${value.replace(/-/g, ' ')}.`;
-            
             valueItem.textContent = description;
             valuesList.appendChild(valueItem);
         });
     } else {
-        // Fallback if no dominant values
         const defaultValue = document.createElement('p');
         defaultValue.className = 'text-base font-light text-stone-600';
         defaultValue.textContent = 'You value balance and integration across multiple areas of your life.';
@@ -537,35 +733,28 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     valuesCard.appendChild(valuesList);
     container.appendChild(valuesCard);
     
-    // Create growth areas card
+    // Growth Areas Card
     const growthCard = document.createElement('div');
     growthCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     
-    // Create header
     const growthHeader = document.createElement('h3');
     growthHeader.className = 'text-xl font-light text-stone-800 mb-4';
     growthHeader.textContent = 'Your Growth & Permission Areas';
     growthCard.appendChild(growthHeader);
     
-    // Create growth list
     const growthList = document.createElement('div');
     growthList.className = 'space-y-3';
     
-    // Add growth areas
     if (dominantValues.growthAreas && dominantValues.growthAreas.length > 0) {
         dominantValues.growthAreas.forEach(value => {
             const growthItem = document.createElement('p');
             growthItem.className = 'text-base font-light text-stone-600';
-            
-            // Find description or use fallback
             const description = growthDescriptions[value] || 
                 `Developing greater awareness and skill in areas related to ${value.replace(/-/g, ' ')}.`;
-            
             growthItem.textContent = description;
             growthList.appendChild(growthItem);
         });
     } else {
-        // Fallback if no dominant values
         const defaultGrowth = document.createElement('p');
         defaultGrowth.className = 'text-base font-light text-stone-600';
         defaultGrowth.textContent = 'Developing a balanced approach that honors both structure and intuition in your manifestation process.';
@@ -581,10 +770,7 @@ function generateStrategySection(typologyPair, dominantValues) {
     const container = document.getElementById('prescriptive-strategy');
     if (!container) return;
     
-    // Clear container
     container.innerHTML = '';
-    
-    // Create strategy sections
     
     // 1. Shifts section
     const shiftsSection = createExpandableSection(
@@ -616,18 +802,15 @@ function createExpandableSection(title, items) {
     section.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl shadow-sm border border-stone-100 overflow-hidden mb-6';
     section.id = `section-${sectionId}`;
     
-    // Create header
     const header = document.createElement('button');
     header.className = 'expandable-header w-full flex items-center justify-between p-8';
     header.setAttribute('aria-expanded', 'false');
     header.setAttribute('aria-controls', `${sectionId}-content`);
     
-    // Create title
     const headerTitle = document.createElement('h3');
     headerTitle.className = 'text-xl font-light text-stone-800';
     headerTitle.textContent = title;
     
-    // Create icon
     const headerIcon = document.createElement('div');
     headerIcon.className = 'expandable-icon transform transition-transform';
     headerIcon.innerHTML = `
@@ -636,25 +819,20 @@ function createExpandableSection(title, items) {
         </svg>
     `;
     
-    // Assemble header
     header.appendChild(headerTitle);
     header.appendChild(headerIcon);
     
-    // Create content
     const content = document.createElement('div');
     content.className = 'expandable-content';
     content.id = `${sectionId}-content`;
     
-    // Create items list
     const itemsList = document.createElement('div');
     itemsList.className = 'space-y-4';
     
-    // Add items
     items.forEach((item, index) => {
         const itemElement = document.createElement('div');
         itemElement.className = 'flex items-start';
         
-        // Number circle
         const itemNumber = document.createElement('div');
         itemNumber.className = 'w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mt-0.5 shrink-0';
         
@@ -664,29 +842,24 @@ function createExpandableSection(title, items) {
         
         itemNumber.appendChild(numberText);
         
-        // Item text
         const itemText = document.createElement('p');
         itemText.className = 'ml-4 text-base font-light text-stone-600';
         itemText.textContent = item;
         
-        // Assemble item
         itemElement.appendChild(itemNumber);
         itemElement.appendChild(itemText);
         itemsList.appendChild(itemElement);
     });
     
     content.appendChild(itemsList);
-    
-    // Assemble section
     section.appendChild(header);
     section.appendChild(content);
     
     return section;
 }
 
-// Generate typology shifts based on typology pair
+// Generate typology shifts based on typology pair and growth areas
 function generateTypologyShifts(typologyKey, growthAreas) {
-    // Define shifts based on typology pair
     const typeShifts = {
         "structured-structured": [
             "Create more space for intuitive insights and divine timing within your structured approach.",
@@ -735,46 +908,35 @@ function generateTypologyShifts(typologyKey, growthAreas) {
         ]
     };
     
-    // Get shifts based on typology key or use default
     const shifts = typeShifts[typologyKey] || typeShifts["fluid-structured"];
     
-    // Add shifts based on growth areas if available
     if (growthAreas.includes('consistency-challenge')) {
         shifts.push('Develop a flexible consistency framework that honors your natural rhythm while providing enough structure for momentum.');
     }
-    
     if (growthAreas.includes('clarity-challenge')) {
         shifts.push('Create a clarity practice that combines analytical reflection with intuitive exploration to help crystallize your true desires.');
     }
-    
     if (growthAreas.includes('action-challenge') || growthAreas.includes('action-gap')) {
         shifts.push('Design an action approach that aligns with your energy patterns—powerful bursts or steady progress based on your nature.');
     }
-    
     if (growthAreas.includes('intuition-challenge') || growthAreas.includes('self-trust-resistance')) {
         shifts.push('Strengthen your intuition through regular practices that help you recognize, trust, and validate your inner knowing.');
     }
-    
     if (growthAreas.includes('emotion-challenge') || growthAreas.includes('emotional-block')) {
         shifts.push('Develop emotional fluency practices that help you navigate emotional states without being overwhelmed or disconnected.');
     }
-    
     if (growthAreas.includes('receiving-challenge')) {
         shifts.push('Create receiving rituals that help you open to and recognize manifestations as they emerge, especially in unexpected forms.');
     }
-    
     if (growthAreas.includes('decision-doubt')) {
         shifts.push('Establish a personalized decision-making protocol that incorporates both analytical validation and intuitive confirmation.');
     }
-    
     if (growthAreas.includes('focus-challenge')) {
         shifts.push('Design focus containers that work with your natural attention style, providing structure while allowing for flexibility.');
     }
-    
     if (growthAreas.includes('burnout-pattern')) {
         shifts.push('Implement energy management practices that honor your natural cycles of output and restoration.');
     }
-    
     if (growthAreas.includes('commitment-hesitation')) {
         shifts.push('Develop incremental commitment practices that allow you to build confidence and momentum without triggering resistance.');
     }
@@ -784,7 +946,6 @@ function generateTypologyShifts(typologyKey, growthAreas) {
 
 // Generate acceptance permissions
 function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
-    // Define permissions based on typology pair
     const typePermissions = {
         "structured-structured": [
             "Give yourself permission to embrace uncertainty and organic development as part of your process.",
@@ -833,54 +994,41 @@ function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
         ]
     };
     
-    // Get permissions based on typology key or use default
     const permissions = typePermissions[typologyKey] || typePermissions["fluid-structured"];
     
-    // Add permissions based on alignment needs if available
     if (alignmentNeeds.includes('accept-cycles')) {
         permissions.push('Give yourself permission to honor your natural cycles rather than forcing constant output.');
     }
-    
     if (alignmentNeeds.includes('accept-structure')) {
         permissions.push('Give yourself permission to create and maintain the structures you need, even if others thrive with more spontaneity.');
     }
-    
     if (alignmentNeeds.includes('accept-emotions')) {
         permissions.push('Give yourself permission to acknowledge your emotional states without judgment.');
     }
-    
     if (alignmentNeeds.includes('accept-gradual-clarity')) {
         permissions.push('Give yourself permission to allow clarity to emerge gradually rather than forcing immediate certainty.');
     }
-    
     if (alignmentNeeds.includes('accept-intuition')) {
         permissions.push('Give yourself permission to trust your intuitive guidance, even without immediate logical justification.');
     }
-    
     if (alignmentNeeds.includes('accept-flexibility')) {
         permissions.push('Give yourself permission to remain flexible and open rather than locking into fixed outcomes.');
     }
-    
     if (alignmentNeeds.includes('control-outcomes')) {
         permissions.push('Give yourself permission to release attachment to specific timelines and forms.');
     }
-    
     if (alignmentNeeds.includes('control-emotions')) {
         permissions.push('Give yourself permission to experience your full range of emotions as valuable information.');
     }
-    
     if (alignmentNeeds.includes('control-consistency')) {
-        permissions.push('Give yourself permission to work with your natural rhythm even if it doesn't match external expectations.');
+        permissions.push('Give yourself permission to work with your natural rhythm even if it doesn’t match external expectations.');
     }
-    
     if (alignmentNeeds.includes('control-clarity')) {
         permissions.push('Give yourself permission to explore before committing to a clear vision.');
     }
-    
     if (alignmentNeeds.includes('control-decisions')) {
         permissions.push('Give yourself permission to make decisions from multiple sources of wisdom.');
     }
-    
     if (alignmentNeeds.includes('control-intuition')) {
         permissions.push('Give yourself permission to follow intuitive nudges without needing to justify them.');
     }
@@ -890,7 +1038,6 @@ function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
 
 // Generate energy support tools
 function generateEnergySupportTools(alignmentNeeds, energyPatterns, typologyKey) {
-    // Define tools based on typology pair
     const typeTools = {
         "structured-structured": [
             "Structured intuition exercises with clear frameworks.",
@@ -939,54 +1086,41 @@ function generateEnergySupportTools(alignmentNeeds, energyPatterns, typologyKey)
         ]
     };
     
-    // Get tools based on typology key or use default
     const tools = typeTools[typologyKey] || typeTools["fluid-structured"];
     
-    // Add tools based on energy patterns if available
     if (energyPatterns.includes('clear-instructions')) {
         tools.push('Structured templates and frameworks that provide clarity while allowing creativity.');
     }
-    
     if (energyPatterns.includes('intuitive-instincts')) {
         tools.push('Regular intuition development practices to strengthen your natural guidance system.');
     }
-    
     if (energyPatterns.includes('emotional-inspiration')) {
         tools.push('Emotional alignment practices to cultivate states that support your creative process.');
     }
-    
     if (energyPatterns.includes('balanced-rhythm')) {
         tools.push('Rhythmic planning systems that alternate between structure and flow.');
     }
-    
     if (energyPatterns.includes('gradual-clarity')) {
         tools.push('Progressive vision development practices that allow clarity to emerge over time.');
     }
-    
     if (energyPatterns.includes('process-trust')) {
         tools.push('Trust-building practices that strengthen your connection to divine timing.');
     }
-    
     if (energyPatterns.includes('rigid-routines')) {
         tools.push('Flexible structure frameworks that provide guidance without restriction.');
     }
-    
     if (energyPatterns.includes('ignored-intuition')) {
         tools.push('Intuition validation practices to help you recognize and trust inner guidance.');
     }
-    
     if (energyPatterns.includes('structured-productivity')) {
         tools.push('Manifestation routines with clear steps and measurable outcomes.');
     }
-    
     if (energyPatterns.includes('flexible-productivity')) {
         tools.push('Adaptable planning systems that provide direction while allowing spontaneity.');
     }
-    
     if (energyPatterns.includes('structured-environment')) {
         tools.push('Environmental organization practices that support calm focus and clarity.');
     }
-    
     if (energyPatterns.includes('dynamic-environment')) {
         tools.push('Space design that allows for changing energy needs and creative stimulation.');
     }
@@ -994,9 +1128,11 @@ function generateEnergySupportTools(alignmentNeeds, energyPatterns, typologyKey)
     return tools;
 }
 
-// Initialize when document is loaded
+// ------------------------------
+// EVENT LISTENERS & GLOBAL ASSIGNMENTS
+// ------------------------------
+
 document.addEventListener('DOMContentLoaded', function() {
-    // Add event listeners for results page tabs
     document.getElementById('typology-tab').addEventListener('click', function() {
         showResultsTab('typology');
     });
@@ -1009,291 +1145,50 @@ document.addEventListener('DOMContentLoaded', function() {
         showResultsTab('strategy');
     });
     
-    // Initialize print button
     document.getElementById('print-results').addEventListener('click', function() {
         window.print();
     });
     
-    // Initialize restart button
     document.getElementById('restart-assessment').addEventListener('click', function() {
         restartAssessment();
     });
 });
 
-// Show specific tab in results
 function showResultsTab(tabId) {
-    // Hide all tab contents
     document.querySelectorAll('.tab-content').forEach(content => {
         content.style.display = 'none';
         content.classList.remove('active');
     });
     
-    // Remove active state from all tabs
     document.querySelectorAll('.tab-button').forEach(tab => {
         tab.classList.remove('text-amber-700');
         tab.classList.add('text-stone-500');
-        
-        // Remove indicator
         const indicator = tab.querySelector('div');
         if (indicator) indicator.remove();
     });
     
-    // Show selected tab content
     const selectedContent = document.getElementById(`${tabId}-content`);
     if (selectedContent) {
         selectedContent.style.display = 'block';
-        // Force reflow
         void selectedContent.offsetWidth;
         selectedContent.classList.add('active');
     }
     
-    // Highlight selected tab
     const selectedTab = document.getElementById(`${tabId}-tab`);
     if (selectedTab) {
         selectedTab.classList.remove('text-stone-500');
         selectedTab.classList.add('text-amber-700');
-        
-        // Add indicator
         const indicator = document.createElement('div');
         indicator.className = 'absolute bottom-0 left-0 w-full h-0.5 bg-amber-400';
         selectedTab.appendChild(indicator);
     }
 }
 
-// Make these functions available in the global scope
+// Make functions available globally
 window.generateAndDisplayResults = generateAndDisplayResults;
 window.generateTypologyPairSection = generateTypologyPairSection;
 window.generateSpectrumDiagram = generateSpectrumDiagram;
 window.generateIdealApproachesSection = generateIdealApproachesSection;
 window.generateMisalignmentsSection = generateMisalignmentsSection;
 window.generateMasteryPrioritiesSection = generateMasteryPrioritiesSection;
-window.generateStrategySection = generateStrategySection; return;
-    
-    const pairKey = typologyPair.key;
-    const pairTemplate = typologyPairs[pairKey] || typologyPairs['fluid-structured']; // Fallback
-    
-    container.innerHTML = `
-        <div class="bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100">
-            <div class="flex items-center mb-6">
-                <div class="w-12 h-12 rounded-full bg-gradient-to-br from-amber-300 to-amber-400 flex items-center justify-center">
-                    <div class="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                        <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400"></div>
-                    </div>
-                </div>
-                <h2 class="text-3xl font-light text-stone-800 ml-4">${pairTemplate.name}</h2>
-            </div>
-            <p class="text-lg font-light text-stone-600 leading-relaxed">
-                ${pairTemplate.description}
-            </p>
-        </div>
-    `;
-}
-
-// Generate Spectrum Diagram
-function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
-    const container = document.getElementById('spectrum-diagram');
-    if (!container) return;
-    
-    // Clear container
-    container.innerHTML = '';
-    
-    // Add title section
-    const titleSection = document.createElement('div');
-    titleSection.className = 'flex items-center mb-16';
-    titleSection.innerHTML = `
-        <div class="h-px w-12 bg-stone-400 mr-4"></div>
-        <h3 class="text-xl font-light text-stone-700 uppercase tracking-wider">Your Spectrum Map</h3>
-    `;
-    container.appendChild(titleSection);
-    
-    // Create grid container for spectrums
-    const gridContainer = document.createElement('div');
-    gridContainer.className = 'grid grid-cols-12 gap-x-4 gap-y-20';
-    
-    // Add spectrum items
-    typologySpectrums.forEach((spectrum, index) => {
-        // Get placement for this spectrum
-        const placement = spectrumPlacements[spectrum.id] || 'balanced';
-        
-        // Calculate value position (25% for left, 50% for balanced, 75% for right)
-        let value = 50; // Default balanced
-        if (placement === 'left') value = 25;
-        if (placement === 'right') value = 75;
-        
-        // Determine layout style based on index
-        const isFullWidth = index === 0 || index === 3 || index === 5;
-        const leftAligned = index === 1 || index === 4;
-        const rightAligned = index === 2;
-        
-        // Create spectrum item container
-        const spectrumItem = document.createElement('div');
-        spectrumItem.className = `relative ${
-            isFullWidth ? 'col-span-12' : 
-            leftAligned ? 'col-span-7 col-start-1' : 
-            rightAligned ? 'col-span-7 col-start-6' : 'col-span-6'
-        }`;
-        
-        // Get description text based on placement
-        const descriptionKey = `${spectrum.id}-${placement}`;
-        const descriptionText = typologyDescriptions[descriptionKey] ? 
-            typologyDescriptions[descriptionKey].description : 
-            "This is your natural tendency along this spectrum.";
-        
-        // Build inner HTML for spectrum item
-        spectrumItem.innerHTML = `
-            <div class="absolute -top-10 ${
-                leftAligned ? 'left-0' : 
-                rightAligned ? 'right-0' : 
-                'left-1/2 transform -translate-x-1/2'
-            } flex items-center">
-                <div class="w-6 h-6 mr-2 flex items-center justify-center">
-                    <span class="text-xs font-light text-stone-400">${index + 1}</span>
-                </div>
-                <div class="h-px w-16 ${
-                    placement === 'left' ? 'bg-blue-300' :
-                    placement === 'right' ? 'bg-amber-300' : 'bg-green-300'
-                }"></div>
-            </div>
-            
-            <div class="grid grid-cols-12 gap-3">
-                <div class="col-span-4 flex flex-col justify-between pr-2">
-                    <div>
-                        <div class="text-xs uppercase tracking-wider text-stone-400 mb-1">Spectrum</div>
-                        <h4 class="text-lg font-light text-stone-700">${spectrum.name}</h4>
-                    </div>
-                    
-                    <div class="text-xs font-light text-stone-500 uppercase tracking-wider">
-                        ${placement.charAt(0).toUpperCase() + placement.slice(1)}
-                    </div>
-                </div>
-                
-                <div class="col-span-1 flex justify-center">
-                    <div class="h-full w-px bg-stone-200"></div>
-                </div>
-                
-                <div class="col-span-7 flex flex-col">
-                    <div class="mb-6 relative">
-                        <div class="h-px w-full bg-stone-200"></div>
-                        
-                        <div class="relative" style="margin-left: ${value}%">
-                            <div class="absolute top-0 w-px h-16 transform -translate-x-1/2 ${
-                                placement === 'left' ? 'bg-blue-400' :
-                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
-                            }"></div>
-                            
-                            <div class="absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
-                                placement === 'left' ? 'bg-blue-400' :
-                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
-                            }"></div>
-                        </div>
-                        
-                        <div class="flex justify-between mt-20 text-xs tracking-wide text-stone-500">
-                            <span>${spectrum.leftLabel}</span>
-                            <span>${spectrum.rightLabel}</span>
-                        </div>
-                    </div>
-                    
-                    <p class="text-sm font-light text-stone-600 leading-relaxed">
-                        ${descriptionText}
-                    </p>
-                </div>
-            </div>
-            
-            ${isFullWidth ? 
-                '<div class="absolute right-0 -bottom-12 w-24 h-px bg-stone-200 opacity-70"></div>' : ''}
-            ${leftAligned ? 
-                '<div class="absolute -right-8 top-1/2 w-16 h-px bg-stone-200 opacity-70"></div>' : ''}
-            ${rightAligned ? 
-                '<div class="absolute -left-8 top-1/2 w-16 h-px bg-stone-200 opacity-70"></div>' : ''}
-        `;
-        
-        // Add to grid container
-        gridContainer.appendChild(spectrumItem);
-    });
-    
-    // Add grid container to main container
-    container.appendChild(gridContainer);
-    
-    // Add legend
-    const legend = document.createElement('div');
-    legend.className = 'mt-24 flex justify-between items-end';
-    legend.innerHTML = `
-        <div class="grid grid-cols-3 gap-8 w-1/2">
-            <div class="flex flex-col items-center">
-                <div class="w-3 h-12 bg-blue-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Structured</span>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="w-3 h-8 bg-green-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Balanced</span>
-            </div>
-            <div class="flex flex-col items-center">
-                <div class="w-3 h-16 bg-amber-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Intuitive</span>
-            </div>
-        </div>
-        
-        <div class="text-xs font-light text-stone-400 uppercase tracking-wider flex items-center">
-            <div class="w-8 h-px bg-stone-300 mr-2"></div>
-            <span>Your Reality Coordinates</span>
-        </div>
-    `;
-    
-    container.appendChild(legend);
-}
-
-// Generate Ideal Approaches section
-function generateIdealApproachesSection(typologyPair) {
-    const container = document.getElementById('ideal-approaches');
-    if (!container) return;
-    
-    const pairKey = typologyPair.key;
-    const approachesData = idealApproaches[pairKey] || idealApproaches['fluid-structured']; // Fallback
-    
-    // Clear container
-    container.innerHTML = '';
-    
-    // Add strengths card
-    const strengthsCard = document.createElement('div');
-    strengthsCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
-    strengthsCard.innerHTML = `
-        <h3 class="text-xl font-light text-stone-800 mb-4">Your Natural Strengths</h3>
-        <p class="text-base font-light text-stone-600">${approachesData.strengths}</p>
-    `;
-    container.appendChild(strengthsCard);
-    
-    // Add approaches card
-    const approachesCard = document.createElement('div');
-    approachesCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
-    
-    // Create header
-    const approachesHeader = document.createElement('h3');
-    approachesHeader.className = 'text-xl font-light text-stone-800 mb-6';
-    approachesHeader.textContent = 'Optimal Manifestation Approaches';
-    approachesCard.appendChild(approachesHeader);
-    
-    // Create approaches list
-    const approachesList = document.createElement('div');
-    approachesList.className = 'space-y-4';
-    
-    // Add each approach
-    approachesData.approaches.forEach((approach, index) => {
-        const approachItem = document.createElement('div');
-        approachItem.className = 'flex items-start';
-        approachItem.innerHTML = `
-            <div class="w-6 h-6 rounded-full bg-amber-100 flex items-center justify-center mt-0.5 shrink-0">
-                <span class="text-sm font-medium text-amber-700">${index + 1}</span>
-            </div>
-            <p class="ml-4 text-base font-light text-stone-600">${approach}</p>
-        `;
-        approachesList.appendChild(approachItem);
-    });
-    
-    approachesCard.appendChild(approachesList);
-    container.appendChild(approachesCard);
-}
-
-// Generate Misalignments section
-function generateMisalignmentsSection(typologyPair) {
-    const container = document.getElementById('common-misalignments');
-    if (!container)
+window.generateStrategySection = generateStrategySection;
