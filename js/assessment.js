@@ -677,7 +677,7 @@ function showNextSpectrum() {
     updateProgressIndicator('Part 1', (currentSpectrumIndex / assessmentData.typologySpectrums.length) * 100);
 }
 
-// Update the spectrum questions displayed in Part 1
+// Updated function in js/assessment.js
 function updateSpectrumQuestions() {
     const container = document.getElementById('spectrum-questions');
     container.innerHTML = '';
@@ -685,28 +685,24 @@ function updateSpectrumQuestions() {
     // Get current spectrum to display
     const spectrum = assessmentData.typologySpectrums[currentSpectrumIndex];
     
-    // Create spectrum section
-    const spectrumSection = document.createElement('div');
-    spectrumSection.className = 'spectrum-section';
+    // Update header text
+    const titleElement = document.getElementById('spectrum-title');
+    titleElement.textContent = spectrum.name.toUpperCase();
     
-    // Add spectrum title and description
-    const spectrumTitle = document.createElement('h4');
-    spectrumTitle.className = 'spectrum-title';
-    spectrumTitle.textContent = spectrum.name;
-    spectrumSection.appendChild(spectrumTitle);
+    const descriptionElement = document.getElementById('spectrum-description');
+    descriptionElement.textContent = spectrum.description;
     
-    const spectrumDesc = document.createElement('p');
-    spectrumDesc.className = 'spectrum-description';
-    spectrumDesc.textContent = spectrum.description;
-    spectrumSection.appendChild(spectrumDesc);
+    const counterElement = document.getElementById('spectrum-counter');
+    counterElement.textContent = `SPECTRUM ${(currentSpectrumIndex + 1).toString().padStart(2, '0')}/${assessmentData.typologySpectrums.length.toString().padStart(2, '0')}`;
     
-    // Add questions for this spectrum
+    // Create questions for this spectrum
     spectrum.questions.forEach((question, questionIndex) => {
+        // Question container
         const questionContainer = document.createElement('div');
         questionContainer.className = 'question-container';
         questionContainer.dataset.questionId = question.id;
         
-        // Create question grid
+        // Grid for question and number
         const questionGrid = document.createElement('div');
         questionGrid.className = 'grid grid-cols-12 gap-4 mb-8';
         
@@ -740,9 +736,9 @@ function updateSpectrumQuestions() {
         questionGrid.appendChild(questionTextCol);
         questionContainer.appendChild(questionGrid);
         
-        // Create interactive spectrum visualization
-        const visualization = document.createElement('div');
-        visualization.className = 'mb-16';
+        // Interactive spectrum visualization
+        const visualizationContainer = document.createElement('div');
+        visualizationContainer.className = 'mb-16';
         
         // Spectrum labels
         const spectrumLabels = document.createElement('div');
@@ -762,63 +758,145 @@ function updateSpectrumQuestions() {
         spectrumLabels.appendChild(leftLabel);
         spectrumLabels.appendChild(trackLine);
         spectrumLabels.appendChild(rightLabel);
-        
-        // Option selection with neumorphic styling
+        // Options container with tactile neumorphic styling
         const optionsContainer = document.createElement('div');
         optionsContainer.className = 'relative pt-6 pb-10';
         
-        // Track line connecting the options
-        const trackConnect = document.createElement('div');
-        trackConnect.className = 'absolute top-1/2 left-0 w-full h-0.5 bg-stone-200 transform -translate-y-1/2';
-        optionsContainer.appendChild(trackConnect);
+        // Track line connecting options
+        const optionsTrack = document.createElement('div');
+        optionsTrack.className = 'absolute top-1/2 left-0 w-full h-0.5 bg-stone-200 transform -translate-y-1/2';
+        optionsContainer.appendChild(optionsTrack);
         
-        // Interactive options
+        // Interactive options container
         const optionsGroup = document.createElement('div');
         optionsGroup.className = 'relative flex justify-between items-center mb-12';
         
-        // Create options
+        // Create option buttons matching React example
         question.options.forEach((option) => {
+            // Option container
             const optionContainer = document.createElement('div');
-            optionContainer.className = 'option-container';
+            optionContainer.className = 'relative w-16 h-16 rounded-full flex items-center justify-center z-10 cursor-pointer transition-all duration-300 shadow-md';
             
-            const optionButton = document.createElement('div');
-            optionButton.className = 'option-button';
-            optionButton.dataset.optionId = option.id;
-            optionButton.dataset.value = option.value;
-            
-            // Add selected class if this option was previously selected
+            // Set initial styling
             if (userResponses.typology[question.id] === option.value) {
-                optionButton.classList.add('selected');
+                optionContainer.classList.add('bg-gradient-to-br', 'from-amber-300', 'to-amber-400', 'shadow-lg');
+            } else {
+                optionContainer.classList.add('bg-white', 'border', 'border-stone-200', 'shadow-sm', 'hover:shadow-md');
             }
             
-            // Create inner marker that appears when selected
-            const optionMarker = document.createElement('div');
-            optionMarker.className = 'option-marker';
-            optionButton.appendChild(optionMarker);
+            // Selection dot (only visible when selected)
+            const selectionDot = document.createElement('div');
+            selectionDot.className = 'w-3 h-3 bg-white rounded-full';
+            if (userResponses.typology[question.id] !== option.value) {
+                selectionDot.style.display = 'none';
+            }
             
-            // Add click event
-            optionButton.addEventListener('click', function() {
-                // Remove selected class from all options in this question
-                const allButtons = optionsGroup.querySelectorAll('.option-button');
-                allButtons.forEach(btn => btn.classList.remove('selected'));
-                
-                // Add selected class to this option
-                this.classList.add('selected');
-                
-                // Store user response
+            // Position indicator line
+            const positionLine = document.createElement('div');
+            positionLine.className = 'absolute -bottom-8 w-px h-6 transition-opacity duration-300';
+            
+            if (userResponses.typology[question.id] === option.value) {
+                positionLine.classList.add('bg-amber-400', 'opacity-100');
+            } else {
+                positionLine.classList.add('bg-stone-300', 'opacity-40');
+            }
+            
+            // Add event listeners
+            optionContainer.addEventListener('click', () => {
+                // Update selection
                 userResponses.typology[question.id] = option.value;
+                
+                // Update visual state for all options
+                const allOptions = optionsGroup.querySelectorAll('div[role="button"]');
+                allOptions.forEach(opt => {
+                    // Reset all options
+                    opt.classList.remove('bg-gradient-to-br', 'from-amber-300', 'to-amber-400', 'shadow-lg');
+                    opt.classList.add('bg-white', 'border', 'border-stone-200', 'shadow-sm');
+                    
+                    // Hide selection dots
+                    const dot = opt.querySelector('div');
+                    if (dot) dot.style.display = 'none';
+                    
+                    // Reset position lines
+                    const line = opt.nextElementSibling;
+                    if (line) {
+                        line.classList.remove('bg-amber-400', 'opacity-100');
+                        line.classList.add('bg-stone-300', 'opacity-40');
+                    }
+                    
+                    // Reset text
+                    const textContainer = opt.parentNode.querySelector('.option-text');
+                    if (textContainer) {
+                        const label = textContainer.querySelector('.option-label');
+                        if (label) label.style.opacity = '0';
+                        textContainer.classList.remove('text-amber-800');
+                        textContainer.classList.add('text-stone-500');
+                    }
+                });
+                
+                // Set active state for this option
+                optionContainer.classList.remove('bg-white', 'border', 'border-stone-200', 'shadow-sm');
+                optionContainer.classList.add('bg-gradient-to-br', 'from-amber-300', 'to-amber-400', 'shadow-lg');
+                
+                // Show selection dot
+                selectionDot.style.display = 'block';
+                
+                // Update position line
+                positionLine.classList.remove('bg-stone-300', 'opacity-40');
+                positionLine.classList.add('bg-amber-400', 'opacity-100');
+                
+                // Update text
+                optionTextContainer.classList.remove('text-stone-500');
+                optionTextContainer.classList.add('text-amber-800');
+                optionLabel.style.opacity = '1';
             });
             
-            // Create position indicator line
-            const positionLine = document.createElement('div');
-            positionLine.className = 'option-position-line';
+            // Add hover effects
+            optionContainer.addEventListener('mouseenter', () => {
+                if (userResponses.typology[question.id] !== option.value) {
+                    optionContainer.classList.remove('shadow-sm');
+                    optionContainer.classList.add('shadow-md', 'border-amber-200');
+                    
+                    positionLine.classList.remove('bg-stone-300', 'opacity-40');
+                    positionLine.classList.add('bg-amber-400', 'opacity-100');
+                    
+                    optionTextContainer.classList.remove('text-stone-500');
+                    optionTextContainer.classList.add('text-stone-700');
+                }
+            });
             
-            // Create text description
+            optionContainer.addEventListener('mouseleave', () => {
+                if (userResponses.typology[question.id] !== option.value) {
+                    optionContainer.classList.remove('shadow-md', 'border-amber-200');
+                    optionContainer.classList.add('shadow-sm', 'border-stone-200');
+                    
+                    positionLine.classList.remove('bg-amber-400', 'opacity-100');
+                    positionLine.classList.add('bg-stone-300', 'opacity-40');
+                    
+                    optionTextContainer.classList.remove('text-stone-700');
+                    optionTextContainer.classList.add('text-stone-500');
+                }
+            });
+            
+            // Accessibility attributes
+            optionContainer.setAttribute('role', 'button');
+            optionContainer.setAttribute('aria-pressed', userResponses.typology[question.id] === option.value ? 'true' : 'false');
+            
+            // Append elements
+            optionContainer.appendChild(selectionDot);
+            
+            // Create text description for this option
             const optionTextContainer = document.createElement('div');
-            optionTextContainer.className = 'option-text';
+            optionTextContainer.className = 'option-text w-1/3 px-4 transition-all duration-300';
+            if (userResponses.typology[question.id] === option.value) {
+                optionTextContainer.classList.add('text-amber-800');
+            } else {
+                optionTextContainer.classList.add('text-stone-500');
+            }
             
+            // Create label based on position
             const optionLabel = document.createElement('div');
-            optionLabel.className = 'option-label';
+            optionLabel.className = 'text-xs font-medium uppercase tracking-wider mb-2 transition-opacity';
             
             // Set label text based on position
             let labelText = '';
@@ -826,10 +904,17 @@ function updateSpectrumQuestions() {
                 labelText = spectrum.leftLabel;
             } else if (option.value === 'balanced') {
                 labelText = 'BALANCED';
-            } else if (option.value === 'right') {
+            } else {
                 labelText = spectrum.rightLabel;
             }
             optionLabel.textContent = labelText;
+            
+            // Set initial opacity
+            if (userResponses.typology[question.id] === option.value) {
+                optionLabel.style.opacity = '1';
+            } else {
+                optionLabel.style.opacity = '0';
+            }
             
             const optionText = document.createElement('p');
             optionText.className = 'text-sm font-light';
@@ -838,30 +923,66 @@ function updateSpectrumQuestions() {
             optionTextContainer.appendChild(optionLabel);
             optionTextContainer.appendChild(optionText);
             
-            // Assemble option container
-            optionContainer.appendChild(optionButton);
-            optionContainer.appendChild(positionLine);
-            optionContainer.appendChild(optionTextContainer);
+            // Create wrapper div for each option column
+            const optionWrapper = document.createElement('div');
+            optionWrapper.className = 'option-container';
             
-            optionsGroup.appendChild(optionContainer);
+            optionWrapper.appendChild(optionContainer);
+            optionWrapper.appendChild(positionLine);
+            optionWrapper.appendChild(optionTextContainer);
+            
+            optionsGroup.appendChild(optionWrapper);
         });
         
-        // Add options to the container
+        // Add options to container
         optionsContainer.appendChild(optionsGroup);
         
-        // Add visualization to question container
-        visualization.appendChild(spectrumLabels);
-        visualization.appendChild(optionsContainer);
-        questionContainer.appendChild(visualization);
+        // Add to visualization container
+        visualizationContainer.appendChild(spectrumLabels);
+        visualizationContainer.appendChild(optionsContainer);
         
-        // Add to spectrum section
-        spectrumSection.appendChild(questionContainer);
+        // Add to question container
+        questionContainer.appendChild(visualizationContainer);
+        
+        // Add to main container
+        container.appendChild(questionContainer);
     });
     
-    container.appendChild(spectrumSection);
+    // Update navigation buttons
+    const prevButton = document.getElementById('prev-spectrum');
+    if (currentSpectrumIndex > 0) {
+        prevButton.style.display = 'flex';
+    } else {
+        prevButton.style.display = 'none';
+    }
     
-    // Update header with current spectrum info
-    updateHeaderWithCurrentSpectrum();
+    // Update progress indicators
+    updateProgressIndicators();
+    
+    // Update current question number
+    document.getElementById('current-question').textContent = (currentSpectrumIndex * 2 + 1);
+    document.getElementById('total-questions').textContent = assessmentData.typologySpectrums.length * 2;
+}
+
+// Helper function to update progress indicators
+function updateProgressIndicators() {
+    const container = document.getElementById('progress-indicators');
+    if (!container) return;
+    
+    container.innerHTML = '';
+    
+    // Create indicators for each spectrum
+    assessmentData.typologySpectrums.forEach((spectrum, index) => {
+        const indicator = document.createElement('div');
+        
+        if (index === currentSpectrumIndex) {
+            indicator.className = 'h-3 w-px bg-amber-400';
+        } else {
+            indicator.className = 'h-3 w-px bg-stone-300';
+        }
+        
+        container.appendChild(indicator);
+    });
 }
 
 // Generate Part 1: Typology Questions (initial setup only)
