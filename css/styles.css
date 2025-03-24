@@ -37,7 +37,7 @@ h1, h2, h3, h4, h5 {
 /* h1 initial declaration (includes color from the reset) */
 h1 {
     /* Originally set to 2.5rem with 0.5rem margin but then refined */
-    font-size: 2.75rem;  /* Claude’s refinement overrides 2.5rem */
+    font-size: 2.75rem;  /* Claude's refinement overrides 2.5rem */
     margin-bottom: 0.75rem; /* refined margin */
     color: #292524;
     line-height: 1.2;
@@ -47,7 +47,7 @@ h1 {
 
 /* h3 with .text-xl class */
 h3.text-xl {
-    font-size: 1.35rem; /* from Claude’s snippet */
+    font-size: 1.35rem; /* from Claude's snippet */
     margin-bottom: 1.25rem;
     color: #3a3836;
 }
@@ -74,7 +74,7 @@ p {
     border-radius: 8px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-/* Claude’s enhancement for .introduction overrides some properties */
+/* Claude's enhancement for .introduction overrides some properties */
 .introduction {
     max-width: 850px;
     padding: 3rem;
@@ -90,7 +90,7 @@ p {
 }
 
 .introduction h3 {
-    font-size: 1.75rem;  /* from Claude’s refinement */
+    font-size: 1.75rem;  /* from Claude's refinement */
     margin-bottom: 1.5rem;
     font-weight: 300;
     color: #2c3e50;
@@ -434,7 +434,7 @@ p {
   8. MASTERY QUESTIONS STYLING
 *************************************/
 .mastery-section {
-    margin-bottom: 4rem; /* Claude’s override for bigger margin */
+    margin-bottom: 4rem; /* Claude's override for bigger margin */
     padding-bottom: 1rem;
 }
 .section-title {
@@ -1047,7 +1047,7 @@ p {
 /*************************************
   RESULTS SPECTRUM SLIDER CLASSES (Renamed)
 *************************************/
-/* The following block duplicates all the .spectrum-* selectors with a new prefix “.results-spectrum-” */
+/* The following block duplicates all the .spectrum-* selectors with a new prefix ".results-spectrum-" */
 
 .results-spectrum-visualization {
     margin-bottom: 3rem;
@@ -1118,4 +1118,3 @@ p {
 .results-spectrum-item:hover .results-spectrum-marker-dot {
     transform: translate(-50%, 50%) scale(1.2);
 }
-
