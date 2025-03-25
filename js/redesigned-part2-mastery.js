@@ -1,4 +1,4 @@
-=// redesigned-part2-mastery.js
+// redesigned-part2-mastery.js
 // This file handles the Mastery Assessment (Part 2) functionality
 // for the Reality Creation Assessment
 
