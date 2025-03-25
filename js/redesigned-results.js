@@ -295,23 +295,16 @@ const commonMisalignments = {
 
 // Main function to generate and display results
 function generateAndDisplayResults() {
-    // Calculate typology scores from Part 1
-    const typologyResults = calculateTypologyScores();
-    const spectrumPlacements = typologyResults.placements;
-    
-    // Calculate mastery scores from Part 2
-    const masteryScores = calculateMasteryScores();
-    const dominantValues = determineDominantValues(masteryScores);
-    
-    // Determine typology pair
-    const typologyPair = determineTypologyPair(spectrumPlacements, dominantValues);
+    // Get all results data using the consolidated function
+    const resultsData = generateCompleteResults();
+    const { spectrumPlacements, typologyPair, dominantValues } = resultsData;
     
     // Generate sections
     generateTypologyPairSection(typologyPair);
     generateSpectrumDiagram(spectrumPlacements, typologyPair);
     generateIdealApproachesSection(typologyPair);
     generateMisalignmentsSection(typologyPair);
-    generateMasteryPrioritiesSection(masteryScores, dominantValues);
+    generateMasteryPrioritiesSection(resultsData.masteryScores, dominantValues);
     generateStrategySection(typologyPair, dominantValues);
     
     // Initialize expandable sections and UI enhancements
