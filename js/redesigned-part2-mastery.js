@@ -538,17 +538,12 @@ function determineDominantValues(masteryScores) {
     if (Object.keys(scoreCategory).length === 0) {
       return [];
     }
-
-    // Find the maximum score
     const maxScore = Math.max(...Object.values(scoreCategory));
-
-    // Get all values with the maximum score
     return Object.entries(scoreCategory)
       .filter(([, score]) => score === maxScore)
       .map(([value]) => value);
   }
 
-  // Determine the dominant values for each category
   dominantValues.corePriorities = getDominantValues(masteryScores.corePriorities);
   dominantValues.growthAreas = getDominantValues(masteryScores.growthAreas);
   dominantValues.alignmentNeeds = getDominantValues(masteryScores.alignmentNeeds);
@@ -563,14 +558,13 @@ document.addEventListener('DOMContentLoaded', function() {
   const progressContainer = document.querySelector('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6');
   if (progressContainer) {
     progressContainer.innerHTML = ''; // Clear existing indicators
-
-    // Create indicators for each section
     masterySections.forEach((section, index) => {
       const indicator = document.createElement('div');
       indicator.className = `h-3 w-px ${index === 0 ? 'bg-amber-400' : 'bg-stone-300'}`;
       progressContainer.appendChild(indicator);
     });
   }
+  fixCSSIssues();
 });
 
 // Make these functions available in the global scope for other files
@@ -583,10 +577,10 @@ function generateMasteryQuestions() {
   const container = document.getElementById('mastery-questions');
   container.innerHTML = '';
   const currentSection = masterySections[currentSectionIndex];
-  console.log("Generating questions for section:", currentSection,"Current section data:", JSON.stringify(masterySections[currentSectionIndex], null, 2));
+  console.log("Generating questions for section:", currentSection, "Current section data:", JSON.stringify(currentSection, null, 2));
 
   currentSection.questions.forEach((question, questionIndex) => {
-      console.log(`Creating question ${questionIndex + 1} with ID ${question.id}`);
+    console.log(`Creating question ${questionIndex + 1} with ID ${question.id}`);
     // Create question container
     const questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
@@ -634,7 +628,6 @@ function generateMasteryQuestions() {
 
     // Add options
     question.options.forEach(option => {
-      // Create option container
       const optionContainer = document.createElement('div');
       optionContainer.className = `group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300
                 ${userResponses.mastery && userResponses.mastery[question.id] === option.value 
@@ -695,11 +688,12 @@ function generateMasteryQuestions() {
     container.appendChild(questionContainer);
   });
 
-  // Update section header
+  // Update section header and navigation buttons
   updateSectionHeader();
-
-  // Initialize navigation buttons
   initSectionNavigation();
+
+  // Call showActiveQuestion to ensure only the active question is visible
+  showActiveQuestion();
 }
 
 // Handle mastery option selection
@@ -716,20 +710,13 @@ function selectMasteryOption(element, questionId, optionValue) {
 
   // Reset all options
   allOptions.forEach(option => {
-    // Reset container styles
     option.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 border-l-2 border-transparent hover:bg-white hover:shadow-sm';
-
-    // Reset radio button
     const radio = option.querySelector('.rounded-full');
     if (radio) {
       radio.className = 'mt-1 h-4 w-4 shrink-0 rounded-full border transition-all duration-300 border-stone-300 group-hover:border-amber-300';
-
-      // Remove dot if exists
       const dot = radio.querySelector('.flex');
       if (dot) dot.remove();
     }
-
-    // Reset text
     const text = option.querySelector('p');
     if (text) {
       text.className = 'text-base font-light text-stone-600 group-hover:text-stone-700';
@@ -738,53 +725,29 @@ function selectMasteryOption(element, questionId, optionValue) {
 
   // Set selected styles
   element.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 bg-amber-50 border-l-2 border-amber-400 shadow-sm';
-
-  // Update radio button
   const radio = element.querySelector('.rounded-full');
   if (radio) {
     radio.className = 'mt-1 h-4 w-4 shrink-0 rounded-full border transition-all duration-300 border-amber-400 bg-amber-400';
-
-    // Add dot if not exists
     if (!radio.querySelector('.flex')) {
       const radioDot = document.createElement('div');
       radioDot.className = 'flex h-full items-center justify-center';
-
       const innerDot = document.createElement('div');
       innerDot.className = 'h-1.5 w-1.5 rounded-full bg-white';
-
       radioDot.appendChild(innerDot);
       radio.appendChild(radioDot);
     }
   }
-
-  // Update text
-const text = element.querySelector('p');
-if (text) {
-  text.className = 'text-base font-light text-stone-800';
-}
-
+  const text = element.querySelector('p');
+  if (text) {
+    text.className = 'text-base font-light text-stone-800';
+  }
 
   // Update navigation button state
   updateNavigationButtons();
 }
 
-// Make sure the current question is active
-const currentQuestion = element.closest('.question-container');
-if (currentQuestion) {
-  currentQuestion.classList.add('active');
-}
-
-const allQuestions = container.querySelectorAll('.question-container');
-console.log(`Generated ${allQuestions.length} questions. Setting display style.`);
-  
-allQuestions.forEach((q, index) => {
-  // Make sure CSS display property is explicitly set
-  q.style.display = index === 0 ? 'block' : 'none';
-  q.classList.toggle('active', index === 0);
-});
-
+// Update section header details and progress indicators
 function updateSectionHeader() {
-  // Get header elements
   var currentSectionElement = document.getElementById('current-section');
   var totalSectionsElement = document.getElementById('total-sections');
   var sectionTitleElement = document.getElementById('section-title');
@@ -792,7 +755,6 @@ function updateSectionHeader() {
   var sectionNumberElement = document.getElementById('section-number');
   var progressFillElement = document.getElementById('progress-fill-part2');
   
-  // Check and update current and total sections if elements exist
   if (currentSectionElement) {
     currentSectionElement.textContent = currentSectionIndex + 1;
   } else {
@@ -800,15 +762,13 @@ function updateSectionHeader() {
   }
   
   if (totalSectionsElement) {
-    totalSectionsElement.textContent = masterySections ? masterySections.length : totalSections;
+    totalSectionsElement.textContent = masterySections ? masterySections.length : '';
   } else {
     console.warn("Element with id 'total-sections' not found.");
   }
   
-  // Assuming masterySections and currentSectionIndex are defined
   const currentSection = masterySections[currentSectionIndex];
   
-  // Update title and description if elements exist
   if (sectionTitleElement) {
     sectionTitleElement.textContent = currentSection.title;
   }
@@ -819,12 +779,10 @@ function updateSectionHeader() {
     sectionNumberElement.textContent = currentSectionIndex + 1;
   }
   
-  // Update progress bar
   if (progressFillElement) {
     progressFillElement.style.width = `${currentSection.progress}%`;
   }
   
-  // Update bottom progress indicators
   const progressDots = document.querySelectorAll('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6 .h-3.w-px');
   if (progressDots && progressDots.length > 0) {
     progressDots.forEach((dot, index) => {
@@ -833,41 +791,33 @@ function updateSectionHeader() {
   }
 }
 
-// Initialize section navigation
+// Initialize section navigation and button events
 function initSectionNavigation() {
-  // Get navigation buttons
   const prevSectionBtn = document.getElementById('prev-section-btn');
   const nextSectionBtn = document.getElementById('next-section-btn');
   const part2PrevBtn = document.getElementById('part2-prev');
   const submitBtn = document.getElementById('submit-assessment');
 
-  // Update visibility based on current section
   if (currentSectionIndex === 0) {
-    // First section - show Part 1 button, hide prev section button
     part2PrevBtn.style.display = 'flex';
     prevSectionBtn.style.display = 'none';
   } else {
-    // Not first section - hide Part 1 button, show prev section button
     part2PrevBtn.style.display = 'none';
     prevSectionBtn.style.display = 'flex';
   }
 
   if (currentSectionIndex === masterySections.length - 1) {
-    // Last section - hide next section button, show submit button
     nextSectionBtn.style.display = 'none';
     submitBtn.style.display = 'flex';
   } else {
-    // Not last section - show next section button, hide submit button
     nextSectionBtn.style.display = 'flex';
     submitBtn.style.display = 'none';
   }
 
-  // Add event listeners
   prevSectionBtn.onclick = prevSection;
   nextSectionBtn.onclick = nextSection;
   submitBtn.onclick = submitAssessment;
 
-  // Update button states based on question completion
   updateNavigationButtons();
 }
 
@@ -879,14 +829,12 @@ function prevSection() {
   }
 }
 
-// Go to next section
+// Go to next section with detailed logging and DOM verification
 function nextSection() {
   console.log("Starting nextSection(). Current index:", currentSectionIndex);
   
-  // Check if all questions in current section are answered
   const currentSection = masterySections[currentSectionIndex];
   let unansweredQuestions = 0;
-
   currentSection.questions.forEach(question => {
     if (!userResponses.mastery || !userResponses.mastery[question.id]) {
       unansweredQuestions++;
@@ -903,19 +851,16 @@ function nextSection() {
     console.log("Incremented to section:", currentSectionIndex);
     generateMasteryQuestions();
     
-    // Verify DOM after generation
     const container = document.getElementById('mastery-questions');
     console.log("Container after generation:", container);
     console.log("Number of questions created:", container.querySelectorAll('.question-container').length);
   }
 }
 
-// Submit the assessment and show results
+// Submit the assessment after verifying completion
 function submitAssessment() {
-  // Check if all questions in current section are answered
   const currentSection = masterySections[currentSectionIndex];
   let unansweredQuestions = 0;
-
   currentSection.questions.forEach(question => {
     if (!userResponses.mastery || !userResponses.mastery[question.id]) {
       unansweredQuestions++;
@@ -931,17 +876,14 @@ function submitAssessment() {
   showResults();
 }
 
-// Update navigation button states based on question completion
+// Update navigation button states based on completion of questions
 function updateNavigationButtons() {
   const nextSectionBtn = document.getElementById('next-section-btn');
   const submitBtn = document.getElementById('submit-assessment');
-
-  // Get current section questions
   const currentSection = masterySections[currentSectionIndex];
   const allAnswered = currentSection.questions.every(question => userResponses.mastery && userResponses.mastery[question.id]);
 
   if (currentSectionIndex === masterySections.length - 1) {
-    // Final section - update submit button
     if (allAnswered) {
       submitBtn.classList.remove('text-stone-400', 'cursor-not-allowed');
       submitBtn.classList.add('text-stone-700', 'hover:text-amber-700');
@@ -950,7 +892,6 @@ function updateNavigationButtons() {
       submitBtn.classList.remove('text-stone-700', 'hover:text-amber-700');
     }
   } else {
-    // Not final section - update next button
     if (allAnswered) {
       nextSectionBtn.classList.remove('text-stone-400', 'cursor-not-allowed');
       nextSectionBtn.classList.add('text-stone-700');
@@ -959,4 +900,47 @@ function updateNavigationButtons() {
       nextSectionBtn.classList.remove('text-stone-700');
     }
   }
+}
+
+// Ensure only the active question is visible
+function showActiveQuestion() {
+  const container = document.getElementById('mastery-questions');
+  if (!container) return;
+  
+  const questions = container.querySelectorAll('.question-container');
+  if (questions.length === 0) return;
+  
+  let activeFound = false;
+  questions.forEach(question => {
+    if (question.classList.contains('active')) {
+      question.style.display = 'block';
+      activeFound = true;
+    } else {
+      question.style.display = 'none';
+    }
+  });
+  
+  if (!activeFound && questions.length > 0) {
+    questions[0].classList.add('active');
+    questions[0].style.display = 'block';
+  }
+  
+  console.log("Updated question display. Active question found:", activeFound);
+}
+
+// Override any problematic CSS rules directly via JS
+function fixCSSIssues() {
+  const style = document.createElement('style');
+  style.textContent = `
+    /* Override any problematic CSS rules */
+    #mastery-questions .question-container {
+      display: none;
+    }
+    
+    #mastery-questions .question-container.active {
+      display: block !important;
+    }
+  `;
+  document.head.appendChild(style);
+  console.log("Added CSS overrides");
 }
