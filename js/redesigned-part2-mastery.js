@@ -496,7 +496,6 @@ function calculateMasteryScores() {
     energyPatterns: {}
   };
 
-  // For each answered question ID → chosen value
   for (const [questionId, chosenValue] of Object.entries(userResponses.mastery)) {
     if (questionId.startsWith("core-")) {
       if (!result.corePriorities[chosenValue]) {
@@ -533,7 +532,6 @@ function determineDominantValues(masteryScores) {
     energyPatterns: []
   };
 
-  // Helper function to get dominant values from a score category
   function getDominantValues(scoreCategory) {
     if (Object.keys(scoreCategory).length === 0) {
       return [];
@@ -554,10 +552,9 @@ function determineDominantValues(masteryScores) {
 
 // Initialize Part 2 when loaded
 document.addEventListener('DOMContentLoaded', function() {
-  // Initialize bottom progress indicators
   const progressContainer = document.querySelector('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6');
   if (progressContainer) {
-    progressContainer.innerHTML = ''; // Clear existing indicators
+    progressContainer.innerHTML = '';
     masterySections.forEach((section, index) => {
       const indicator = document.createElement('div');
       indicator.className = `h-3 w-px ${index === 0 ? 'bg-amber-400' : 'bg-stone-300'}`;
@@ -567,7 +564,7 @@ document.addEventListener('DOMContentLoaded', function() {
   fixCSSIssues();
 });
 
-// Make these functions available in the global scope for other files
+// Make these functions available globally
 window.generateMasteryQuestions = generateMasteryQuestions;
 window.calculateMasteryScores = calculateMasteryScores;
 window.determineDominantValues = determineDominantValues;
@@ -585,6 +582,8 @@ function generateMasteryQuestions() {
     const questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
     questionContainer.dataset.questionId = question.id;
+    // IMPORTANT: Make all questions visible by default
+    questionContainer.style.display = 'block';
 
     // Create question grid
     const questionGrid = document.createElement('div');
@@ -615,11 +614,9 @@ function generateMasteryQuestions() {
 
     questionTextCol.appendChild(questionText);
 
-    // Add columns to question grid
+    // Assemble question grid
     questionGrid.appendChild(questionNumberCol);
     questionGrid.appendChild(questionTextCol);
-
-    // Add question grid to container
     questionContainer.appendChild(questionGrid);
 
     // Create options container
@@ -653,10 +650,8 @@ function generateMasteryQuestions() {
       if (userResponses.mastery && userResponses.mastery[question.id] === option.value) {
         const radioDot = document.createElement('div');
         radioDot.className = 'flex h-full items-center justify-center';
-
         const innerDot = document.createElement('div');
         innerDot.className = 'h-1.5 w-1.5 rounded-full bg-white';
-
         radioDot.appendChild(innerDot);
         radioContainer.appendChild(radioDot);
       }
@@ -665,7 +660,6 @@ function generateMasteryQuestions() {
       const textContainer = document.createElement('div');
       textContainer.className = 'ml-4';
 
-      // Create option text
       const optionText = document.createElement('p');
       optionText.className = `text-base font-light ${
         userResponses.mastery && userResponses.mastery[question.id] === option.value 
@@ -674,17 +668,14 @@ function generateMasteryQuestions() {
       }`;
       optionText.textContent = option.text;
 
-      // Assemble option
       textContainer.appendChild(optionText);
       optionContainer.appendChild(radioContainer);
       optionContainer.appendChild(textContainer);
       optionsContainer.appendChild(optionContainer);
     });
 
-    // Add options to question container
+    // Add options to question container and append to main container
     questionContainer.appendChild(optionsContainer);
-
-    // Add to main container
     container.appendChild(questionContainer);
   });
 
@@ -692,23 +683,23 @@ function generateMasteryQuestions() {
   updateSectionHeader();
   initSectionNavigation();
 
-  // Call showActiveQuestion to ensure only the active question is visible
-  showActiveQuestion();
+  // Ensure all questions are visible in this section:
+  const allQuestions = container.querySelectorAll('.question-container');
+  allQuestions.forEach(question => {
+    question.style.display = 'block';
+  });
 }
 
 // Handle mastery option selection
 function selectMasteryOption(element, questionId, optionValue) {
-  // Update user responses
   if (!userResponses.mastery) {
     userResponses.mastery = {};
   }
   userResponses.mastery[questionId] = optionValue;
   
-  // Find all options for this question
   const question = element.closest('.question-container');
   const allOptions = question.querySelectorAll('.group.relative.flex');
 
-  // Reset all options
   allOptions.forEach(option => {
     option.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 border-l-2 border-transparent hover:bg-white hover:shadow-sm';
     const radio = option.querySelector('.rounded-full');
@@ -723,7 +714,6 @@ function selectMasteryOption(element, questionId, optionValue) {
     }
   });
 
-  // Set selected styles
   element.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 bg-amber-50 border-l-2 border-amber-400 shadow-sm';
   const radio = element.querySelector('.rounded-full');
   if (radio) {
@@ -742,11 +732,10 @@ function selectMasteryOption(element, questionId, optionValue) {
     text.className = 'text-base font-light text-stone-800';
   }
 
-  // Update navigation button state
   updateNavigationButtons();
 }
 
-// Update section header details and progress indicators
+// Update section header and progress indicators
 function updateSectionHeader() {
   var currentSectionElement = document.getElementById('current-section');
   var totalSectionsElement = document.getElementById('total-sections');
@@ -829,7 +818,7 @@ function prevSection() {
   }
 }
 
-// Go to next section with detailed logging and DOM verification
+// Go to next section with logging and DOM verification
 function nextSection() {
   console.log("Starting nextSection(). Current index:", currentSectionIndex);
   
@@ -876,7 +865,7 @@ function submitAssessment() {
   showResults();
 }
 
-// Update navigation button states based on completion of questions
+// Update navigation button states based on question completion
 function updateNavigationButtons() {
   const nextSectionBtn = document.getElementById('next-section-btn');
   const submitBtn = document.getElementById('submit-assessment');
@@ -902,45 +891,15 @@ function updateNavigationButtons() {
   }
 }
 
-// Ensure only the active question is visible
-function showActiveQuestion() {
-  const container = document.getElementById('mastery-questions');
-  if (!container) return;
-  
-  const questions = container.querySelectorAll('.question-container');
-  if (questions.length === 0) return;
-  
-  let activeFound = false;
-  questions.forEach(question => {
-    if (question.classList.contains('active')) {
-      question.style.display = 'block';
-      activeFound = true;
-    } else {
-      question.style.display = 'none';
-    }
-  });
-  
-  if (!activeFound && questions.length > 0) {
-    questions[0].classList.add('active');
-    questions[0].style.display = 'block';
-  }
-  
-  console.log("Updated question display. Active question found:", activeFound);
-}
-
-// Override any problematic CSS rules directly via JS
+// Override any problematic CSS rules to show ALL questions
 function fixCSSIssues() {
   const style = document.createElement('style');
   style.textContent = `
-    /* Override any problematic CSS rules */
+    /* Show ALL questions in each section */
     #mastery-questions .question-container {
-      display: none;
-    }
-    
-    #mastery-questions .question-container.active {
       display: block !important;
     }
   `;
   document.head.appendChild(style);
-  console.log("Added CSS overrides");
+  console.log("Added CSS overrides to show all questions");
 }
