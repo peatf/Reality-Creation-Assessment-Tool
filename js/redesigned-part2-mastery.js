@@ -858,23 +858,40 @@ function prevSection() {
 }
 
 // Move to the next section (used when on the last question and all questions are answered)
+// In redesigned-part2-mastery.js
+// Update the nextSection function to properly handle question navigation
+
 function nextSection() {
+  console.log("Starting nextSection(). Current index:", currentSectionIndex);
+  
+  // Check if all questions in current section are answered
   const container = document.getElementById('mastery-questions');
   const questions = container.querySelectorAll('.question-container');
   let unanswered = 0;
+  
   questions.forEach(q => {
     if (!userResponses.mastery || !userResponses.mastery[q.dataset.questionId]) {
       unanswered++;
     }
   });
+  
   if (unanswered > 0) {
     alert(`Please answer all questions in this section before continuing. You have ${unanswered} unanswered questions.`);
     return;
   }
+  
   if (currentSectionIndex < masterySections.length - 1) {
     currentSectionIndex++;
+    console.log("Incremented to section:", currentSectionIndex);
     generateMasteryQuestions();
-    console.log("Moved to section:", currentSectionIndex);
+    
+    // Force all questions to be visible
+    const questionsAfterGeneration = document.querySelectorAll('#mastery-questions .question-container');
+    questionsAfterGeneration.forEach(q => {
+      q.style.display = 'block';
+    });
+    
+    console.log("Number of questions created:", questionsAfterGeneration.length);
   }
 }
 
