@@ -679,31 +679,31 @@ function nextQuestion() {
   const container = document.getElementById('mastery-questions');
   const questions = container.querySelectorAll('.question-container');
   const activeIndex = getActiveQuestionIndex();
+  
   if (activeIndex === -1) return;
 
   const currentQuestion = questions[activeIndex];
   const questionId = currentQuestion.dataset.questionId;
-  // Ensure the current question is answered
+  
+  // Check if the current question is answered
   if (!userResponses.mastery || !userResponses.mastery[questionId]) {
     alert("Please answer this question before continuing.");
     return;
   }
+  
   if (activeIndex < questions.length - 1) {
     // Move to next question within section
     currentQuestion.classList.remove('active');
     questions[activeIndex + 1].classList.add('active');
     showActiveQuestion();
+    updateNavigationButtons(); // Update button visibility after changing questions
   } else {
-    // On last question; check that all questions in section are answered
-    let unanswered = 0;
-    questions.forEach(q => {
-      if (!userResponses.mastery || !userResponses.mastery[q.dataset.questionId]) {
-        unanswered++;
-      }
-    });
-    if (unanswered > 0) {
-      alert(`Please answer all questions in this section before continuing. You have ${unanswered} unanswered questions.`);
+    // On last question
+    if (currentSectionIndex === masterySections.length - 1) {
+      // If this is the last section, show submit button
+      updateNavigationButtons();
     } else {
+      // Otherwise move to next section
       nextSection();
     }
   }
@@ -838,6 +838,17 @@ function initSectionNavigation() {
   updateNavigationButtons();
 }
 
+// Helper function to update the question counter
+function updateQuestionCounter(currentIndex, totalQuestions) {
+  const currentQuestionElement = document.getElementById('current-question');
+  const totalQuestionsElement = document.getElementById('total-questions');
+  
+  if (currentQuestionElement && totalQuestionsElement) {
+    currentQuestionElement.textContent = currentIndex + 1;
+    totalQuestionsElement.textContent = totalQuestions;
+  }
+}
+
 // Go to previous section (if at the beginning of the current section)
 function prevSection() {
   if (currentSectionIndex > 0) {
@@ -889,15 +900,23 @@ function updateNavigationButtons() {
   const nextBtn = document.getElementById('next-section-btn');
   const submitBtn = document.getElementById('submit-assessment');
   const container = document.getElementById('mastery-questions');
+  
+  if (!container) return;
+  
   const questions = container.querySelectorAll('.question-container');
   const activeIndex = getActiveQuestionIndex();
+  
+  // Only show submit button on the last question of the last section
   if (currentSectionIndex === masterySections.length - 1 && activeIndex === questions.length - 1) {
-    nextBtn.classList.add('hidden');
-    submitBtn.classList.remove('hidden');
+    nextBtn.style.display = 'none';  // Hide next button
+    submitBtn.style.display = 'flex'; // Show submit button
   } else {
-    nextBtn.classList.remove('hidden');
-    submitBtn.classList.add('hidden');
+    nextBtn.style.display = 'flex';  // Show next button
+    submitBtn.style.display = 'none'; // Hide submit button
   }
+  
+  // Update the question counter
+  updateQuestionCounter(activeIndex, questions.length);
 }
 
 // Enforce one-question-at-a-time display based on active class
