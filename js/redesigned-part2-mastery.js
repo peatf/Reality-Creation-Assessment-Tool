@@ -487,15 +487,12 @@ function calculateMasteryScores() {
       energyPatterns: {}
     };
   }
-
-  // Group answers into categories based on question IDs
   const result = {
     corePriorities: {},
     growthAreas: {},
     alignmentNeeds: {},
     energyPatterns: {}
   };
-
   for (const [questionId, chosenValue] of Object.entries(userResponses.mastery)) {
     if (questionId.startsWith("core-")) {
       if (!result.corePriorities[chosenValue]) {
@@ -519,7 +516,6 @@ function calculateMasteryScores() {
       result.energyPatterns[chosenValue]++;
     }
   }
-
   return result;
 }
 
@@ -531,7 +527,6 @@ function determineDominantValues(masteryScores) {
     alignmentNeeds: [],
     energyPatterns: []
   };
-
   function getDominantValues(scoreCategory) {
     if (Object.keys(scoreCategory).length === 0) {
       return [];
@@ -541,12 +536,10 @@ function determineDominantValues(masteryScores) {
       .filter(([, score]) => score === maxScore)
       .map(([value]) => value);
   }
-
   dominantValues.corePriorities = getDominantValues(masteryScores.corePriorities);
   dominantValues.growthAreas = getDominantValues(masteryScores.growthAreas);
   dominantValues.alignmentNeeds = getDominantValues(masteryScores.alignmentNeeds);
   dominantValues.energyPatterns = getDominantValues(masteryScores.energyPatterns);
-
   return dominantValues;
 }
 
@@ -582,9 +575,11 @@ function generateMasteryQuestions() {
     const questionContainer = document.createElement('div');
     questionContainer.className = 'question-container';
     questionContainer.dataset.questionId = question.id;
-    // IMPORTANT: Make all questions visible by default
-    questionContainer.style.display = 'block';
-
+    // IMPORTANT: For one-question-at-a-time, add active only to the first question
+    if (questionIndex === 0) {
+      questionContainer.classList.add('active');
+    }
+    
     // Create question grid
     const questionGrid = document.createElement('div');
     questionGrid.className = 'grid grid-cols-12 gap-4 mb-8';
@@ -614,7 +609,7 @@ function generateMasteryQuestions() {
 
     questionTextCol.appendChild(questionText);
 
-    // Assemble question grid
+    // Assemble question grid and add to container
     questionGrid.appendChild(questionNumberCol);
     questionGrid.appendChild(questionTextCol);
     questionContainer.appendChild(questionGrid);
@@ -646,7 +641,7 @@ function generateMasteryQuestions() {
           : 'border-stone-300 group-hover:border-amber-300'
       }`;
 
-      // Add dot for selected state
+      // Add dot for selected state if applicable
       if (userResponses.mastery && userResponses.mastery[question.id] === option.value) {
         const radioDot = document.createElement('div');
         radioDot.className = 'flex h-full items-center justify-center';
@@ -674,7 +669,7 @@ function generateMasteryQuestions() {
       optionsContainer.appendChild(optionContainer);
     });
 
-    // Add options to question container and append to main container
+    // Add options container to question container and then to main container
     questionContainer.appendChild(optionsContainer);
     container.appendChild(questionContainer);
   });
@@ -683,11 +678,8 @@ function generateMasteryQuestions() {
   updateSectionHeader();
   initSectionNavigation();
 
-  // Ensure all questions are visible in this section:
-  const allQuestions = container.querySelectorAll('.question-container');
-  allQuestions.forEach(question => {
-    question.style.display = 'block';
-  });
+  // Call showActiveQuestion() to enforce one-question-at-a-time display
+  showActiveQuestion();
 }
 
 // Handle mastery option selection
@@ -731,11 +723,10 @@ function selectMasteryOption(element, questionId, optionValue) {
   if (text) {
     text.className = 'text-base font-light text-stone-800';
   }
-
   updateNavigationButtons();
 }
 
-// Update section header and progress indicators
+// Update section header details and progress indicators
 function updateSectionHeader() {
   var currentSectionElement = document.getElementById('current-section');
   var totalSectionsElement = document.getElementById('total-sections');
@@ -891,15 +882,47 @@ function updateNavigationButtons() {
   }
 }
 
-// Override any problematic CSS rules to show ALL questions
+// Function to ensure only the active question is visible (one-question-at-a-time)
+function showActiveQuestion() {
+  const container = document.getElementById('mastery-questions');
+  if (!container) return;
+  
+  const questions = container.querySelectorAll('.question-container');
+  if (questions.length === 0) return;
+  
+  let activeFound = false;
+  questions.forEach(question => {
+    if (question.classList.contains('active')) {
+      question.style.display = 'block';
+      activeFound = true;
+    } else {
+      question.style.display = 'none';
+    }
+  });
+  
+  // If no active question is found, default to the first question
+  if (!activeFound && questions.length > 0) {
+    questions[0].classList.add('active');
+    questions[0].style.display = 'block';
+  }
+  
+  console.log("Updated question display. Active question found:", activeFound);
+}
+
+// Override CSS rules to show only active question
 function fixCSSIssues() {
   const style = document.createElement('style');
   style.textContent = `
-    /* Show ALL questions in each section */
+    /* Hide all question containers by default */
     #mastery-questions .question-container {
+      display: none;
+    }
+    
+    /* Force display of the active question */
+    #mastery-questions .question-container.active {
       display: block !important;
     }
   `;
   document.head.appendChild(style);
-  console.log("Added CSS overrides to show all questions");
+  console.log("Added CSS overrides to support one-question-at-a-time display");
 }
