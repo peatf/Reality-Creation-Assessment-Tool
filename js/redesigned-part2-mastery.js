@@ -1,4 +1,4 @@
-// redesigned-part2-mastery.js
+=// redesigned-part2-mastery.js
 // This file handles the Mastery Assessment (Part 2) functionality
 // for the Reality Creation Assessment
 
@@ -487,12 +487,16 @@ function calculateMasteryScores() {
       energyPatterns: {}
     };
   }
+
+  // Group answers into categories based on question IDs
   const result = {
     corePriorities: {},
     growthAreas: {},
     alignmentNeeds: {},
     energyPatterns: {}
   };
+
+  // For each answered question ID → chosen value
   for (const [questionId, chosenValue] of Object.entries(userResponses.mastery)) {
     if (questionId.startsWith("core-")) {
       if (!result.corePriorities[chosenValue]) {
@@ -516,6 +520,7 @@ function calculateMasteryScores() {
       result.energyPatterns[chosenValue]++;
     }
   }
+
   return result;
 }
 
@@ -527,19 +532,28 @@ function determineDominantValues(masteryScores) {
     alignmentNeeds: [],
     energyPatterns: []
   };
+
+  // Helper function to get dominant values from a score category
   function getDominantValues(scoreCategory) {
     if (Object.keys(scoreCategory).length === 0) {
       return [];
     }
+
+    // Find the maximum score
     const maxScore = Math.max(...Object.values(scoreCategory));
+
+    // Get all values with the maximum score
     return Object.entries(scoreCategory)
       .filter(([, score]) => score === maxScore)
       .map(([value]) => value);
   }
+
+  // Determine the dominant values for each category
   dominantValues.corePriorities = getDominantValues(masteryScores.corePriorities);
   dominantValues.growthAreas = getDominantValues(masteryScores.growthAreas);
   dominantValues.alignmentNeeds = getDominantValues(masteryScores.alignmentNeeds);
   dominantValues.energyPatterns = getDominantValues(masteryScores.energyPatterns);
+
   return dominantValues;
 }
 
@@ -718,6 +732,7 @@ function prevQuestion() {
     questions[activeIndex].classList.remove('active');
     questions[activeIndex - 1].classList.add('active');
     showActiveQuestion();
+    updateNavigationButtons();
   } else {
     prevSection();
   }
@@ -725,12 +740,17 @@ function prevQuestion() {
 
 // Handle mastery option selection
 function selectMasteryOption(element, questionId, optionValue) {
+  // Update user response
   if (!userResponses.mastery) {
     userResponses.mastery = {};
   }
   userResponses.mastery[questionId] = optionValue;
+  
+  // Find all options for this question
   const question = element.closest('.question-container');
   const allOptions = question.querySelectorAll('.group.relative.flex');
+  
+  // Reset all options
   allOptions.forEach(option => {
     option.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 border-l-2 border-transparent hover:bg-white hover:shadow-sm';
     const radio = option.querySelector('.rounded-full');
@@ -744,6 +764,8 @@ function selectMasteryOption(element, questionId, optionValue) {
       text.className = 'text-base font-light text-stone-600 group-hover:text-stone-700';
     }
   });
+  
+  // Apply selected style to clicked option
   element.className = 'group relative flex cursor-pointer items-start p-5 rounded-lg transition-all duration-300 bg-amber-50 border-l-2 border-amber-400 shadow-sm';
   const radio = element.querySelector('.rounded-full');
   if (radio) {
@@ -761,56 +783,103 @@ function selectMasteryOption(element, questionId, optionValue) {
   if (text) {
     text.className = 'text-base font-light text-stone-800';
   }
+  
+  // Update navigation buttons
   updateNavigationButtons();
 }
 
 // Update section header details and progress indicators
 function updateSectionHeader() {
-  var currentSectionElement = document.getElementById('current-section');
-  var totalSectionsElement = document.getElementById('total-sections');
-  var sectionTitleElement = document.getElementById('section-title');
-  var sectionDescriptionElement = document.getElementById('section-description');
-  var sectionNumberElement = document.getElementById('section-number');
-  var progressFillElement = document.getElementById('progress-fill-part2');
+  const currentSectionElement = document.getElementById('current-section');
+  const totalSectionsElement = document.getElementById('total-sections');
+  const sectionTitleElement = document.getElementById('section-title');
+  const sectionDescriptionElement = document.getElementById('section-description');
+  const sectionNumberElement = document.getElementById('section-number');
+  const progressFillElement = document.getElementById('progress-fill-part2');
+  
   if (currentSectionElement) {
     currentSectionElement.textContent = currentSectionIndex + 1;
   } else {
     console.warn("Element with id 'current-section' not found.");
   }
+  
   if (totalSectionsElement) {
     totalSectionsElement.textContent = masterySections ? masterySections.length : '';
   } else {
     console.warn("Element with id 'total-sections' not found.");
   }
+  
   const currentSection = masterySections[currentSectionIndex];
+  
   if (sectionTitleElement) {
     sectionTitleElement.textContent = currentSection.title;
   }
+  
   if (sectionDescriptionElement) {
     sectionDescriptionElement.textContent = currentSection.description;
   }
+  
   if (sectionNumberElement) {
     sectionNumberElement.textContent = currentSectionIndex + 1;
   }
+  
   if (progressFillElement) {
     progressFillElement.style.width = `${currentSection.progress}%`;
   }
+  
   const progressDots = document.querySelectorAll('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6 .h-3.w-px');
   if (progressDots && progressDots.length > 0) {
     progressDots.forEach((dot, index) => {
       dot.className = index === currentSectionIndex ? 'h-3 w-px bg-amber-400' : 'h-3 w-px bg-stone-300';
     });
-  }
-}
-
-// Initialize navigation buttons and assign next/prev question functions
-function initSectionNavigation() {
+  }function initSectionNavigation() {
   const prevBtn = document.getElementById('prev-section-btn');
   const nextBtn = document.getElementById('next-section-btn');
   const part2PrevBtn = document.getElementById('part2-prev');
   const submitBtn = document.getElementById('submit-assessment');
-
-  // For navigation within a section use nextQuestion()/prevQuestion()
+  
+  // Find or create question navigation buttons
+  let nextQuestionBtn = document.getElementById('next-question-btn');
+  let prevQuestionBtn = document.getElementById('prev-question-btn');
+  
+  if (!nextQuestionBtn || !prevQuestionBtn) {
+    const navFooter = document.querySelector('#part2-section .mt-16.pt-6.border-t.border-stone-200 .flex.items-center.justify-between');
+    
+    if (navFooter) {
+      if (!nextQuestionBtn) {
+        nextQuestionBtn = document.createElement('button');
+        nextQuestionBtn.id = 'next-question-btn';
+        nextQuestionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-700';
+        nextQuestionBtn.innerHTML = `
+          Next Question
+          <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
+        `;
+        nextQuestionBtn.onclick = nextQuestion;
+        
+        if (nextBtn && nextBtn.parentNode) {
+          nextBtn.parentNode.insertBefore(nextQuestionBtn, nextBtn);
+        }
+      }
+      
+      if (!prevQuestionBtn) {
+        prevQuestionBtn = document.createElement('button');
+        prevQuestionBtn.id = 'prev-question-btn';
+        prevQuestionBtn.className = 'group flex items-center text-xs font-medium uppercase tracking-widest text-stone-400 transition-all hover:text-stone-700';
+        prevQuestionBtn.innerHTML = `
+          <span class="mr-4 h-px w-8 bg-stone-300 transition-all group-hover:w-12 group-hover:bg-stone-500"></span>
+          Previous Question
+        `;
+        prevQuestionBtn.onclick = prevQuestion;
+        prevQuestionBtn.style.display = 'none';
+        
+        if (prevBtn && prevBtn.parentNode) {
+          prevBtn.parentNode.insertBefore(prevQuestionBtn, prevBtn);
+        }
+      }
+    }
+  }
+  
+  // Setup section navigation
   if (currentSectionIndex === 0) {
     part2PrevBtn.style.display = 'flex';
     prevBtn.style.display = 'none';
@@ -819,23 +888,65 @@ function initSectionNavigation() {
     prevBtn.style.display = 'flex';
   }
   
-  // If we're in the last section and on its last question, show submit button instead of next button
-  const container = document.getElementById('mastery-questions');
-  const questions = container ? container.querySelectorAll('.question-container') : [];
-  const activeIndex = getActiveQuestionIndex();
-  if (currentSectionIndex === masterySections.length - 1 && activeIndex === questions.length - 1) {
-    nextBtn.style.display = 'none';
-    submitBtn.style.display = 'flex';
-  } else {
-    nextBtn.style.display = 'flex';
-    submitBtn.style.display = 'none';
-  }
-  
-  prevBtn.onclick = prevQuestion;
-  nextBtn.onclick = nextQuestion;
+  prevBtn.onclick = prevSection;
+  nextBtn.onclick = nextSection;
   submitBtn.onclick = submitAssessment;
   
+  // Configure next/prev question buttons
+  const container = document.getElementById('mastery-questions');
+  const questions = container.querySelectorAll('.question-container');
+  const activeIndex = getActiveQuestionIndex();
+  
+  // Show/hide appropriate buttons based on question position
   updateNavigationButtons();
+  
+  // Update question counter
+  const counter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
+  if (counter) {
+    counter.innerHTML = `
+      Question <span id="current-question">${activeIndex + 1}</span> of <span id="total-questions">${questions.length}</span> • Section ${currentSectionIndex + 1} of ${masterySections.length}
+    `;
+  }
+}
+
+// Update navigation button states based on current question status
+function updateNavigationButtons() {
+  const nextBtn = document.getElementById('next-section-btn');
+  const submitBtn = document.getElementById('submit-assessment');
+  const nextQuestionBtn = document.getElementById('next-question-btn');
+  const prevQuestionBtn = document.getElementById('prev-question-btn');
+  const container = document.getElementById('mastery-questions');
+  
+  if (!container) return;
+  
+  const questions = container.querySelectorAll('.question-container');
+  const activeIndex = getActiveQuestionIndex();
+  
+  // Setup prev question button visibility
+  if (prevQuestionBtn) {
+    prevQuestionBtn.style.display = activeIndex > 0 ? 'flex' : 'none';
+  }
+  
+  // Setup next question, next section and submit buttons visibility
+  if (currentSectionIndex === masterySections.length - 1 && activeIndex === questions.length - 1) {
+    // Last question of last section - show submit button only
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (submitBtn) submitBtn.style.display = 'flex';
+    if (nextQuestionBtn) nextQuestionBtn.style.display = 'none';
+  } else if (activeIndex === questions.length - 1) {
+    // Last question of non-final section - show next section button only
+    if (nextBtn) nextBtn.style.display = 'flex';
+    if (submitBtn) submitBtn.style.display = 'none';
+    if (nextQuestionBtn) nextQuestionBtn.style.display = 'none';
+  } else {
+    // Middle questions - show next question button only
+    if (nextBtn) nextBtn.style.display = 'none';
+    if (submitBtn) submitBtn.style.display = 'none';
+    if (nextQuestionBtn) nextQuestionBtn.style.display = 'flex';
+  }
+  
+  // Update the question counter
+  updateQuestionCounter(activeIndex, questions.length);
 }
 
 // Helper function to update the question counter
@@ -851,97 +962,77 @@ function updateQuestionCounter(currentIndex, totalQuestions) {
 
 // Go to previous section (if at the beginning of the current section)
 function prevSection() {
+  console.log("prevSection called. Current index:", currentSectionIndex);
   if (currentSectionIndex > 0) {
     currentSectionIndex--;
     generateMasteryQuestions();
+    console.log("Moved to previous section:", currentSectionIndex);
   }
 }
 
 // Move to the next section (used when on the last question and all questions are answered)
-// In redesigned-part2-mastery.js
-// Update the nextSection function to properly handle question navigation
-
 function nextSection() {
-  console.log("Starting nextSection(). Current index:", currentSectionIndex);
+  console.log("nextSection called. Current index:", currentSectionIndex);
   
   // Check if all questions in current section are answered
   const container = document.getElementById('mastery-questions');
   const questions = container.querySelectorAll('.question-container');
   let unanswered = 0;
+  let unansweredIds = [];
   
   questions.forEach(q => {
     if (!userResponses.mastery || !userResponses.mastery[q.dataset.questionId]) {
       unanswered++;
+      unansweredIds.push(q.dataset.questionId);
     }
   });
   
   if (unanswered > 0) {
+    console.log("Unanswered questions:", unansweredIds);
     alert(`Please answer all questions in this section before continuing. You have ${unanswered} unanswered questions.`);
     return;
   }
   
   if (currentSectionIndex < masterySections.length - 1) {
     currentSectionIndex++;
-    console.log("Incremented to section:", currentSectionIndex);
+    console.log("Moving to next section:", currentSectionIndex);
     generateMasteryQuestions();
-    
-    // Force all questions to be visible
-    const questionsAfterGeneration = document.querySelectorAll('#mastery-questions .question-container');
-    questionsAfterGeneration.forEach(q => {
-      q.style.display = 'block';
-    });
-    
-    console.log("Number of questions created:", questionsAfterGeneration.length);
   }
 }
 
 // Submit the assessment after verifying completion of the current section
 function submitAssessment() {
+  console.log("submitAssessment called");
+  
+  // Verify all questions are answered in the final section
   const container = document.getElementById('mastery-questions');
   const questions = container.querySelectorAll('.question-container');
   let unanswered = 0;
+  
   questions.forEach(q => {
     if (!userResponses.mastery || !userResponses.mastery[q.dataset.questionId]) {
       unanswered++;
     }
   });
+  
   if (unanswered > 0) {
-    alert(`Please answer all questions in this section before continuing. You have ${unanswered} unanswered questions.`);
+    alert(`Please answer all questions in this section before submitting. You have ${unanswered} unanswered questions.`);
     return;
   }
+  
+  // All questions answered, proceed to results
+  console.log("All questions answered. Proceeding to results.");
   showResults();
-}
-
-// Update navigation button states based on current question status
-function updateNavigationButtons() {
-  const nextBtn = document.getElementById('next-section-btn');
-  const submitBtn = document.getElementById('submit-assessment');
-  const container = document.getElementById('mastery-questions');
-  
-  if (!container) return;
-  
-  const questions = container.querySelectorAll('.question-container');
-  const activeIndex = getActiveQuestionIndex();
-  
-  // Only show submit button on the last question of the last section
-  if (currentSectionIndex === masterySections.length - 1 && activeIndex === questions.length - 1) {
-    nextBtn.style.display = 'none';  // Hide next button
-    submitBtn.style.display = 'flex'; // Show submit button
-  } else {
-    nextBtn.style.display = 'flex';  // Show next button
-    submitBtn.style.display = 'none'; // Hide submit button
-  }
-  
-  // Update the question counter
-  updateQuestionCounter(activeIndex, questions.length);
 }
 
 // Enforce one-question-at-a-time display based on active class
 function showActiveQuestion() {
   const container = document.getElementById('mastery-questions');
   if (!container) return;
+  
   const questions = container.querySelectorAll('.question-container');
   let activeFound = false;
+  
   questions.forEach(question => {
     if (question.classList.contains('active')) {
       question.style.display = 'block';
@@ -950,10 +1041,12 @@ function showActiveQuestion() {
       question.style.display = 'none';
     }
   });
+  
   if (!activeFound && questions.length > 0) {
     questions[0].classList.add('active');
     questions[0].style.display = 'block';
   }
+  
   console.log("Updated question display. Active question found:", activeFound);
 }
 
@@ -963,7 +1056,7 @@ function fixCSSIssues() {
   style.textContent = `
     /* Hide all question containers by default */
     #mastery-questions .question-container {
-      display: none;
+      display: none !important;
     }
     /* Show the active question */
     #mastery-questions .question-container.active {
