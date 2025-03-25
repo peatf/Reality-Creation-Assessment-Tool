@@ -2,15 +2,6 @@
 // This file handles the results display functionality
 // for the Reality Creation Assessment
 
-// Spectrum priority order (for typology pair determination)
-const SPECTRUM_PRIORITY_ORDER = [
-    'cognitive-alignment',   // How users mentally process reality
-    'kinetic-drive',         // How users take action and generate momentum
-    'choice-navigation',     // Decision-making style
-    'perceptual-focus',      // Clarity and openness in manifestation
-    'resonance-field',       // Emotional interaction in manifestation
-    'manifestation-rhythm'   // Sustainability and adaptability over time
-];
 
 // Typology Descriptions mapping
 const typologyDescriptions = {
