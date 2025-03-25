@@ -789,62 +789,66 @@ function selectMasteryOption(element, questionId, optionValue) {
 }
 
 // Update section header details and progress indicators
-function updateSectionHeader() {
+ function updateSectionHeader() {
   const currentSectionElement = document.getElementById('current-section');
   const totalSectionsElement = document.getElementById('total-sections');
   const sectionTitleElement = document.getElementById('section-title');
   const sectionDescriptionElement = document.getElementById('section-description');
   const sectionNumberElement = document.getElementById('section-number');
   const progressFillElement = document.getElementById('progress-fill-part2');
-  
+
   if (currentSectionElement) {
     currentSectionElement.textContent = currentSectionIndex + 1;
   } else {
     console.warn("Element with id 'current-section' not found.");
   }
-  
+
   if (totalSectionsElement) {
     totalSectionsElement.textContent = masterySections ? masterySections.length : '';
   } else {
     console.warn("Element with id 'total-sections' not found.");
   }
-  
+
   const currentSection = masterySections[currentSectionIndex];
-  
+
   if (sectionTitleElement) {
     sectionTitleElement.textContent = currentSection.title;
   }
-  
+
   if (sectionDescriptionElement) {
     sectionDescriptionElement.textContent = currentSection.description;
   }
-  
+
   if (sectionNumberElement) {
     sectionNumberElement.textContent = currentSectionIndex + 1;
   }
-  
+
   if (progressFillElement) {
     progressFillElement.style.width = `${currentSection.progress}%`;
   }
-  
+
   const progressDots = document.querySelectorAll('#part2-section .absolute.bottom-6 .flex.items-center.space-x-6 .h-3.w-px');
   if (progressDots && progressDots.length > 0) {
     progressDots.forEach((dot, index) => {
       dot.className = index === currentSectionIndex ? 'h-3 w-px bg-amber-400' : 'h-3 w-px bg-stone-300';
     });
-  }function initSectionNavigation() {
+  }
+}
+
+// Complete the initSectionNavigation function
+function initSectionNavigation() {
   const prevBtn = document.getElementById('prev-section-btn');
   const nextBtn = document.getElementById('next-section-btn');
   const part2PrevBtn = document.getElementById('part2-prev');
   const submitBtn = document.getElementById('submit-assessment');
-  
+
   // Find or create question navigation buttons
   let nextQuestionBtn = document.getElementById('next-question-btn');
   let prevQuestionBtn = document.getElementById('prev-question-btn');
-  
+
   if (!nextQuestionBtn || !prevQuestionBtn) {
     const navFooter = document.querySelector('#part2-section .mt-16.pt-6.border-t.border-stone-200 .flex.items-center.justify-between');
-    
+
     if (navFooter) {
       if (!nextQuestionBtn) {
         nextQuestionBtn = document.createElement('button');
@@ -855,12 +859,12 @@ function updateSectionHeader() {
           <span class="ml-4 h-px w-8 bg-stone-500 group-hover:w-12"></span>
         `;
         nextQuestionBtn.onclick = nextQuestion;
-        
+
         if (nextBtn && nextBtn.parentNode) {
           nextBtn.parentNode.insertBefore(nextQuestionBtn, nextBtn);
         }
       }
-      
+
       if (!prevQuestionBtn) {
         prevQuestionBtn = document.createElement('button');
         prevQuestionBtn.id = 'prev-question-btn';
@@ -871,14 +875,14 @@ function updateSectionHeader() {
         `;
         prevQuestionBtn.onclick = prevQuestion;
         prevQuestionBtn.style.display = 'none';
-        
+
         if (prevBtn && prevBtn.parentNode) {
           prevBtn.parentNode.insertBefore(prevQuestionBtn, prevBtn);
         }
       }
     }
   }
-  
+
   // Setup section navigation
   if (currentSectionIndex === 0) {
     part2PrevBtn.style.display = 'flex';
@@ -887,19 +891,19 @@ function updateSectionHeader() {
     part2PrevBtn.style.display = 'none';
     prevBtn.style.display = 'flex';
   }
-  
+
   prevBtn.onclick = prevSection;
   nextBtn.onclick = nextSection;
   submitBtn.onclick = submitAssessment;
-  
+
   // Configure next/prev question buttons
   const container = document.getElementById('mastery-questions');
   const questions = container.querySelectorAll('.question-container');
   const activeIndex = getActiveQuestionIndex();
-  
+
   // Show/hide appropriate buttons based on question position
   updateNavigationButtons();
-  
+
   // Update question counter
   const counter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
   if (counter) {
