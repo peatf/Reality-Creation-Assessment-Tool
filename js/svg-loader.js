@@ -83,19 +83,20 @@ document.addEventListener('DOMContentLoaded', function() {
       <!-- Left-Side Labels (some are stacked) -->
 
       <!-- 1) Resonance Field (stacked & centered) -->
-      <text class="cls-2" text-anchor="middle" transform="translate(40, 102)">
-        <tspan x="0" dy="0">Resonance</tspan>
-        <tspan x="0" dy="1.2em">Field</tspan>
-      </text>
+      <text class="cls-2" text-anchor="middle" transform="translate(60, 102)">
+  <tspan x="0" dy="0">Resonance</tspan>
+  <tspan x="0" dy="1.2em">Field</tspan>
+</text>
 
       <!-- 2) Kinetic Drive (single line) -->
       <text class="cls-2" transform="translate(11.87 218.85)">Kinetic Drive</text>
 
       <!-- 3) Manifestation Rhythm (stacked & centered) -->
       <text class="cls-2" text-anchor="middle" transform="translate(60, 298)">
-        <tspan x="0" dy="0">Manifestation</tspan>
-        <tspan x="0" dy="1.2em">Rhythm</tspan>
-      </text>
+  <tspan x="0" dy="0">Manifestation</tspan>
+  <tspan x="0" dy="1.2em">Rhythm</tspan>
+</text>
+
 
       <!-- Acceptance & Alignment Needs -->
       <text class="cls-2" transform="translate(260.6 374.2)">Acceptance & Alignment Needs</text>
