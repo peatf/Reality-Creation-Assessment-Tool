@@ -1245,3 +1245,105 @@ p {
         page-break-inside: avoid;
     }
 }
+/* CSS Updates for Introduction
+ * These styles should be added to your redesigned-styles.css file
+ */
+
+/* Reset introduction section styles for transparent background */
+.introduction-section {
+  background-color: transparent !important;
+  min-height: 100vh;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+/* Remove background canvas/animations */
+.background-canvas {
+  display: none !important;
+}
+
+/* Remove card background from introduction */
+.introduction {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+  box-shadow: none !important;
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
+  text-align: left;
+}
+
+/* Typography updates */
+.text-4xl.font-extralight {
+  font-weight: 200;
+  letter-spacing: -0.015em;
+}
+
+.text-lg.font-extralight {
+  font-weight: 200;
+  line-height: 1.6;
+}
+
+/* Add subtle hover effect to button */
+#start-assessment {
+  background-color: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(231, 229, 228, 0.8);
+  transition: all 0.3s ease;
+}
+
+#start-assessment:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+#start-assessment:hover .ml-4.h-px.w-8 {
+  width: 3rem;
+}
+
+/* SVG container styling */
+#diagram-container {
+  max-width: 100%;
+  height: auto;
+}
+
+#diagram-container svg {
+  width: 100%;
+  height: auto;
+  max-height: 80vh;
+}
+
+/* Responsive fixes */
+@media (max-width: 1024px) {
+  .grid.grid-cols-12.gap-16 {
+    gap: 2rem;
+  }
+  
+  .space-y-8 {
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .introduction-section {
+    align-items: flex-start;
+    padding-top: 2rem;
+  }
+  
+  .grid.grid-cols-12.gap-16 {
+    gap: 3rem;
+  }
+  
+  .col-span-12.lg\:col-span-7,
+  .col-span-12.lg\:col-span-5 {
+    grid-column: span 12 / span 12;
+  }
+  
+  .mb-20 {
+    margin-bottom: 3rem;
+  }
+  
+  #diagram-container {
+    max-height: 50vh;
+  }
+}
