@@ -1,5 +1,5 @@
 // SVG Loader for Reality Creation Assessment
-// This script injects the FULL diagram with merged text labels
+// Merges most text into single lines, but stacks a few labels as requested
 document.addEventListener('DOMContentLoaded', function() {
   // Get the diagram container
   const diagramContainer = document.getElementById('diagram-container');
@@ -10,15 +10,13 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 
   // Remove any background canvas and make container transparent
-  // This helps when embedded in Squarespace
   document.body.style.backgroundColor = 'transparent';
-  
   const backgroundCanvases = document.querySelectorAll('.background-canvas');
   backgroundCanvases.forEach(canvas => {
     canvas.style.display = 'none';
   });
 
-  // Inject the SVG diagram directly (with unified text labels)
+  // Inject the SVG diagram
   diagramContainer.innerHTML = `
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -65,8 +63,6 @@ document.addEventListener('DOMContentLoaded', function() {
       <path class="cls-1" d="M556.13,974.89s21.05,23.74,19.26,64.95"/>
       <path class="cls-1" d="M613.22,868.25s37.91-.34,66.58,34.89"/>
 
-      <!-- Single-Line Text Labels -->
-
       <!-- Top Circle: Reality Creation Typology -->
       <text class="cls-2" transform="translate(324.52 145.25)">Reality Creation</text>
       <text class="cls-2" transform="translate(367.63 181.25)">Typology</text>
@@ -79,38 +75,51 @@ document.addEventListener('DOMContentLoaded', function() {
       <text class="cls-2" transform="translate(398.83 862.87)">Personalized</text>
       <text class="cls-2" transform="translate(435.5 898.87)">Results</text>
 
-      <!-- Spokes/Labels -->
-
       <!-- Right-Side Labels -->
       <text class="cls-2" transform="translate(750.78 25.71)">Cognitive Alignment</text>
       <text class="cls-2" transform="translate(747.33 119.48)">Perceptual Focus</text>
       <text class="cls-2" transform="translate(746.9 216.37)">Choice Navigation</text>
 
-      <!-- Left-Side Labels -->
-      <text class="cls-2" transform="translate(10.87 102.04)">Resonance Field</text>
-      <text class="cls-2" transform="translate(11.87 218.85)">Kinetic Drive</text>
-      <text class="cls-2" transform="translate(0 298.02)">Manifestation Rhythm</text>
+      <!-- Left-Side Labels (some are stacked) -->
 
-      <!-- Middle Text: Acceptance & Alignment Needs -->
+      <!-- 1) Resonance Field (stacked & centered) -->
+      <text class="cls-2" text-anchor="middle" transform="translate(40, 102)">
+        <tspan x="0" dy="0">Resonance</tspan>
+        <tspan x="0" dy="1.2em">Field</tspan>
+      </text>
+
+      <!-- 2) Kinetic Drive (single line) -->
+      <text class="cls-2" transform="translate(11.87 218.85)">Kinetic Drive</text>
+
+      <!-- 3) Manifestation Rhythm (stacked & centered) -->
+      <text class="cls-2" text-anchor="middle" transform="translate(60, 298)">
+        <tspan x="0" dy="0">Manifestation</tspan>
+        <tspan x="0" dy="1.2em">Rhythm</tspan>
+      </text>
+
+      <!-- Acceptance & Alignment Needs -->
       <text class="cls-2" transform="translate(260.6 374.2)">Acceptance & Alignment Needs</text>
 
-      <!-- Growth & Permission Areas -->
-      <text class="cls-2" transform="translate(696.56 910.2)">Growth & Permission Areas</text>
-
-      <!-- Natural Energy Patterns -->
-      <text class="cls-2" transform="translate(378.45 503.37)">Natural Energy Patterns</text>
+      <!-- 4) Natural Energy Patterns (stacked & centered) -->
+      <text class="cls-2" text-anchor="middle" transform="translate(450, 503.37)">
+        <tspan x="0" dy="0">Natural Energy</tspan>
+        <tspan x="0" dy="1.2em">Patterns</tspan>
+      </text>
 
       <!-- Common Misalignments -->
       <text class="cls-2" transform="translate(160.99 696.93)">Common Misalignments</text>
+
+      <!-- Reality Creation Strategies -->
+      <text class="cls-2" transform="translate(574.96 749.69)">Reality Creation Strategies</text>
+
+      <!-- Growth & Permission Areas -->
+      <text class="cls-2" transform="translate(696.56 910.2)">Growth & Permission Areas</text>
 
       <!-- Ideal Approaches -->
       <text class="cls-2" transform="translate(148.17 1013.68)">Ideal Approaches</text>
 
       <!-- Typology Insights -->
       <text class="cls-2" transform="translate(482.59 1080.75)">Typology Insights</text>
-
-      <!-- Reality Creation Strategies -->
-      <text class="cls-2" transform="translate(574.96 749.69)">Reality Creation Strategies</text>
     </svg>
   `;
 });
