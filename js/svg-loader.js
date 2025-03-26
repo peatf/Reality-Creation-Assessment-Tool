@@ -91,10 +91,10 @@ function getSvgContent() {
       <text class="cls-2" transform="translate(0 298.02)">Manifestation Rhythm</text>
     </g>
     <g class="cls-3">
-      <text class="cls-2" transform="translate(260.6 374.2)">Acceptance & Alignment Needs</text>
+      <text class="cls-2" transform="translate(260.6 374.2)">Acceptance &amp; Alignment Needs</text>
     </g>
     <g class="cls-3">
-      <text class="cls-2" transform="translate(696.56 910.2)">Growth & Permission Areas</text>
+      <text class="cls-2" transform="translate(696.56 910.2)">Growth &amp; Permission Areas</text>
     </g>
     <g class="cls-3">
       <text class="cls-2" transform="translate(378.45 503.37)">Natural Energy Patterns</text>
