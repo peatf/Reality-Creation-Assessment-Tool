@@ -121,6 +121,55 @@
     #progress-fill-part2 {
       transition: width 0.5s ease-in-out;
     }
+    
+    /* Custom styling for the new introduction section */
+    .introduction-section {
+      background-color: transparent !important;
+      min-height: 100vh;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+    }
+    
+    .background-canvas {
+      display: none !important;
+    }
+    
+    .text-4xl.font-extralight {
+      font-weight: 200;
+      letter-spacing: -0.015em;
+    }
+    
+    .text-lg.font-extralight {
+      font-weight: 200;
+      line-height: 1.6;
+    }
+    
+    #start-assessment {
+      background-color: rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(231, 229, 228, 0.8);
+      transition: all 0.3s ease;
+    }
+    
+    #start-assessment:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    }
+    
+    #start-assessment:hover .ml-4.h-px.w-8 {
+      width: 3rem;
+    }
+    
+    #diagram-container {
+      max-width: 100%;
+      height: auto;
+    }
+    
+    #diagram-container svg {
+      width: 100%;
+      height: auto;
+      max-height: 80vh;
+    }
   </style>
   
   <!-- Step 2: Inline JavaScript to Fix Mastery Section Issues -->
@@ -745,6 +794,8 @@
   <script src="js/redesigned-assessment.js"></script>
   <script src="js/redesigned-part2-mastery.js"></script>
   <script src="js/redesigned-results.js"></script>
+  
+  <!-- SVG Loader Script -->
   <script src="js/svg-loader.js"></script>
 </body>
 </html>
