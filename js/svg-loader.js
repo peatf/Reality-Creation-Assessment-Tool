@@ -1,133 +1,76 @@
-// JavaScript to inject the SVG diagram into the introduction page
-document.addEventListener('DOMContentLoaded', function () {
-  const diagramContainer = document.getElementById('diagram-container');
+// SVG Loader for Reality Creation Assessment
+// This script injects the SVG diagram into the introduction page
 
+document.addEventListener('DOMContentLoaded', function() {
+  // Get the diagram container
+  const diagramContainer = document.getElementById('diagram-container');
+  
   if (!diagramContainer) {
     console.error("Diagram container not found");
     return;
   }
 
-  const svgObject = document.createElement('object');
-  svgObject.setAttribute('type', 'image/svg+xml');
-  svgObject.setAttribute(
-    'data',
-    'data:image/svg+xml,' + encodeURIComponent(getSvgContent())
-  );
-  svgObject.setAttribute('class', 'w-full h-auto');
-  svgObject.setAttribute('aria-label', 'Assessment Journey Diagram');
-  svgObject.textContent = 'Your browser does not support SVG';
-
-  diagramContainer.innerHTML = '';
-  diagramContainer.appendChild(svgObject);
-
+  // Remove any background canvas and make container transparent
+  // This helps when embedded in Squarespace
+  document.body.style.backgroundColor = 'transparent';
+  
   const backgroundCanvases = document.querySelectorAll('.background-canvas');
-  backgroundCanvases.forEach((canvas) => {
+  backgroundCanvases.forEach(canvas => {
     canvas.style.display = 'none';
   });
 
-  document.body.style.backgroundColor = 'transparent';
-  const containers = document.querySelectorAll(
-    '.container, .introduction-section, .introduction'
-  );
-  containers.forEach((container) => {
-    container.style.backgroundColor = 'transparent';
-    if (container.classList.contains('introduction')) {
-      container.style.boxShadow = 'none';
-    }
-  });
+  // Inject the SVG diagram directly
+  diagramContainer.innerHTML = `
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1018.81 1105.68" class="w-full h-auto">
+      <defs>
+        <style>
+          .cls-1 { fill: none; stroke: #7b7975; stroke-miterlimit: 10; }
+          .cls-2, .cls-3, .cls-4 { isolation: isolate; }
+          .cls-2, .cls-4 { fill: #5a5753; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; font-size: 30px; font-weight: 300; }
+          .cls-4 { letter-spacing: .04em; }
+        </style>
+      </defs>
+      <g>
+        <!-- Central circles -->
+        <circle class="cls-1" cx="430.34" cy="150.87" r="129.37"/>
+        <circle class="cls-1" cx="768.68" cy="502.22" r="129.37"/>
+        <circle class="cls-1" cx="482.82" cy="866.72" r="129.37"/>
+        
+        <!-- Connection lines -->
+        <path class="cls-1" d="M712.6,19.45s-51.84.27-97.78,47.62c-45.94,47.35-61.48,43.11-61.48,43.11"/>
+        <path class="cls-1" d="M713.05,109.1s-37.38-.81-71.34,15.56c-26.7,12.87-73.52,20.03-82.21,15.87"/>
+        <path class="cls-1" d="M558.61,169.28s38.77,8.68,56.13,16.2,45.13,24.88,97.21,24.3"/>
+        <path class="cls-1" d="M205.83,285.69s29.07,7,75.58-39.79c26.39-26.55,38.08-28.2,38.08-28.2"/>
+        <path class="cls-1" d="M193.61,208.68s29.86-4.58,52.91-15.92c23.06-11.34,44.19-12.69,58.67-11.18"/>
+        <path class="cls-1" d="M305.61,116.78s-26.79-3.25-44.32-10.36c-27.5-11.15-46.25-19.79-86.49-14.35"/>
+        <path class="cls-1" d="M548.28,203s28.13,11.85,42.2,41.46c14.07,29.61,7.83,62.68,30.21,99.83"/>
+        <path class="cls-1" d="M672.27,414.89s-22.33-12.3-30.28-32.16"/>
+        <path class="cls-1" d="M639.54,512.22s-35.75-1.52-63.82,27c-25.27,25.67-33.52,78.09-45.33,103.1s-36.91,38.91-36.91,38.91"/>
+        <path class="cls-1" d="M766.14,632.59s-.44,72.27-29.21,90.49"/>
+        <path class="cls-1" d="M404.66,762.11s-13.17-15.36-.88-52.67"/>
+        <path class="cls-1" d="M575.55,775.81s7.14-8.48,23.66-12.94"/>
+        <path class="cls-1" d="M387.71,954.73s-9.85,8.06-10.75,17.92"/>
+        <path class="cls-1" d="M556.13,974.89s21.05,23.74,19.26,64.95"/>
+        <path class="cls-1" d="M613.22,868.25s37.91-.34,66.58,34.89"/>
+        
+        <!-- Main Labels -->
+        <text class="cls-2" x="324.52" y="145.25">Reality Creation</text>
+        <text class="cls-2" x="367.63" y="181.25">Typology</text>
+        
+        <text class="cls-2" x="715.45" y="488.03">Mastery</text>
+        <text class="cls-2" x="691.49" y="524.03">Assessment</text>
+        
+        <text class="cls-2" x="398.83" y="862.87">Personalized</text>
+        <text class="cls-2" x="435.5" y="898.87">Results</text>
+        
+        <!-- Other Labels -->
+        <text class="cls-2" x="750.78" y="25.71">Cognitive Alignment</text>
+        <text class="cls-2" x="747.33" y="119.48">Perceptual Focus</text>
+        <text class="cls-2" x="11.87" y="218.85">Kinetic Drive</text>
+        <text class="cls-2" x="746.9" y="216.37">Choice Navigation</text>
+        <text class="cls-2" x="10.87" y="102.04">Resonance</text>
+        <text class="cls-2" x="50.54" y="138.04">Field</text>
+      </g>
+    </svg>
+  `;
 });
-
-// Function to get the SVG content
-function getSvgContent() {
-  return `<?xml version="1.0" encoding="UTF-8"?>
-<svg id="Layer_2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1018.81 1105.68">
-  <defs>
-    <style>
-      .cls-1 { fill: none; stroke: #7b7975; stroke-miterlimit: 10; }
-      .cls-2, .cls-3, .cls-4 { isolation: isolate; }
-      .cls-2, .cls-4 { fill: #5a5753; font-family: AktivGrotesk-Light, 'Aktiv Grotesk'; font-size: 30px; font-weight: 300; }
-      .cls-5 { letter-spacing: 0em; }
-      .cls-6 { letter-spacing: 0em; }
-      .cls-7 { letter-spacing: 0em; }
-      .cls-8 { letter-spacing: 0em; }
-      .cls-4 { letter-spacing: .04em; }
-      .cls-9 { letter-spacing: -.02em; }
-      .cls-10 { letter-spacing: 0em; }
-      .cls-11 { letter-spacing: 0em; }
-      .cls-12 { letter-spacing: 0em; }
-      .cls-13 { letter-spacing: 0em; }
-      .cls-14 { letter-spacing: .02em; }
-      .cls-15 { letter-spacing: .01em; }
-    </style>
-  </defs>
-  <g id="Layer_1-2">
-    <g class="cls-3">
-      <text class="cls-2" transform="translate(324.52 145.25)">
-        <tspan x="0" y="0">R</tspan>
-      </text>
-      <text class="cls-2" transform="translate(341.63 145.25)">
-        <tspan x="0" y="0">eali</tspan>
-        <tspan class="cls-15" x="44.46" y="0">t</tspan>
-        <tspan class="cls-8" x="54.93" y="0">y C</tspan>
-      </text>
-      <text class="cls-2" transform="translate(438.59 145.25)">
-        <tspan x="0" y="0">r</tspan>
-      </text>
-      <text class="cls-2" transform="translate(448.62 145.25)">
-        <tspan x="0" y="0">eation</tspan>
-      </text>
-      <text class="cls-2" transform="translate(367.63 181.25)">
-        <tspan x="0" y="0">T</tspan>
-      </text>
-      <text class="cls-2" transform="translate(381.69 181.25)">
-        <tspan x="0" y="0">ypology</tspan>
-      </text>
-    </g>
-    <g class="cls-3">
-      <text class="cls-2" transform="translate(715.45 488.03)">
-        <tspan x="0" y="0">Mas</tspan>
-      </text>
-      <text class="cls-2" transform="translate(770.38 488.03)">
-        <tspan x="0" y="0">t</tspan>
-      </text>
-      <text class="cls-2" transform="translate(780.31 488.03)">
-        <tspan x="0" y="0">e</tspan>
-      </text>
-      <text class="cls-4" transform="translate(796 488.03)">
-        <tspan x="0" y="0">r</tspan>
-      </text>
-      <text class="cls-2" transform="translate(807.63 488.03)">
-        <tspan x="0" y="0">y</tspan>
-      </text>
-      <text class="cls-2" transform="translate(691.49 524.03)">
-        <tspan x="0" y="0">Asses</tspan>
-        <tspan class="cls-6" x="82.35" y="0">s</tspan>
-        <tspan x="97.77" y="0">ment</tspan>
-      </text>
-    </g>
-    <g class="cls-3">
-      <text class="cls-2" transform="translate(398.83 862.87)">
-        <tspan x="0" y="0">P</tspan>
-      </text>
-      <text class="cls-2" transform="translate(414.52 862.87)">
-        <tspan x="0" y="0">e</tspan>
-      </text>
-      <text class="cls-2" transform="translate(430.21 862.87)">
-        <tspan x="0" y="0">r</tspan>
-      </text>
-      <text class="cls-2" transform="translate(440.84 862.87)">
-        <tspan x="0" y="0">sonali</tspan>
-        <tspan class="cls-11" x="77.46" y="0">z</tspan>
-        <tspan x="90.9" y="0">ed</tspan>
-      </text>
-      <text class="cls-2" transform="translate(435.5 898.87)">
-        <tspan x="0" y="0">R</tspan>
-      </text>
-      <text class="cls-2" transform="translate(452.61 898.87)">
-        <tspan x="0" y="0">esults</tspan>
-      </text>
-    </g>
-    <!-- More SVG content can be included here -->
-  </g>
-</svg>`;
-}
