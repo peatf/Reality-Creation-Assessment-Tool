@@ -496,7 +496,7 @@ function calculateMasteryScores() {
     energyPatterns: {}
   };
 
-  // For each answered question ID → chosen value
+  // For each answered question ID â†’ chosen value
   for (const [questionId, chosenValue] of Object.entries(userResponses.mastery)) {
     if (questionId.startsWith("core-")) {
       if (!result.corePriorities[chosenValue]) {
@@ -908,7 +908,7 @@ function initSectionNavigation() {
   const counter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
   if (counter) {
     counter.innerHTML = `
-      Question <span id="current-question">${activeIndex + 1}</span> of <span id="total-questions">${questions.length}</span> • Section ${currentSectionIndex + 1} of ${masterySections.length}
+      Question <span id="current-question">${activeIndex + 1}</span> of <span id="total-questions">${questions.length}</span> â€¢ Section ${currentSectionIndex + 1} of ${masterySections.length}
     `;
   }
 }
@@ -1026,6 +1026,8 @@ function submitAssessment() {
   
   // All questions answered, proceed to results
   console.log("All questions answered. Proceeding to results.");
+  // Make sure the results data is calculated before showing results
+  window.completeResults = generateCompleteResults();
   showResults();
 }
 
