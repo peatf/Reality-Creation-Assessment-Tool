@@ -1414,43 +1414,43 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     const priorityDescriptions = {
 'creative-expression': 'You\'re here to create, to birth new things into the world that carry your fingerprint. Expression isn\'t extra, it\'s essential.',
         'financial-abundance': 'You want your life to feel full, supported, resourced, and open. Money, for you, is about spaciousness and choice.',
-        'emotional-fulfillment': 'Depth matters. You're not built for surface. You want real connection, real feeling, and the emotional truth of things.',
-        'personal-autonomy': 'You need room to move. Authority to choose. A path that's yours, not someone else's map.',
+        'emotional-fulfillment': 'Depth matters. You\'re not built for surface. You want real connection, real feeling, and the emotional truth of things.',
+        'personal-autonomy': 'You need room to move. Authority to choose. A path that\'s yours, not someone else\'s map.',
         'deep-relationships': 'Intimacy and belonging ground you. You thrive in connection that sees you clearly and lets you show up whole.',
-        'spiritual-connection': 'You feel the pull of something larger, a bigger rhythm, a sacred thread. You move best when you're plugged into it.',
+        'spiritual-connection': 'You feel the pull of something larger, a bigger rhythm, a sacred thread. You move best when you\'re plugged into it.',
         'craft-mastery': 'You value devotion. Getting so close to your craft that it becomes an extension of your being.',
         'wealth-security': 'You want to feel safe inside your life. A sense of grounded resourcing, not just surviving, but held.',
         'emotional-peace': 'You seek inner steadiness, the kind of calm that makes space for everything without being overtaken by anything.',
-        'personal-freedom': 'You're here to follow your own compass. What matters is that it's yours.',
+        'personal-freedom': 'You\'re here to follow your own compass. What matters is that it\'s yours.',
         'deep-connection': 'You want to be seen. Felt. Known. And to offer that same presence in return.',
-        'higher-meaning': 'You're not just making moves, you're making meaning. There has to be a deeper thread running through it connected to the larger whole.',
+        'higher-meaning': 'You\'re not just making moves, you\'re making meaning. There has to be a deeper thread running through it connected to the larger whole.',
         'confidence-trust': 'You want to feel yourself as solid, that your knowing can be trusted, that your steps are enough.',
-        'peace-ease': 'Ease isn't laziness to you, it's alignment. You value softness that doesn't collapse your power.',
-        'choice-autonomy': 'Being able to say yes or no from a rooted place is sacred. You need to feel like you're the one driving.',
-        'stability-security': 'You're not afraid of change, but you want your foundation to hold while it happens.',
-        'passion-inspiration': 'You move through desire. Aliveness fuels your work, when you're inspired, everything flows better.',
-        'joy-excitement': 'You're here for pleasure. You want your life to feel good, to make space for deliciousness, for fun, for full-bodied yum.'
+        'peace-ease': 'Ease isn\'t laziness to you, it\'s alignment. You value softness that doesn\'t collapse your power.',
+        'choice-autonomy': 'Being able to say yes or no from a rooted place is sacred. You need to feel like you\'re the one driving.',
+        'stability-security': 'You\'re not afraid of change, but you want your foundation to hold while it happens.',
+        'passion-inspiration': 'You move through desire. Aliveness fuels your work, when you\'re inspired, everything flows better.',
+        'joy-excitement': 'You\'re here for pleasure. You want your life to feel good, to make space for deliciousness, for fun, for full-bodied yum.'
     };
     
     const growthDescriptions = {
-        'consistency-challenge': 'You're learning how to build rhythm that doesn't drain you, consistency that comes from alignment, not force.',
-        'clarity-challenge': 'You're in the process of tuning in to what you really want, beneath the noise, beyond the scripts.',
-        'action-challenge': 'You're learning how to move with your energy, how to take steps that feel alive instead of obligatory.',
-        'intuition-challenge': 'You're building trust in your inner knowing, letting it lead, even when the path doesn't look linear.',
-        'emotion-challenge': 'You're expanding your capacity to feel without being swept away, using emotion as signal, not sabotage.',
-        'receiving-challenge': 'You're opening to being met, to letting what you've called in actually arrive and be received.',
-        'decision-doubt': 'You're strengthening your ability to choose, to trust that your inner compass is valid and enough.',
-        'action-gap': 'You can see the vision, now you're bridging the space between knowing and doing.',
-        'focus-challenge': 'You're practicing how to stay with something, not through pressure, but devotion.',
-        'emotional-block': 'You're untangling stories that once protected you, but now hold you back, and making space for something new.',
-        'burnout-pattern': 'You're learning how to move sustainably, honoring your cycles of output, rest, and restoration.',
-        'commitment-hesitation': 'You're playing with what it means to go all in, not from urgency, but from inner yes.',
-        'self-trust-resistance': 'You're rebuilding the bridge between you and your knowing, letting self-trust become your default.',
-        'risk-resistance': 'You're getting more comfortable in the unknown, letting desire lead, even when the outcome isn't guaranteed.',
-        'emotional-expression-resistance': 'You're allowing more of your emotional truth to surface, without needing it to be tidy or justified.',
-        'vision-clarity-resistance': 'You're learning to hold a vision without fearing the specificity, letting clarity feel like empowerment, not pressure.',
-        'momentum-resistance': 'You're discovering how to stay in motion, not from force, but from flow that builds on itself.',
-        'control-resistance': 'You're softening your grip, letting go of the need to manage every outcome, and learning to co-create with life.'
+        'consistency-challenge': 'You\'re learning how to build rhythm that doesn\'t drain you, consistency that comes from alignment, not force.',
+        'clarity-challenge': 'You\'re in the process of tuning in to what you really want, beneath the noise, beyond the scripts.',
+        'action-challenge': 'You\'re learning how to move with your energy, how to take steps that feel alive instead of obligatory.',
+        'intuition-challenge': 'You\'re building trust in your inner knowing, letting it lead, even when the path doesn\'t look linear.',
+        'emotion-challenge': 'You\'re expanding your capacity to feel without being swept away, using emotion as signal, not sabotage.',
+        'receiving-challenge': 'You\'re opening to being met, to letting what you\'ve called in actually arrive and be received.',
+        'decision-doubt': 'You\'re strengthening your ability to choose, to trust that your inner compass is valid and enough.',
+        'action-gap': 'You can see the vision, now you\'re bridging the space between knowing and doing.',
+        'focus-challenge': 'You\'re practicing how to stay with something, not through pressure, but devotion.',
+        'emotional-block': 'You\'re untangling stories that once protected you, but now hold you back, and making space for something new.',
+        'burnout-pattern': 'You\'re learning how to move sustainably, honoring your cycles of output, rest, and restoration.',
+        'commitment-hesitation': 'You\'re playing with what it means to go all in, not from urgency, but from inner yes.',
+        'self-trust-resistance': 'You\'re rebuilding the bridge between you and your knowing, letting self-trust become your default.',
+        'risk-resistance': 'You\'re getting more comfortable in the unknown, letting desire lead, even when the outcome isn\'t guaranteed.',
+        'emotional-expression-resistance': 'You\'re allowing more of your emotional truth to surface, without needing it to be tidy or justified.',
+        'vision-clarity-resistance': 'You\'re learning to hold a vision without fearing the specificity, letting clarity feel like empowerment, not pressure.',
+        'momentum-resistance': 'You\'re discovering how to stay in motion, not from force, but from flow that builds on itself.',
+        'control-resistance': 'You\'re softening your grip, letting go of the need to manage every outcome, and learning to co-create with life.'
     };
     
     // Cross-Spectrum Insights Section (if available)
@@ -1680,16 +1680,16 @@ function generateTypologyShifts(typologyKey, growthAreas) {
         shifts.push('Create a rhythm that fits you, not one that fights you. Let your consistency be flexible, alive, something that honors your cycles while still building momentum.');
     }
     if (growthAreas.includes('clarity-challenge')) {
-        shifts.push('Blend reflection with inner listening. Let clarity come in layers, not lightning bolts. You're not behind for not knowing yet, you're in conversation.');
+        shifts.push('Blend reflection with inner listening. Let clarity come in layers, not lightning bolts. You\'re not behind for not knowing yet, you\'re in conversation.');
     }
     if (growthAreas.includes('action-challenge') || growthAreas.includes('action-gap')) {
         shifts.push('Align your action style with your natural energy. Some seasons are built for bursts, others for steady build. Know your wave, then ride it.');
     }
     if (growthAreas.includes('intuition-challenge') || growthAreas.includes('self-trust-resistance')) {
-        shifts.push('Practice tuning in without immediately needing proof. Your knowing is valid, let it lead sometimes, even when it's quiet.');
+        shifts.push('Practice tuning in without immediately needing proof. Your knowing is valid, let it lead sometimes, even when it\'s quiet.');
     }
     if (growthAreas.includes('emotion-challenge') || growthAreas.includes('emotional-block')) {
-        shifts.push('Give your emotions space without needing to fix or flatten them. Feeling deeply doesn't block creation, it is part of creation.');
+        shifts.push('Give your emotions space without needing to fix or flatten them. Feeling deeply doesn\'t block creation, it is part of creation.');
     }
     if (growthAreas.includes('receiving-challenge')) {
         shifts.push('Create rituals that help you open, soften, notice. Sometimes what you asked for is already arriving, just not in the costume you expected.');
@@ -1698,10 +1698,10 @@ function generateTypologyShifts(typologyKey, growthAreas) {
         shifts.push('Design a decision-making style that blends analysis with intuition. Let both voices speak, then choose with your whole body.');
     }
     if (growthAreas.includes('focus-challenge')) {
-        shifts.push('Make containers for your attention that work with, not against, your nature. Structure doesn't have to be strict, it can be sacred.');
+        shifts.push('Make containers for your attention that work with, not against, your nature. Structure doesn\'t have to be strict, it can be sacred.');
     }
     if (growthAreas.includes('burnout-pattern')) {
-        shifts.push('Honor your ebb as much as your flow. Sustainable energy doesn't come from pushing, it comes from rhythm, rest, and return.');
+        shifts.push('Honor your ebb as much as your flow. Sustainable energy doesn\'t come from pushing, it comes from rhythm, rest, and return.');
     }
     if (growthAreas.includes('commitment-hesitation')) {
         shifts.push('Find ways to commit gently, piece by piece, instead of forcing yourself to leap. You can go all in without abandoning yourself.');
@@ -1763,40 +1763,40 @@ function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
     const permissions = typePermissions[typologyKey] || typePermissions["fluid-structured"];
     
     if (alignmentNeeds.includes('accept-cycles')) {
-        permissions.push('You're allowed to move in waves. Constant output is not a requirement for worth.');
+        permissions.push('You\'re allowed to move in waves. Constant output is not a requirement for worth.');
     }
     if (alignmentNeeds.includes('accept-structure')) {
-        permissions.push('You're allowed to build what supports you, even if it's more structure than others need.');
+        permissions.push('You\'re allowed to build what supports you, even if it\'s more structure than others need.');
     }
     if (alignmentNeeds.includes('accept-emotions')) {
-        permissions.push('You're allowed to feel what you feel, no fixing, just listening.');
+        permissions.push('You\'re allowed to feel what you feel, no fixing, just listening.');
     }
     if (alignmentNeeds.includes('accept-gradual-clarity')) {
-        permissions.push('You're allowed to let clarity emerge slowly. There's no deadline on knowing.');
+        permissions.push('You\'re allowed to let clarity emerge slowly. There\'s no deadline on knowing.');
     }
     if (alignmentNeeds.includes('accept-intuition')) {
-        permissions.push('You're allowed to follow a nudge without a logical reason.');
+        permissions.push('You\'re allowed to follow a nudge without a logical reason.');
     }
     if (alignmentNeeds.includes('accept-flexibility')) {
-        permissions.push('You're allowed to stay open, even if others need things nailed down.');
+        permissions.push('You\'re allowed to stay open, even if others need things nailed down.');
     }
     if (alignmentNeeds.includes('control-outcomes')) {
-        permissions.push('You're allowed to release the "how" and trust what's coming.');
+        permissions.push('You\'re allowed to release the "how" and trust what\'s coming.');
     }
     if (alignmentNeeds.includes('control-emotions')) {
-        permissions.push('You're allowed to ride the full range of your feelings, they're not a flaw.');
+        permissions.push('You\'re allowed to ride the full range of your feelings, they\'re not a flaw.');
     }
     if (alignmentNeeds.includes('control-consistency')) {
-        permissions.push('You're allowed to define consistency in a way that fits your rhythm.');
+        permissions.push('You\'re allowed to define consistency in a way that fits your rhythm.');
     }
     if (alignmentNeeds.includes('control-clarity')) {
-        permissions.push('You're allowed to explore without committing on day one.');
+        permissions.push('You\'re allowed to explore without committing on day one.');
     }
     if (alignmentNeeds.includes('control-decisions')) {
-        permissions.push('You're allowed to make choices from both wisdom and wonder.');
+        permissions.push('You\'re allowed to make choices from both wisdom and wonder.');
     }
     if (alignmentNeeds.includes('control-intuition')) {
-        permissions.push('You're allowed to follow your knowing without defending it.');
+        permissions.push('You\'re allowed to follow your knowing without defending it.');
     }
     
     return permissions;
@@ -1861,7 +1861,7 @@ function generateEnergySupportTools(alignmentNeeds, energyPatterns, typologyKey)
         tools.push('Practices that deepen your relationship with your gut knowing, not just to hear it, but to trust it');
     }
     if (energyPatterns.includes('emotional-inspiration')) {
-        tools.push('Tools that support emotional state shifts without bypassing what's real');
+        tools.push('Tools that support emotional state shifts without bypassing what\'s real');
     }
     if (energyPatterns.includes('balanced-rhythm')) {
         tools.push('Alternating structures that mirror your inner pulse, some days need flow, others need form');
