@@ -3,119 +3,595 @@
 // for the Reality Creation Assessment
 
 
-// Typology Descriptions mapping
+// Typology Descriptions mapping with modular phrases
+// This expanded structure supports more granular positions on each spectrum
 const typologyDescriptions = {
-    "cognitive-alignment-left": {
+    // Cognitive Alignment - Structured Side
+    "cognitive-alignment-strongLeft": {
+        name: "Highly Rational",
+        description: "You orient to reality firmly through logic, analysis, and tangible evidence. Understanding nearly always comes through reason, and you need verifiable clarity before accepting something as real.",
+        phrases: {
+            identity: "a logical thinker who values concrete evidence above all",
+            strength: "analytical reasoning and evidence-based evaluation",
+            approach: "You gather evidence, analyze patterns, and make decisions through systematic reasoning.",
+            challenge: "allowing intuitive insights when logical paths aren't immediately obvious",
+            growth: "learning to honor intuitive signals alongside your logical framework"
+        }
+    },
+    "cognitive-alignment-leftLeaning": {
         name: "Rational",
-        description: "You orient to reality through logic, analysis, and evidence. Understanding comes through reason, you need clarity you can track before you let something in as real."
+        description: "You orient to reality through logic, analysis, and evidence. Understanding comes through reason, you need clarity you can track before you let something in as real.",
+        phrases: {
+            identity: "a predominantly logical thinker who appreciates structured reasoning",
+            strength: "methodical thinking and clear analysis",
+            approach: "You tend to seek logical explanations and evidence while remaining somewhat open to intuitive insights.",
+            challenge: "recognizing when intuition offers value that logic cannot provide",
+            growth: "developing comfort with both evidence-based and intuitive decision-making"
+        }
     },
     "cognitive-alignment-balanced": {
         name: "Synthesizing",
-        description: "You're a bridge between realms, braiding logic with inner knowing. You listen to both mind and intuition, translating between the two as you move through your process."
+        description: "You're a bridge between realms, braiding logic with inner knowing. You listen to both mind and intuition, translating between the two as you move through your process.",
+        phrases: {
+            identity: "a synthesizer who bridges logical and intuitive understanding",
+            strength: "integrating multiple ways of knowing and processing information",
+            approach: "You naturally weave between analytical thinking and intuitive insights, using both to navigate reality.",
+            challenge: "trusting when to lead with logic and when to follow intuition",
+            growth: "refining your ability to determine which approach serves best in different contexts"
+        }
     },
-    "cognitive-alignment-right": {
-        name: "Intuitive",
-        description: "You trust what the body and spirit know before the mind can name it. Your truth rises through sensation, symbols, and inner resonance, it doesn't need to be proven to be felt as real."
+    "cognitive-alignment-rightLeaning": {
+        name: "Intuitively Guided",
+        description: "You tend to trust inner knowing over pure logic. While you understand the value of analysis, you often find your truth through felt sense and inner resonance.",
+        phrases: {
+            identity: "an intuitive thinker who values inner knowing",
+            strength: "sensing truth and possibilities beyond logical constructs",
+            approach: "You follow intuitive signals first, then use logic to understand what your intuition has revealed.",
+            challenge: "grounding intuitive insights so others can understand them",
+            growth: "developing ways to validate and communicate intuitive knowledge"
+        }
     },
-    "perceptual-focus-left": {
+    "cognitive-alignment-strongRight": {
+        name: "Highly Intuitive",
+        description: "You deeply trust what the body and spirit know before the mind can categorize it. Your truth rises almost exclusively through sensation, symbols, and inner resonance, rarely needing external proof to be felt as real.",
+        phrases: {
+            identity: "a highly intuitive being who navigates primarily through inner signals",
+            strength: "direct knowing that bypasses rational analysis",
+            approach: "You rely strongly on felt sense, inner vision, and energetic resonance to navigate reality.",
+            challenge: "translating intuitive knowledge into forms others can understand",
+            growth: "creating bridges between your intuitive knowing and shared reality"
+        }
+    },
+
+    // Perceptual Focus
+    "perceptual-focus-strongLeft": {
+        name: "Highly Definitive",
+        description: "You require exceptional clarity and detail in your vision. Precise specificity is essential for you, and you deeply believe that clearly articulated intentions manifest most effectively.",
+        phrases: {
+            identity: "a visionary with crystal-clear focus",
+            strength: "creating detailed and precise visions of what you desire",
+            approach: "You define your goals with remarkable specificity, clarifying exactly what you want before taking action.",
+            challenge: "allowing for beneficial variations that weren't in your original plan",
+            growth: "maintaining clarity while embracing unexpected beneficial outcomes"
+        }
+    },
+    "perceptual-focus-leftLeaning": {
         name: "Definitive",
-        description: "You feel strongest with a sharp, dialed-in vision. Specificity gives your energy a direction to flow toward. Clarity is a spell, it calls things in."
+        description: "You feel strongest with a sharp, dialed-in vision. Specificity gives your energy a direction to flow toward. Clarity is a spell, it calls things in.",
+        phrases: {
+            identity: "a focused creator who values clarity",
+            strength: "defining clear intentions that guide your manifestation process",
+            approach: "You tend to focus on specific outcomes while remaining somewhat open to variations.",
+            challenge: "maintaining flexibility when reality offers something different but valuable",
+            growth: "holding vision firmly but not rigidly"
+        }
     },
     "perceptual-focus-balanced": {
         name: "Adaptive",
-        description: "You let clarity and curiosity sit side by side. You prefer to hold a vision without clenching it, staying precise and open at once."
+        description: "You let clarity and curiosity sit side by side. You prefer to hold a vision without clenching it, staying precise and open at once.",
+        phrases: {
+            identity: "an adaptive creator who values both clarity and openness",
+            strength: "holding clear intentions while remaining receptive to organic development",
+            approach: "You naturally balance clear vision with openness to how things might unfold in unexpected ways.",
+            challenge: "knowing when to focus more specifically versus when to remain open",
+            growth: "refining your ability to shift between clarity and receptivity as needed"
+        }
     },
-    "perceptual-focus-right": {
+    "perceptual-focus-rightLeaning": {
         name: "Receptive",
-        description: "You keep your hands open. You don't lock into a vision, you listen for what's arriving. The future reveals itself as you move."
+        description: "You keep your hands open. You don't lock into a vision, you listen for what's arriving. The future reveals itself as you move.",
+        phrases: {
+            identity: "a receptive creator who values openness and emergence",
+            strength: "remaining open to unexpected possibilities and synchronicities",
+            approach: "You tend to set general intentions while staying highly receptive to how things actually unfold.",
+            challenge: "bringing enough focus to manifest specific outcomes when needed",
+            growth: "developing the ability to apply focus without restricting flow"
+        }
     },
-    "kinetic-drive-left": {
+    "perceptual-focus-strongRight": {
+        name: "Highly Receptive",
+        description: "You maintain exceptional openness to what wants to emerge. Rather than defining specific outcomes, you allow life to reveal itself organically, trusting that what arrives is often better than what could be planned.",
+        phrases: {
+            identity: "a highly receptive being who trusts life's unfolding",
+            strength: "surrendering to the natural flow of emergence and synchronicity",
+            approach: "You set very general intentions and then listen deeply to what life is bringing forward.",
+            challenge: "creating enough structure to manifest when specific outcomes are needed",
+            growth: "balancing complete receptivity with intentional creation"
+        }
+    },
+
+    // Kinetic Drive
+    "kinetic-drive-strongLeft": {
+        name: "Highly Deliberate",
+        description: "You move with exceptional intentionality and structure. Detailed plans, clear steps, and reliable systems are essential to your process, providing the foundation for all your actions.",
+        phrases: {
+            identity: "a methodical creator who thrives with comprehensive planning",
+            strength: "creating thorough, structured plans that guide consistent action",
+            approach: "You develop detailed plans with clear steps before taking significant action.",
+            challenge: "adapting quickly when circumstances require deviation from plans",
+            growth: "maintaining structure while developing greater flexibility"
+        }
+    },
+    "kinetic-drive-leftLeaning": {
         name: "Deliberate",
-        description: "You like to move with intention. Plans, steps, systems, they help you feel rooted. Structure is your launchpad."
+        description: "You like to move with intention. Plans, steps, systems, they help you feel rooted. Structure is your launchpad.",
+        phrases: {
+            identity: "a purposeful creator who values intentional planning",
+            strength: "taking focused action guided by clear strategies",
+            approach: "You typically create plans before acting while allowing some room for adjustment.",
+            challenge: "recognizing when spontaneous action would be more effective",
+            growth: "balancing structured approach with timely opportunism"
+        }
     },
     "kinetic-drive-balanced": {
         name: "Rhythmic",
-        description: "You tune into the beat of the moment. You know when to push and when to pause, riding the natural rhythm of action and rest."
+        description: "You tune into the beat of the moment. You know when to push and when to pause, riding the natural rhythm of action and rest.",
+        phrases: {
+            identity: "a rhythmic creator who honors natural cycles",
+            strength: "harmonizing structured action with spontaneous inspiration",
+            approach: "You blend planning with intuitive timing, respecting the natural flow of energy.",
+            challenge: "maintaining momentum when neither structure nor inspiration feels available",
+            growth: "deepening your understanding of your unique energy cycles"
+        }
     },
-    "kinetic-drive-right": {
+    "kinetic-drive-rightLeaning": {
         name: "Spontaneous",
-        description: "You act in the moment the spark hits. Instinct leads. Planning takes the backseat. Your momentum comes from inspired action."
+        description: "You act in the moment the spark hits. Instinct leads. Planning takes the backseat. Your momentum comes from inspired action.",
+        phrases: {
+            identity: "an inspired creator who trusts spontaneous action",
+            strength: "taking immediate action when inspiration strikes",
+            approach: "You typically follow intuitive impulses while maintaining some awareness of overall direction.",
+            challenge: "sustaining momentum when immediate inspiration isn't present",
+            growth: "developing light structures that support without restricting flow"
+        }
     },
-    "choice-navigation-left": {
+    "kinetic-drive-strongRight": {
+        name: "Highly Spontaneous",
+        description: "You move almost exclusively in response to immediate inspiration. Detailed planning feels restrictive, and your greatest momentum comes from following energy as it arises in the moment.",
+        phrases: {
+            identity: "a highly intuitive creator who thrives on immediate impulse",
+            strength: "taking bold, inspired action without hesitation",
+            approach: "You act primarily on intuitive inspiration with minimal planning or preparation.",
+            challenge: "maintaining consistency when not feeling immediately inspired",
+            growth: "honoring your spontaneous nature while developing sustainable rhythms"
+        }
+    },
+
+    // Choice Navigation
+    "choice-navigation-strongLeft": {
+        name: "Highly Calculative",
+        description: "You approach decisions through comprehensive analysis. Every choice is carefully weighed, options are methodically evaluated, and you strongly prefer moving forward only when the path ahead is clear.",
+        phrases: {
+            identity: "a systematic decision-maker who values thorough analysis",
+            strength: "making carefully considered choices with clear rationale",
+            approach: "You thoroughly analyze options, weighing pros and cons before making decisions.",
+            challenge: "making timely decisions when complete information isn't available",
+            growth: "developing comfort with some uncertainty in the decision process"
+        }
+    },
+    "choice-navigation-leftLeaning": {
         name: "Calculative",
-        description: "You prefer a pause before the plunge. You look at the map, trace the paths, and make your move from strategy."
+        description: "You prefer a pause before the plunge. You look at the map, trace the paths, and make your move from strategy.",
+        phrases: {
+            identity: "a thoughtful decision-maker who values clarity",
+            strength: "making well-considered choices with awareness of potential outcomes",
+            approach: "You typically evaluate options before deciding while remaining somewhat open to intuitive guidance.",
+            challenge: "recognizing when analysis is creating unnecessary delay",
+            growth: "balancing thoughtful consideration with decisive action"
+        }
     },
     "choice-navigation-balanced": {
         name: "Responsive",
-        description: "You can shift between plan and pull, sensing when a decision needs logic, and when it just needs a yes from your body."
+        description: "You can shift between plan and pull, sensing when a decision needs logic, and when it just needs a yes from your body.",
+        phrases: {
+            identity: "an adaptive decision-maker who uses multiple inputs",
+            strength: "appropriately matching your decision style to the situation at hand",
+            approach: "You naturally integrate logical analysis with intuitive guidance when making choices.",
+            challenge: "determining which approach serves best in ambiguous situations",
+            growth: "deepening trust in your ability to choose the right approach for each decision"
+        }
     },
-    "choice-navigation-right": {
+    "choice-navigation-rightLeaning": {
         name: "Fluid",
-        description: "You follow the river, not the roadmap. Your choices rise from the current of inner guidance, not external structure."
+        description: "You follow the river, not the roadmap. Your choices rise from the current of inner guidance, not external structure.",
+        phrases: {
+            identity: "an intuitive decision-maker who trusts inner guidance",
+            strength: "making choices that align with deeper knowings and energy flows",
+            approach: "You typically follow intuitive signals while maintaining some awareness of logical considerations.",
+            challenge: "explaining your choices to those who need logical rationales",
+            growth: "honoring your intuitive process while developing ways to communicate it"
+        }
     },
-    "resonance-field-left": {
+    "choice-navigation-strongRight": {
+        name: "Highly Fluid",
+        description: "Your decisions emerge almost exclusively from intuitive knowing. You deeply trust the flow of life to guide your choices, with minimal need for analytical consideration or external validation.",
+        phrases: {
+            identity: "a highly intuitive navigator who follows energy currents",
+            strength: "making aligned choices through direct inner knowing",
+            approach: "You trust your intuitive signals implicitly, letting decisions emerge organically.",
+            challenge: "communicating your process to those who rely on logical decision frameworks",
+            growth: "creating bridges between your intuitive process and collaborative decisions"
+        }
+    },
+
+    // Resonance Field
+    "resonance-field-strongLeft": {
+        name: "Highly Regulated",
+        description: "You approach emotions with exceptional intentionality. Careful management of your emotional state is a core practice, and you excel at creating emotional stability to support your manifestation process.",
+        phrases: {
+            identity: "an emotionally disciplined creator who values stability",
+            strength: "maintaining consistent emotional tone through intentional practices",
+            approach: "You carefully cultivate beneficial emotional states and mindfully process challenging emotions.",
+            challenge: "allowing emotional authenticity when it doesn't match your intended state",
+            growth: "balancing emotional regulation with emotional honesty"
+        }
+    },
+    "resonance-field-leftLeaning": {
         name: "Regulated",
-        description: "You approach your emotional state with intention. You work with feeling like a sculptor, shaping it to support your path."
+        description: "You approach your emotional state with intention. You work with feeling like a sculptor, shaping it to support your path.",
+        phrases: {
+            identity: "an intentional creator who values emotional mastery",
+            strength: "directing emotional energy toward desired outcomes",
+            approach: "You typically manage your emotional state while allowing some natural expression.",
+            challenge: "recognizing when emotional control becomes emotional suppression",
+            growth: "developing greater emotional fluidity while maintaining core stability"
+        }
     },
     "resonance-field-balanced": {
         name: "Attuned",
-        description: "You can read the emotional weather inside and around you. You let feeling move, but you also know how to steady yourself in the storm."
+        description: "You can read the emotional weather inside and around you. You let feeling move, but you also know how to steady yourself in the storm.",
+        phrases: {
+            identity: "an emotionally attuned creator who values both expression and stability",
+            strength: "navigating emotional currents with awareness and balance",
+            approach: "You naturally allow emotional movement while maintaining a centered presence.",
+            challenge: "finding the right balance between expression and regulation in each situation",
+            growth: "deepening your emotional intelligence across varied circumstances"
+        }
     },
-    "resonance-field-right": {
+    "resonance-field-rightLeaning": {
         name: "Expressive",
-        description: "Your emotions are part of the magic. You don't try to control the tides, you ride them. Feeling leads the way."
+        description: "Your emotions are part of the magic. You don't try to control the tides, you ride them. Feeling leads the way.",
+        phrases: {
+            identity: "an emotionally expressive creator who values authenticity",
+            strength: "allowing genuine emotional energy to fuel your creation process",
+            approach: "You typically follow emotional currents while maintaining some awareness of emotional impact.",
+            challenge: "creating stability when emotional waters run turbulent",
+            growth: "honoring emotional expression while developing emotional resilience"
+        }
     },
-    "manifestation-rhythm-left": {
+    "resonance-field-strongRight": {
+        name: "Highly Expressive",
+        description: "You experience emotions with remarkable intensity and authenticity. Rather than managing emotions, you surrender to their flow, allowing them to guide your creative process in profound ways.",
+        phrases: {
+            identity: "a deeply feeling creator who navigates through emotional currents",
+            strength: "accessing powerful creative energy through emotional authenticity",
+            approach: "You dive fully into emotional experiences, letting them guide your manifestation process.",
+            challenge: "maintaining functioning when processing intense emotional states",
+            growth: "developing emotional resilience without dampening emotional depth"
+        }
+    },
+
+    // Manifestation Rhythm
+    "manifestation-rhythm-strongLeft": {
+        name: "Highly Structured",
+        description: "You thrive with exceptionally clear timelines, consistent cycles, and established rituals. Structured routines are essential to your process, providing the container through which your creative energy flows most effectively.",
+        phrases: {
+            identity: "a methodical creator who values consistent routines",
+            strength: "maintaining reliable rhythms that produce steady results",
+            approach: "You establish clear structures and follow them with remarkable consistency.",
+            challenge: "adapting when external circumstances disrupt your established patterns",
+            growth: "developing flexible structures that can evolve as needed"
+        }
+    },
+    "manifestation-rhythm-leftLeaning": {
         name: "Structured",
-        description: "You thrive with timelines, cycles, and steady rituals. For you structure is not a cage, it's your container for creation."
+        description: "You thrive with timelines, cycles, and steady rituals. For you structure is not a cage, it's your container for creation.",
+        phrases: {
+            identity: "a consistent creator who values reliable rhythms",
+            strength: "establishing supportive routines that build momentum",
+            approach: "You typically create and follow structured patterns while allowing some variation.",
+            challenge: "recognizing when structures need to evolve or be released",
+            growth: "developing structures that support without restricting growth"
+        }
     },
     "manifestation-rhythm-balanced": {
         name: "Sustainable",
-        description: "You walk the middle path between consistency and flow. You build momentum that doesn't burn out."
+        description: "You walk the middle path between consistency and flow. You build momentum that doesn't burn out.",
+        phrases: {
+            identity: "a balanced creator who values sustainable momentum",
+            strength: "maintaining progress through both structure and flexibility",
+            approach: "You naturally balance consistent practices with adaptability to changing conditions.",
+            challenge: "knowing when to lean more toward structure versus flow",
+            growth: "refining your ability to shift rhythms while maintaining momentum"
+        }
     },
-    "manifestation-rhythm-right": {
+    "manifestation-rhythm-rightLeaning": {
         name: "Dynamic",
-        description: "You're always evolving. You change how you create based on who you are right now, not who you were last week. Nothing is fixed, everything moves."
+        description: "You're always evolving. You change how you create based on who you are right now, not who you were last week. Nothing is fixed, everything moves.",
+        phrases: {
+            identity: "an adaptable creator who values evolution and change",
+            strength: "adjusting your approach to match current energy and circumstances",
+            approach: "You typically follow what feels alive now while maintaining some awareness of continuity.",
+            challenge: "creating enough consistency to build long-term momentum",
+            growth: "honoring your need for variation while establishing gentle continuity"
+        }
+    },
+    "manifestation-rhythm-strongRight": {
+        name: "Highly Dynamic",
+        description: "Your creative process is in constant evolution. You deeply resist fixed patterns and thrive when able to completely reinvent your approach based on current inspiration and energy levels.",
+        phrases: {
+            identity: "a highly fluid creator who thrives through constant renewal",
+            strength: "bringing fresh energy through frequent reinvention of your process",
+            approach: "You follow what feels most alive in each moment, allowing your process to transform continuously.",
+            challenge: "completing longer-term projects that require sustained focus",
+            growth: "developing minimalist continuity that supports without restricting evolution"
+        }
     }
 };
 
-// Typology Pair templates
+// Typology Pair templates with modular phrases for dynamic content generation
 const typologyPairs = {
+    "strongly-structured-strongly-structured": {
+        name: "Master Architect",
+        description: "You build with exceptional precision and methodology. You see reality like a detailed blueprint and bring visions to life through meticulous planning, clear systems, and consistent implementation. Your remarkable strength is in creating robust frameworks that reliably produce results.",
+        phrases: {
+            essence: "disciplined creation through comprehensive systems",
+            strength: "creating highly structured frameworks that consistently produce results",
+            challenge: "allowing space for the unexpected within your carefully designed plans",
+            approach: "You meticulously design and implement systems, ensuring each element serves the greater structure.",
+            growth: "learning to maintain your powerful structure while allowing for inspired deviation"
+        }
+    },
+    "strongly-structured-structured": {
+        name: "Strategic Architect",
+        description: "You build with intention. You see reality like a blueprint and bring visions to life through clarity, planning, and steady movement. Your strength is in creating grounded systems that actually work. You're not just manifesting dreams, you're engineering them.",
+        phrases: {
+            essence: "methodical creation through clear structure",
+            strength: "designing and implementing effective systems that produce reliable results",
+            challenge: "recognizing when flexibility would better serve your objectives",
+            approach: "You carefully plan and structure your manifestation process, ensuring each step builds logically upon the last.",
+            growth: "developing the ability to adapt your structured approach when circumstances change"
+        }
+    },
     "structured-structured": {
         name: "Strategic Architect",
-        description: "You build with intention. You see reality like a blueprint and bring visions to life through clarity, planning, and steady movement. Your strength is in creating grounded systems that actually work. You're not just manifesting dreams, you're engineering them."
+        description: "You build with intention. You see reality like a blueprint and bring visions to life through clarity, planning, and steady movement. Your strength is in creating grounded systems that actually work. You're not just manifesting dreams, you're engineering them.",
+        phrases: {
+            essence: "methodical creation through clear structure",
+            strength: "designing and implementing effective systems that produce reliable results",
+            challenge: "recognizing when flexibility would better serve your objectives",
+            approach: "You carefully plan and structure your manifestation process, ensuring each step builds logically upon the last.",
+            growth: "developing the ability to adapt your structured approach when circumstances change"
+        }
+    },
+    "strongly-structured-balanced": {
+        name: "Structured Integrator",
+        description: "You lead with powerful structure but recognize the value of adaptation. Your mind organizes with remarkable precision, while still leaving space for organic development. You excel at creating systems that maintain their integrity while allowing for natural evolution.",
+        phrases: {
+            essence: "structured creation with space for adaptation",
+            strength: "building robust systems that remain adaptable to changing conditions",
+            challenge: "determining when to maintain structure versus when to allow flexibility",
+            approach: "You create clear frameworks first, then allow for mindful adjustments as implementation proceeds.",
+            growth: "further refining your ability to determine when structure serves and when flexibility is needed"
+        }
     },
     "structured-balanced": {
         name: "Practical Synthesizer",
-        description: "You lead with structure but make space for intuitive influence. Your mind organizes with ease, and your process flexes just enough to invite in surprise. You're pragmatic but not rigid. You listen for alignment before locking in a plan."
+        description: "You lead with structure but make space for intuitive influence. Your mind organizes with ease, and your process flexes just enough to invite in surprise. You're pragmatic but not rigid. You listen for alignment before locking in a plan.",
+        phrases: {
+            essence: "practical creation with room for adaptation",
+            strength: "balancing clear structure with openness to organic development",
+            challenge: "trusting intuitive adjustments within your structured approach",
+            approach: "You create frameworks that provide direction while remaining open to refinement as you progress.",
+            growth: "deepening your trust in both structured planning and intuitive adjustment"
+        }
+    },
+    "strongly-structured-fluid": {
+        name: "Structured Visionary",
+        description: "You bring powerful structure to intuitive vision. You excel at creating robust systems that serve inspired ideas, bringing exceptional discipline to creative flow. Your unique strength lies in translating ethereal concepts into practical reality with remarkable precision.",
+        phrases: {
+            essence: "bringing disciplined structure to intuitive vision",
+            strength: "implementing highly organized systems that serve inspired ideas",
+            challenge: "allowing intuitive guidance to sometimes redirect your structured approach",
+            approach: "You receive intuitive insights, then apply methodical processes to manifest them in tangible form.",
+            growth: "developing greater trust in the interplay between precise structure and intuitive guidance"
+        }
     },
     "structured-fluid": {
         name: "Grounded Visionary",
-        description: "You bring the sky to the ground. Structure is your anchor, intuition is your compass. You create from a steady center, but you're not afraid to pivot when inspiration calls. You hold form and flow in the same hand."
+        description: "You bring the sky to the ground. Structure is your anchor, intuition is your compass. You create from a steady center, but you're not afraid to pivot when inspiration calls. You hold form and flow in the same hand.",
+        phrases: {
+            essence: "bringing practical form to intuitive guidance",
+            strength: "translating inspired ideas into workable structures",
+            challenge: "maintaining momentum when structure and inspiration seem at odds",
+            approach: "You balance structural thinking with intuitive listening, finding practical ways to implement inspired ideas.",
+            growth: "developing even greater harmony between your structured and intuitive aspects"
+        }
+    },
+    "structured-strongly-fluid": {
+        name: "Anchor for Inspiration",
+        description: "You bring essential grounding to powerful vision. Structure serves as your foundation while deep intuition guides your direction. You excel at creating just enough form to channel remarkably fluid creative energy, without restricting its natural flow.",
+        phrases: {
+            essence: "providing structural support for highly intuitive creation",
+            strength: "anchoring visionary insights with practical implementation",
+            challenge: "creating enough structure without dampening powerful inspiration",
+            approach: "You receive strong intuitive guidance, then develop appropriate structures to bring it into form.",
+            growth: "refining your ability to determine exactly how much structure serves each inspired vision"
+        }
+    },
+    "balanced-strongly-structured": {
+        name: "Adaptive Strategist",
+        description: "You bring important flexibility to powerful structure. Your adaptability complements your exceptional discipline, allowing you to refine methodical approaches through responsive adjustment. You excel at maintaining structural integrity while evolving implementation.",
+        phrases: {
+            essence: "bringing adaptability to highly structured creation",
+            strength: "maintaining structural integrity while allowing responsive evolution",
+            challenge: "knowing when to preserve structure versus when to introduce adaptation",
+            approach: "You respect established systems while introducing mindful adjustments to optimize outcomes.",
+            growth: "developing even greater discernment about when each approach best serves"
+        }
     },
     "balanced-structured": {
         name: "Integrated Strategist",
-        description: "You adapt with intention. Your ability to synthesize meets your gift for execution. You're a shapeshifter who knows how to build. You move between insight and implementation with grace, grounding your vision in form."
+        description: "You adapt with intention. Your ability to synthesize meets your gift for execution. You're a shapeshifter who knows how to build. You move between insight and implementation with grace, grounding your vision in form.",
+        phrases: {
+            essence: "adaptive creation with meaningful structure",
+            strength: "integrating multiple approaches while maintaining practical focus",
+            challenge: "trusting your adaptability within structured contexts",
+            approach: "You move fluidly between different perspectives, using structure to integrate what emerges.",
+            growth: "deepening your trust in both your adaptive nature and structural abilities"
+        }
     },
     "balanced-balanced": {
         name: "Harmonic Integrator",
-        description: "You are the center point. You naturally hold paradox without needing to collapse it. Structure and flow, logic and feeling, none of it is separate in your world. You make wholeness feel like home."
+        description: "You are the center point. You naturally hold paradox without needing to collapse it. Structure and flow, logic and feeling, none of it is separate in your world. You make wholeness feel like home.",
+        phrases: {
+            essence: "integrated creation that honors multiple approaches",
+            strength: "harmonizing seemingly opposite approaches into cohesive wholes",
+            challenge: "maintaining your center when external forces pull toward extremes",
+            approach: "You naturally perceive multiple perspectives and weave them together in balanced implementation.",
+            growth: "deepening your capacity to embody integration even in challenging circumstances"
+        }
     },
     "balanced-fluid": {
         name: "Flowing Harmonizer",
-        description: "You lead with inner harmony and move through life like water. You invite clarity but don't demand it. Your creative process is intuitive, expansive, and still somehow grounded. You trust the rhythm of things."
+        description: "You lead with inner harmony and move through life like water. You invite clarity but don't demand it. Your creative process is intuitive, expansive, and still somehow grounded. You trust the rhythm of things.",
+        phrases: {
+            essence: "harmonious creation through adaptable flow",
+            strength: "maintaining center while flowing with intuitive guidance",
+            challenge: "creating enough structure to manifest intuitive insights",
+            approach: "You listen deeply to inner guidance while maintaining enough form to bring it into reality.",
+            growth: "developing greater capacity to anchor your intuitive flow when needed"
+        }
+    },
+    "balanced-strongly-fluid": {
+        name: "Flow Navigator",
+        description: "You bring essential grounding to highly intuitive creation. While honoring powerful creative currents, you maintain enough center to navigate them effectively. You excel at staying oriented within expansive vision, helping inspiration find tangible expression.",
+        phrases: {
+            essence: "providing centered awareness within highly intuitive flow",
+            strength: "remaining oriented while swimming in deep creative currents",
+            challenge: "maintaining enough structure to translate powerful inspiration into form",
+            approach: "You honor intuitive guidance while providing just enough framework to manifest its essence.",
+            growth: "refining your ability to remain effectively centered within highly fluid creation"
+        }
+    },
+    "fluid-strongly-structured": {
+        name: "Visionary Builder",
+        description: "You begin with intuitive vision and bring it into form through exceptional discipline. Your intuition guides what wants to emerge, while your remarkable structural abilities determine how to manifest it effectively. You excel at bridging inspiration and methodical implementation.",
+        phrases: {
+            essence: "bringing intuitive vision into highly structured form",
+            strength: "translating creative inspiration into robust practical systems",
+            challenge: "maintaining creative flow while implementing detailed structure",
+            approach: "You allow intuition to guide direction, then apply methodical processes to manifest the vision.",
+            growth: "developing even greater harmony between your intuitive and highly structured aspects"
+        }
     },
     "fluid-structured": {
         name: "Intuitive Implementer",
-        description: "You begin with feeling and shape it into form. Vision comes first, but you know how to follow through. Your intuition guides the what, and your structured self handles the how. You're the bridge between idea and action."
+        description: "You begin with feeling and shape it into form. Vision comes first, but you know how to follow through. Your intuition guides the what, and your structured self handles the how. You're the bridge between idea and action.",
+        phrases: {
+            essence: "intuitive creation supported by practical implementation",
+            strength: "receiving inspired guidance and bringing it into tangible form",
+            challenge: "maintaining the essence of inspiration during the structuring process",
+            approach: "You allow intuition to lead while developing supportive structures to manifest what emerges.",
+            growth: "refining your ability to preserve inspired energy throughout implementation"
+        }
     },
     "fluid-balanced": {
         name: "Visionary Harmonizer",
-        description: "You lead with intuition but always keep one foot in the world. You're tapped into possibility while still attuned to what's needed now. You dance between realms, receiving, refining, and translating energy into form."
+        description: "You lead with intuition but always keep one foot in the world. You're tapped into possibility while still attuned to what's needed now. You dance between realms, receiving, refining, and translating energy into form.",
+        phrases: {
+            essence: "intuitive creation with adaptive implementation",
+            strength: "bringing inspired vision into reality through flexible approaches",
+            challenge: "creating enough structure without limiting intuitive guidance",
+            approach: "You follow intuitive direction while remaining responsive to what emerges during implementation.",
+            growth: "developing greater trust in both your intuitive guidance and adaptive abilities"
+        }
     },
     "fluid-fluid": {
         name: "Quantum Manifestor",
-        description: "You create from the unseen. You don't manifest through steps, you manifest through state. You trust timing, you trust energy, and you trust yourself. Your reality bends in response to your being."
+        description: "You create from the unseen. You don't manifest through steps, you manifest through state. You trust timing, you trust energy, and you trust yourself. Your reality bends in response to your being.",
+        phrases: {
+            essence: "intuitive creation through energetic alignment",
+            strength: "manifesting through resonance rather than linear action",
+            challenge: "bringing inspired visions into tangible form without restricting their essence",
+            approach: "You align your energy with desired outcomes, allowing reality to reshape around your frequency.",
+            growth: "developing greater capacity to maintain your state while engaging with practical reality"
+        }
+    },
+    "fluid-strongly-fluid": {
+        name: "Ethereal Creator",
+        description: "You create almost entirely through energy, resonance, and state. Linear processes feel foreign to your deeply intuitive nature. You manifest by becoming the frequency of what you desire, trusting the universe to rearrange itself accordingly.",
+        phrases: {
+            essence: "creation through pure energetic alignment",
+            strength: "accessing deeply intuitive knowledge and manifesting through resonance",
+            challenge: "translating ethereal awareness into forms others can recognize",
+            approach: "You tune into subtle energetic currents and allow reality to reshape itself around your aligned state.",
+            growth: "developing ways to bridge your profound intuitive process with shared reality"
+        }
+    },
+    "strongly-fluid-strongly-fluid": {
+        name: "Pure Intuitive",
+        description: "You create almost exclusively through energy, frequency, and direct knowing. Conventional manifestation approaches feel unnecessarily complex to your deeply intuitive nature. You access reality at the quantum level, where intention and manifestation are essentially one movement.",
+        phrases: {
+            essence: "creation through profound intuitive knowing",
+            strength: "directly accessing the field where intention and manifestation merge",
+            challenge: "interacting with conventional reality without diminishing your connection to source",
+            approach: "You manifest primarily through being rather than doing, allowing reality to respond to your frequency.",
+            growth: "developing bridges between your quantum awareness and the shared physical world"
+        }
+    },
+    "strongly-fluid-fluid": {
+        name: "Quantum Guide",
+        description: "You access reality at remarkably subtle levels, where intention and manifestation are nearly simultaneous. Your highly developed intuitive abilities allow you to perceive possibilities beyond conventional awareness, bringing through insights that reshape understanding.",
+        phrases: {
+            essence: "creation through profound intuitive connection",
+            strength: "accessing subtle dimensions of reality beyond conventional perception",
+            challenge: "translating multidimensional awareness into linear communication",
+            approach: "You align with the essence of what you wish to create, allowing it to emerge through energetic resonance.",
+            growth: "developing ways to bridge your intuitive knowing with practical implementation"
+        }
+    },
+    "strongly-fluid-balanced": {
+        name: "Visionary Translator",
+        description: "You access profound intuitive wisdom while maintaining enough center to translate it effectively. Your exceptional intuitive abilities perceive beyond conventional reality, while your balanced nature helps bridge these insights to practical application.",
+        phrases: {
+            essence: "bridging profound intuition with practical integration",
+            strength: "translating multidimensional awareness into implementable guidance",
+            challenge: "preserving the depth of intuitive knowledge during the translation process",
+            approach: "You receive intuitive information at deep levels, then work to express it in accessible ways.",
+            growth: "refining your ability to maintain intuitive connection while engaging with conventional reality"
+        }
+    },
+    "strongly-structured-strongly-fluid": {
+        name: "Dimensional Bridge",
+        description: "You embody a remarkable synthesis of seemingly opposite approaches. Your exceptional structure provides tangible form for profound intuitive vision. You excel at creating robust systems that channel ethereal energy, bringing the invisible into powerful manifestation.",
+        phrases: {
+            essence: "bridging profound structure and deep intuition",
+            strength: "creating powerful frameworks that channel intuitive wisdom",
+            challenge: "maintaining the integrity of both structure and intuition simultaneously",
+            approach: "You receive deep intuitive guidance, then apply exceptional organizational skills to bring it into form.",
+            growth: "refining your unique ability to honor both highly structured and deeply intuitive aspects"
+        }
     }
 };
 
@@ -386,6 +862,70 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
     };
 }
 
+// Function to generate a dynamic result based on spectrum placements
+function generateDynamicResult(spectrumPlacements, typologyPair) {
+    // Collect phrases from each spectrum
+    const spectrumPhrases = {};
+    Object.entries(spectrumPlacements).forEach(([spectrumId, placement]) => {
+        // Get the correct description object
+        const descriptionKey = `${spectrumId}-${placement}`;
+        const description = typologyDescriptions[descriptionKey];
+        
+        if (description && description.phrases) {
+            spectrumPhrases[spectrumId] = description.phrases;
+        } else {
+            // Fallback to a similar placement if the exact one isn't found
+            // Try to find the closest match
+            let fallbackKey;
+            if (placement.includes('Left') || placement === 'strongLeft') {
+                fallbackKey = `${spectrumId}-left`;
+            } else if (placement.includes('Right') || placement === 'strongRight') {
+                fallbackKey = `${spectrumId}-right`;
+            } else {
+                fallbackKey = `${spectrumId}-balanced`;
+            }
+            
+            if (typologyDescriptions[fallbackKey] && typologyDescriptions[fallbackKey].phrases) {
+                spectrumPhrases[spectrumId] = typologyDescriptions[fallbackKey].phrases;
+            }
+        }
+    });
+    
+    // Get the typology pair template
+    const pairKey = typologyPair.key;
+    const pairTemplate = typologyPairs[pairKey] || typologyPairs['fluid-structured'];
+    
+    // Combine phrases to create a cohesive result
+    const result = {
+        typologyName: pairTemplate.name,
+        typologyDescription: pairTemplate.description,
+        primaryIdentity: spectrumPhrases[typologyPair.primary.spectrumId]?.identity || "",
+        secondaryIdentity: spectrumPhrases[typologyPair.secondary.spectrumId]?.identity || "",
+        primaryStrength: spectrumPhrases[typologyPair.primary.spectrumId]?.strength || "",
+        secondaryStrength: spectrumPhrases[typologyPair.secondary.spectrumId]?.strength || "",
+        primaryChallenge: spectrumPhrases[typologyPair.primary.spectrumId]?.challenge || "",
+        secondaryChallenge: spectrumPhrases[typologyPair.secondary.spectrumId]?.challenge || "",
+        typologyEssence: pairTemplate.phrases?.essence || "",
+        typologyApproach: pairTemplate.phrases?.approach || "",
+        typologyStrength: pairTemplate.phrases?.strength || "",
+        typologyChallenge: pairTemplate.phrases?.challenge || "",
+        typologyGrowth: pairTemplate.phrases?.growth || ""
+    };
+    
+    // Create custom paragraphs combining the various pieces
+    result.identitySummary = `You are ${result.primaryIdentity} with qualities of ${result.secondaryIdentity}. Your ${pairTemplate.name} nature gives you a unique perspective on reality creation.`;
+    
+    result.strengthSummary = `Your primary strength lies in ${result.primaryStrength}, complemented by your ability for ${result.secondaryStrength}. This combination enables ${result.typologyStrength}.`;
+    
+    result.challengeSummary = `Your growth edge involves ${result.primaryChallenge} while also navigating ${result.secondaryChallenge}. As a ${pairTemplate.name}, your specific challenge is ${result.typologyChallenge}.`;
+    
+    result.approachSummary = `${result.typologyApproach} This reflects the essence of ${result.typologyEssence}.`;
+    
+    result.growthSummary = `Your path forward involves ${result.typologyGrowth}, which will help you fully embody your unique potential as a ${pairTemplate.name}.`;
+    
+    return result;
+}
+
 // Generate Typology Pair section (displays name and description)
 function generateTypologyPairSection(typologyPair) {
     const container = document.getElementById('typology-pair');
@@ -393,6 +933,13 @@ function generateTypologyPairSection(typologyPair) {
     
     const pairKey = typologyPair.key;
     const pairTemplate = typologyPairs[pairKey] || typologyPairs['fluid-structured'];
+    
+    // Get the complete results data
+    const resultsData = window.completeResults || generateCompleteResults();
+    window.completeResults = resultsData; // Store for later use
+    
+    // Generate dynamic content
+    const dynamicResult = generateDynamicResult(resultsData.spectrumPlacements, typologyPair);
     
     container.innerHTML = `
         <div class="bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100">
@@ -402,16 +949,24 @@ function generateTypologyPairSection(typologyPair) {
                         <div class="w-6 h-6 rounded-full bg-gradient-to-br from-amber-300 to-amber-400"></div>
                     </div>
                 </div>
-                <h2 class="text-3xl font-light text-stone-800 ml-4">${pairTemplate.name}</h2>
+                <h2 class="text-3xl font-light text-stone-800 ml-4">${dynamicResult.typologyName}</h2>
             </div>
-            <p class="text-lg font-light text-stone-600 leading-relaxed">
-                ${pairTemplate.description}
+            <p class="text-lg font-light text-stone-600 leading-relaxed mb-6">
+                ${dynamicResult.typologyDescription}
             </p>
+            <div class="mt-6 space-y-4 border-t border-stone-100 pt-6">
+                <p class="text-base font-light text-stone-600 leading-relaxed">
+                    ${dynamicResult.identitySummary}
+                </p>
+                <p class="text-base font-light text-stone-600 leading-relaxed">
+                    ${dynamicResult.approachSummary}
+                </p>
+            </div>
         </div>
     `;
 }
 
-// Generate Spectrum Diagram
+// Generate Spectrum Diagram with mastery influence indicators
 function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const container = document.getElementById('spectrum-diagram');
     if (!container) return;
@@ -427,6 +982,9 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     `;
     container.appendChild(titleSection);
     
+    // Get the complete results data to access original scores and mastery influences
+    const resultsData = window.completeResults || generateCompleteResults();
+    
     // Grid container for spectrums
     const gridContainer = document.createElement('div');
     gridContainer.className = 'grid grid-cols-12 gap-x-4 gap-y-20';
@@ -435,10 +993,92 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     typologySpectrums.forEach((spectrum, index) => {
         const placement = spectrumPlacements[spectrum.id] || 'balanced';
         
-        // Calculate value position
-        let value = 50;
-        if (placement === 'left') value = 25;
-        if (placement === 'right') value = 75;
+        // Calculate value position (5 positions across the spectrum)
+        let value = 50; // Default balanced position
+        let placementLabel = 'Balanced';
+        let placementColor = 'green-400';
+        
+        switch(placement) {
+            case 'strongLeft':
+                value = 10; // Strongly structured position
+                placementLabel = 'Strongly Structured';
+                placementColor = 'blue-600';
+                break;
+            case 'leftLeaning':
+                value = 30; // Leaning structured position
+                placementLabel = 'Leaning Structured';
+                placementColor = 'blue-400';
+                break;
+            case 'left': // legacy support
+                value = 25; 
+                placementLabel = 'Structured';
+                placementColor = 'blue-400';
+                break;
+            case 'balanced':
+                value = 50; // Balanced position
+                placementLabel = 'Balanced';
+                placementColor = 'green-400';
+                break;
+            case 'right': // legacy support
+                value = 75;
+                placementLabel = 'Fluid';
+                placementColor = 'amber-400';
+                break;
+            case 'rightLeaning':
+                value = 70; // Leaning fluid position
+                placementLabel = 'Leaning Fluid';
+                placementColor = 'amber-400';
+                break;
+            case 'strongRight':
+                value = 90; // Strongly fluid position
+                placementLabel = 'Strongly Fluid';
+                placementColor = 'amber-600';
+                break;
+        }
+        
+        // Check if this spectrum has mastery influences
+        let hasMasteryInfluence = false;
+        let masteryInfluenceHTML = '';
+        
+        if (resultsData.masteryInfluences && 
+            resultsData.masteryInfluences[spectrum.id] && 
+            resultsData.masteryInfluences[spectrum.id].length > 0) {
+            
+            hasMasteryInfluence = true;
+            
+            // Get original score position (before mastery influence)
+            let originalValue = 50; // Default position
+            const originalScore = resultsData.originalNumericScores[spectrum.id];
+            
+            if (originalScore <= -2) originalValue = 10;
+            else if (originalScore === -1) originalValue = 30;
+            else if (originalScore === 0) originalValue = 50;
+            else if (originalScore === 1) originalValue = 70;
+            else if (originalScore >= 2) originalValue = 90;
+            
+            // Create mastery influence indicator
+            masteryInfluenceHTML = `
+                <!-- Original position indicator (faded) -->
+                <div class="absolute top-0 w-px h-6 transform -translate-x-1/2 bg-stone-400 opacity-40" style="left: ${originalValue}%"></div>
+                <div class="absolute top-6 w-2 h-2 rounded-full transform -translate-x-1/2 bg-stone-400 opacity-40" style="left: ${originalValue}%"></div>
+                
+                <!-- Arrow showing the shift -->
+                <div class="absolute top-3 h-px bg-stone-400 opacity-40" 
+                     style="left: ${Math.min(originalValue, value)}%; 
+                            width: ${Math.abs(value - originalValue)}%;">
+                </div>
+                
+                <!-- Mastery influence indicator -->
+                <div class="absolute top-36 flex items-center">
+                    <div class="py-1 px-2 bg-amber-50 bg-opacity-90 rounded-md text-[9px] font-light text-amber-800">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-3 w-3 inline-block mr-1" viewBox="0 0 20 20" fill="currentColor">
+                            <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd" />
+                        </svg>
+                        Mastery Influenced
+                    </div>
+                </div>
+            `;
+        }
         
         const isFullWidth = index === 0 || index === 3 || index === 5;
         const leftAligned = index === 1 || index === 4;
@@ -451,10 +1091,79 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
             rightAligned ? 'col-span-7 col-start-6' : 'col-span-6'
         }`;
         
-        const descriptionKey = `${spectrum.id}-${placement}`;
+        // Get the appropriate description
+        let descriptionKey;
+        if (placement === 'strongLeft') {
+            descriptionKey = `${spectrum.id}-left`;
+        } else if (placement === 'leftLeaning') {
+            descriptionKey = `${spectrum.id}-left`;
+        } else if (placement === 'rightLeaning') {
+            descriptionKey = `${spectrum.id}-right`;
+        } else if (placement === 'strongRight') {
+            descriptionKey = `${spectrum.id}-right`;
+        } else {
+            descriptionKey = `${spectrum.id}-${placement}`;
+        }
+        
         const descriptionText = typologyDescriptions[descriptionKey] ? 
             typologyDescriptions[descriptionKey].description : 
             "This is your natural tendency along this spectrum.";
+        
+        // Generate HTML for mastery influences if there are any
+        let masteryInfluencesDetailsHTML = '';
+        if (hasMasteryInfluence) {
+            const influences = resultsData.masteryInfluences[spectrum.id];
+            
+            masteryInfluencesDetailsHTML = `
+                <div class="mt-4 pt-3 border-t border-stone-100">
+                    <div class="text-[10px] font-medium uppercase tracking-wider text-amber-700 mb-2">
+                        Mastery Influences
+                    </div>
+                    <div class="space-y-1">
+            `;
+            
+            // Only show up to 2 influences to avoid overwhelming the user
+            influences.slice(0, 2).forEach(influence => {
+                // Format the value name
+                const valueName = influence.value.replace(/-/g, ' ');
+                
+                // Format the category name
+                let categoryName;
+                switch(influence.category) {
+                    case 'corePriorities': categoryName = 'Core Priority'; break;
+                    case 'growthAreas': categoryName = 'Growth Area'; break;
+                    case 'alignmentNeeds': categoryName = 'Alignment Need'; break;
+                    case 'energyPatterns': categoryName = 'Energy Pattern'; break;
+                    default: categoryName = influence.category;
+                }
+                
+                // Determine direction text
+                const directionText = influence.influence > 0 ? 
+                    "increased fluid tendency" : 
+                    "increased structured tendency";
+                
+                masteryInfluencesDetailsHTML += `
+                    <div class="text-[9px] font-light text-stone-600">
+                        Your <span class="text-amber-700">${categoryName}</span> of 
+                        <span class="text-amber-700">${valueName}</span> 
+                        ${directionText}
+                    </div>
+                `;
+            });
+            
+            if (influences.length > 2) {
+                masteryInfluencesDetailsHTML += `
+                    <div class="text-[9px] font-light text-stone-500 italic">
+                        + ${influences.length - 2} more influence${influences.length - 2 > 1 ? 's' : ''}
+                    </div>
+                `;
+            }
+            
+            masteryInfluencesDetailsHTML += `
+                    </div>
+                </div>
+            `;
+        }
         
         spectrumItem.innerHTML = `
             <div class="absolute -top-10 ${
@@ -465,10 +1174,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                 <div class="w-6 h-6 mr-2 flex items-center justify-center">
                     <span class="text-xs font-light text-stone-400">${index + 1}</span>
                 </div>
-                <div class="h-px w-16 ${
-                    placement === 'left' ? 'bg-blue-300' :
-                    placement === 'right' ? 'bg-amber-300' : 'bg-green-300'
-                }"></div>
+                <div class="h-px w-16 bg-${placementColor}"></div>
             </div>
             
             <div class="grid grid-cols-12 gap-3">
@@ -478,7 +1184,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                         <h4 class="text-lg font-light text-stone-700">${spectrum.name}</h4>
                     </div>
                     <div class="text-xs font-light text-stone-500 uppercase tracking-wider">
-                        ${placement.charAt(0).toUpperCase() + placement.slice(1)}
+                        ${placementLabel}
                     </div>
                 </div>
                 
@@ -489,26 +1195,44 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                 <div class="col-span-7 flex flex-col">
                     <div class="mb-6 relative">
                         <div class="h-px w-full bg-stone-200"></div>
+                        
+                        <!-- Position markers at 10%, 30%, 50%, 70%, 90% -->
+                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 10%"></div>
+                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 30%"></div>
+                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 50%"></div>
+                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 70%"></div>
+                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 90%"></div>
+                        
+                        ${hasMasteryInfluence ? masteryInfluenceHTML : ''}
+                        
+                        <!-- Position indicator for this spectrum -->
                         <div class="relative" style="margin-left: ${value}%">
-                            <div class="absolute top-0 w-px h-16 transform -translate-x-1/2 ${
-                                placement === 'left' ? 'bg-blue-400' :
-                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
-                            }"></div>
-                            <div class="absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 ${
-                                placement === 'left' ? 'bg-blue-400' :
-                                placement === 'right' ? 'bg-amber-400' : 'bg-green-400'
-                            }"></div>
+                            <div class="absolute top-0 w-px h-16 transform -translate-x-1/2 bg-${placementColor}"></div>
+                            <div class="absolute top-16 w-3 h-3 rounded-full transform -translate-x-1/2 bg-${placementColor}"></div>
                         </div>
                         
+                        <!-- Spectrum labels -->
                         <div class="flex justify-between mt-20 text-xs tracking-wide text-stone-500">
-                            <span>${spectrum.leftLabel}</span>
-                            <span>${spectrum.rightLabel}</span>
+                            <span class="ml-1">${spectrum.leftLabel}</span>
+                            <span class="mr-1">${spectrum.rightLabel}</span>
+                        </div>
+                        
+                        <!-- Position labels -->
+                        <div class="flex justify-between px-3 mt-2 text-[9px] uppercase tracking-wide text-stone-400 opacity-70">
+                            <span style="transform: translateX(-5px)">Strong</span>
+                            <span style="transform: translateX(-3px)">Lean</span>
+                            <span style="transform: translateX(0px)">Balanced</span>
+                            <span style="transform: translateX(3px)">Lean</span>
+                            <span style="transform: translateX(5px)">Strong</span>
                         </div>
                     </div>
                     
-                    <p class="text-sm font-light text-stone-600 leading-relaxed">
-                        ${descriptionText}
-                    </p>
+                    <div>
+                        <p class="text-sm font-light text-stone-600 leading-relaxed">
+                            ${descriptionText}
+                        </p>
+                        ${masteryInfluencesDetailsHTML}
+                    </div>
                 </div>
             </div>
             
@@ -529,18 +1253,26 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     const legend = document.createElement('div');
     legend.className = 'mt-24 flex justify-between items-end';
     legend.innerHTML = `
-        <div class="grid grid-cols-3 gap-8 w-1/2">
+        <div class="grid grid-cols-5 gap-4 w-3/4">
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-14 bg-blue-600 mb-3"></div>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Strongly<br>Structured</span>
+            </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-12 bg-blue-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Structured</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Leaning<br>Structured</span>
             </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-8 bg-green-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Balanced</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Balanced</span>
             </div>
             <div class="flex flex-col items-center">
-                <div class="w-3 h-16 bg-amber-400 mb-3"></div>
-                <span class="text-xs font-light uppercase tracking-wider text-stone-500">Intuitive</span>
+                <div class="w-3 h-12 bg-amber-400 mb-3"></div>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Leaning<br>Fluid</span>
+            </div>
+            <div class="flex flex-col items-center">
+                <div class="w-3 h-14 bg-amber-600 mb-3"></div>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Strongly<br>Fluid</span>
             </div>
         </div>
         
@@ -561,14 +1293,23 @@ function generateIdealApproachesSection(typologyPair) {
     const pairKey = typologyPair.key;
     const approachesData = idealApproaches[pairKey] || idealApproaches['fluid-structured'];
     
+    // Get the complete results data and dynamic content
+    const resultsData = window.completeResults || generateCompleteResults();
+    const dynamicResult = generateDynamicResult(resultsData.spectrumPlacements, typologyPair);
+    
     container.innerHTML = '';
     
     // Strengths card
     const strengthsCard = document.createElement('div');
     strengthsCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     strengthsCard.innerHTML = `
-        <h3 class="text-xl font-light text-stone-800 mb-4">What Comes Naturally</h3>
-        <p class="text-base font-light text-stone-600">${approachesData.strengths}</p>
+        <h3 class="text-xl font-light text-stone-800 mb-4">Your Core Strengths</h3>
+        <p class="text-base font-light text-stone-600 mb-4">${approachesData.strengths}</p>
+        <div class="mt-6 pt-4 border-t border-stone-100">
+            <p class="text-base font-light text-stone-600">
+                ${dynamicResult.strengthSummary}
+            </p>
+        </div>
     `;
     container.appendChild(strengthsCard);
     
@@ -597,6 +1338,18 @@ function generateIdealApproachesSection(typologyPair) {
     });
     
     approachesCard.appendChild(approachesList);
+    
+    // Add growth path from dynamic content
+    const growthSection = document.createElement('div');
+    growthSection.className = 'mt-6 pt-4 border-t border-stone-100';
+    growthSection.innerHTML = `
+        <h4 class="text-sm font-medium text-stone-700 mb-2">Your Growth Path</h4>
+        <p class="text-base font-light text-stone-600">
+            ${dynamicResult.growthSummary}
+        </p>
+    `;
+    approachesCard.appendChild(growthSection);
+    
     container.appendChild(approachesCard);
 }
 
@@ -608,6 +1361,10 @@ function generateMisalignmentsSection(typologyPair) {
     const pairKey = typologyPair.key;
     const misalignmentsData = commonMisalignments[pairKey] || commonMisalignments['fluid-structured'];
     
+    // Get the dynamic result
+    const resultsData = window.completeResults || generateCompleteResults();
+    const dynamicResult = generateDynamicResult(resultsData.spectrumPlacements, typologyPair);
+    
     container.innerHTML = '';
     
     const misalignmentsCard = document.createElement('div');
@@ -617,6 +1374,16 @@ function generateMisalignmentsSection(typologyPair) {
     misalignmentsHeader.className = 'text-xl font-light text-stone-800 mb-6';
     misalignmentsHeader.textContent = 'Where Tension Might Show Up';
     misalignmentsCard.appendChild(misalignmentsHeader);
+    
+    // Add the challenge summary from dynamic content
+    const challengeSummary = document.createElement('div');
+    challengeSummary.className = 'mb-6 pb-4 border-b border-stone-100';
+    challengeSummary.innerHTML = `
+        <p class="text-base font-light text-stone-600 leading-relaxed">
+            ${dynamicResult.challengeSummary}
+        </p>
+    `;
+    misalignmentsCard.appendChild(challengeSummary);
     
     const misalignmentsList = document.createElement('div');
     misalignmentsList.className = 'space-y-4';
@@ -685,6 +1452,21 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
         'momentum-resistance': 'You're discovering how to stay in motion, not from force, but from flow that builds on itself.',
         'control-resistance': 'You're softening your grip, letting go of the need to manage every outcome, and learning to co-create with life.'
     };
+    
+    // Cross-Spectrum Insights Section (if available)
+    if (window.generateCrossSpectrumInsights) {
+        // Get the complete results data
+        const resultsData = window.completeResults || generateCompleteResults();
+        
+        // Generate cross-spectrum insights
+        const crossSpectrumInsights = document.createElement('div');
+        crossSpectrumInsights.className = 'mb-8';
+        crossSpectrumInsights.innerHTML = window.generateCrossSpectrumInsights(
+            resultsData.spectrumPlacements, 
+            resultsData.numericScores
+        );
+        container.appendChild(crossSpectrumInsights);
+    }
     
     // Core Values Card
     const valuesCard = document.createElement('div');
@@ -1170,6 +1952,7 @@ function showResultsTab(tabId) {
 
 // Make functions available globally
 window.generateAndDisplayResults = generateAndDisplayResults;
+window.generateDynamicResult = generateDynamicResult;
 window.generateTypologyPairSection = generateTypologyPairSection;
 window.generateSpectrumDiagram = generateSpectrumDiagram;
 window.generateIdealApproachesSection = generateIdealApproachesSection;
