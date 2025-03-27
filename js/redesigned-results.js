@@ -7,75 +7,75 @@
 const typologyDescriptions = {
     "cognitive-alignment-left": {
         name: "Rational",
-        description: "You process reality through logical thinking, analysis, and evidence. You need clarity and reasoning before accepting something as true or real."
+        description: "You orient to reality through logic, analysis, and evidence. Understanding comes through reason, you need clarity you can track before you let something in as real."
     },
     "cognitive-alignment-balanced": {
         name: "Synthesizing",
-        description: "You blend logic with intuition, using both analytical thinking and inner knowing to navigate reality creation."
+        description: "You're a bridge between realms, braiding logic with inner knowing. You listen to both mind and intuition, translating between the two as you move through your process."
     },
     "cognitive-alignment-right": {
         name: "Intuitive",
-        description: "You trust inner knowing and direct experience over logic. Your intuition guides your perception and decisions in reality creation."
+        description: "You trust what the body and spirit know before the mind can name it. Your truth rises through sensation, symbols, and inner resonance, it doesn't need to be proven to be felt as real."
     },
     "perceptual-focus-left": {
         name: "Definitive",
-        description: "You need a clear, well-defined vision to manifest effectively. Precision and specificity help you create with confidence."
+        description: "You feel strongest with a sharp, dialed-in vision. Specificity gives your energy a direction to flow toward. Clarity is a spell, it calls things in."
     },
     "perceptual-focus-balanced": {
         name: "Adaptive",
-        description: "You balance specificity with openness, allowing clarity and fluidity to coexist in your manifestation process."
+        description: "You let clarity and curiosity sit side by side. You prefer to hold a vision without clenching it, staying precise and open at once."
     },
     "perceptual-focus-right": {
         name: "Receptive",
-        description: "You prefer to stay open to unfolding surprises rather than locking into a fixed vision. Possibilities emerge as you remain receptive."
+        description: "You keep your hands open. You don't lock into a vision, you listen for what's arriving. The future reveals itself as you move."
     },
     "kinetic-drive-left": {
         name: "Deliberate",
-        description: "You move intentionally, preferring structured execution and planning. Methodical action gives you confidence and momentum."
+        description: "You like to move with intention. Plans, steps, systems, they help you feel rooted. Structure is your launchpad."
     },
     "kinetic-drive-balanced": {
         name: "Rhythmic",
-        description: "You adapt speed and timing to the moment, shifting between planning and action seamlessly as needed."
+        description: "You tune into the beat of the moment. You know when to push and when to pause, riding the natural rhythm of action and rest."
     },
     "kinetic-drive-right": {
         name: "Spontaneous",
-        description: "You act quickly, following instinct and momentum rather than detailed planning. Inspired action drives your manifestation."
+        description: "You act in the moment the spark hits. Instinct leads. Planning takes the backseat. Your momentum comes from inspired action."
     },
     "choice-navigation-left": {
         name: "Calculative",
-        description: "You prefer making decisions carefully, weighing options before acting. Strategic planning gives you clarity and confidence."
+        description: "You prefer a pause before the plunge. You look at the map, trace the paths, and make your move from strategy."
     },
     "choice-navigation-balanced": {
-        name: "Balanced",
-        description: "You balance strategic decisions with intuitive responsiveness, knowing when to plan and when to flow with opportunities."
+        name: "Responsive",
+        description: "You can shift between plan and pull, sensing when a decision needs logic, and when it just needs a yes from your body."
     },
     "choice-navigation-right": {
         name: "Fluid",
-        description: "You make decisions based on instinct, trusting the path as it unfolds. Your choices flow naturally from inner guidance."
+        description: "You follow the river, not the roadmap. Your choices rise from the current of inner guidance, not external structure."
     },
     "resonance-field-left": {
         name: "Regulated",
-        description: "You regulate emotions intentionally, cultivating specific states for focused manifestation. Emotional management is key to your process."
+        description: "You approach your emotional state with intention. You work with feeling like a sculptor, shaping it to support your path."
     },
     "resonance-field-balanced": {
         name: "Attuned",
-        description: "You move between emotional influence and stability, adjusting as needed and using feelings as informative guidance."
+        description: "You can read the emotional weather inside and around you. You let feeling move, but you also know how to steady yourself in the storm."
     },
     "resonance-field-right": {
         name: "Expressive",
-        description: "You let emotions naturally shape reality, allowing mood and energy shifts to guide your manifestation process."
+        description: "Your emotions are part of the magic. You don't try to control the tides, you ride them. Feeling leads the way."
     },
     "manifestation-rhythm-left": {
         name: "Structured",
-        description: "You thrive in predictable cycles, working best with structured phases and deadlines. Consistency is your key to manifestation."
+        description: "You thrive with timelines, cycles, and steady rituals. For you structure is not a cage, it's your container for creation."
     },
     "manifestation-rhythm-balanced": {
         name: "Sustainable",
-        description: "You can adapt while maintaining steady momentum, balancing external structure with inner flow for sustainable progress."
+        description: "You walk the middle path between consistency and flow. You build momentum that doesn't burn out."
     },
     "manifestation-rhythm-right": {
         name: "Dynamic",
-        description: "You shift approaches fluidly, reinventing your manifestation process based on current needs and inspiration. Evolution is constant."
+        description: "You're always evolving. You change how you create based on who you are right now, not who you were last week. Nothing is fixed, everything moves."
     }
 };
 
@@ -83,132 +83,132 @@ const typologyDescriptions = {
 const typologyPairs = {
     "structured-structured": {
         name: "Strategic Architect",
-        description: "You are a methodical creator who thrives with clear structure and logical processes. Your approach to reality creation emphasizes careful planning, consistent action, and measurable results. You excel at creating solid foundations and implementing systematic approaches to manifestation."
+        description: "You build with intention. You see reality like a blueprint and bring visions to life through clarity, planning, and steady movement. Your strength is in creating grounded systems that actually work. You're not just manifesting dreams, you're engineering them."
     },
     "structured-balanced": {
         name: "Practical Synthesizer",
-        description: "You lead with structured approaches while maintaining balanced integration in your process. Your methodical nature and analytical mind guide your manifestation work, yet you naturally incorporate intuitive elements to enhance your primarily logical approach."
+        description: "You lead with structure but make space for intuitive influence. Your mind organizes with ease, and your process flexes just enough to invite in surprise. You're pragmatic but not rigid. You listen for alignment before locking in a plan."
     },
     "structured-fluid": {
         name: "Grounded Visionary",
-        description: "You combine structured foundations with fluid expansion in your creation process. Your methodical core provides stability while your secondary intuitive nature allows for inspired adaptation and energetic awareness within your primarily structured approach."
+        description: "You bring the sky to the ground. Structure is your anchor, intuition is your compass. You create from a steady center, but you're not afraid to pivot when inspiration calls. You hold form and flow in the same hand."
     },
     "balanced-structured": {
         name: "Integrated Strategist",
-        description: "You lead with balanced integration while incorporating structured elements in your approach. Your adaptable nature allows you to harmonize different modalities, with a secondary emphasis on methodical implementation and logical analysis."
+        description: "You adapt with intention. Your ability to synthesize meets your gift for execution. You're a shapeshifter who knows how to build. You move between insight and implementation with grace, grounding your vision in form."
     },
     "balanced-balanced": {
         name: "Harmonic Integrator",
-        description: "You are naturally centered in balanced integration across all aspects of reality creation. Your approach emphasizes adaptability, harmony between structure and flow, and the ability to synthesize seemingly opposite modalities into cohesive creation processes."
+        description: "You are the center point. You naturally hold paradox without needing to collapse it. Structure and flow, logic and feeling, none of it is separate in your world. You make wholeness feel like home."
     },
     "balanced-fluid": {
         name: "Flowing Harmonizer",
-        description: "You lead with balanced integration while incorporating fluid elements in your approach. Your adaptable nature allows you to harmonize different modalities, with a secondary emphasis on intuitive flow and energetic alignment."
+        description: "You lead with inner harmony and move through life like water. You invite clarity but don't demand it. Your creative process is intuitive, expansive, and still somehow grounded. You trust the rhythm of things."
     },
     "fluid-structured": {
         name: "Intuitive Implementer",
-        description: "You lead with intuitive flow while incorporating structured elements in your approach. Your expansive perception and spiritual connection guide your manifestation process, yet you naturally incorporate methodical elements to ground your primarily intuitive approach."
+        description: "You begin with feeling and shape it into form. Vision comes first, but you know how to follow through. Your intuition guides the what, and your structured self handles the how. You're the bridge between idea and action."
     },
     "fluid-balanced": {
         name: "Visionary Harmonizer",
-        description: "You lead with intuitive flow while maintaining balanced integration in your approach. Your expansive perception and spiritual connection guide your manifestation process, yet you naturally incorporate practical elements to bring your visions into form."
+        description: "You lead with intuition but always keep one foot in the world. You're tapped into possibility while still attuned to what's needed now. You dance between realms, receiving, refining, and translating energy into form."
     },
     "fluid-fluid": {
         name: "Quantum Manifestor",
-        description: "You are a naturally expansive creator who thrives in fluid, intuitive reality creation. Your approach emphasizes energetic alignment, inspired action, and trust in divine timing. You excel at sensing possibilities beyond conventional limitations and allowing manifestations to emerge through alignment rather than force."
+        description: "You create from the unseen. You don't manifest through steps, you manifest through state. You trust timing, you trust energy, and you trust yourself. Your reality bends in response to your being."
     }
 };
 
 // Ideal Approaches templates
 const idealApproaches = {
     "structured-structured": {
-        strengths: "Clarity, precision, consistency, methodical implementation, logical analysis",
+        strengths: "clarity, precision, consistency, methodical execution",
         approaches: [
-            "Create detailed manifestation plans with clear milestones and action steps",
-            "Use structured visualization practices with specific details and consistent timing",
-            "Implement systems to track progress and measure results",
-            "Establish regular routines that support your manifestation process",
-            "Use analytical approaches to identify and remove obstacles"
+            "Map out your manifestation path with solid plans and measurable milestones.",
+            "Use visualizations that are crystal-clear and time-specific.",
+            "Track your momentum like data, watch what builds, what stalls.",
+            "Lock in routines that nourish your focus and energy.",
+            "Apply logic to dissolve and learn from tension, don't just push through it."
         ]
     },
     "structured-balanced": {
-        strengths: "Strategic thinking, adaptable structure, practical integration, methodical flexibility",
+        strengths: "strategic flexibility, practical intuition, organized adaptability",
         approaches: [
-            "Create flexible frameworks with clear priorities but adaptable implementation",
-            "Alternate between structured planning and intuitive adjustment periods",
-            "Use data-driven approaches while remaining open to unexpected opportunities",
-            "Implement consistent practices with room for spontaneous inspiration",
-            "Balance focused action with reflective integration periods"
+            "Build frameworks with clear priorities that can flex without falling apart.",
+            "Move between planned structure and intuitive adjustments as needed.",
+            "Trust data, but leave the door open for synchronicity.",
+            "Keep consistent anchors while letting inspiration surprise you.",
+            "Know when to pause, reflect, and let new clarity rise."
         ]
     },
     "structured-fluid": {
-        strengths: "Grounded vision, practical intuition, structured creativity, methodical expansion",
+        strengths: "stable foundations, intuitive expansion, creative implementation",
         approaches: [
-            "Begin with clear intentions and frameworks, then allow intuitive expansion",
-            "Alternate between focused action periods and intuitive connection time",
-            "Use structured practices to ground and implement inspired insights",
-            "Create systems that support rather than restrict your creative flow",
-            "Balance analytical planning with energetic alignment practices"
+            "Set clear intentions and let them stretch in unexpected directions.",
+            "Work in focused bursts, then unplug to receive what's next.",
+            "Ground intuitive downloads through systems that support, not suffocate.",
+            "Design rituals or systems that hold space for inspiration to land.",
+            "Mix planning with energetic alignment like you're mixing paint."
         ]
     },
     "balanced-structured": {
-        strengths: "Adaptive precision, integrated analysis, flexible structure, harmonious implementation",
+        strengths: "adaptable systems, harmonized logic, grounded creativity",
         approaches: [
-            "Use adaptable frameworks that provide structure without rigidity",
-            "Implement consistent practices while allowing for natural evolution",
-            "Balance analytical approaches with intuitive check-ins",
-            "Create organized systems with built-in flexibility",
-            "Alternate between action-focused and alignment-focused phases"
+            "Adopt structures, adaptable frameworks that flow, not tight rope, more riverbank.",
+            "Anchor consistent practices while evolving them over time.",
+            "Let logic and intuition co-pilot your moves.",
+            "Build systems that leave room for breath and built-in flexibility.",
+            "Shift between doing phases and integrating alignment-focused phases."
         ]
     },
     "balanced-balanced": {
-        strengths: "Integration, adaptability, harmonious action, balanced perception, unified approach",
+        strengths: "dynamic integration, responsive flow, holistic creation",
         approaches: [
-            "Fluidly move between structured and intuitive approaches as needed",
-            "Create integrated practices that honor both logical and intuitive aspects",
-            "Maintain core consistency while allowing natural evolution",
-            "Balance planning and allowing in equal measure",
-            "Use both analytical and energetic approaches to overcome challenges"
+            "Shape-shift between structure and intuition based on the moment.",
+            "Blend the practical and the energetic in equal measure.",
+            "Let your process evolve without losing its core.",
+            "Plan without control, allow without passivity.",
+            "Use both data and energy as feedback, not rules."
         ]
     },
     "balanced-fluid": {
-        strengths: "Flowing integration, intuitive balance, expansive harmony, adaptive intuition",
+        strengths: "intuitive adaptability, emotional attunement, expansive grounding",
         approaches: [
-            "Lead with intuitive approaches while maintaining practical grounding",
-            "Create flexible structures that support rather than limit your natural flow",
-            "Balance energetic alignment with tangible action steps",
-            "Use intuitive practices with consistent implementation",
-            "Alternate between expansive exploration and focused integration"
+            "Let inner guidance lead, while maintaining practical grounding.",
+            "Build soft structures that hold space, not pressure.",
+            "Translate vision into action one inspired step at a time.",
+            "Use intuitive practices with consistent implementation.",
+            "Alternate between expansive exploration and focused integration."
         ]
     },
     "fluid-structured": {
-        strengths: "Structured intuition, grounded expansion, practical flow, organized creativity",
+        strengths: "intuitive discipline, inspired planning, grounded magic",
         approaches: [
-            "Anchor intuitive insights with practical implementation strategies",
-            "Create flexible structures that support your visionary nature",
-            "Balance energetic practices with tangible action steps",
-            "Use intuitive guidance to inform strategic planning",
-            "Implement consistent practices that honor your need for creative freedom"
+            "Let your inner knowing set the vision, then map the moves.",
+            "Create gentle structures that support your visionary nature.",
+            "Let energy speak first, then act from that clarity.",
+            "Use intuitive guidance to inform strategic planning.",
+            "Implement consistent practices that honor your need for creative freedom."
         ]
     },
     "fluid-balanced": {
-        strengths: "Visionary integration, expansive harmony, intuitive adaptation, flowing balance",
+        strengths: "vision-driven harmony, adaptable flow, creative balance",
         approaches: [
-            "Lead with intuitive and energetic approaches while maintaining practical awareness",
-            "Create minimal structures that support rather than restrict your natural flow",
-            "Use your strong intuitive abilities while staying grounded in practical reality",
-            "Balance expansive vision with focused implementation",
-            "Alternate between pure creative flow and integrative consolidation"
+            "Stay wide open to inspiration while maintaining practical awareness.",
+            "Use minimal structures as soft landing pads for ideas.",
+            "Ground your wildness in presence, not pressure.",
+            "Notice when it's time for expansive vision and when it's time for focused execution.",
+            "Let intuitive bursts be followed by integration, instead of cyclical thinking."
         ]
     },
     "fluid-fluid": {
-        strengths: "Expansive vision, energetic sensitivity, intuitive flow, quantum perception, creative inspiration",
+        strengths: "energetic alignment, nonlinear magic, deep trust in the unseen",
         approaches: [
-            "Focus primarily on energetic alignment and vibrational matching",
-            "Use visualization and feeling-based manifestation practices",
-            "Create from inspired flow rather than predetermined plans",
-            "Trust divine timing and synchronistic opportunities",
-            "Implement just enough structure to channel your expansive energy"
+            "Make alignment your method. Vibe first, results second.",
+            "Visualize from feeling, not from steps.",
+            "Create from the pulse of inspiration, not the plan.",
+            "Let synchronicity lead, you don't have to force it.",
+            "Bring in structure only as a channel, never as a cage."
         ]
     }
 };
@@ -216,67 +216,67 @@ const idealApproaches = {
 // Common Misalignments templates
 const commonMisalignments = {
     "structured-structured": [
-        "Becoming too rigid or inflexible in your manifestation approach",
-        "Overplanning without taking sufficient action",
-        "Dismissing intuitive insights that don't fit your logical framework",
-        "Becoming discouraged when results don't follow your expected timeline",
-        "Focusing too much on the 'how' rather than the desired outcome"
+        "Getting so locked into the plan that you leave no room for surprise",
+        "Waiting for the \"perfect\" setup instead of moving with what you have",
+        "Ignoring your intuition when it doesn't show up in a spreadsheet",
+        "Getting discouraged when outcomes don't match the timeline you imagined",
+        "Focusing too much on the method and forgetting the why"
     ],
     "structured-balanced": [
-        "Defaulting to structure when flexibility would be more effective",
-        "Overanalyzing intuitive nudges instead of trusting them",
-        "Creating overly complex systems that limit natural flow",
-        "Becoming impatient with processes that require organic unfolding",
-        "Dismissing approaches that seem too unstructured or intuitive"
+        "Reaching for structure when the moment is asking for softness",
+        "Overthinking intuitive nudges until they lose their spark",
+        "Building systems that start helpful and end up restrictive",
+        "Getting impatient with things that unfold outside your control",
+        "Writing off intuitive or nonlinear methods as unreliable"
     ],
     "structured-fluid": [
-        "Imposing excessive structure on naturally flowing processes",
-        "Overriding intuitive guidance with logical analysis",
-        "Creating rigid plans that don't allow for inspired adjustments",
-        "Becoming frustrated when manifestations require surrender",
-        "Dismissing the energetic and vibrational aspects of creation"
+        "Trying to organize inspiration before it fully arrives",
+        "Overriding your gut with what seems \"smarter\" on paper",
+        "Creating rigid plans that don't leave room for breath",
+        "Resisting surrender because it feels like giving up control",
+        "Dismissing energy work or subtle shifts as not \"real\" progress"
     ],
     "balanced-structured": [
-        "Defaulting to analytical approaches when intuition would serve better",
-        "Creating unnecessary structure that limits your natural adaptability",
-        "Becoming too focused on tangible results and ignoring the process",
-        "Undervaluing your intuitive insights in favor of logical approaches",
-        "Resisting the natural flow of manifestation with excessive control"
+        "Defaulting to logic even when the call is emotional or energetic",
+        "Imposing unnecessary systems just to feel safe",
+        "Measuring your worth by results instead of resonance",
+        "Doubting your own intuition if it can't be explained",
+        "Resisting ease, mistaking it for inconsistency"
     ],
     "balanced-balanced": [
-        "Becoming indecisive when clear direction is needed",
-        "Overcomplicating your approach by trying to incorporate too many modalities",
-        "Lacking sufficient focus or specificity in your manifestation practice",
-        "Adjusting your approach too frequently without allowing momentum",
-        "Avoiding full commitment to either structured or intuitive approaches"
+        "Second-guessing yourself when there's no clear \"right\" path",
+        "Trying to include every approach and diluting your power",
+        "Spreading energy too thin without anchoring it somewhere",
+        "Switching gears too often to let anything root",
+        "Avoiding full commitment in either direction, structure or surrender"
     ],
     "balanced-fluid": [
-        "Defaulting to intuitive approaches when structure would be more effective",
-        "Lacking sufficient grounding for your expansive vision",
-        "Becoming too abstract without practical implementation",
-        "Resisting necessary structure and consistency",
-        "Avoiding analytical approaches that would support manifestation"
+        "Staying in the dreamspace when action would actually help",
+        "Losing your grounding in the swirl of possibility",
+        "Avoiding structure because it feels like restriction",
+        "Floating through phases that need some intentional rooting",
+        "Ignoring data or plans that could strengthen your magic"
     ],
     "fluid-structured": [
-        "Imposing unnecessary structure that restricts your natural flow",
-        "Doubting your intuitive insights when they don't seem logical",
-        "Becoming too focused on practical action at the expense of alignment",
-        "Rushing the manifestation process instead of allowing divine timing",
-        "Undervaluing the power of your energetic and vibrational work"
+        "Building cages when you meant to build containers",
+        "Talking yourself out of intuitive truths if they sound too \"out there\"",
+        "Prioritizing execution over alignment and burning out",
+        "Rushing timelines instead of trusting divine pacing",
+        "Downplaying your own vibrational work like it's not enough"
     ],
     "fluid-balanced": [
-        "Resisting practical structure and consistency",
-        "Becoming scattered when focus would be more effective",
-        "Neglecting logical analysis that would support manifestation",
-        "Abandoning projects when they require structured development",
-        "Allowing too much flexibility without sufficient grounding"
+        "Resisting even the gentle structure that could support you",
+        "Scattering your focus when it wants to be held",
+        "Ignoring insights that could bring your vision into reality",
+        "Walking away from ideas just when they're ready to root",
+        "Mistaking flexibility for directionlessness"
     ],
     "fluid-fluid": [
-        "Lacking sufficient grounding to manifest ideas into form",
-        "Becoming scattered or unfocused without some organizing principles",
-        "Avoiding practical action steps necessary for manifestation",
-        "Abandoning projects when they require consistent effort",
-        "Neglecting to create sufficient clarity around desires"
+        "Staying in the ethers without grounding your vision into form",
+        "Letting ideas swirl endlessly without choosing one to land",
+        "Avoiding tangible action that could magnetize what you want",
+        "Starting and stopping when consistency wants to emerge",
+        "Letting clarity remain optional when it's trying to knock"
     ]
 };
 
@@ -328,10 +328,10 @@ function calculateTypologyScores() {
         // Determine placement based on criteria
         let placement;
         if (responses[0] === responses[1]) {
-            // Both answers identical → definitive placement
+            // Both answers identical â†’ definitive placement
             placement = responses[0];
         } else {
-            // Differing answers → default to Balanced
+            // Differing answers â†’ default to Balanced
             placement = 'balanced';
         }
         
@@ -364,7 +364,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-    // Simplified logic – use defaults if needed
+    // Simplified logic â€“ use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
@@ -423,7 +423,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     titleSection.className = 'flex items-center mb-16';
     titleSection.innerHTML = `
         <div class="h-px w-12 bg-stone-400 mr-4"></div>
-        <h3 class="text-xl font-light text-stone-700 uppercase tracking-wider">Your Spectrum Map</h3>
+        <h3 class="text-xl font-light text-stone-700 uppercase tracking-wider">Your Energetic Range</h3>
     `;
     container.appendChild(titleSection);
     
@@ -567,7 +567,7 @@ function generateIdealApproachesSection(typologyPair) {
     const strengthsCard = document.createElement('div');
     strengthsCard.className = 'bg-white bg-opacity-70 backdrop-blur-sm rounded-xl p-8 shadow-sm border border-stone-100';
     strengthsCard.innerHTML = `
-        <h3 class="text-xl font-light text-stone-800 mb-4">Your Natural Strengths</h3>
+        <h3 class="text-xl font-light text-stone-800 mb-4">What Comes Naturally</h3>
         <p class="text-base font-light text-stone-600">${approachesData.strengths}</p>
     `;
     container.appendChild(strengthsCard);
@@ -615,7 +615,7 @@ function generateMisalignmentsSection(typologyPair) {
     
     const misalignmentsHeader = document.createElement('h3');
     misalignmentsHeader.className = 'text-xl font-light text-stone-800 mb-6';
-    misalignmentsHeader.textContent = 'Approaches That May Create Friction';
+    misalignmentsHeader.textContent = 'Where Tension Might Show Up';
     misalignmentsCard.appendChild(misalignmentsHeader);
     
     const misalignmentsList = document.createElement('div');
@@ -645,45 +645,45 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     container.innerHTML = '';
     
     const priorityDescriptions = {
-        'creative-expression': 'You deeply value the freedom to express your creativity and bring new ideas into being.',
-        'financial-abundance': 'You prioritize creating abundance and financial security in your life.',
-        'emotional-fulfillment': 'Emotional depth and authentic connection are core values for you.',
-        'personal-autonomy': 'Personal freedom and the ability to determine your own path are essential to you.',
-        'deep-relationships': 'Meaningful connections and relationships are foundational to your well-being.',
-        'spiritual-connection': 'Connection to something larger than yourself provides meaning and purpose in your life.',
-        'craft-mastery': 'You value achieving excellence and mastery in your chosen field or craft.',
-        'wealth-security': 'Financial stability and having abundant resources give you a sense of security and freedom.',
-        'emotional-peace': 'Inner harmony and emotional balance are essential to your well-being.',
-        'personal-freedom': 'The ability to make your own choices and direct your own life is fundamental to you.',
-        'deep-connection': 'Profound relationships and connections with others fulfill your need for belonging.',
-        'higher-meaning': 'Finding purpose and spiritual significance in your experiences gives your life meaning.',
-        'confidence-trust': 'Having confidence in yourself and your abilities is a core value for you.',
-        'peace-ease': 'You prioritize creating a life of peace, ease, and harmony.',
-        'choice-autonomy': 'Having freedom of choice and autonomy in your actions is essential to you.',
-        'stability-security': 'Feeling stable and secure provides the foundation for your other pursuits.',
-        'passion-inspiration': 'Being inspired and feeling passionate about your activities fuels your drive.',
-        'joy-excitement': 'Experiencing joy and excitement regularly is a priority in how you design your life.'
+        'creative-expression': 'You're here to create, to birth new things into the world that carry your fingerprint. Expression isn't extra, it's essential.',
+        'financial-abundance': 'You want your life to feel full, supported, resourced, and open. Money, for you, is about spaciousness and choice.',
+        'emotional-fulfillment': 'Depth matters. You're not built for surface. You want real connection, real feeling, and the emotional truth of things.',
+        'personal-autonomy': 'You need room to move. Authority to choose. A path that's yours, not someone else's map.',
+        'deep-relationships': 'Intimacy and belonging ground you. You thrive in connection that sees you clearly and lets you show up whole.',
+        'spiritual-connection': 'You feel the pull of something larger, a bigger rhythm, a sacred thread. You move best when you're plugged into it.',
+        'craft-mastery': 'You value devotion. Getting so close to your craft that it becomes an extension of your being.',
+        'wealth-security': 'You want to feel safe inside your life. A sense of grounded resourcing, not just surviving, but held.',
+        'emotional-peace': 'You seek inner steadiness, the kind of calm that makes space for everything without being overtaken by anything.',
+        'personal-freedom': 'You're here to follow your own compass. What matters is that it's yours.',
+        'deep-connection': 'You want to be seen. Felt. Known. And to offer that same presence in return.',
+        'higher-meaning': 'You're not just making moves, you're making meaning. There has to be a deeper thread running through it connected to the larger whole.',
+        'confidence-trust': 'You want to feel yourself as solid, that your knowing can be trusted, that your steps are enough.',
+        'peace-ease': 'Ease isn't laziness to you, it's alignment. You value softness that doesn't collapse your power.',
+        'choice-autonomy': 'Being able to say yes or no from a rooted place is sacred. You need to feel like you're the one driving.',
+        'stability-security': 'You're not afraid of change, but you want your foundation to hold while it happens.',
+        'passion-inspiration': 'You move through desire. Aliveness fuels your work, when you're inspired, everything flows better.',
+        'joy-excitement': 'You're here for pleasure. You want your life to feel good, to make space for deliciousness, for fun, for full-bodied yum.'
     };
     
     const growthDescriptions = {
-        'consistency-challenge': 'Building greater consistency in your manifestation practices over time.',
-        'clarity-challenge': 'Developing clearer vision around what you truly desire to manifest.',
-        'action-challenge': 'Taking consistent inspired action toward your manifestations.',
-        'intuition-challenge': 'Trusting your inner guidance more fully in your manifestation process.',
-        'emotion-challenge': 'Managing emotional states to support your manifestation process.',
-        'receiving-challenge': 'Opening yourself to receive the manifestations that are ready to come to you.',
-        'decision-doubt': 'Developing greater confidence in your decision-making process.',
-        'action-gap': 'Bridging the gap between your clear vision and consistent implementation.',
-        'focus-challenge': 'Cultivating sustainable focus and follow-through on your priorities.',
-        'emotional-block': 'Processing emotional barriers that may be blocking your manifestation flow.',
-        'burnout-pattern': 'Creating sustainable rhythms that prevent burnout and support consistent energy.',
-        'commitment-hesitation': 'Moving past hesitation and into full commitment with your manifestations.',
-        'self-trust-resistance': 'Developing deeper trust in your own perceptions and intuitive guidance.',
-        'risk-resistance': 'Building comfort with calculated risks that move you toward your desires.',
-        'emotional-expression-resistance': 'Allowing fuller expression of your authentic emotions as part of your process.',
-        'vision-clarity-resistance': 'Creating and maintaining clear vision despite resistance to specificity.',
-        'momentum-resistance': 'Establishing consistent momentum despite internal resistance to sustained action.',
-        'control-resistance': 'Developing comfort with uncertainty and releasing excessive control.'
+        'consistency-challenge': 'You're learning how to build rhythm that doesn't drain you, consistency that comes from alignment, not force.',
+        'clarity-challenge': 'You're in the process of tuning in to what you really want, beneath the noise, beyond the scripts.',
+        'action-challenge': 'You're learning how to move with your energy, how to take steps that feel alive instead of obligatory.',
+        'intuition-challenge': 'You're building trust in your inner knowing, letting it lead, even when the path doesn't look linear.',
+        'emotion-challenge': 'You're expanding your capacity to feel without being swept away, using emotion as signal, not sabotage.',
+        'receiving-challenge': 'You're opening to being met, to letting what you've called in actually arrive and be received.',
+        'decision-doubt': 'You're strengthening your ability to choose, to trust that your inner compass is valid and enough.',
+        'action-gap': 'You can see the vision, now you're bridging the space between knowing and doing.',
+        'focus-challenge': 'You're practicing how to stay with something, not through pressure, but devotion.',
+        'emotional-block': 'You're untangling stories that once protected you, but now hold you back, and making space for something new.',
+        'burnout-pattern': 'You're learning how to move sustainably, honoring your cycles of output, rest, and restoration.',
+        'commitment-hesitation': 'You're playing with what it means to go all in, not from urgency, but from inner yes.',
+        'self-trust-resistance': 'You're rebuilding the bridge between you and your knowing, letting self-trust become your default.',
+        'risk-resistance': 'You're getting more comfortable in the unknown, letting desire lead, even when the outcome isn't guaranteed.',
+        'emotional-expression-resistance': 'You're allowing more of your emotional truth to surface, without needing it to be tidy or justified.',
+        'vision-clarity-resistance': 'You're learning to hold a vision without fearing the specificity, letting clarity feel like empowerment, not pressure.',
+        'momentum-resistance': 'You're discovering how to stay in motion, not from force, but from flow that builds on itself.',
+        'control-resistance': 'You're softening your grip, letting go of the need to manage every outcome, and learning to co-create with life.'
     };
     
     // Core Values Card
@@ -846,83 +846,83 @@ function createExpandableSection(title, items) {
 function generateTypologyShifts(typologyKey, growthAreas) {
     const typeShifts = {
         "structured-structured": [
-            "Create more space for intuitive insights and divine timing within your structured approach.",
-            "Schedule regular 'intuition time' where you temporarily set aside analytical thinking and connect with your deeper knowing.",
-            "Practice recognizing when precision is truly needed versus when flexibility would serve better."
+            "Make more space for your intuition to speak, even if it whispers at first.",
+            "Set aside analytical thinking now and then, even 10 minutes of inner listening matters.",
+            "Learn to sense when structure is serving, and when it's stalling the process."
         ],
         "structured-balanced": [
-            "When you notice yourself defaulting to excessive structure, consciously shift to more intuitive approaches.",
-            "Trust your ability to know when structure or flow is needed in each situation.",
-            "Create flexible frameworks that provide enough structure for progress without restricting creative possibilities."
+            "Notice when you're defaulting to structure out of habit, not alignment.",
+            "Let yourself trust the part of you that knows when to plan and when to flow.",
+            "Design containers that move with you, they don't have to stay rigid to be effective."
         ],
         "structured-fluid": [
-            "Use your structured foundation to support rather than restrict your intuitive insights.",
-            "Create simple systems that capture inspired ideas without overanalyzing them.",
-            "Allow full creative exploration before organizing implementation."
+            "Let structure support your intuition, not silence it.",
+            "Create simple, open systems that hold ideas without analyzing them to death.",
+            "Let your creativity stretch out before you try to shape it."
         ],
         "balanced-structured": [
-            "Recognize when your structured tendencies are serving you and when they're creating limitation.",
-            "Create organized systems with built-in flexibility to honor both aspects of your nature.",
-            "Practice trusting intuitive nudges even when they don't immediately make logical sense."
+            "Pay attention to when structure is helpful, and when it becomes armor.",
+            "Build systems that adapt as you do, structure isn't meant to trap you.",
+            "Let yourself act on nudges that don't always make logical sense."
         ],
         "balanced-balanced": [
-            "Avoid overthinking which approach to use in different situations.",
-            "Trust your natural ability to select the right tool for each circumstance without excessive analysis.",
-            "When facing important decisions, briefly check in with both your analytical mind and intuitive wisdom, then move forward with confidence."
+            "Don't overthink your process. Let it be messy sometimes.",
+            "You don't need a perfect plan. You already have the tools, use what's here.",
+            "When it's time to choose, listen to both mind and body. Then move."
         ],
         "balanced-fluid": [
-            "Honor your intuitive nature while maintaining enough structure to manifest effectively.",
-            "Create minimal frameworks that support rather than restrict your natural flow.",
-            "Schedule regular grounding practices to balance your expansive tendencies."
+            "Honor your flow, but don't fear the structure that could support it.",
+            "A little bit of grounding can help your creativity land.",
+            "Make space for alignment, but also make space for follow-through."
         ],
         "fluid-structured": [
-            "Create bridges between your intuitive insights and structured implementation to manifest your visions effectively.",
-            "Allow your structured aspects to serve your intuitive vision rather than constraining it.",
-            "Develop practices that help you maintain enough grounding when your intuitive aspects pull you into expansive states."
+            "Let structure become a bridge, not a barricade.",
+            "Let your structured side serve the vision, not try to control it.",
+            "Use grounding rituals when your energy starts to float too far out."
         ],
         "fluid-balanced": [
-            "Maintain your intuitive leadership while incorporating practical elements that help manifest your visions.",
-            "Create space for full creative flow followed by grounding practices.",
-            "Use your balanced aspects to translate intuitive insights into actionable steps."
+            "Keep leading with your intuition, but let the practical side catch up.",
+            "Create space for the vision to flow, then anchor it.",
+            "Let your balanced nature turn inspiration into something you can touch."
         ],
         "fluid-fluid": [
-            "Incorporate minimal structure to help ground your expansive visions into reality.",
-            "Schedule regular 'manifestation anchoring' sessions where you identify concrete steps.",
-            "Remember that some form of consistent practice strengthens your natural gifts."
+            "Give your energy a place to land, a little structure goes a long way.",
+            "Set aside time to anchor your dreams into form.",
+            "Remember: consistency doesn't kill your magic, it channels it."
         ]
     };
     
     const shifts = typeShifts[typologyKey] || typeShifts["fluid-structured"];
     
     if (growthAreas.includes('consistency-challenge')) {
-        shifts.push('Develop a flexible consistency framework that honors your natural rhythm while providing enough structure for momentum.');
+        shifts.push('Create a rhythm that fits you, not one that fights you. Let your consistency be flexible, alive, something that honors your cycles while still building momentum.');
     }
     if (growthAreas.includes('clarity-challenge')) {
-        shifts.push('Create a clarity practice that combines analytical reflection with intuitive exploration to help crystallize your true desires.');
+        shifts.push('Blend reflection with inner listening. Let clarity come in layers, not lightning bolts. You're not behind for not knowing yet, you're in conversation.');
     }
     if (growthAreas.includes('action-challenge') || growthAreas.includes('action-gap')) {
-        shifts.push('Design an action approach that aligns with your energy patterns—powerful bursts or steady progress based on your nature.');
+        shifts.push('Align your action style with your natural energy. Some seasons are built for bursts, others for steady build. Know your wave, then ride it.');
     }
     if (growthAreas.includes('intuition-challenge') || growthAreas.includes('self-trust-resistance')) {
-        shifts.push('Strengthen your intuition through regular practices that help you recognize, trust, and validate your inner knowing.');
+        shifts.push('Practice tuning in without immediately needing proof. Your knowing is valid, let it lead sometimes, even when it's quiet.');
     }
     if (growthAreas.includes('emotion-challenge') || growthAreas.includes('emotional-block')) {
-        shifts.push('Develop emotional fluency practices that help you navigate emotional states without being overwhelmed or disconnected.');
+        shifts.push('Give your emotions space without needing to fix or flatten them. Feeling deeply doesn't block creation, it is part of creation.');
     }
     if (growthAreas.includes('receiving-challenge')) {
-        shifts.push('Create receiving rituals that help you open to and recognize manifestations as they emerge, especially in unexpected forms.');
+        shifts.push('Create rituals that help you open, soften, notice. Sometimes what you asked for is already arriving, just not in the costume you expected.');
     }
     if (growthAreas.includes('decision-doubt')) {
-        shifts.push('Establish a personalized decision-making protocol that incorporates both analytical validation and intuitive confirmation.');
+        shifts.push('Design a decision-making style that blends analysis with intuition. Let both voices speak, then choose with your whole body.');
     }
     if (growthAreas.includes('focus-challenge')) {
-        shifts.push('Design focus containers that work with your natural attention style, providing structure while allowing for flexibility.');
+        shifts.push('Make containers for your attention that work with, not against, your nature. Structure doesn't have to be strict, it can be sacred.');
     }
     if (growthAreas.includes('burnout-pattern')) {
-        shifts.push('Implement energy management practices that honor your natural cycles of output and restoration.');
+        shifts.push('Honor your ebb as much as your flow. Sustainable energy doesn't come from pushing, it comes from rhythm, rest, and return.');
     }
     if (growthAreas.includes('commitment-hesitation')) {
-        shifts.push('Develop incremental commitment practices that allow you to build confidence and momentum without triggering resistance.');
+        shifts.push('Find ways to commit gently, piece by piece, instead of forcing yourself to leap. You can go all in without abandoning yourself.');
     }
     
     return shifts;
@@ -932,89 +932,89 @@ function generateTypologyShifts(typologyKey, growthAreas) {
 function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
     const typePermissions = {
         "structured-structured": [
-            "Give yourself permission to embrace uncertainty and organic development as part of your process.",
-            "Give yourself permission to trust your intuition even when it doesn't fit your logical framework.",
-            "Give yourself permission to deviate from your plans when inspiration or circumstances call for it."
+            "You're allowed to not know. Let uncertainty be part of the process, not something to fix.",
+            "You're allowed to trust your intuition, even if it doesn't match the data.",
+            "You're allowed to pivot when inspiration pulls you somewhere new."
         ],
         "structured-balanced": [
-            "Give yourself permission to trust your sense of when structure serves and when flexibility is needed.",
-            "Give yourself permission to blend approaches rather than feeling you must choose one or the other.",
-            "Give yourself permission to adjust your processes as you learn and grow."
+            "You're allowed to sense when it's time to loosen the plan.",
+            "You're allowed to be a blend, you don't have to pick a side.",
+            "You're allowed to shift your systems as you grow."
         ],
         "structured-fluid": [
-            "Give yourself permission to honor both your need for structure and your intuitive, flowing nature.",
-            "Give yourself permission to create structures that flex and adapt rather than rigid frameworks.",
-            "Give yourself permission to trust divine timing even when your plans suggest otherwise."
+            "You're allowed to want structure and still be deeply intuitive.",
+            "You're allowed to design containers that bend with you.",
+            "You're allowed to trust timing over timelines."
         ],
         "balanced-structured": [
-            "Give yourself permission to adjust your approach as circumstances change without seeing it as inconsistency.",
-            "Give yourself permission to use structure when it serves and flow when that's more appropriate.",
-            "Give yourself permission to integrate seemingly opposite approaches into a cohesive process."
+            "You're allowed to change your process without calling it inconsistency.",
+            "You're allowed to lean into structure when it actually serves you.",
+            "You're allowed to work with both logic and feeling, they're not in conflict."
         ],
         "balanced-balanced": [
-            "Give yourself permission to embrace your adaptability without committing to one 'correct' approach.",
-            "Give yourself permission to synthesize different modalities rather than feeling you must specialize.",
-            "Give yourself permission to be the bridge between different approaches and perspectives."
+            "You're allowed to not commit to one way of being.",
+            "You're allowed to integrate without choosing a single lane.",
+            "You're allowed to be the bridge, the in-between is a real place."
         ],
         "balanced-fluid": [
-            "Give yourself permission to lead with intuition while creating just enough structure to support manifestation.",
-            "Give yourself permission to follow inspiration while maintaining practical awareness.",
-            "Give yourself permission to honor your need for both freedom and form."
+            "You're allowed to lead with your intuition and still be supported.",
+            "You're allowed to follow what lights you up without abandoning the real world.",
+            "You're allowed to hold freedom and form in the same breath."
         ],
         "fluid-structured": [
-            "Give yourself permission to honor your intuitive knowing first, then engage your structured aspects for implementation.",
-            "Give yourself permission to trust your intuition, even when you cannot immediately justify it logically.",
-            "Give yourself permission to follow intuitive nudges without needing to justify or explain them."
+            "You're allowed to trust your knowing first, logic can catch up later.",
+            "You're allowed to follow intuitive hits even when they don't make 'sense.'",
+            "You're allowed to move without explaining every step."
         ],
         "fluid-balanced": [
-            "Give yourself permission to follow inspiration and trust that practical implementation can follow organically.",
-            "Give yourself permission to maintain your expansive vision while creating practical steps to achieve it.",
-            "Give yourself permission to shift between visionary and practical modes as needed."
+            "You're allowed to let inspiration lead and structure follow.",
+            "You're allowed to hold your big vision and still build it piece by piece.",
+            "You're allowed to switch gears, dream, plan, dream again."
         ],
         "fluid-fluid": [
-            "Give yourself permission to trust your fluid process even when others advocate for more structure.",
-            "Give yourself permission to create in your own unique way, even if it seems unconventional.",
-            "Give yourself permission to follow the energy rather than predetermined plans."
+            "You're allowed to trust your way, even if it looks nothing like theirs.",
+            "You're allowed to create how you create, it doesn't have to be conventional.",
+            "You're allowed to follow energy instead of plans."
         ]
     };
     
     const permissions = typePermissions[typologyKey] || typePermissions["fluid-structured"];
     
     if (alignmentNeeds.includes('accept-cycles')) {
-        permissions.push('Give yourself permission to honor your natural cycles rather than forcing constant output.');
+        permissions.push('You're allowed to move in waves. Constant output is not a requirement for worth.');
     }
     if (alignmentNeeds.includes('accept-structure')) {
-        permissions.push('Give yourself permission to create and maintain the structures you need, even if others thrive with more spontaneity.');
+        permissions.push('You're allowed to build what supports you, even if it's more structure than others need.');
     }
     if (alignmentNeeds.includes('accept-emotions')) {
-        permissions.push('Give yourself permission to acknowledge your emotional states without judgment.');
+        permissions.push('You're allowed to feel what you feel, no fixing, just listening.');
     }
     if (alignmentNeeds.includes('accept-gradual-clarity')) {
-        permissions.push('Give yourself permission to allow clarity to emerge gradually rather than forcing immediate certainty.');
+        permissions.push('You're allowed to let clarity emerge slowly. There's no deadline on knowing.');
     }
     if (alignmentNeeds.includes('accept-intuition')) {
-        permissions.push('Give yourself permission to trust your intuitive guidance, even without immediate logical justification.');
+        permissions.push('You're allowed to follow a nudge without a logical reason.');
     }
     if (alignmentNeeds.includes('accept-flexibility')) {
-        permissions.push('Give yourself permission to remain flexible and open rather than locking into fixed outcomes.');
+        permissions.push('You're allowed to stay open, even if others need things nailed down.');
     }
     if (alignmentNeeds.includes('control-outcomes')) {
-        permissions.push('Give yourself permission to release attachment to specific timelines and forms.');
+        permissions.push('You're allowed to release the "how" and trust what's coming.');
     }
     if (alignmentNeeds.includes('control-emotions')) {
-        permissions.push('Give yourself permission to experience your full range of emotions as valuable information.');
+        permissions.push('You're allowed to ride the full range of your feelings, they're not a flaw.');
     }
     if (alignmentNeeds.includes('control-consistency')) {
-        permissions.push('Give yourself permission to work with your natural rhythm even if it doesn’t match external expectations.');
+        permissions.push('You're allowed to define consistency in a way that fits your rhythm.');
     }
     if (alignmentNeeds.includes('control-clarity')) {
-        permissions.push('Give yourself permission to explore before committing to a clear vision.');
+        permissions.push('You're allowed to explore without committing on day one.');
     }
     if (alignmentNeeds.includes('control-decisions')) {
-        permissions.push('Give yourself permission to make decisions from multiple sources of wisdom.');
+        permissions.push('You're allowed to make choices from both wisdom and wonder.');
     }
     if (alignmentNeeds.includes('control-intuition')) {
-        permissions.push('Give yourself permission to follow intuitive nudges without needing to justify them.');
+        permissions.push('You're allowed to follow your knowing without defending it.');
     }
     
     return permissions;
@@ -1024,89 +1024,89 @@ function generateAcceptancePermissions(alignmentNeeds, typologyKey) {
 function generateEnergySupportTools(alignmentNeeds, energyPatterns, typologyKey) {
     const typeTools = {
         "structured-structured": [
-            "Structured intuition exercises with clear frameworks.",
-            "Manifestation systems with built-in flexibility points.",
-            "Regular intuition development practices with measurable outcomes."
+            "Intuition practices with structure, prompts, frameworks, things with clear edges",
+            "Systems that flex in small ways without losing integrity",
+            "Measurable ways to track inner growth, your version of data, not just numbers"
         ],
         "structured-balanced": [
-            "Alternating structure and flow practices that leverage both aspects.",
-            "Decision frameworks that integrate analytical and intuitive components.",
-            "Flexible routines with built-in creativity spaces."
+            "Rituals that alternate between planning and play",
+            "Decision-making tools that let logic and intuition collaborate",
+            "Routines with soft touchpoints for creativity to slip in"
         ],
         "structured-fluid": [
-            "Structured containers for intuitive exploration that don't restrict creativity.",
-            "Practices that help translate intuitive insights into actionable plans.",
-            "Grounding rituals that help anchor expansive vision."
+            "Containers for intuition that don't box it in",
+            "Practices that turn sparks of insight into something real",
+            "Grounding rituals that hold your energy without muting it"
         ],
         "balanced-structured": [
-            "Adaptable frameworks that flex with changing circumstances.",
-            "Balance assessments to decide when to apply more structure or flow.",
-            "Integration practices that honor both logical and intuitive approaches."
+            "Systems that shift with your seasons",
+            "Tools that help you feel when to lean into structure or soften into flow",
+            "Integration practices that hold both strategy and soul"
         ],
         "balanced-balanced": [
-            "Integration practices to harmonize multiple manifestation approaches.",
-            "Discernment tools for selecting the right approach for each context.",
-            "Regular check-ins to assess what's needed in each situation."
+            "Frameworks for weaving different modalities into a whole",
+            "Tools that help you feel what's needed now, not what should work",
+            "Regular check-ins to make space for inner recalibration"
         ],
         "balanced-fluid": [
-            "Minimal planning systems that support your fluid nature with enough structure.",
-            "Grounding practices to anchor your expansive energy.",
-            "Intuitive decision-making frameworks with practical application steps."
+            "Planning systems that breathe, minimal but supportive",
+            "Practices that keep you tethered while you expand",
+            "Frameworks for intuitive choices that still lead to grounded outcomes"
         ],
         "fluid-structured": [
-            "Intuition-led planning methods that start with inspired vision and then apply structure.",
-            "Regular intuition check-ins that help you recognize and honor subtle guidance.",
-            "Bridges between intuitive insights and practical action steps."
+            "Let vision come first, then build the scaffolding to hold it",
+            "Intuition check-ins that ground you without overriding your fire",
+            "Action steps that flow from energy, not obligation"
         ],
         "fluid-balanced": [
-            "Vision anchoring practices to translate expansive ideas into projects.",
-            "Fluid manifestation rituals with minimal yet sufficient structure.",
-            "Integration practices that honor your visionary nature while providing practical steps."
+            "Anchor points for big ideas to start taking form",
+            "Loose but reliable manifestation rituals",
+            "Practices that translate intuitive hits into doable steps"
         ],
         "fluid-fluid": [
-            "Energetic alignment practices focused on vibrational matching.",
-            "Minimal grounding techniques to support your expansive approach.",
-            "Intuitive navigation tools for following energy without losing momentum."
+            "Alignment practices that bring your energy into coherence",
+            "Gentle grounding tools, just enough to help you land without pinning you down",
+            "Navigation practices that help you follow the thread without losing momentum"
         ]
     };
     
     const tools = typeTools[typologyKey] || typeTools["fluid-structured"];
     
     if (energyPatterns.includes('clear-instructions')) {
-        tools.push('Structured templates and frameworks that provide clarity while allowing creativity.');
+        tools.push('Templates that provide just enough clarity to get you started, no pressure to follow perfectly');
     }
     if (energyPatterns.includes('intuitive-instincts')) {
-        tools.push('Regular intuition development practices to strengthen your natural guidance system.');
+        tools.push('Practices that deepen your relationship with your gut knowing, not just to hear it, but to trust it');
     }
     if (energyPatterns.includes('emotional-inspiration')) {
-        tools.push('Emotional alignment practices to cultivate states that support your creative process.');
+        tools.push('Tools that support emotional state shifts without bypassing what's real');
     }
     if (energyPatterns.includes('balanced-rhythm')) {
-        tools.push('Rhythmic planning systems that alternate between structure and flow.');
+        tools.push('Alternating structures that mirror your inner pulse, some days need flow, others need form');
     }
     if (energyPatterns.includes('gradual-clarity')) {
-        tools.push('Progressive vision development practices that allow clarity to emerge over time.');
+        tools.push('Layered clarity practices that let the vision reveal itself over time, not all at once');
     }
     if (energyPatterns.includes('process-trust')) {
-        tools.push('Trust-building practices that strengthen your connection to divine timing.');
+        tools.push('Rituals that help you root into divine timing, even when results feel delayed');
     }
     if (energyPatterns.includes('rigid-routines')) {
-        tools.push('Flexible structure frameworks that provide guidance without restriction.');
+        tools.push('Turn rigid routines into flexible frameworks, it still counts if it bends');
     }
     if (energyPatterns.includes('ignored-intuition')) {
-        tools.push('Intuition validation practices to help you recognize and trust inner guidance.');
+        tools.push('Reflection prompts or body practices that help you catch and honor subtle intuitive moments');
     }
     if (energyPatterns.includes('structured-productivity')) {
-        tools.push('Manifestation routines with clear steps and measurable outcomes.');
+        tools.push('Build rituals that lead to action, but still leave space to pause and realign');
     }
     if (energyPatterns.includes('flexible-productivity')) {
-        tools.push('Adaptable planning systems that provide direction while allowing spontaneity.');
+        tools.push('Adaptable planning that lets inspiration dictate direction without losing track');
     }
     if (energyPatterns.includes('structured-environment')) {
-        tools.push('Environmental organization practices that support calm focus and clarity.');
+        tools.push('Organize your space in a way that gives your nervous system a break, less noise, more clarity');
     }
     if (energyPatterns.includes('dynamic-environment')) {
-        tools.push('Space design that allows for changing energy needs and creative stimulation.');
+        tools.push('Create an environment that evolves with your energy, not just once, but often');
     }
     
     return tools;
