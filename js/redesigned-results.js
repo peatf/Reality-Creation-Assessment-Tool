@@ -1412,7 +1412,7 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     container.innerHTML = '';
     
     const priorityDescriptions = {
-        'creative-expression': 'You're here to create, to birth new things into the world that carry your fingerprint. Expression isn't extra, it's essential.',
+        'creative-expression': 'You\'re here to create, to birth new things into the world that carry your fingerprint. Expression isn't extra, it's essential.',
         'financial-abundance': 'You want your life to feel full, supported, resourced, and open. Money, for you, is about spaciousness and choice.',
         'emotional-fulfillment': 'Depth matters. You're not built for surface. You want real connection, real feeling, and the emotional truth of things.',
         'personal-autonomy': 'You need room to move. Authority to choose. A path that's yours, not someone else's map.',
