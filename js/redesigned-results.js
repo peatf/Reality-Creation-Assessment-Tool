@@ -31,7 +31,7 @@ const typologyDescriptions = {
     },
     "cognitive-alignment-balanced": {
         name: "Synthesizing",
-        description: "You're a bridge between realms, braiding logic with inner knowing. You listen to both mind and intuition, translating between the two as you move through your process.",
+        description: "You\'re a bridge between realms, braiding logic with inner knowing. You listen to both mind and intuition, translating between the two as you move through your process.",
         phrases: {
             identity: "a synthesizer who bridges logical and intuitive understanding",
             strength: "integrating multiple ways of knowing and processing information",
