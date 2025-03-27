@@ -133,12 +133,12 @@ const typologySpectrums = [
                         },
                         {
                             id: "kinetic-q1-balanced",
-                            text: "Adaptive—adjusting your pacing based on current circumstances.",
+                            text: "Adaptiveâ€”adjusting your pacing based on current circumstances.",
                             value: "balanced"
                         },
                         {
                             id: "kinetic-q1-right",
-                            text: "Quick and spontaneous—trusting instinct to guide you.",
+                            text: "Quick and spontaneousâ€”trusting instinct to guide you.",
                             value: "right"
                         }
                     ]
@@ -873,7 +873,9 @@ function showResults() {
     document.getElementById('results-section').style.display = 'flex';
     updateProgressIndicator('Results', 100);
 
-    // Generate and display results 
+    // Generate and display results
+    // Get all results data using the consolidated function first
+    const resultsData = generateCompleteResults();
     generateAndDisplayResults();
 }
 
