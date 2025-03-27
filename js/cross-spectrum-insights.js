@@ -192,6 +192,19 @@ const insightsRuleEngine = {
 
 // Function to analyze spectrum scores and generate relevant insights
 function analyzeSpectrumCombinations(spectrumPlacements, numericScores) {
+    // Ensure numericScores has all required properties
+    if (!numericScores || typeof numericScores !== 'object') {
+        console.error('numericScores is undefined or not an object');
+        numericScores = {
+            'cognitive-alignment': 0,
+            'perceptual-focus': 0,
+            'kinetic-drive': 0,
+            'choice-navigation': 0,
+            'resonance-field': 0,
+            'manifestation-rhythm': 0
+        };
+    }
+    
     const insights = {
         creativeProcess: [],
         decisionMaking: [],
@@ -204,11 +217,15 @@ function analyzeSpectrumCombinations(spectrumPlacements, numericScores) {
     Object.entries(insightsRuleEngine).forEach(([category, rules]) => {
         // Apply each rule to see if conditions are met
         rules.forEach(rule => {
-            if (rule.conditions(numericScores)) {
-                insights[category].push({
-                    text: rule.insight,
-                    priority: rule.priority
-                });
+            try {
+                if (rule.conditions(numericScores)) {
+                    insights[category].push({
+                        text: rule.insight,
+                        priority: rule.priority
+                    });
+                }
+            } catch (error) {
+                console.log(`Error processing rule in category ${category}:`, error);
             }
         });
         
