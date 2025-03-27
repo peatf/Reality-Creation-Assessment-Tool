@@ -762,8 +762,9 @@ const commonMisalignments = {
 
 // Main function to generate and display results
 function generateAndDisplayResults() {
-    // Get all results data using the consolidated function
-    const resultsData = generateCompleteResults();
+    // Get all results data using the consolidated function or use the one that's already calculated
+    const resultsData = window.completeResults || generateCompleteResults();
+    window.completeResults = resultsData; // Store for later use
     const { spectrumPlacements, typologyPair, dominantValues } = resultsData;
     
     // Generate sections
@@ -804,10 +805,10 @@ function calculateTypologyScores() {
         // Determine placement based on criteria
         let placement;
         if (responses[0] === responses[1]) {
-            // Both answers identical â†’ definitive placement
+            // Both answers identical Ã¢â€ â€™ definitive placement
             placement = responses[0];
         } else {
-            // Differing answers â†’ default to Balanced
+            // Differing answers Ã¢â€ â€™ default to Balanced
             placement = 'balanced';
         }
         
@@ -840,7 +841,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-    // Simplified logic â€“ use defaults if needed
+    // Simplified logic Ã¢â‚¬â€œ use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
@@ -995,43 +996,43 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         
         // Calculate value position (5 positions across the spectrum)
         let value = 50; // Default balanced position
-        let placementLabel = 'Balanced';
+        let placementLabel = '';
         let placementColor = 'green-400';
         
         switch(placement) {
             case 'strongLeft':
                 value = 10; // Strongly structured position
-                placementLabel = 'Strongly Structured';
+                placementLabel = '';
                 placementColor = 'blue-600';
                 break;
             case 'leftLeaning':
                 value = 30; // Leaning structured position
-                placementLabel = 'Leaning Structured';
+                placementLabel = '';
                 placementColor = 'blue-400';
                 break;
             case 'left': // legacy support
                 value = 25; 
-                placementLabel = 'Structured';
+                placementLabel = '';
                 placementColor = 'blue-400';
                 break;
             case 'balanced':
                 value = 50; // Balanced position
-                placementLabel = 'Balanced';
+                placementLabel = '';
                 placementColor = 'green-400';
                 break;
             case 'right': // legacy support
                 value = 75;
-                placementLabel = 'Fluid';
+                placementLabel = '';
                 placementColor = 'amber-400';
                 break;
             case 'rightLeaning':
                 value = 70; // Leaning fluid position
-                placementLabel = 'Leaning Fluid';
+                placementLabel = '';
                 placementColor = 'amber-400';
                 break;
             case 'strongRight':
                 value = 90; // Strongly fluid position
-                placementLabel = 'Strongly Fluid';
+                placementLabel = '';
                 placementColor = 'amber-600';
                 break;
         }
@@ -1217,13 +1218,13 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                             <span class="mr-1">${spectrum.rightLabel}</span>
                         </div>
                         
-                        <!-- Position labels -->
-                        <div class="flex justify-between px-3 mt-2 text-[9px] uppercase tracking-wide text-stone-400 opacity-70">
-                            <span style="transform: translateX(-5px)">Strong</span>
-                            <span style="transform: translateX(-3px)">Lean</span>
-                            <span style="transform: translateX(0px)">Balanced</span>
-                            <span style="transform: translateX(3px)">Lean</span>
-                            <span style="transform: translateX(5px)">Strong</span>
+                        <!-- Position labels removed as requested -->
+                        <div class="flex justify-between px-3 mt-2 text-[9px] uppercase tracking-wide text-stone-400 opacity-0">
+                            <span style="transform: translateX(-5px)"><!-- --></span>
+                            <span style="transform: translateX(-3px)"><!-- --></span>
+                            <span style="transform: translateX(0px)"><!-- --></span>
+                            <span style="transform: translateX(3px)"><!-- --></span>
+                            <span style="transform: translateX(5px)"><!-- --></span>
                         </div>
                     </div>
                     
@@ -1256,29 +1257,29 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         <div class="grid grid-cols-5 gap-4 w-3/4">
             <div class="flex flex-col items-center">
                 <div class="w-3 h-14 bg-blue-600 mb-3"></div>
-                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Strongly<br>Structured</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500"><!-- --></span>
             </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-12 bg-blue-400 mb-3"></div>
-                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Leaning<br>Structured</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500"><!-- --></span>
             </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-8 bg-green-400 mb-3"></div>
-                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Balanced</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500"><!-- --></span>
             </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-12 bg-amber-400 mb-3"></div>
-                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Leaning<br>Fluid</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500"><!-- --></span>
             </div>
             <div class="flex flex-col items-center">
                 <div class="w-3 h-14 bg-amber-600 mb-3"></div>
-                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500">Strongly<br>Fluid</span>
+                <span class="text-[9px] font-light uppercase tracking-wider text-stone-500"><!-- --></span>
             </div>
         </div>
         
         <div class="text-xs font-light text-stone-400 uppercase tracking-wider flex items-center">
             <div class="w-8 h-px bg-stone-300 mr-2"></div>
-            <span>Your Reality Coordinates</span>
+            <span>Spectrum Position Scale</span>
         </div>
     `;
     
@@ -1456,16 +1457,22 @@ function generateMasteryPrioritiesSection(masteryScores, dominantValues) {
     // Cross-Spectrum Insights Section (if available)
     if (window.generateCrossSpectrumInsights) {
         // Get the complete results data
-        const resultsData = window.completeResults || generateCompleteResults();
-        
-        // Generate cross-spectrum insights
-        const crossSpectrumInsights = document.createElement('div');
-        crossSpectrumInsights.className = 'mb-8';
-        crossSpectrumInsights.innerHTML = window.generateCrossSpectrumInsights(
-            resultsData.spectrumPlacements, 
-            resultsData.numericScores
-        );
-        container.appendChild(crossSpectrumInsights);
+        try {
+            const resultsData = window.completeResults || generateCompleteResults();
+            
+            if (resultsData && resultsData.spectrumPlacements && resultsData.numericScores) {
+                // Generate cross-spectrum insights
+                const crossSpectrumInsights = document.createElement('div');
+                crossSpectrumInsights.className = 'mb-8';
+                crossSpectrumInsights.innerHTML = window.generateCrossSpectrumInsights(
+                    resultsData.spectrumPlacements, 
+                    resultsData.numericScores
+                );
+                container.appendChild(crossSpectrumInsights);
+            }
+        } catch (error) {
+            console.error("Error generating cross-spectrum insights:", error);
+        }
     }
     
     // Core Values Card
