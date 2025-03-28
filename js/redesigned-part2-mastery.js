@@ -159,7 +159,7 @@ const masterySections = [
           },
           {
             id: "growth-q1-receiving",
-            text: "Allowing myself to receive without forcing outcomes",
+            text: "Stayin open and receptive, letting things unfold without forcing the outcome",
             value: "receiving-challenge"
           }
         ]
@@ -328,7 +328,7 @@ const masterySections = [
     questions: [
       {
         id: "energy-q1",
-        text: "When you naturally succeed at something, it's usually because you:",
+        text: "When things are flowing and success feels natural, it's usually because you:",
         options: [
           {
             id: "energy-q1-instructions",
@@ -404,32 +404,32 @@ const masterySections = [
         options: [
           {
             id: "energy-q3-routines",
-            text: "Work within clearly structured routines",
+            text: "Work within clear routines that offer structure and predictability",
             value: "structured-productivity"
           },
           {
             id: "energy-q3-freedom",
-            text: "Allow yourself freedom and flexibility in your workflow",
+            text: "Have the freedom to follow your own flow throughout the day",
             value: "flexible-productivity"
           },
           {
             id: "energy-q3-emotions",
-            text: "Feel emotionally invested or inspired by the process",
+            text: "Feel emotionally connected to what you're creating â€” it has meaning",
             value: "emotional-productivity"
           },
           {
             id: "energy-q3-motivation",
-            text: "Follow spontaneous bursts of motivation",
+            text: "Ride spontaneous bursts of inspiration and act on them quickly",
             value: "spontaneous-productivity"
           },
           {
             id: "energy-q3-change",
-            text: "Give yourself permission to change your approach frequently",
+            text: "Shift your approach often, based on what the moment calls for",
             value: "adaptive-productivity"
           },
           {
             id: "energy-q3-balance",
-            text: "Balance structured planning with intuitive adjustments",
+            text: "Blend planning with intuition, adjusting as you go",
             value: "balanced-productivity"
           }
         ]
