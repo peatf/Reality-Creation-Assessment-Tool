@@ -22,21 +22,21 @@ const typologySpectrums = [
             questions: [
                 {
                     id: "cognitive-q1",
-                    text: "When encountering new ideas around spirituality, you typically:",
+                    text: "When a new idea lands, your first instinct is to:",
                     options: [
                         {
                             id: "cognitive-q1-left",
-                            text: "Immediately look for logical proof or evidence.",
+                            text: "Break it down logically: you want evidence before you let it in",
                             value: "left"
                         },
                         {
                             id: "cognitive-q1-balanced",
-                            text: "Consider logic but remain open to intuitive impressions.",
+                            text: "Weigh it out: feel the logic, but also listen to your intuition",
                             value: "balanced"
                         },
                         {
                             id: "cognitive-q1-right",
-                            text: "Trust your gut feeling or intuition, regardless of external validation.",
+                            text: "Trust your instincts or your gut if it clicks in your body, that's enough",
                             value: "right"
                         }
                     ]
@@ -47,17 +47,17 @@ const typologySpectrums = [
                     options: [
                         {
                             id: "cognitive-q2-left",
-                            text: "Thorough analysis and careful reasoning",
+                            text: "Thorough analysis and careful reasoning.",
                             value: "left"
                         },
                         {
                             id: "cognitive-q2-balanced",
-                            text: "A blend of logic and intuitive guidance",
+                            text: "A blend of logic and intuitive guidance.",
                             value: "balanced"
                         },
                         {
                             id: "cognitive-q2-right",
-                            text: "Inner knowing and spontaneous insight",
+                            text: "Inner knowing and spontaneous insight.",
                             value: "right"
                         }
                     ]
@@ -133,12 +133,12 @@ const typologySpectrums = [
                         },
                         {
                             id: "kinetic-q1-balanced",
-                            text: "Adaptiveâ€”adjusting your pacing based on current circumstances.",
+                            text: "AdaptiveÃ¢â‚¬â€adjusting your pacing based on current circumstances.",
                             value: "balanced"
                         },
                         {
                             id: "kinetic-q1-right",
-                            text: "Quick and spontaneousâ€”trusting instinct to guide you.",
+                            text: "Quick and spontaneousÃ¢â‚¬â€trusting instinct to guide you.",
                             value: "right"
                         }
                     ]
