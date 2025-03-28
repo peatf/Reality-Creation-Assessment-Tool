@@ -945,7 +945,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-    // Simplified logic ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ use defaults if needed
+// Simplified logic — use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
