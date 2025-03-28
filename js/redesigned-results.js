@@ -909,10 +909,10 @@ function calculateTypologyScores() {
         // Determine placement based on criteria
         let placement;
         if (responses[0] === responses[1]) {
-            // Both answers identical ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â„¢ definitive placement
+            // Both answers identical - definitive placement
             placement = responses[0];
         } else {
-            // Differing answers ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â„¢ default to Balanced
+            // Differing answers - default to Balanced
             placement = 'balanced';
         }
         
