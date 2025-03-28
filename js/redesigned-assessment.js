@@ -133,12 +133,12 @@ const typologySpectrums = [
                         },
                         {
                             id: "kinetic-q1-balanced",
-                            text: "AdaptiveÃ¢â‚¬â€adjusting your pacing based on current circumstances.",
+                            text: "Adaptive -adjusting your pacing based on current circumstances.",
                             value: "balanced"
                         },
                         {
                             id: "kinetic-q1-right",
-                            text: "Quick and spontaneousÃ¢â‚¬â€trusting instinct to guide you.",
+                            text: "Quick and spontaneous -trusting instinct to guide you.",
                             value: "right"
                         }
                     ]
