@@ -760,6 +760,107 @@ const commonMisalignments = {
 // FUNCTION DEFINITIONS
 // ------------------------------
 
+// Update the spectrum analysis visualization with real data
+function updateMinimalSpectrumAnalysis() {
+    const resultsData = window.completeResults || generateCompleteResults();
+    
+    // Count tendencies in each direction
+    let structuredCount = 0;
+    let balancedCount = 0;
+    let fluidCount = 0;
+    
+    // Calculate overall leaning
+    Object.values(resultsData.spectrumPlacements).forEach(placement => {
+        if (placement === 'left' || placement === 'strongLeft' || placement === 'leftLeaning') {
+            structuredCount++;
+        } else if (placement === 'right' || placement === 'strongRight' || placement === 'rightLeaning') {
+            fluidCount++;
+        } else {
+            balancedCount++;
+        }
+    });
+    
+    const total = Object.values(resultsData.spectrumPlacements).length;
+    
+    // Calculate average position (0-100%)
+    let avgPosition = 50; // Default to center
+    
+    if (total > 0) {
+        // Calculate weighted average
+        // Each structured = 16.7, balanced = 50, fluid = 83.3
+        avgPosition = ((structuredCount * 16.7) + (balancedCount * 50) + (fluidCount * 83.3)) / total;
+    }
+    
+    // Update the position indicator
+    const positionIndicator = document.getElementById('minimal-position-indicator');
+    
+    if (positionIndicator) {
+        positionIndicator.style.left = `${avgPosition}%`;
+    }
+    
+    // Update the counts
+    const structuredCountEl = document.getElementById('structured-minimal-count')?.querySelector('span');
+    const balancedCountEl = document.getElementById('balanced-minimal-count')?.querySelector('span');
+    const fluidCountEl = document.getElementById('fluid-minimal-count')?.querySelector('span');
+    
+    if (structuredCountEl) structuredCountEl.textContent = structuredCount;
+    if (balancedCountEl) balancedCountEl.textContent = balancedCount;
+    if (fluidCountEl) fluidCountEl.textContent = fluidCount;
+}
+
+// Add the minimalist strip design to the results page
+function addMinimalistStripDesign() {
+    const container = document.getElementById('spectrum-diagram');
+    if (!container) return;
+    
+    // Add legend with minimalist strip design
+    const legend = document.createElement('div');
+    legend.className = 'mt-24 flex flex-col';
+    legend.innerHTML = `
+        <div class="text-xs font-light text-stone-500 uppercase tracking-wide mb-6">
+            Spectrum Position
+        </div>
+        
+        <div class="relative h-6 mb-5">
+            <!-- Base line -->
+            <div class="absolute left-0 right-0 top-1/2 h-0.5 bg-stone-200 transform -translate-y-1/2"></div>
+            
+            <!-- Colored position markers -->
+            <div class="absolute left-0 top-1/2 h-1.5 w-[14.3%] bg-blue-400 transform -translate-y-1/2"></div>
+            <div class="absolute left-[42.85%] top-1/2 h-1.5 w-[14.3%] bg-green-400 transform -translate-x-1/2 -translate-y-1/2"></div>
+            <div class="absolute right-0 top-1/2 h-1.5 w-[14.3%] bg-amber-400 transform -translate-y-1/2"></div>
+            
+            <!-- Position indicator -->
+            <div id="minimal-position-indicator" class="absolute top-1/2 w-2.5 h-2.5 rounded-full bg-white border border-stone-800 transform -translate-x-1/2 -translate-y-1/2" style="left: 50%"></div>
+            
+            <!-- Count indicators -->
+            <div id="structured-minimal-count" class="absolute left-[7.15%] top-0 transform -translate-x-1/2">
+                <span class="text-[9px] font-normal text-stone-600">2</span>
+            </div>
+            
+            <div id="balanced-minimal-count" class="absolute left-1/2 top-0 transform -translate-x-1/2">
+                <span class="text-[9px] font-normal text-stone-600">2</span>
+            </div>
+            
+            <div id="fluid-minimal-count" class="absolute right-[7.15%] top-0 transform translate-x-1/2">
+                <span class="text-[9px] font-normal text-stone-600">2</span>
+            </div>
+        </div>
+        
+        <!-- Labels -->
+        <div class="flex justify-between text-[10px] font-light text-stone-400">
+            <span>Structured</span>
+            <span>Balanced</span>
+            <span>Fluid</span>
+        </div>
+    `;
+    
+    container.appendChild(legend);
+    
+    // Update the minimalist spectrum with real data
+    updateMinimalSpectrumAnalysis();
+}
+
 // Main function to generate and display results
 function generateAndDisplayResults() {
     // Get all results data using the consolidated function or use the one that's already calculated
@@ -774,6 +875,9 @@ function generateAndDisplayResults() {
     generateMisalignmentsSection(typologyPair);
     generateMasteryPrioritiesSection(resultsData.masteryScores, dominantValues);
     generateStrategySection(typologyPair, dominantValues);
+    
+    // Add the minimalist strip design
+    addMinimalistStripDesign();
     
     // Initialize expandable sections and UI enhancements
     initExpandableSections();
@@ -805,10 +909,10 @@ function calculateTypologyScores() {
         // Determine placement based on criteria
         let placement;
         if (responses[0] === responses[1]) {
-            // Both answers identical Ã¢â€ â€™ definitive placement
+            // Both answers identical ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â„¢ definitive placement
             placement = responses[0];
         } else {
-            // Differing answers Ã¢â€ â€™ default to Balanced
+            // Differing answers ÃƒÂ¢Ã¢â‚¬ Ã¢â‚¬â„¢ default to Balanced
             placement = 'balanced';
         }
         
@@ -841,7 +945,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-    // Simplified logic Ã¢â‚¬â€œ use defaults if needed
+    // Simplified logic ÃƒÂ¢Ã¢â€šÂ¬Ã¢â‚¬Å“ use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
@@ -982,6 +1086,9 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
         <h3 class="text-xl font-light text-stone-700 uppercase tracking-wider">Your Energetic Range</h3>
     `;
     container.appendChild(titleSection);
+    
+    // We'll call addMinimalistStripDesign() separately, 
+    // so we don't need to add it here
     
     // Get the complete results data to access original scores and mastery influences
     const resultsData = window.completeResults || generateCompleteResults();
