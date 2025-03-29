@@ -808,18 +808,6 @@ function updateMinimalSpectrumAnalysis() {
     if (fluidCountEl) fluidCountEl.textContent = fluidCount;
 }
 
-// Add the minimalist strip design to the results page
-function addMinimalistStripDesign() {
-    const container = document.getElementById('spectrum-diagram');
-    if (!container) return;
-    
-    // Add legend with minimalist strip design
-    const legend = document.createElement('div');
-    legend.className = 'mt-24 flex flex-col';
-    legend.innerHTML = `
-        <div class="text-xs font-light text-stone-500 uppercase tracking-wide mb-6">
-            Spectrum Position
-        </div>
         
         <div class="relative h-6 mb-5">
             <!-- Base line -->
@@ -876,8 +864,7 @@ function generateAndDisplayResults() {
     generateMasteryPrioritiesSection(resultsData.masteryScores, dominantValues);
     generateStrategySection(typologyPair, dominantValues);
     
-    // Add the minimalist strip design
-    addMinimalistStripDesign();
+
     
     // Initialize expandable sections and UI enhancements
     initExpandableSections();
@@ -945,7 +932,7 @@ function determineTypologyPair(spectrumPlacements, dominantValues) {
         right: 'fluid'
     };
     
-// Simplified logic — use defaults if needed
+// Simplified logic â€” use defaults if needed
     const primarySpectrumId = clearSpectrums[0] || 'cognitive-alignment';
     const secondarySpectrumId = clearSpectrums[1] || 'kinetic-drive';
     
@@ -1087,8 +1074,6 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
     `;
     container.appendChild(titleSection);
     
-    // We'll call addMinimalistStripDesign() separately, 
-    // so we don't need to add it here
     
     // Get the complete results data to access original scores and mastery influences
     const resultsData = window.completeResults || generateCompleteResults();
