@@ -1304,13 +1304,7 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                     <div class="mb-6 relative">
                         <div class="h-px w-full bg-stone-200"></div>
                         
-                        <!-- Position markers at 10%, 30%, 50%, 70%, 90% -->
-                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 10%"></div>
-                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 30%"></div>
-                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 50%"></div>
-                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 70%"></div>
-                        <div class="absolute top-0 w-px h-4 transform -translate-x-1/2 bg-stone-200 opacity-30" style="left: 90%"></div>
-                        
+                       
                         ${hasMasteryInfluence ? masteryInfluenceHTML : ''}
                         
                         <!-- Position indicator for this spectrum -->
@@ -1324,16 +1318,6 @@ function generateSpectrumDiagram(spectrumPlacements, typologyPair) {
                             <span class="ml-1">${spectrum.leftLabel}</span>
                             <span class="mr-1">${spectrum.rightLabel}</span>
                         </div>
-                        
-                        <!-- Position labels removed as requested -->
-                        <div class="flex justify-between px-3 mt-2 text-[9px] uppercase tracking-wide text-stone-400 opacity-0">
-                            <span style="transform: translateX(-5px)"><!-- --></span>
-                            <span style="transform: translateX(-3px)"><!-- --></span>
-                            <span style="transform: translateX(0px)"><!-- --></span>
-                            <span style="transform: translateX(3px)"><!-- --></span>
-                            <span style="transform: translateX(5px)"><!-- --></span>
-                        </div>
-                    </div>
                     
                     <div>
                         <p class="text-sm font-light text-stone-600 leading-relaxed">
