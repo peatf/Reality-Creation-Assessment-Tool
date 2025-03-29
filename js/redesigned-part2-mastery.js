@@ -496,7 +496,7 @@ function calculateMasteryScores() {
     energyPatterns: {}
   };
 
-// For each answered question ID → chosen value
+// For each answered question ID â†’ chosen value
   for (const [questionId, chosenValue] of Object.entries(userResponses.mastery)) {
     if (questionId.startsWith("core-")) {
       if (!result.corePriorities[chosenValue]) {
@@ -907,8 +907,20 @@ function initSectionNavigation() {
   // Update question counter
   const counter = document.querySelector('#part2-section .text-xs.font-light.text-stone-500');
   if (counter) {
+    // Calculate the total questions across all sections before the current section
+    let previousQuestions = 0;
+    for (let i = 0; i < currentSectionIndex; i++) {
+      previousQuestions += masterySections[i].questions.length;
+    }
+    
+    // Current question number is the sum of previous questions + current active index + 1
+    const currentQuestionNumber = previousQuestions + activeIndex + 1;
+    
+    // Total questions is the sum of all questions across all sections
+    const totalQuestions = masterySections.reduce((sum, section) => sum + section.questions.length, 0);
+    
     counter.innerHTML = `
-Question <span id="current-question">${activeIndex + 1}</span> of <span id="total-questions">${questions.length}</span> • Section ${currentSectionIndex + 1} of ${masterySections.length}
+Question <span id="current-question">${currentQuestionNumber}</span> of <span id="total-questions">${totalQuestions}</span> â€¢ Section ${currentSectionIndex + 1} of ${masterySections.length}
     `;
   }
 }
@@ -959,7 +971,19 @@ function updateQuestionCounter(currentIndex, totalQuestions) {
   const totalQuestionsElement = document.getElementById('total-questions');
   
   if (currentQuestionElement && totalQuestionsElement) {
-    currentQuestionElement.textContent = currentIndex + 1;
+    // Calculate the total questions across all sections before the current section
+    let previousQuestions = 0;
+    for (let i = 0; i < currentSectionIndex; i++) {
+      previousQuestions += masterySections[i].questions.length;
+    }
+    
+    // Current question number is the sum of previous questions + current active index + 1
+    const currentQuestionNumber = previousQuestions + currentIndex + 1;
+    
+    // Total questions is the sum of all questions across all sections
+    const totalQuestions = masterySections.reduce((sum, section) => sum + section.questions.length, 0);
+    
+    currentQuestionElement.textContent = currentQuestionNumber;
     totalQuestionsElement.textContent = totalQuestions;
   }
 }
